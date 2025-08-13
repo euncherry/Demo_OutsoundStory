@@ -1,24 +1,43 @@
-export type ButtonVariant =
-  | 'holographic'
-  | 'gradient-pink'
-  | 'gradient-blue'
-  | 'solid-lavender'
-  | 'solid-peach'
-  | 'solid-mint'
-  | 'outline'
-  | 'game-main'
-  | 'game-sub';
+// src/shared/components/Button/Button.types.ts
 
-export type ButtonSize = 'small' | 'medium' | 'large' | 'custom';
+export type ButtonVariant =
+  | 'main'
+  | 'sub'
+  | 'accent'
+  | 'choice'
+  | 'love'
+  | 'special'
+  | 'gender'
+  | 'silver'
+  | 'sunset';
+
+export type ButtonSize = 'small' | 'medium' | 'large' | 'xlarge' | 'custom';
+
+export type GenderButton = 'male' | 'female';
+
+export interface CustomSize {
+  width?: string | number;
+  height?: string | number;
+  padding?: string;
+}
 
 export interface ButtonProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  width?: string | number; // 커스텀 너비
-  height?: string | number; // 커스텀 높이
+  customSize?: CustomSize; // custom 사이즈일 때 사용
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
-  className?: string;
   fullWidth?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
+  className?: string;
+  loading?: boolean;
+  genderType?: GenderButton;
+  choiceIndex?: number;
+}
+
+export interface IconButtonProps extends Omit<ButtonProps, 'children'> {
+  icon: React.ReactNode;
+  label?: string;
 }

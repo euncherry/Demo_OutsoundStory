@@ -1,49 +1,193 @@
+// src/shared/components/Button/Button.tsx
+
 import React, { CSSProperties } from 'react';
 import { clsx } from 'clsx';
-import { ButtonProps } from './Button.types';
-import { buttonVariants, sizeVariants, fullWidth } from './Button.css';
+import { ButtonProps, CustomSize } from './Button.types';
+import * as styles from './Button.css';
+
+const CHOICE_ICONS = ['💭', '💬', '💡', '✨', '🌟'];
+const LOVE_HEARTS = {
+  global: '💜',
+  female: '❤️',
+  male: '💙',
+};
+
+// 크기 값을 CSS 값으로 변환하는 헬퍼 함수
+const formatSizeValue = (value: string | number | undefined): string | undefined => {
+  if (value === undefined) return undefined;
+  if (typeof value === 'number') return `${value}px`;
+  return value;
+};
+
+// CustomSize를 CSSProperties로 변환하는 헬퍼 함수
+const getCustomSizeStyles = (customSize?: CustomSize): CSSProperties => {
+  if (!customSize) return {};
+
+  return {
+    width: formatSizeValue(customSize.width),
+    height: formatSizeValue(customSize.height),
+    padding: customSize.padding,
+  };
+};
 
 export const Button: React.FC<ButtonProps> = ({
-  variant = 'holographic',
-  size = 'medium',
-  width,
-  height,
+  variant = 'main',
+  size = 'large',
+  customSize,
   children,
   onClick,
   disabled = false,
+  fullWidth = false,
+  icon,
+  iconPosition = 'left',
   className,
-  fullWidth: isFullWidth = false,
+  loading = false,
+  genderType,
+  choiceIndex = 0,
 }) => {
-  // 커스텀 크기 처리
-  const customStyles: CSSProperties = {};
+  // Choice 버튼용 아이콘 선택
+  const choiceIcon =
+    variant === 'choice' ? CHOICE_ICONS[choiceIndex % CHOICE_ICONS.length] : null;
 
-  // width 처리
-  if (width) {
-    customStyles.width = typeof width === 'number' ? `${width}px` : width;
-  }
+  // Love 버튼용 하트 선택 (테마에 따라)
+  const loveHeart = variant === 'love' ? LOVE_HEARTS.global : null; // 테마 스토어와 연동 필요
 
-  // height 처리
-  if (height) {
-    customStyles.height = typeof height === 'number' ? `${height}px` : height;
-    customStyles.minHeight = typeof height === 'number' ? `${height}px` : height;
-  }
+  // Gender 버튼 스타일 적용
+  const genderClass =
+    variant === 'gender' && genderType ? styles.genderVariants[genderType] : '';
 
-  // width나 height가 설정되면 자동으로 custom size 사용
-  const actualSize = width || height ? 'custom' : size;
+  // Custom 사이즈 스타일
+  const customStyles = size === 'custom' ? getCustomSizeStyles(customSize) : {};
 
   return (
     <button
       className={clsx(
-        buttonVariants[variant],
-        sizeVariants[actualSize],
-        isFullWidth && fullWidth,
+        styles.button({
+          variant,
+          size,
+          fullWidth,
+          loading,
+        }),
+        genderClass,
         className,
       )}
       style={customStyles}
       onClick={onClick}
+      disabled={disabled || loading}
+    >
+      {/* Choice 버튼 아이콘 */}
+      {choiceIcon && <span className={styles.choiceIcon}>{choiceIcon}</span>}
+
+      {/* Gender 버튼 아이콘 */}
+      {variant === 'gender' && icon && <span className={styles.genderIcon}>{icon}</span>}
+
+      {/* 일반 아이콘 (왼쪽) */}
+      {icon && iconPosition === 'left' && variant !== 'gender' && <span>{icon}</span>}
+
+      {/* 메인 콘텐츠 */}
+      <span>{children}</span>
+
+      {/* 일반 아이콘 (오른쪽) */}
+      {icon && iconPosition === 'right' && variant !== 'gender' && <span>{icon}</span>}
+
+      {/* Love 버튼 하트 */}
+      {loveHeart && <span className={styles.loveHeart}>{loveHeart}</span>}
+
+      {/* 로딩 스피너 */}
+      {loading && <span className={styles.spinner} />}
+    </button>
+  );
+};
+
+// 특수 버튼 컴포넌트들
+export const GenderButton: React.FC<{
+  gender: 'male' | 'female';
+  onClick?: () => void;
+  disabled?: boolean;
+  selected?: boolean;
+}> = ({ gender, onClick, disabled, selected }) => {
+  const icon = gender === 'female' ? '👩' : '👨';
+  const text = gender === 'female' ? '여성 캐릭터' : '남성 캐릭터';
+
+  return (
+    <Button
+      variant="gender"
+      genderType={gender}
+      icon={icon}
+      onClick={onClick}
+      disabled={disabled}
+      className={selected ? styles.genderVariants[gender] : undefined}
+    >
+      {text}
+    </Button>
+  );
+};
+
+export const ChoiceButton: React.FC<{
+  text: string;
+  index?: number;
+  onClick?: () => void;
+  disabled?: boolean;
+}> = ({ text, index = 0, onClick, disabled }) => {
+  return (
+    <Button
+      variant="choice"
+      choiceIndex={index}
+      fullWidth
+      onClick={onClick}
       disabled={disabled}
     >
+      {text}
+    </Button>
+  );
+};
+
+export const LoveButton: React.FC<{
+  onClick?: () => void;
+  disabled?: boolean;
+}> = ({ onClick, disabled }) => {
+  return (
+    <Button variant="love" onClick={onClick} disabled={disabled}>
+      호감도 확인
+    </Button>
+  );
+};
+
+export const StartButton: React.FC<{
+  onClick?: () => void;
+  disabled?: boolean;
+}> = ({ onClick, disabled }) => {
+  return (
+    <Button
+      variant="special"
+      size="xlarge"
+      icon="✨"
+      iconPosition="right"
+      onClick={onClick}
+      disabled={disabled}
+    >
+      게임 시작하기
+    </Button>
+  );
+};
+
+// 커스텀 사이즈 버튼 예시 컴포넌트
+export const CustomButton: React.FC<{
+  width?: string | number;
+  height?: string | number;
+  padding?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: ButtonProps['variant'];
+}> = ({ width, height, padding, children, onClick, variant = 'main' }) => {
+  return (
+    <Button
+      variant={variant}
+      size="custom"
+      customSize={{ width, height, padding }}
+      onClick={onClick}
+    >
       {children}
-    </button>
+    </Button>
   );
 };

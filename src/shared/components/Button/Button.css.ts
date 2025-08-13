@@ -1,4 +1,7 @@
+// src/shared/components/Button/Button.css.ts
 import { style, styleVariants, keyframes, globalStyle } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
+import { vars } from '@shared/styles/theme.css';
 
 // 애니메이션 정의
 const shimmer = keyframes({
@@ -6,271 +9,284 @@ const shimmer = keyframes({
     transform: 'translateX(-100%) rotate(45deg)',
   },
   '100%': {
-    transform: 'translateX(100%) rotate(45deg)',
+    transform: 'translateX(200%) rotate(45deg)',
+  },
+});
+
+const pulse = keyframes({
+  '0%, 100%': {
+    transform: 'scale(1)',
+  },
+  '50%': {
+    transform: 'scale(1.05)',
+  },
+});
+
+// spin 애니메이션 추가
+const spin = keyframes({
+  '0%': {
+    transform: 'rotate(0deg)',
+  },
+  '100%': {
+    transform: 'rotate(360deg)',
   },
 });
 
 // 베이스 버튼 스타일
 const buttonBase = style({
-  fontSize: '16px',
-  fontWeight: 600,
-  borderRadius: '30px',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
   position: 'relative',
-  overflow: 'hidden',
-  border: 'none',
-  fontFamily: "'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: vars.spacing.sm,
+  fontWeight: vars.fontWeight.semibold,
+  border: `2px solid ${vars.colors.glassBorder}`,
+  borderRadius: vars.borderRadius.full,
+  backdropFilter: 'blur(10px)',
+  cursor: 'pointer',
+  transition: vars.transitions.normal,
+  overflow: 'hidden',
+  outline: 'none',
 
   ':disabled': {
-    opacity: 0.6,
+    opacity: 0.5,
     cursor: 'not-allowed',
   },
-});
 
-// Variant 스타일
-export const buttonVariants = styleVariants({
-  holographic: [
-    buttonBase,
-    {
-      color: '#6B5B95',
-      background: `linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 192, 203, 0.3),
-      rgba(230, 230, 250, 0.3))`,
-      backdropFilter: 'blur(8px)',
-      border: '2px solid rgba(255, 255, 255, 0.8)',
-      boxShadow: '0 4px 15px rgba(255, 182, 193, 0.3)',
-
-      ':hover': {
-        transform: 'translateY(-3px)',
-        boxShadow: '0 6px 20px rgba(255, 182, 193, 0.4)',
-      },
-
-      '::before': {
-        content: '""',
-        position: 'absolute',
-        top: '-50%',
-        left: '-50%',
-        width: '200%',
-        height: '200%',
-        background: `linear-gradient(45deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.3), 
-        transparent)`,
-        transform: 'rotate(45deg)',
-        transition: 'all 0.5s',
-        opacity: 0,
-      },
-    },
-  ],
-
-  'gradient-pink': [
-    buttonBase,
-    {
-      color: '#8B7DA6',
-      background: 'linear-gradient(135deg, #FFE5EC, #F3E5F5)',
-      boxShadow: '0 4px 15px rgba(243, 229, 245, 0.5)',
-
-      ':hover': {
-        transform: 'translateY(-3px) scale(1.05)',
-        boxShadow: '0 6px 20px rgba(255, 182, 193, 0.4)',
-      },
-    },
-  ],
-
-  'gradient-blue': [
-    buttonBase,
-    {
-      color: '#8B7DA6',
-      background: 'linear-gradient(135deg, #E8F5FF, #FFE5F2)',
-      boxShadow: '0 4px 15px rgba(232, 245, 255, 0.5)',
-
-      ':hover': {
-        transform: 'translateY(-3px) scale(1.05)',
-        boxShadow: '0 6px 20px rgba(255, 182, 193, 0.4)',
-      },
-    },
-  ],
-
-  'solid-lavender': [
-    buttonBase,
-    {
-      color: '#7B68A6',
-      background: '#E6E0F8',
-      border: '2px solid transparent',
-      boxShadow: '0 4px 12px rgba(230, 224, 248, 0.6)',
-
-      ':hover': {
-        transform: 'translateY(-3px)',
-        border: '2px solid rgba(255, 255, 255, 0.8)',
-      },
-    },
-  ],
-
-  'solid-peach': [
-    buttonBase,
-    {
-      color: '#B76E79',
-      background: '#FFDFD3',
-      border: '2px solid transparent',
-      boxShadow: '0 4px 12px rgba(255, 223, 211, 0.6)',
-
-      ':hover': {
-        transform: 'translateY(-3px)',
-        border: '2px solid rgba(255, 255, 255, 0.8)',
-      },
-    },
-  ],
-
-  'solid-mint': [
-    buttonBase,
-    {
-      color: '#5A8B86',
-      background: '#D4F1EE',
-      border: '2px solid transparent',
-      boxShadow: '0 4px 12px rgba(212, 241, 238, 0.6)',
-
-      ':hover': {
-        transform: 'translateY(-3px)',
-        border: '2px solid rgba(255, 255, 255, 0.8)',
-      },
-    },
-  ],
-
-  outline: [
-    buttonBase,
-    {
-      color: '#6B5B95',
-      background: 'rgba(255, 255, 255, 0.2)',
-      border: '2px solid',
-      borderImage: 'linear-gradient(45deg, #FFB6C1, #E6E6FA, #98E4FF, #FFB6C1) 1',
-
-      ':hover': {
-        background: 'rgba(255, 255, 255, 0.4)',
-        transform: 'translateY(-3px)',
-        boxShadow: '0 6px 20px rgba(255, 182, 193, 0.3)',
-      },
-    },
-  ],
-
-  'game-main': [
-    buttonBase,
-    {
-      fontSize: '18px',
-      color: '#6B5B95',
-      background: `linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 230, 236, 0.6),
-      rgba(243, 229, 245, 0.6))`,
-      backdropFilter: 'blur(10px)',
-      border: '3px solid rgba(255, 255, 255, 0.9)',
-      borderRadius: '35px',
-      boxShadow: `
-      0 4px 15px rgba(255, 182, 193, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8)`,
-
-      ':hover': {
-        transform: 'translateY(-4px) scale(1.05)',
-        boxShadow: `
-        0 8px 25px rgba(255, 182, 193, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
-      },
-
-      '::after': {
-        content: '"✨"',
-        position: 'absolute',
-        top: '50%',
-        right: '25px',
-        transform: 'translateY(-50%)',
-        fontSize: '20px',
-        opacity: 0,
-        transition: 'all 0.3s ease',
-      },
-    },
-  ],
-
-  'game-sub': [
-    buttonBase,
-    {
-      fontSize: '18px',
-      // color: '#7B9B8C',
-      background: `linear-gradient(135deg,
-      rgba(255, 255, 255, 0.9),
-        rgba(255, 250, 200, 0.6),
-        rgba(255, 250, 200, 0.6),
-        rgba(255, 240, 180, 0.6)
-      )`,
-      backdropFilter: 'blur(10px)',
-      border: '3px solid rgba(255, 255, 255, 0.9)',
-      borderRadius: '35px',
-      boxShadow: `
-      0 4px 15px rgba(152, 228, 255, 0.3),
-     inset 0 1px 0 rgba(255, 255, 255, 0.8)`,
-
-      color: '#a38d4c',
-
-      ':hover': {
-        transform: 'translateY(-4px) scale(1.05)',
-        boxShadow: `
-        0 8px 25px rgba(255, 182, 193, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
-      },
-
-      '::after': {
-        content: '"✨"',
-        position: 'absolute',
-        top: '50%',
-        right: '25px',
-        transform: 'translateY(-50%)',
-        fontSize: '20px',
-        opacity: 0,
-        transition: 'all 0.3s ease',
-      },
-    },
-  ],
-});
-
-// 사이즈 variants
-export const sizeVariants = styleVariants({
-  small: {
-    padding: '10px 24px',
-    fontSize: '14px',
-    minHeight: '36px',
-  },
-  medium: {
-    padding: '15px 40px',
-    fontSize: '16px',
-    minHeight: '48px',
-  },
-  large: {
-    padding: '20px 50px',
-    fontSize: '18px',
-    minHeight: '60px',
-  },
-  custom: {
-    padding: '0 20px',
+  ':focus-visible': {
+    boxShadow: `0 0 0 3px ${vars.colors.primaryLight}`,
   },
 });
 
-// 전체 너비 스타일
-export const fullWidth = style({
-  width: '100%',
+// Shimmer 효과를 위한 pseudo element
+globalStyle(`${buttonBase}::before`, {
+  content: '""',
+  position: 'absolute',
+  top: '-50%',
+  left: '-50%',
+  width: '200%',
+  height: '200%',
+  background: vars.colors.glassShine,
+  transform: 'rotate(45deg)',
+  transition: 'all 0.5s',
+  opacity: 0,
 });
 
-// Hover 애니메이션 트리거
-globalStyle(`${buttonVariants.holographic}:hover::before`, {
+globalStyle(`${buttonBase}:hover::before`, {
   animation: `${shimmer} 0.5s ease`,
   opacity: 1,
 });
 
-globalStyle(
-  `${buttonVariants['game-main']}:hover::after, ${buttonVariants['game-sub']}:hover::after`,
-  {
-    opacity: 1,
-    right: '30px',
+// 버튼 레시피
+export const button = recipe({
+  base: buttonBase,
+
+  variants: {
+    variant: {
+      main: {
+        color: vars.colors.text,
+        background: vars.colors.buttonMain,
+        boxShadow: `0 4px 15px ${vars.colors.shadow}, inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
+
+        ':hover': {
+          transform: 'translateY(-3px) scale(1.05)',
+          boxShadow: `0 8px 25px ${vars.colors.shadowHover}, inset 0 1px 0 rgba(255, 255, 255, 1)`,
+        },
+      },
+
+      sub: {
+        color: vars.colors.textSecondary,
+        background: vars.colors.buttonSub,
+        boxShadow: `0 4px 15px ${vars.colors.shadow}, inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
+
+        ':hover': {
+          transform: 'translateY(-3px) scale(1.05)',
+          boxShadow: `0 8px 25px ${vars.colors.shadowHover}, inset 0 1px 0 rgba(255, 255, 255, 1)`,
+        },
+      },
+
+      accent: {
+        color: vars.colors.textAccent,
+        background: `linear-gradient(135deg, rgba(255, 255, 255, 0.9), ${vars.colors.accent1}, ${vars.colors.accent2})`,
+        boxShadow: `0 4px 15px ${vars.colors.shadow}, inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
+
+        ':hover': {
+          transform: 'translateY(-3px) scale(1.05)',
+          boxShadow: `0 8px 25px ${vars.colors.shadowHover}, inset 0 1px 0 rgba(255, 255, 255, 1)`,
+        },
+      },
+
+      choice: {
+        width: '100%',
+        textAlign: 'left',
+        color: vars.colors.textMuted,
+        background: `linear-gradient(135deg, rgba(255, 255, 255, 0.95), ${vars.colors.backgroundBlur}, ${vars.colors.overlayLight})`,
+        border: `2px solid ${vars.colors.glassBorder}`,
+        paddingLeft: '45px',
+
+        ':hover': {
+          transform: 'translateX(5px)',
+          background: `linear-gradient(135deg, rgba(255, 255, 255, 1), ${vars.colors.primaryLight}, ${vars.colors.secondaryLight})`,
+        },
+      },
+
+      love: {
+        color: vars.colors.textTertiary,
+        background: `linear-gradient(135deg, rgba(255, 255, 255, 0.9), ${vars.colors.accent1}, ${vars.colors.accent2})`,
+        border: `2px solid ${vars.colors.primaryLight}`,
+
+        ':hover': {
+          transform: 'scale(1.05)',
+          boxShadow: `0 10px 30px ${vars.colors.shadowHover}`,
+        },
+      },
+
+      special: {
+        color: vars.colors.textTertiary,
+        background: vars.colors.holographic,
+        border: `2px solid ${vars.colors.primaryLight}`,
+        fontWeight: vars.fontWeight.bold,
+        textShadow: `0 1px 3px ${vars.colors.overlay}`,
+
+        ':hover': {
+          transform: 'scale(1.05)',
+          boxShadow: `0 10px 30px ${vars.colors.shadowHover}`,
+        },
+      },
+
+      gender: {
+        flexDirection: 'column',
+        width: '180px',
+        padding: '60px 20px',
+        background: vars.colors.backgroundGlass,
+        border: `3px solid ${vars.colors.glassBorder}`,
+
+        ':hover': {
+          transform: 'translateY(-5px) scale(1.05)',
+          boxShadow: `0 15px 40px ${vars.colors.shadowHover}`,
+        },
+      },
+
+      silver: {
+        color: vars.colors.textLight,
+        background: vars.colors.buttonSilver,
+        boxShadow: `0 4px 15px ${vars.colors.shadow}, inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
+
+        ':hover': {
+          transform: 'translateY(-3px) scale(1.05)',
+          boxShadow: `0 8px 25px ${vars.colors.shadowHover}, inset 0 1px 0 rgba(255, 255, 255, 1)`,
+        },
+      },
+
+      sunset: {
+        color: vars.colors.textAccent,
+        background: `linear-gradient(135deg, rgba(255, 255, 255, 0.9), ${vars.colors.accent3}, ${vars.colors.warning})`,
+        boxShadow: `0 4px 15px ${vars.colors.shadow}, inset 0 1px 0 rgba(255, 255, 255, 0.9)`,
+
+        ':hover': {
+          transform: 'translateY(-3px) scale(1.05)',
+          boxShadow: `0 8px 25px ${vars.colors.shadowHover}, inset 0 1px 0 rgba(255, 255, 255, 1)`,
+        },
+      },
+    },
+
+    size: {
+      small: {
+        padding: `${vars.spacing.sm} ${vars.spacing.lg}`,
+        fontSize: vars.fontSize.sm,
+      },
+      medium: {
+        padding: `${vars.spacing.md} ${vars.spacing.xl}`,
+        fontSize: vars.fontSize.md,
+      },
+      large: {
+        padding: '18px 45px',
+        fontSize: vars.fontSize.lg,
+      },
+      xlarge: {
+        padding: '20px 60px',
+        fontSize: vars.fontSize.xl,
+      },
+      custom: {
+        // custom size는 인라인 스타일로 처리
+      },
+    },
+
+    fullWidth: {
+      true: {
+        width: '100%',
+      },
+    },
+
+    loading: {
+      true: {
+        color: 'transparent',
+        pointerEvents: 'none',
+      },
+    },
   },
-);
+
+  defaultVariants: {
+    variant: 'main',
+    size: 'large',
+    fullWidth: false,
+    loading: false,
+  },
+});
+
+// Choice 버튼의 아이콘 스타일
+export const choiceIcon = style({
+  position: 'absolute',
+  left: '18px',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  fontSize: '20px',
+});
+
+// Gender 버튼의 아이콘 스타일
+export const genderIcon = style({
+  fontSize: '48px',
+  marginBottom: vars.spacing.sm,
+});
+
+// Love 버튼의 하트 애니메이션
+export const loveHeart = style({
+  display: 'inline-block',
+  marginLeft: vars.spacing.sm,
+  animation: `${pulse} 1.5s ease-in-out infinite`,
+});
+
+// 로딩 스피너 - spin 애니메이션 사용
+export const spinner = style({
+  position: 'absolute',
+  width: '20px',
+  height: '20px',
+  border: '2px solid rgba(255, 255, 255, 0.3)',
+  borderTopColor: 'white',
+  borderRadius: '50%',
+  animation: `${spin} 0.6s linear infinite`, // spin keyframes 사용
+});
+
+// Gender 버튼 타입별 스타일
+export const genderVariants = styleVariants({
+  female: {
+    color: '#d4668f',
+    background: `linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 200, 220, 0.3),
+      rgba(230, 220, 255, 0.3)
+    )`,
+    border: '3px solid rgba(255, 200, 220, 0.5)',
+  },
+  male: {
+    color: '#6b7fa6',
+    background: `linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(200, 230, 255, 0.3),
+      rgba(230, 220, 255, 0.3)
+    )`,
+    border: '3px solid rgba(200, 230, 255, 0.5)',
+  },
+});

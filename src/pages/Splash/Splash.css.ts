@@ -1,6 +1,7 @@
 import { style, keyframes } from '@vanilla-extract/css';
-import { theme } from '@shared/styles/theme.css';
+// import { theme } from '@shared/styles/theme.css';
 import heartUrl from '@assets/ui/decorations/heart.png';
+import { vars } from '@shared/styles/theme.css'; // vars를 import
 
 const float = keyframes({
   '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
@@ -123,7 +124,7 @@ export const button = style({
   padding: '15px 40px',
   fontSize: '16px',
   fontWeight: 600,
-  color: '#9B89B3',
+  color: vars.colors.text,
   background: 'rgba(255, 255, 255, 0.2)',
   border: '2px solid transparent',
   borderImage: 'linear-gradient(45deg, #FFB6C1, #E6E6FA, #98E4FF, #FFB6C1)',
@@ -208,8 +209,8 @@ export const rightSection = style({
 
 export const title = style({
   fontSize: 'clamp(2rem, 5vw, 4rem)',
-  fontWeight: theme.fontWeight.bold,
-  color: theme.colors.text,
+  fontWeight: vars.fontWeight.normal,
+  color: vars.colors.primary,
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -218,14 +219,12 @@ export const title = style({
   textAlign: 'center',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-  background: `linear-gradient(45deg, ${theme.colors.text}, ${theme.colors.textSecondary})`,
   width: 'min(90%, 1200px)',
 });
 
 export const subtitle = style({
   fontSize: 'clamp(1rem, 2vw, 1.5rem)',
-  color: theme.colors.text,
+  color: vars.colors.textSecondary,
   position: 'absolute',
   top: '60%',
   left: '50%',

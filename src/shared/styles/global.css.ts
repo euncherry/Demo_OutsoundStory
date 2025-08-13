@@ -1,5 +1,6 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { theme } from './theme.css';
+// import { theme } from './theme.css';
+import { vars } from '@shared/styles/theme.css'; // vars를 import
 
 globalStyle('*', {
   margin: 0,
@@ -16,8 +17,8 @@ globalStyle('html, body', {
 globalStyle('body', {
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  background: theme.colors.background,
-  color: theme.colors.text,
+  background: vars.colors.primary,
+  color: vars.colors.text,
   lineHeight: 1.6,
 });
 
@@ -59,14 +60,15 @@ globalStyle('::-webkit-scrollbar', {
 });
 
 globalStyle('::-webkit-scrollbar-track', {
-  backgroundColor: theme.colors.backgroundDark,
+  backgroundColor: vars.colors.backgroundGlass,
+  borderRadius: vars.borderRadius.sm,
 });
 
 globalStyle('::-webkit-scrollbar-thumb', {
-  backgroundColor: theme.colors.primaryDark,
-  borderRadius: theme.borderRadius.sm,
+  background: vars.colors.primaryGlass,
+  borderRadius: vars.borderRadius.sm,
 });
 
 globalStyle('::-webkit-scrollbar-thumb:hover', {
-  backgroundColor: theme.colors.primary,
+  background: vars.colors.primary,
 });

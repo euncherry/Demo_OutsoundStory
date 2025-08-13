@@ -1,7 +1,53 @@
 import { createGlobalTheme } from '@vanilla-extract/css';
 
+// 공통 속성들 (모든 테마에서 공유)
+const commonProperties = {
+  spacing: {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+    xxl: '48px',
+  },
+  fontSize: {
+    xs: '12px',
+    sm: '14px',
+    md: '16px',
+    lg: '18px',
+    xl: '24px',
+    xxl: '32px',
+    xxxl: '48px',
+  },
+  fontWeight: {
+    normal: '400',
+    medium: '500',
+    semibold: '600',
+    bold: '700',
+  },
+  borderRadius: {
+    sm: '4px',
+    md: '8px',
+    lg: '16px',
+    xl: '24px',
+    full: '9999px',
+  },
+  transitions: {
+    fast: '150ms ease-in-out',
+    normal: '300ms ease-in-out',
+    slow: '500ms ease-in-out',
+  },
+  zIndex: {
+    base: '0',
+    dropdown: '100',
+    modal: '200',
+    popover: '300',
+    tooltip: '400',
+    notification: '500',
+  },
+};
+
 // 🌈 글로벌 버전 - 성별 선택 전 공통 테마
-// 라일락 & 레몬 민트  베이스
 export const globalTheme = createGlobalTheme(':root', {
   colors: {
     // Primary - 라일락 메인
@@ -31,7 +77,7 @@ export const globalTheme = createGlobalTheme(':root', {
 
     // Text colors
     text: '#9B7EAE', // 라일락 텍스트
-    textSecondary: '#7FA663', // 레몬 민트 텍스트 (수정됨)
+    textSecondary: '#7FA663', // 레몬 민트 텍스트
     textMuted: '#C7B3D3',
     textLight: '#B095C0',
     textAccent: '#5FA778', // 민트 그린 액센트
@@ -67,10 +113,10 @@ export const globalTheme = createGlobalTheme(':root', {
     sparkle: '#F0FFE0',
     gradient: 'linear-gradient(135deg, #E6DCFF, #C8FFD6, #F4FFC8, #FFE6FA)',
   },
+  ...commonProperties,
 });
 
 // 💕 여성향 버전 - 여자 NPC와의 연애
-// 체리블로썸, 민트그린, 핑크 라벤더, 민트 블루, 피치 코랄, 레몬 민트
 export const femaleNPCTheme = createGlobalTheme(':root', {
   colors: {
     // Primary - 체리블로썸 메인
@@ -126,6 +172,8 @@ export const femaleNPCTheme = createGlobalTheme(':root', {
       'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 255, 220, 0.6), rgba(212, 241, 238, 0.6))',
     buttonAccent:
       'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 218, 193, 0.6), rgba(244, 255, 200, 0.6))',
+    buttonSilver:
+      'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 235, 240, 0.6), rgba(200, 220, 235, 0.6))',
     buttonHover:
       'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 180, 200, 0.7), rgba(200, 255, 220, 0.7))',
 
@@ -154,10 +202,10 @@ export const femaleNPCTheme = createGlobalTheme(':root', {
     gradient:
       'linear-gradient(135deg, #FFC8DC, #C8FFDC, #FFB6C1, #B8E6D3, #FFDAC1, #F4FFC8)',
   },
+  ...commonProperties,
 });
 
-// 💎 남성향 버전 - 남자 NPC와의 연애 (수정된 버전)
-// 스카이 퍼플, 오션 블루, 핑크 옐로우, 실버블루, 선셋 오렌지
+// 💎 남성향 버전 - 남자 NPC와의 연애
 export const maleNPCTheme = createGlobalTheme(':root', {
   colors: {
     // Primary - 스카이 퍼플 메인
@@ -165,7 +213,7 @@ export const maleNPCTheme = createGlobalTheme(':root', {
     primaryLight: '#E0F2FF',
     primaryDark: '#9DCEFF',
     primaryGlass:
-      'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 230, 255, 0.6), rgba(220, 200, 255, 0.6), rgba(220, 200, 255, 0.6))',
+      'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 230, 255, 0.6), rgba(220, 200, 255, 0.6))',
 
     // Secondary - 오션 블루 서브
     secondary: '#B4E6FF',
@@ -174,7 +222,7 @@ export const maleNPCTheme = createGlobalTheme(':root', {
     secondaryGlass:
       'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(180, 230, 255, 0.6), rgba(150, 200, 255, 0.6))',
 
-    // Tertiary - 핑크 옐로우 포인트 (수정됨)
+    // Tertiary - 핑크 옐로우 포인트
     tertiary: '#FFE0EC',
     tertiaryLight: '#FFF0F7',
     tertiaryDark: '#FFC0D9',
@@ -208,7 +256,7 @@ export const maleNPCTheme = createGlobalTheme(':root', {
 
     // UI Elements
     buttonMain:
-      'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 230, 255, 0.6), rgba(220, 200, 255, 0.6), rgba(220, 200, 255, 0.6))',
+      'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(200, 230, 255, 0.6), rgba(220, 200, 255, 0.6))',
     buttonSub:
       'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(180, 230, 255, 0.6), rgba(150, 200, 255, 0.6))',
     buttonAccent:
@@ -244,10 +292,11 @@ export const maleNPCTheme = createGlobalTheme(':root', {
     sparkle: '#F0F8FF',
     gradient: 'linear-gradient(135deg, #C8E6FF, #B4E6FF, #FFE0EC, #E6EBEF, #FFC896)',
   },
+  ...commonProperties,
 });
 
 // 테마 선택 헬퍼 함수
-export const getThemeByType = (type = 'global') => {
+export const getThemeByType = (type: 'global' | 'female' | 'male' = 'global') => {
   switch (type) {
     case 'female':
       return femaleNPCTheme;

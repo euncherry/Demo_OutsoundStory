@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import * as styles from './Splash.css.ts';
-import { Button } from '../../shared/components/Button/index.ts';
+import { Button } from '../../shared/components/Button';
+import { useThemeStore } from '@store/themeStore';
 
 export function Splash() {
   const navigate = useNavigate();
+  const { currentTheme, setTheme } = useThemeStore();
 
   return (
     <div className={styles.container}>
@@ -14,24 +16,31 @@ export function Splash() {
       <div className={styles.heart5} />
       <div className={styles.buttonSection}>
         <div className={styles.buttonContainer}>
-          <Button variant="game-main" size="large" onClick={() => navigate('/setup')}>
-            새 게임
+          <Button variant="main" size="large" onClick={() => navigate('/player-setup')}>
+            처음부터
           </Button>
           <Button
-            variant="game-sub"
+            variant="sub"
             size="large"
             onClick={() => navigate('/continue')}
             // disabled
           >
             이어하기
           </Button>
+          <button className={styles.button} onClick={() => setTheme('global')}>
+            Global
+          </button>
+          <button className={styles.button} onClick={() => setTheme('female')}>
+            Female
+          </button>
+          <button className={styles.button} onClick={() => setTheme('male')}>
+            Male
+          </button>
+          <p>Current: {currentTheme}</p>
         </div>
       </div>
       <div className={styles.leftSection} />
       <div className={styles.rightSection} />
-
-      {/* <h1 className={styles.title}>발음교정 연애 시뮬레이션</h1>
-      <p className={styles.subtitle}>Demo Version</p> */}
     </div>
   );
 }
