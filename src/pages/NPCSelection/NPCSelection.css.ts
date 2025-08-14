@@ -14,7 +14,6 @@ const glitch = keyframes({
     transform: 'translate(0)',
     opacity: 0.1,
   },
-
   '80%': {
     clipPath: 'polygon(0 0, 100% 5%, 100% 100%, 0 95%)',
     transform: 'translate(0)',
@@ -45,7 +44,7 @@ export const backgroundGradient = style({
   position: 'absolute',
   inset: 0,
   opacity: 0.5,
-  zIndex: 0,
+  zIndex: -1,
 });
 
 // 헤더
@@ -90,28 +89,78 @@ export const subtitle = style({
   color: vars.colors.textSecondary,
 });
 
-// 그리드
-export const gridContainer = style({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-  gap: vars.spacing.xl,
-  padding: vars.spacing.xxl,
-  maxWidth: '1200px',
-  margin: '0 auto',
+// 가로 스크롤 컨테이너
+export const horizontalScrollWrapper = style({
   position: 'relative',
-  zIndex: 10,
+  width: '100%',
+  height: 'calc(100vh - 200px)',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: `0 ${vars.spacing.xxl}`,
+  overflow: 'hidden',
   '@media': {
     '(max-width: 768px)': {
-      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-      padding: vars.spacing.lg,
-      gap: vars.spacing.lg,
+      padding: `0 ${vars.spacing.lg}`,
     },
   },
+});
+
+export const horizontalGridContainer = style({
+  display: 'flex',
+  gap: vars.spacing.xl,
+  alignItems: 'center',
+  height: '450px',
+  width: '100%',
+  overflowX: 'visible',
+  paddingLeft: '3rem',
+  paddingRight: '3rem',
+  userSelect: 'none',
+  '@media': {
+    '(max-width: 768px)': {
+      gap: vars.spacing.lg,
+      height: '400px',
+      paddingLeft: '5%',
+      paddingRight: '5%',
+    },
+  },
+});
+
+export const cardWrapper = style({
+  flexShrink: 0,
+  width: '320px',
+  height: '420px',
+  '@media': {
+    '(max-width: 768px)': {
+      width: '280px',
+      height: '380px',
+    },
+  },
+});
+
+// 스크롤 인디케이터
+export const scrollIndicator = style({
+  position: 'absolute',
+  bottom: '40px',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  color: vars.colors.textMuted,
+  fontSize: vars.fontSize.sm,
+  fontWeight: vars.fontWeight.medium,
+  padding: `${vars.spacing.sm} ${vars.spacing.lg}`,
+  background: vars.colors.backgroundGlass,
+  backdropFilter: 'blur(10px)',
+  borderRadius: vars.borderRadius.full,
+  border: `1px solid ${vars.colors.glassBorder}`,
+  zIndex: 10,
 });
 
 // NPC 카드
 export const npcCard = style({
   position: 'relative',
+  width: '100%',
+  height: '100%',
   background: vars.colors.backgroundGlass,
   backdropFilter: 'blur(20px)',
   border: `2px solid ${vars.colors.glassBorder}`,
@@ -122,6 +171,8 @@ export const npcCard = style({
   transformStyle: 'preserve-3d',
   perspective: '1000px',
   overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
 
   ':hover': {
     boxShadow: `0 20px 40px ${vars.colors.shadowHover}`,
@@ -187,6 +238,10 @@ export const profileImage = style({
 // 정보
 export const cardInfo = style({
   textAlign: 'center',
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 });
 
 export const npcName = style({

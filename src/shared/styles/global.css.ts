@@ -9,8 +9,8 @@ globalStyle('*', {
 });
 
 globalStyle('html, body', {
-  height: '100%',
-  width: '100%',
+  height: '100dvh',
+  width: '100dvw',
   overflow: 'hidden',
 });
 
@@ -65,7 +65,7 @@ globalStyle('::-webkit-scrollbar-track', {
 });
 
 globalStyle('::-webkit-scrollbar-thumb', {
-  background: vars.colors.primaryGlass,
+  background: vars.colors.primaryLight,
   borderRadius: vars.borderRadius.sm,
 });
 

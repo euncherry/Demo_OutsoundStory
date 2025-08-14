@@ -13,22 +13,28 @@ interface NPCCardProps {
 export function NPCCard({ npc, index, onSelect }: NPCCardProps) {
   const isKanghyuk = npc.id === 'kanghyuk';
 
+  const handleClick = (e: React.MouseEvent) => {
+    // 이벤트 버블링 방지
+    e.stopPropagation();
+    onSelect(npc.id);
+  };
+
   return (
     <motion.div
       className={`${styles.npcCard} ${isKanghyuk ? styles.mysteryCard : ''}`}
-      initial={{ opacity: 0, rotateY: -180 }}
-      animate={{ opacity: 1, rotateY: 0 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{
-        duration: 0.1,
+        duration: 0.5,
+        delay: index * 0.1,
         ease: 'easeOut',
       }}
       whileHover={{
         scale: 1.05,
-        rotateY: 5,
-        z: 50,
+        y: -10,
       }}
       whileTap={{ scale: 0.98 }}
-      onClick={() => onSelect(npc.id)}
+      onClick={handleClick}
       style={{
         background: `linear-gradient(135deg, ${npc.themeColor}22, ${npc.themeColor}44)`,
       }}
