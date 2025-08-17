@@ -1,0 +1,139 @@
+{
+  "npcId": "kanghyuk",
+  "npcName": "서강혁",
+  "scenes": [
+    {
+      "id": "scene1",
+      "type": "narration",
+      "text": "차 안, 무거운 침묵이 흐르고 있다.",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "nextSceneId": "scene2"
+    },
+    {
+      "id": "scene2",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "강혁씨... 도진씨의 동생이었다니. 왜 숨긴 거죠?",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "angry"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "dialogue",
+      "speaker": "kanghyuk",
+      "text": "...처음부터 말했다면, 나를 있는 그대로 봐줬을까?",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "sad"
+        }
+      ],
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(요한씨 말대로 강혁씨가 일부러 접근한 걸까...?)",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "sad"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "sad"
+        }
+      ],
+      "nextSceneId": "scene5"
+    },
+    {
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "kanghyuk",
+      "text": "형이 좋아했던 사람들... 맞아. 내가 먼저 다가갔어. 하지만 너는 달랐어.",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "serious"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "choice",
+      "text": "강혁의 고백에 어떻게 대답할까?",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "determined"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "serious"
+        }
+      ],
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "이해해요. 처음부터 다시 시작해봐요, 진짜 강혁씨와.",
+          "audioReference": "/src/assets/audio/references/kanghyuk_choice1.mp3",
+          "nextSceneId": null,
+          "affinityChange": 15
+        },
+        {
+          "id": "choice2",
+          "text": "혼란스럽긴 하지만... 시간을 좀 주세요.",
+          "audioReference": "/src/assets/audio/references/kanghyuk_choice2.mp3",
+          "nextSceneId": null,
+          "affinityChange": 5
+        },
+        {
+          "id": "choice3",
+          "text": "그래도 거짓말은 용서할 수 없어요. 우리 끝내요.",
+          "audioReference": "/src/assets/audio/references/kanghyuk_choice3.mp3",
+          "nextSceneId": null,
+          "affinityChange": -10
+        }
+      ]
+    }
+  ]
+}

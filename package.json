@@ -13,6 +13,8 @@
     "@vanilla-extract/recipes": "^0.5.7",
     "framer-motion": "^12.23.12",
     "howler": "^2.2.4",
+    "i": "^0.3.7",
+    "npm": "^11.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.0",

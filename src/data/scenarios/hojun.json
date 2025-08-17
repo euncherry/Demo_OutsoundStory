@@ -1,0 +1,180 @@
+{
+  "npcId": "hojun",
+  "npcName": "강호준",
+  "scenes": [
+    {
+      "id": "scene1",
+      "type": "narration",
+      "text": "따뜻한 오후의 카페, 익숙한 커피 향이 공간을 채우고 있다.",
+      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "nextSceneId": "scene2"
+    },
+    {
+      "id": "scene2",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(저 사람... 밴드부에서 드럼 치던 호준이 맞나? 여기서 일하고 있었구나...)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "dialogue",
+      "speaker": "hojun",
+      "text": "어! 혹시... 우리 학교 다녔던 분 맞죠? 와, 진짜 오랜만이다!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
+      "type": "narration",
+      "text": "갑자기 진상 손님이 들어와 큰 소리로 불평하기 시작한다.",
+      "nextSceneId": "scene5"
+    },
+    {
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "hojun",
+      "text": "손님~ 제가 새로 내려드릴게요. 오늘 제가 쏘는 걸로 하죠, 어떠세요?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(와... 저렇게 센스있게 대처하다니. 정말 대단한데?)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "happy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene7"
+    },
+    {
+      "id": "scene7",
+      "type": "dialogue",
+      "speaker": "hojun",
+      "text": "저... 혹시 괜찮으면 번호 좀... 아니, 그게 아니라...",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "shy"
+        }
+      ],
+      "nextSceneId": "scene8"
+    },
+    {
+      "id": "scene8",
+      "type": "dialogue",
+      "speaker": "hojun",
+      "text": "같이... 밥이라도... 아, 아니다. 그냥 잊어주세요.",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "shy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "nervous"
+        }
+      ],
+      "nextSceneId": "scene9"
+    },
+    {
+      "id": "scene9",
+      "type": "choice",
+      "text": "호준이가 뭔가 말하려다 망설이고 있다. 뭐라고 대답할까?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "determined"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "right",
+          "emotion": "nervous"
+        }
+      ],
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "저도 호준씨랑 더 친해지고 싶어요. 연락처 교환할까요?",
+          "audioReference": "/assets/audio/references/hojun_choice1.mp3",
+          "nextSceneId": null,
+          "affinityChange": 10
+        },
+        {
+          "id": "choice2",
+          "text": "좋은 생각이네요! 언제 시간 되실 때 연락드릴게요.",
+          "audioReference": "/assets/audio/references/hojun_choice2.mp3",
+          "nextSceneId": null,
+          "affinityChange": 5
+        },
+        {
+          "id": "choice3",
+          "text": "아, 저 지금 바빠서... 다음에 기회가 되면요.",
+          "audioReference": "/assets/audio/references/hojun_choice3.mp3",
+          "nextSceneId": null,
+          "affinityChange": -3
+        }
+      ]
+    }
+  ]
+}

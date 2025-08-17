@@ -1,15 +1,15 @@
 // src/pages/PlayerRoom/MenuButtons.tsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Button } from '@shared/components/Button';
-import * as styles from './PlayerRoom.css.ts';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Button } from "@shared/components/Button";
+import * as styles from "./PlayerRoom.css.ts";
 
 export function MenuButtons() {
   const navigate = useNavigate();
 
   const handleStartEpisode = () => {
-    navigate('/select-npc');
+    navigate("/select-npc");
   };
 
   return (

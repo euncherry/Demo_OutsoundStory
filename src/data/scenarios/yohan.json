@@ -1,0 +1,178 @@
+{
+  "npcId": "yohan",
+  "npcName": "김요한",
+  "scenes": [
+    {
+      "id": "scene1",
+      "type": "narration",
+      "text": "평화로운 카페, 요한이 조용히 커피를 내리고 있다.",
+      "background": "/assets/backgrounds/cafe_morning.jpg",
+      "nextSceneId": "scene2"
+    },
+    {
+      "id": "scene2",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "text": "어서오세요. 오늘도 일찍 오셨네요. 항상 감사합니다.",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "smile"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "narration",
+      "text": "갑자기 문이 거칠게 열리며 화려한 차림의 여자가 들어온다.",
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
+      "type": "dialogue",
+      "speaker": "ex_girlfriend",
+      "text": "김요한! 또 이런 가짜 인생 살고 있네? 언제까지 착한 척 할래?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "shocked"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "ex_girlfriend",
+          "position": "center",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "troubled"
+        }
+      ],
+      "nextSceneId": "scene5"
+    },
+    {
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "text": "...민서야. 그만 돌아가. 우린 이미 끝난 사이야.",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "worried"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "ex_girlfriend",
+          "position": "center",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "troubled"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(요한씨가 곤란해하는 것 같은데... 내가 나서야 하나?)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "worried"
+        }
+      ],
+      "nextSceneId": "scene7"
+    },
+    {
+      "id": "scene7",
+      "type": "dialogue",
+      "speaker": "ex_girlfriend",
+      "text": "끝난 사이? 웃기지 마. 네가 날 버릴 수 있을 것 같아?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "angry"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "ex_girlfriend",
+          "position": "center",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "sad"
+        }
+      ],
+      "nextSceneId": "scene8"
+    },
+    {
+      "id": "scene8",
+      "type": "choice",
+      "text": "요한을 괴롭히는 전 여자친구. 어떻게 할까?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "determined"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "ex_girlfriend",
+          "position": "center",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "troubled"
+        }
+      ],
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "죄송하지만 다른 손님들께 방해가 되니 나가주세요.",
+          "audioReference": "/assets/audio/references/yohan_choice1.mp3",
+          "nextSceneId": null,
+          "affinityChange": 12
+        },
+        {
+          "id": "choice2",
+          "text": "요한씨, 괜찮으세요? 제가 도움이 필요하면 말씀해주세요.",
+          "audioReference": "/assets/audio/references/yohan_choice2.mp3",
+          "nextSceneId": null,
+          "affinityChange": 8
+        },
+        {
+          "id": "choice3",
+          "text": "(조용히 지켜보며 개입하지 않는다)",
+          "audioReference": "/assets/audio/references/yohan_choice3.mp3",
+          "nextSceneId": null,
+          "affinityChange": 0
+        }
+      ]
+    }
+  ]
+}
