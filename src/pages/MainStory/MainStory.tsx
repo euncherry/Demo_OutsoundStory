@@ -1,24 +1,20 @@
 // src/pages/MainStory/MainStory.tsx
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  useGameFlowStore,
-  usePronunciationStore,
-  useCharacterStore,
-} from "@/store";
-import { useDialogueFlow } from "@features/dialogue/hooks/useDialogueFlow";
-import { DialogueBox } from "@features/dialogue/components/DialogueBox";
-import { CharacterSprite } from "@features/dialogue/components/CharacterSprite";
-import { ChoiceButtons } from "@features/dialogue/components/ChoiceButtons";
-import { ExtendedScene, SceneCharacter, Choice } from "@/types/dialogue.types";
-// import { PronunciationModal } from "@features/pronunciation/components/PronunciationModal";
-import * as styles from "./MainStory.css.ts";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useGameFlowStore, usePronunciationStore, useCharacterStore } from '@/store';
+import { useDialogueFlow } from '@features/dialogue/hooks/useDialogueFlow';
+import { DialogueBox } from '@features/dialogue/components/DialogueBox';
+import { CharacterSprite } from '@features/dialogue/components/CharacterSprite';
+import { ChoiceButtons } from '@features/dialogue/components/ChoiceButtons';
+import { ExtendedScene, SceneCharacter, Choice } from '@/types/dialogue.types';
+import { PronunciationModal } from '@/features/pronunciation/components/PronunciationModal';
+import * as styles from './MainStory.css.ts';
 
 export function MainStory() {
   const navigate = useNavigate();
   const { updateProgress } = useGameFlowStore();
-  const { setCurrentContext } = usePronunciationStore();
+  const { setContext } = usePronunciationStore();
   const { selectedNPC } = useCharacterStore();
 
   const {
@@ -37,11 +33,11 @@ export function MainStory() {
   // 대화 완료 처리
   useEffect(() => {
     if (isComplete && !showPronunciation) {
-      updateProgress("hasCompletedDialogue", true);
+      updateProgress('hasCompletedDialogue', true);
       // 발음 분석이 없으면 바로 PlayerRoom으로
       if (!selectedChoice) {
         setTimeout(() => {
-          navigate("/room");
+          navigate('/room');
         }, 1000);
       }
     }
@@ -50,12 +46,13 @@ export function MainStory() {
   // 선택지 선택 처리
   const handleChoiceSelect = (choice: Choice) => {
     setSelectedChoice(choice);
-
+    console.log('선택지 선택 ', choice);
     // 발음 컨텍스트 설정
-    setCurrentContext({
+    setContext({
       npcId: selectedNPC!,
       choiceId: choice.id,
       text: choice.text,
+      audioReference: choice.audioReference,
     });
 
     // 발음 분석 모달 열기
@@ -84,31 +81,44 @@ export function MainStory() {
     return sceneWithCharacters.characters.map(
       (character: SceneCharacter, index: number) => (
         <CharacterSprite
-          key={`${character.characterType}-${
-            character.npcId || "player"
-          }-${index}`}
+          key={`${character.characterType}-${character.npcId || 'player'}-${index}`}
           characterType={character.characterType}
           npcId={character.npcId}
           emotion={character.emotion}
           position={character.position}
           isSpeaking={
-            (character.characterType === "player" &&
-              sceneWithCharacters.speaker === "player") ||
-            (character.characterType === "npc" &&
+            (character.characterType === 'player' &&
+              sceneWithCharacters.speaker === 'player') ||
+            (character.characterType === 'npc' &&
               sceneWithCharacters.speaker === character.npcId)
           }
         />
-      )
+      ),
     );
   };
 
   // 배경 이미지 결정
   const backgroundImage =
-    currentScene?.background || "/src/assets/backgrounds/default.png";
+    currentScene?.background || '/src/assets/backgrounds/default.png';
 
   if (!scenario || !currentScene) {
     return <div>Loading...</div>;
   }
+
+  // 발음 분석 완료
+  const handlePronunciationComplete = (score: number, affinityChange: number) => {
+    // 점수와 호감도 처리
+    console.log('발음 점수:', score, '호감도 변화:', affinityChange);
+
+    // 게임 진행 상태 업데이트
+    updateProgress('hasAnalyzedPronunciation', true);
+
+    // 모달 닫고 PlayerRoom으로
+    setShowPronunciation(false);
+    setTimeout(() => {
+      navigate('/room');
+    }, 1000);
+  };
 
   return (
     <div className={styles.container}>
@@ -141,8 +151,8 @@ export function MainStory() {
 
       {/* ✅ 기존 방식도 호환성을 위해 유지 (characters 배열이 없는 경우) */}
       {!(currentScene as ExtendedScene).characters &&
-        currentScene.type === "dialogue" &&
-        currentScene.speaker !== "player" && (
+        currentScene.type === 'dialogue' &&
+        currentScene.speaker !== 'player' && (
           <CharacterSprite
             characterType="npc"
             npcId={
@@ -157,10 +167,10 @@ export function MainStory() {
 
       {/* 대화 표시 */}
       <AnimatePresence mode="wait">
-        {currentScene.type !== "choice" ? (
+        {currentScene.type !== 'choice' ? (
           <DialogueBox
             key={currentScene.id}
-            type={currentScene.type as "dialogue" | "monologue" | "narration"}
+            type={currentScene.type as 'dialogue' | 'monologue' | 'narration'}
             speaker={currentScene.speaker}
             text={currentScene.text}
             onNext={nextScene}
@@ -172,7 +182,7 @@ export function MainStory() {
             choices={(currentScene.choices || []).map((choice) => ({
               ...choice,
               koreanText: choice.text, // text를 koreanText로 매핑
-              nextDialogueId: choice.nextSceneId || "", // nextSceneId를 nextDialogueId로 매핑
+              nextDialogueId: choice.nextSceneId || '', // nextSceneId를 nextDialogueId로 매핑
             }))}
             onSelect={handleChoiceSelect}
           />
@@ -181,20 +191,19 @@ export function MainStory() {
 
       {/* 발음 분석 모달 */}
       {/* TODO: 발음 분석 모달 추가 */}
-      {/* {showPronunciation && selectedChoice && (
+      {showPronunciation && selectedChoice && (
         <PronunciationModal
           text={selectedChoice.text}
           audioReference={selectedChoice.audioReference}
-          onComplete={handlePronunciationComplete}
+          onComplete={(score, affinityChange) =>
+            handlePronunciationComplete(score, affinityChange)
+          }
           onClose={() => setShowPronunciation(false)}
         />
-      )} */}
+      )}
 
       {/* 뒤로가기 버튼 */}
-      <button
-        className={styles.backButton}
-        onClick={() => navigate("/select-npc")}
-      >
+      <button className={styles.backButton} onClick={() => navigate('/select-npc')}>
         ← 뒤로
       </button>
     </div>

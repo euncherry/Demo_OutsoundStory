@@ -156,21 +156,21 @@
         {
           "id": "choice1",
           "text": "저도 호준씨랑 더 친해지고 싶어요. 연락처 교환할까요?",
-          "audioReference": "/assets/audio/references/hojun_choice1.mp3",
+          "audioReference": "/src/assets/audio/references/hojun_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 10
         },
         {
           "id": "choice2",
           "text": "좋은 생각이네요! 언제 시간 되실 때 연락드릴게요.",
-          "audioReference": "/assets/audio/references/hojun_choice2.mp3",
+          "audioReference": "/src/assets/audio/references/hojun_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice3",
           "text": "아, 저 지금 바빠서... 다음에 기회가 되면요.",
-          "audioReference": "/assets/audio/references/hojun_choice3.mp3",
+          "audioReference": "/src/assets/audio/references/hojun_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -3
         }

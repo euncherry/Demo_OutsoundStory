@@ -137,21 +137,21 @@
         {
           "id": "choice1",
           "text": "지훈씨는 참 어른스러우시네요. 덕분에 위로가 됐어요.",
-          "audioReference": "/src/assets/audio/references/jihoon_choice1.mp3",
+          "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice2",
           "text": "맞아요. 지훈씨 말을 들으니 다시 생각해보게 되네요.",
-          "audioReference": "/src/assets/audio/references/jihoon_choice2.mp3",
+          "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 6
         },
         {
           "id": "choice3",
           "text": "현실적이긴 하지만... 좀 차갑게 느껴져요.",
-          "audioReference": "/src/assets/audio/references/jihoon_choice3.mp3",
+          "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -2
         }

@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "평화로운 카페, 요한이 조용히 커피를 내리고 있다.",
-      "background": "/assets/backgrounds/cafe_morning.jpg",
+      "background": "src/assets/backgrounds/cafe_morning.jpg",
       "nextSceneId": "scene2"
     },
     {
@@ -154,21 +154,21 @@
         {
           "id": "choice1",
           "text": "죄송하지만 다른 손님들께 방해가 되니 나가주세요.",
-          "audioReference": "/assets/audio/references/yohan_choice1.mp3",
+          "audioReference": "src/assets/audio/references/yohan_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
           "text": "요한씨, 괜찮으세요? 제가 도움이 필요하면 말씀해주세요.",
-          "audioReference": "/assets/audio/references/yohan_choice2.mp3",
+          "audioReference": "src/assets/audio/references/yohan_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
           "text": "(조용히 지켜보며 개입하지 않는다)",
-          "audioReference": "/assets/audio/references/yohan_choice3.mp3",
+          "audioReference": "src/assets/audio/references/yohan_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": 0
         }

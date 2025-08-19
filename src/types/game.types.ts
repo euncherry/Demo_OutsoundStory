@@ -1,3 +1,5 @@
+// src/types/game.types.ts
+
 export type GamePhase =
   | 'splash'
   | 'setup'

@@ -26,7 +26,7 @@ export function NPCCard({ npc, index, onSelect }: NPCCardProps) {
       animate={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 0.5,
-        delay: index * 0.1,
+        delay: 0,
         ease: 'easeOut',
       }}
       whileHover={{
