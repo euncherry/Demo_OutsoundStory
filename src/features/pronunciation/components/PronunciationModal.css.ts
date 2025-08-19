@@ -109,6 +109,7 @@ export const waveformContainer = style({
   borderRadius: vars.borderRadius.md,
   padding: vars.spacing.md,
   marginBottom: vars.spacing.md,
+  width: "25rem",
 });
 
 export const waveform = style({

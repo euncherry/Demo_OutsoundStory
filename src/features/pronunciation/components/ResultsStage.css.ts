@@ -396,7 +396,7 @@ export const pitchContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.spacing.lg,
-  height: "100%",
+  height: "600px",
 });
 
 export const pitchHeader = style({
@@ -410,16 +410,22 @@ export const pitchInfo = style({
   marginTop: vars.spacing.xs,
 });
 
+export const chartsContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: vars.spacing.md,
+  marginBottom: vars.spacing.lg,
+});
+
 export const chartContainer = style({
   backgroundColor: "rgba(255, 255, 255, 0.05)",
   borderRadius: vars.borderRadius.md,
   padding: vars.spacing.md,
-  marginBottom: vars.spacing.lg,
 });
 
 export const pitchCanvas = style({
   width: "100%",
-  height: "300px",
+  height: "250px",
   backgroundColor: "rgba(0, 0, 0, 0.1)",
   borderRadius: vars.borderRadius.sm,
 });

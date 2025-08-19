@@ -13,7 +13,8 @@ interface PitchData {
 
 export function PitchContourTab() {
   const { recordedAudioBlob, currentContext } = usePronunciationStore();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const standardCanvasRef = useRef<HTMLCanvasElement>(null);
+  const userCanvasRef = useRef<HTMLCanvasElement>(null);
   const [standardPitchData, setStandardPitchData] = useState<PitchData | null>(
     null
   );
@@ -206,39 +207,39 @@ export function PitchContourTab() {
     analyzePitch();
   }, [currentContext, recordedAudioBlob]);
 
-  // 캔버스에 피치 곡선 그리기
+  // 표준 피치 캔버스 그리기
   useEffect(() => {
-    console.log("🎨 캔버스 그리기 시작");
-    console.log("  - canvasRef.current:", !!canvasRef.current);
-    console.log("  - standardPitchData:", !!standardPitchData);
-    console.log("  - userPitchData:", !!userPitchData);
+    if (!standardCanvasRef.current || !standardPitchData) return;
 
-    if (!canvasRef.current || !standardPitchData || !userPitchData) {
-      console.warn("❌ 캔버스 그리기 조건 미충족");
-      return;
-    }
-
-    const canvas = canvasRef.current;
+    console.log("🟢 표준 피치 캔버스 그리기 시작");
+    const canvas = standardCanvasRef.current;
     const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      console.error("❌ Canvas context 가져오기 실패");
-      return;
-    }
+    if (!ctx) return;
 
-    console.log("🎨 캔버스 그리기 진행");
-    console.log("📊 표준 피치 데이터:", {
-      validPitches: standardPitchData.frequencies.filter((f) => f !== null)
-        .length,
-      totalPitches: standardPitchData.frequencies.length,
-      averagePitch: standardPitchData.averagePitch,
-      sampleFreqs: standardPitchData.frequencies.slice(0, 5),
-    });
-    console.log("🎤 사용자 피치 데이터:", {
-      validPitches: userPitchData.frequencies.filter((f) => f !== null).length,
-      totalPitches: userPitchData.frequencies.length,
-      averagePitch: userPitchData.averagePitch,
-      sampleFreqs: userPitchData.frequencies.slice(0, 5),
-    });
+    drawPitchChart(ctx, canvas, standardPitchData, "#4CAF50", "표준 발음");
+  }, [standardPitchData]);
+
+  // 사용자 피치 캔버스 그리기
+  useEffect(() => {
+    if (!userCanvasRef.current || !userPitchData) return;
+
+    console.log("🟠 사용자 피치 캔버스 그리기 시작");
+    const canvas = userCanvasRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    drawPitchChart(ctx, canvas, userPitchData, "#FF9800", "내 발음");
+  }, [userPitchData]);
+
+  // 피치 차트 그리기 공통 함수 (점으로만 표시)
+  const drawPitchChart = (
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    pitchData: PitchData,
+    color: string,
+    label: string
+  ) => {
+    console.log(`🎨 ${label} 차트 그리기 시작`);
 
     // 캔버스 크기 설정
     canvas.width = canvas.offsetWidth * devicePixelRatio;
@@ -249,35 +250,72 @@ export function PitchContourTab() {
     const height = canvas.offsetHeight;
 
     // 배경 그리기
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, width, height);
 
+    // 유효한 피치만 추출
+    const validPitches = pitchData.frequencies.filter(
+      (f) => f !== null
+    ) as number[];
+
+    console.log(`📊 ${label} 데이터:`, {
+      validPitches: validPitches.length,
+      totalPitches: pitchData.frequencies.length,
+      averagePitch: pitchData.averagePitch,
+      minPitch: Math.min(...validPitches),
+      maxPitch: Math.max(...validPitches),
+      sampleFreqs: pitchData.frequencies.slice(0, 5),
+    });
+
+    if (validPitches.length === 0) {
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.font = "16px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(`${label} 데이터 없음`, width / 2, height / 2);
+      return;
+    }
+
+    const originalMinPitch = Math.min(...validPitches);
+    const originalMaxPitch = Math.max(...validPitches);
+    const originalRange = originalMaxPitch - originalMinPitch || 100;
+
+    // Y축 범위를 더 넓게 설정 (위아래로 20% 여백 추가)
+    const rangePadding = originalRange * 0.2;
+    const minPitch = originalMinPitch - rangePadding;
+    const maxPitch = originalMaxPitch + rangePadding;
+    const pitchRange = maxPitch - minPitch;
+
+    console.log(`📊 ${label} 피치 범위:`, {
+      originalMinPitch,
+      originalMaxPitch,
+      originalRange,
+      minPitch: minPitch.toFixed(1),
+      maxPitch: maxPitch.toFixed(1),
+      pitchRange: pitchRange.toFixed(1),
+    });
+
     // 격자 그리기
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
     ctx.lineWidth = 1;
 
     // 수평선 (주파수)
-    const freqLines = [100, 150, 200, 250, 300];
-    freqLines.forEach((freq) => {
-      const y = height - ((freq - 50) / 300) * height;
+    for (let i = 0; i <= 4; i++) {
+      const freq = minPitch + (pitchRange / 4) * i;
+      const y = height - (i / 4) * height;
       ctx.beginPath();
       ctx.moveTo(0, y);
       ctx.lineTo(width, y);
       ctx.stroke();
 
-      // 레이블
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      // 주파수 레이블
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
       ctx.font = "12px Arial";
-      ctx.fillText(`${freq}Hz`, 5, y - 5);
-    });
+      ctx.textAlign = "left";
+      ctx.fillText(`${Math.round(freq)}Hz`, 5, y - 5);
+    }
 
     // 수직선 (시간)
-    const maxTime = Math.max(
-      standardPitchData.timestamps[standardPitchData.timestamps.length - 1] ||
-        0,
-      userPitchData.timestamps[userPitchData.timestamps.length - 1] || 0
-    );
-
+    const maxTime = pitchData.timestamps[pitchData.timestamps.length - 1] || 1;
     for (let i = 0; i <= 4; i++) {
       const x = (width / 4) * i;
       ctx.beginPath();
@@ -287,75 +325,60 @@ export function PitchContourTab() {
 
       // 시간 레이블
       const time = (maxTime / 4) * i;
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-      ctx.fillText(`${time.toFixed(1)}s`, x + 5, height - 10);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.font = "12px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(`${time.toFixed(1)}s`, x, height - 5);
     }
 
-    // 피치 곡선 그리기 함수
-    const drawPitchCurve = (
-      pitchData: PitchData,
-      color: string,
-      lineStyle: number[] = []
-    ) => {
-      console.log(`🎨 ${color} 곡선 그리기:`, {
-        validPitches: pitchData.frequencies.filter((f) => f !== null).length,
-        maxTime,
-        width,
-        height,
-      });
+    // Y값이 변할 때만 점 그리기 (선으로 연결하지 않음)
+    ctx.fillStyle = color;
+    const dotRadius = 4; // 점의 크기
 
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 2;
-      ctx.setLineDash(lineStyle);
-      ctx.beginPath();
+    let drawnPoints = 0;
+    let lastY: number | null = null;
+    const minYChange = 2; // 최소 2픽셀 변화가 있어야 점 추가
 
-      let firstPoint = true;
-      let drawnPoints = 0;
+    console.log(`🎯 ${label} Y값 변화 감지 시작 (최소 변화: ${minYChange}px)`);
 
-      pitchData.frequencies.forEach((pitch, i) => {
-        if (pitch === null) return;
+    pitchData.frequencies.forEach((pitch, i) => {
+      if (pitch === null) return;
 
-        const x = (pitchData.timestamps[i] / maxTime) * width;
-        const y = height - ((pitch - 50) / 300) * height;
+      const x = (pitchData.timestamps[i] / maxTime) * width;
+      const y = height - ((pitch - minPitch) / pitchRange) * height;
 
-        console.log(`점 ${drawnPoints}: pitch=${pitch}, x=${x}, y=${y}`);
+      // 첫 번째 점이거나 Y값에 충분한 변화가 있을 때만 그리기
+      const shouldDraw = lastY === null || Math.abs(y - lastY) >= minYChange;
 
-        if (firstPoint) {
-          ctx.moveTo(x, y);
-          firstPoint = false;
-        } else {
-          ctx.lineTo(x, y);
+      if (shouldDraw) {
+        if (drawnPoints < 5) {
+          console.log(
+            `${label} 변화점 ${drawnPoints}: pitch=${pitch.toFixed(
+              1
+            )}Hz, y=${y.toFixed(1)}px, 변화=${
+              lastY ? Math.abs(y - lastY).toFixed(1) : "첫점"
+            }px`
+          );
         }
+
+        // 원형 점 그리기
+        ctx.beginPath();
+        ctx.arc(x, y, dotRadius, 0, 2 * Math.PI);
+        ctx.fill();
+
+        lastY = y;
         drawnPoints++;
-      });
+      }
+    });
 
-      console.log(`✅ ${color} 곡선 완료: ${drawnPoints}개 점 그림`);
-      ctx.stroke();
-      ctx.setLineDash([]);
-    };
+    console.log(`✅ ${label} 점 그리기 완료: ${drawnPoints}개 점`);
 
-    // 표준 피치 곡선 (실선)
-    console.log("🟢 표준 피치 곡선 그리기 시작");
-    drawPitchCurve(standardPitchData, "#4CAF50");
-
-    // 사용자 피치 곡선 (점선)
-    console.log("🟠 사용자 피치 곡선 그리기 시작");
-    drawPitchCurve(userPitchData, "#FF9800", [5, 5]);
-
-    console.log("✅ 모든 곡선 그리기 완료");
-
-    // 범례
-    ctx.fillStyle = "#4CAF50";
-    ctx.fillRect(width - 120, 20, 15, 3);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-    ctx.font = "14px Arial";
-    ctx.fillText("표준", width - 100, 28);
-
-    ctx.fillStyle = "#FF9800";
-    ctx.fillRect(width - 120, 40, 15, 3);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-    ctx.fillText("사용자", width - 100, 48);
-  }, [standardPitchData, userPitchData]);
+    // 제목
+    ctx.fillStyle = color;
+    ctx.font = "bold 16px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(label, width / 2, 25);
+  };
 
   if (isAnalyzing) {
     return (
@@ -377,13 +400,26 @@ export function PitchContourTab() {
         </div>
       </div>
 
-      <div className={styles.chartContainer}>
-        <canvas
-          ref={canvasRef}
-          className={styles.pitchCanvas}
-          width={600}
-          height={300}
-        />
+      <div className={styles.chartsContainer}>
+        {/* 표준 발음 차트 */}
+        <div className={styles.chartContainer}>
+          <canvas
+            ref={standardCanvasRef}
+            className={styles.pitchCanvas}
+            width={600}
+            height={250}
+          />
+        </div>
+
+        {/* 내 발음 차트 */}
+        <div className={styles.chartContainer}>
+          <canvas
+            ref={userCanvasRef}
+            className={styles.pitchCanvas}
+            width={600}
+            height={250}
+          />
+        </div>
       </div>
 
       <div className={styles.pitchAnalysis}>
