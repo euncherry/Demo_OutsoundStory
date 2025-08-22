@@ -1,17 +1,19 @@
 // src/features/pronunciation/components/ResultsStage.css.ts
-import { style } from "@vanilla-extract/css";
-import { vars } from "@shared/styles/theme.css";
+import { style } from '@vanilla-extract/css';
+import { vars } from '@shared/styles/theme.css';
 
 export const resultsContainer = style({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  background:
+    'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 235, 255, 0.9))',
 });
 
 export const resultsHeader = style({
   padding: vars.spacing.lg,
-  textAlign: "center",
+  textAlign: 'center',
   borderBottom: `1px solid ${vars.colors.glassBorder}`,
 });
 
@@ -30,28 +32,28 @@ export const totalScore = style({
 
 export const resultsContent = style({
   flex: 1,
-  display: "flex",
+  display: 'flex',
   gap: vars.spacing.lg,
   padding: vars.spacing.lg,
 });
 
 export const comparisonSection = style({
-  flex: "0 0 70%",
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  flex: '0 0 70%',
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.lg,
-  overflow: "hidden",
+  overflow: 'hidden',
 });
 
 export const detailSection = style({
-  flex: "0 0 30%",
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  flex: '0 0 30%',
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.lg,
   padding: vars.spacing.lg,
 });
 
 export const actionButtons = style({
-  display: "flex",
-  justifyContent: "center",
+  display: 'flex',
+  justifyContent: 'center',
   gap: vars.spacing.lg,
   padding: vars.spacing.lg,
   borderTop: `1px solid ${vars.colors.glassBorder}`,
@@ -59,61 +61,61 @@ export const actionButtons = style({
 
 export const retryButton = style({
   backgroundColor: vars.colors.secondary,
-  color: "white",
-  border: "none",
+  color: 'white',
+  border: 'none',
   borderRadius: vars.borderRadius.md,
   padding: `${vars.spacing.md} ${vars.spacing.xl}`,
   fontSize: vars.fontSize.md,
   fontWeight: vars.fontWeight.semibold,
-  cursor: "pointer",
+  cursor: 'pointer',
   transition: vars.transitions.normal,
 });
 
 export const completeButton = style({
   backgroundColor: vars.colors.primary,
-  color: "white",
-  border: "none",
+  color: 'white',
+  border: 'none',
   borderRadius: vars.borderRadius.md,
   padding: `${vars.spacing.md} ${vars.spacing.xl}`,
   fontSize: vars.fontSize.md,
   fontWeight: vars.fontWeight.semibold,
-  cursor: "pointer",
+  cursor: 'pointer',
   transition: vars.transitions.normal,
 });
 
 // 탭 관련 스타일
 export const tabsContainer = style({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const tabsHeader = style({
-  display: "flex",
+  display: 'flex',
   borderBottom: `2px solid ${vars.colors.glassBorder}`,
 });
 
 export const tabButton = style({
   flex: 1,
   padding: vars.spacing.md,
-  backgroundColor: "transparent",
-  border: "none",
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   gap: vars.spacing.sm,
   transition: vars.transitions.normal,
   color: vars.colors.textMuted,
 
-  ":hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
+  ':hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
 });
 
 export const tabButtonActive = style({
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
   color: vars.colors.primary,
   borderBottom: `2px solid ${vars.colors.primary}`,
 });
@@ -130,15 +132,15 @@ export const tabLabel = style({
 export const tabContent = style({
   flex: 1,
   padding: vars.spacing.lg,
-  overflow: "auto",
+  overflow: 'auto',
 });
 
 // 상세 분석 패널 스타일
 export const detailPanel = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.xl,
-  height: "100%",
+  height: '100%',
 });
 
 export const scoreSection = style({
@@ -157,9 +159,9 @@ export const scoreItem = style({
 });
 
 export const scoreLabel = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   marginBottom: vars.spacing.sm,
   fontSize: vars.fontSize.md,
   color: vars.colors.text,
@@ -171,30 +173,30 @@ export const scoreValue = style({
 });
 
 export const progressBar = style({
-  height: "8px",
-  backgroundColor: "rgba(255, 255, 255, 0.2)",
+  height: '8px',
+  backgroundColor: 'rgba(255, 255, 255, 0.2)',
   borderRadius: vars.borderRadius.full,
-  overflow: "hidden",
+  overflow: 'hidden',
 });
 
 export const progressFill = style({
-  height: "100%",
+  height: '100%',
   borderRadius: vars.borderRadius.full,
-  transition: "width 1s ease",
+  transition: 'width 1s ease',
 });
 
 export const feedbackSection = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.md,
 });
 
 export const affinityChange = style({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   gap: vars.spacing.sm,
   padding: vars.spacing.md,
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
   borderRadius: vars.borderRadius.md,
 });
 
@@ -203,26 +205,26 @@ export const affinityIcon = style({
 });
 
 export const affinityText = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.xs,
 });
 
 export const affinityValue = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.bold,
-  color: "#4CAF50",
+  color: '#4CAF50',
 });
 
 export const npcReaction = style({
   padding: vars.spacing.md,
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.md,
 });
 
 export const reactionHeader = style({
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   gap: vars.spacing.sm,
   marginBottom: vars.spacing.sm,
 });
@@ -238,28 +240,28 @@ export const reactionLabel = style({
 
 export const reactionText = style({
   fontSize: vars.fontSize.md,
-  fontStyle: "italic",
+  fontStyle: 'italic',
   lineHeight: 1.5,
 });
 
 // 추가 스타일들...
 export const spectrogramContainer = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.lg,
-  height: "100%",
+  height: '100%',
 });
 
 export const audioSection = style({
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.md,
   padding: vars.spacing.md,
 });
 
 export const audioHeader = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   marginBottom: vars.spacing.sm,
 });
 
@@ -271,33 +273,33 @@ export const audioTitle = style({
 
 export const playButton = style({
   backgroundColor: vars.colors.primary,
-  color: "white",
-  border: "none",
+  color: 'white',
+  border: 'none',
   borderRadius: vars.borderRadius.sm,
   padding: `${vars.spacing.xs} ${vars.spacing.sm}`,
-  cursor: "pointer",
+  cursor: 'pointer',
 });
 
 export const spectrogramWrapper = style({
-  backgroundColor: "rgba(0, 0, 0, 0.3)",
+  backgroundColor: 'rgba(0, 0, 0, 0.3)',
   borderRadius: vars.borderRadius.sm,
-  overflow: "hidden",
+  overflow: 'hidden',
 });
 
 export const waveform = style({
-  width: "100%",
+  width: '100%',
 });
 
 export const divider = style({
-  height: "1px",
+  height: '1px',
   backgroundColor: vars.colors.glassBorder,
   margin: `${vars.spacing.sm} 0`,
 });
 
 export const analysisResult = style({
-  textAlign: "center",
+  textAlign: 'center',
   padding: vars.spacing.md,
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
   borderRadius: vars.borderRadius.md,
 });
 
@@ -314,30 +316,30 @@ export const resultDescription = style({
 });
 
 export const loadingContainer = style({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "300px",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '300px',
   fontSize: vars.fontSize.lg,
   color: vars.colors.textSecondary,
 });
 
 export const loadingSpinner = style({
-  fontSize: "24px",
+  fontSize: '24px',
   marginBottom: vars.spacing.md,
-  animation: "spin 1s linear infinite",
+  animation: 'spin 1s linear infinite',
 });
 
 export const waveformsContainer = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.lg,
   marginBottom: vars.spacing.lg,
 });
 
 export const waveformSection = style({
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.md,
   padding: vars.spacing.md,
 });
@@ -360,26 +362,26 @@ export const waveformTitle = style({
 // });
 
 export const spinner = style({
-  fontSize: "2rem",
-  animation: "spin 1s linear infinite",
+  fontSize: '2rem',
+  animation: 'spin 1s linear infinite',
 });
 
 export const errorContainer = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "300px",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '300px',
   color: vars.colors.error,
 });
 
 export const analysisGrid = style({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
   gap: vars.spacing.lg,
 });
 
 export const analysisColumn = style({
-  "& h4": {
+  '& h4': {
     marginBottom: vars.spacing.sm,
     color: vars.colors.text,
     fontWeight: vars.fontWeight.semibold,
@@ -393,14 +395,14 @@ export const similarityScore = style({
 
 // PitchContourTab 전용 스타일
 export const pitchContainer = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.lg,
-  height: "600px",
+  height: '600px',
 });
 
 export const pitchHeader = style({
-  textAlign: "center",
+  textAlign: 'center',
   marginBottom: vars.spacing.md,
 });
 
@@ -411,36 +413,36 @@ export const pitchInfo = style({
 });
 
 export const chartsContainer = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.md,
   marginBottom: vars.spacing.lg,
 });
 
 export const chartContainer = style({
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
+  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.md,
   padding: vars.spacing.md,
 });
 
 export const pitchCanvas = style({
-  width: "100%",
-  height: "250px",
-  backgroundColor: "rgba(0, 0, 0, 0.1)",
+  width: '100%',
+  height: '250px',
+  backgroundColor: 'rgba(0, 0, 0, 0.1)',
   borderRadius: vars.borderRadius.sm,
 });
 
 export const pitchAnalysis = style({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   gap: vars.spacing.md,
 });
 
 export const analyzingMessage = style({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "300px",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '300px',
   gap: vars.spacing.md,
 });

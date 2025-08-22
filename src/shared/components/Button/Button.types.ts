@@ -1,14 +1,18 @@
 // src/shared/components/Button/Button.types.ts
 
+import { CSSProperties } from 'react';
+
 export type ButtonVariant =
   | 'main'
+  | 'mainSolid'
   | 'sub'
+  | 'subSolid'
   | 'accent'
   | 'choice'
   | 'love'
   | 'special'
   | 'gender'
-  | 'silver'
+  | 'purple'
   | 'sunset';
 
 export type ButtonSize = 'small' | 'medium' | 'large' | 'xlarge' | 'custom';
@@ -32,6 +36,7 @@ export interface ButtonProps {
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   className?: string;
+  style?: CSSProperties; // style prop 추가
   loading?: boolean;
   genderType?: GenderButton;
   choiceIndex?: number;
