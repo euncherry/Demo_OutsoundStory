@@ -1,24 +1,21 @@
 // src/features/pronunciation/components/ResultsStage.tsx
-import React from "react";
-import { motion } from "framer-motion";
-import { usePronunciationStore } from "@/store/pronunciationStore";
-import { ComparisonTabs } from "./ComparisonTabs.tsx";
-import { DetailAnalysis } from "./DetailAnalysis.tsx";
-import * as styles from "./ResultsStage.css.ts";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { usePronunciationStore } from '@/store/pronunciationStore';
+import { ComparisonTabs } from './ComparisonTabs.tsx';
+import { DetailAnalysis } from './DetailAnalysis.tsx';
+import * as styles from './ResultsStage.css.ts';
+import { Button3D } from '@/shared/components/3DButton';
 
 interface ResultsStageProps {
   onComplete: () => void;
 }
 
 export function ResultsStage({ onComplete }: ResultsStageProps) {
-  const {
-    analysisResult,
-    currentContext,
-    setCurrentStage,
-  } = usePronunciationStore();
+  const { analysisResult, currentContext, setCurrentStage } = usePronunciationStore();
 
   const handleRetry = () => {
-    setCurrentStage("prepare");
+    setCurrentStage('prepare');
   };
 
   if (!analysisResult || !currentContext) return null;
@@ -26,7 +23,7 @@ export function ResultsStage({ onComplete }: ResultsStageProps) {
   return (
     <motion.div
       className={styles.resultsContainer}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
@@ -47,32 +44,37 @@ export function ResultsStage({ onComplete }: ResultsStageProps) {
 
         {/* 상세 분석 영역 (30%) */}
         <div className={styles.detailSection}>
-          <DetailAnalysis
-            result={analysisResult}
-            npcId={currentContext.npcId}
-          />
+          <DetailAnalysis result={analysisResult} npcId={currentContext.npcId} />
         </div>
       </div>
 
       {/* 하단 액션 버튼 */}
       <div className={styles.actionButtons}>
-        <motion.button
+        {/* <motion.button
           className={styles.retryButton}
           onClick={handleRetry}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           다시하기
-        </motion.button>
+        </motion.button> */}
 
-        <motion.button
+        <Button3D variant="purple" size="medium" onClick={handleRetry}>
+          다시하기
+        </Button3D>
+
+        {/* <motion.button
           className={styles.completeButton}
           onClick={onComplete}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           완료
-        </motion.button>
+        </motion.button> */}
+
+        <Button3D variant="pink" size="medium" onClick={onComplete}>
+          완료
+        </Button3D>
       </div>
     </motion.div>
   );

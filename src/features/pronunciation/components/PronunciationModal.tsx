@@ -75,6 +75,7 @@ export function PronunciationModal({
       opacity: 0,
       scale: 0.8,
       filter: 'blur(10px)',
+      transform: 'translate(-50%, -50%)',
     },
     visible: {
       opacity: 1,
@@ -83,7 +84,7 @@ export function PronunciationModal({
       transform: 'translate(-50%, -50%)',
 
       transition: {
-        duration: 0.5,
+        // duration: 0.5,
       },
     },
     exit: {
@@ -215,15 +216,15 @@ export function PronunciationModal({
 
               {currentStage === 'results' && (
                 <motion.div
-                  key="results"
-                  initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{
-                    duration: 0.5,
-                    type: 'spring',
-                    stiffness: 200,
-                  }}
+                // key="results"
+                // initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+                // animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                // exit={{ opacity: 0, scale: 0.9 }}
+                // transition={{
+                //   duration: 0.5,
+                //   type: 'spring',
+                //   stiffness: 200,
+                // }}
                 >
                   <ResultsStage onComplete={handleComplete} />
                 </motion.div>

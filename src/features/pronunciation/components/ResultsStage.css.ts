@@ -281,7 +281,7 @@ export const playButton = style({
 });
 
 export const spectrogramWrapper = style({
-  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  backgroundColor: 'rgba(0, 0, 0, 0.05)',
   borderRadius: vars.borderRadius.sm,
   overflow: 'hidden',
 });

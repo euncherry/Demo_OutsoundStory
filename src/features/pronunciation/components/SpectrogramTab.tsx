@@ -1,8 +1,8 @@
 // src/features/pronunciation/components/SpectrogramTab.tsx
-import React, { useRef, useEffect, useState } from "react";
-import { usePronunciationStore } from "@/store/pronunciationStore";
-import { useWavesurfer } from "@/features/pronunciation/hooks/useWavesurfer.ts";
-import * as styles from "./ResultsStage.css.ts";
+import React, { useRef, useEffect, useState } from 'react';
+import { usePronunciationStore } from '@/store/pronunciationStore';
+import { useWavesurfer } from '@/features/pronunciation/hooks/useWavesurfer.ts';
+import * as styles from './ResultsStage.css.ts';
 
 export function SpectrogramTab() {
   const { currentContext, recordedAudioBlob } = usePronunciationStore();
@@ -35,21 +35,20 @@ export function SpectrogramTab() {
 
     const wavesurfer = createStandardWS(standardWaveformRef.current, {
       height: 120,
-      waveColor: "rgba(100, 0, 100, 0.6)",
-      progressColor: "rgb(100, 0, 100)",
+      waveColor: 'rgba(100, 0, 100, 0.6)',
+      progressColor: 'rgb(100, 0, 100)',
     });
 
     // 스펙트로그램 추가
     addStandardSpectrogram({
       height: 150,
       labels: true,
-      scale: "mel",
+      scale: 'mel',
     });
 
     // 표준 음성 로드
     loadStandardAudio(
-      currentContext.audioReference ||
-        "/src/assets/audio/references/Default.wav"
+      currentContext.audioReference || '/src/assets/audio/references/Default.wav',
     );
 
     return destroyStandard;
@@ -61,15 +60,15 @@ export function SpectrogramTab() {
 
     const wavesurfer = createUserWS(userWaveformRef.current, {
       height: 120,
-      waveColor: "rgba(200, 100, 0, 0.6)",
-      progressColor: "rgb(200, 100, 0)",
+      waveColor: 'rgba(200, 100, 0, 0.6)',
+      progressColor: 'rgb(200, 100, 0)',
     });
 
     // 스펙트로그램 추가
     addUserSpectrogram({
       height: 150,
       labels: true,
-      scale: "mel",
+      scale: 'mel',
     });
 
     // 녹음된 음성 로드
@@ -85,7 +84,7 @@ export function SpectrogramTab() {
         <div className={styles.audioHeader}>
           <h3 className={styles.audioTitle}>표준 발음</h3>
           <button className={styles.playButton} onClick={playStandardAudio}>
-            {isStandardPlaying ? "⏸️" : "▶️"}
+            {isStandardPlaying ? '⏸️' : '▶️'}
           </button>
         </div>
         <div className={styles.spectrogramWrapper}>
@@ -101,7 +100,7 @@ export function SpectrogramTab() {
         <div className={styles.audioHeader}>
           <h3 className={styles.audioTitle}>내 발음</h3>
           <button className={styles.playButton} onClick={playUserAudio}>
-            {isUserPlaying ? "⏸️" : "▶️"}
+            {isUserPlaying ? '⏸️' : '▶️'}
           </button>
         </div>
         <div className={styles.spectrogramWrapper}>

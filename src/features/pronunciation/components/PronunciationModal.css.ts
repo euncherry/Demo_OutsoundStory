@@ -63,8 +63,7 @@ export const modalContainer = style({
   maxWidth: '1100px',
   height: '90dvh',
   // maxHeight: '700px',
-  background:
-    'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 235, 255, 0.9))',
+  background: 'linear-gradient(135deg, rgb(242, 242, 255),rgba(240, 235, 255, 1))',
   backdropFilter: 'blur(20px) saturate(180%)',
   borderRadius: '30px',
   border: '2px solid rgba(255, 255, 255, 0.8)',
@@ -75,7 +74,8 @@ export const modalContainer = style({
     inset 0 -1px 0 rgba(255, 255, 255, 0.5)
   `,
   zIndex: 1001,
-  overflow: 'hidden',
+  // overflow: 'hidden',
+  overflowY: 'auto',
 
   '::before': {
     content: '""',
@@ -159,8 +159,9 @@ export const stageSubtitle = style({
 
 // PrepareStage 스타일
 export const textDisplay = style({
+  // background : 'rgb(230 220 255)',
   background:
-    'linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(230, 220, 255, 0.6))',
+    'linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(230, 220, 255, 0.6), rgba(230, 220, 255, 0.6))',
   boxShadow:
     '0 8px 20px rgba(230, 220, 255, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.8)',
   borderRadius: '20px',
