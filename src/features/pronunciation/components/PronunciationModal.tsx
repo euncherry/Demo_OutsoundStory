@@ -247,57 +247,6 @@ export function PronunciationModal({
             >
               ✕
             </motion.button>
-
-            {/* 장식 요소 - 왼쪽 상단 */}
-            <motion.div
-              style={{
-                position: 'absolute',
-                top: '-50px',
-                left: '-50px',
-                width: '150px',
-                height: '150px',
-                borderRadius: '50%',
-                background:
-                  'radial-gradient(circle, rgba(255, 200, 220, 0.2), transparent)',
-                filter: 'blur(40px)',
-                pointerEvents: 'none',
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-
-            {/* 장식 요소 - 오른쪽 하단 */}
-            <motion.div
-              style={{
-                position: 'absolute',
-                bottom: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                borderRadius: '50%',
-                background:
-                  'radial-gradient(circle, rgba(230, 220, 255, 0.2), transparent)',
-                filter: 'blur(40px)',
-                pointerEvents: 'none',
-              }}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 1,
-              }}
-            />
           </motion.div>
         </>
       )}

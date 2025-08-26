@@ -39,16 +39,26 @@ export const resultsContent = style({
 
 export const comparisonSection = style({
   flex: '0 0 70%',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  borderRadius: vars.borderRadius.lg,
+  background:
+    'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 250, 0.85))',
+  borderRadius: '20px',
   overflow: 'hidden',
+  border: '1px solid rgba(255, 255, 255, 0.95)',
+  backdropFilter: 'blur(10px)',
+  boxShadow:
+    '0 10px 30px rgba(230, 220, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
 });
 
 export const detailSection = style({
   flex: '0 0 30%',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
   borderRadius: vars.borderRadius.lg,
   padding: vars.spacing.lg,
+  background:
+    'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 237, 255, 0.85))',
+  border: '1px solid rgba(255, 255, 255, 0.95)',
+  backdropFilter: 'blur(10px)',
+  boxShadow:
+    '0 10px 30px rgba(230, 220, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
 });
 
 export const actionButtons = style({
