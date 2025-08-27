@@ -5,27 +5,10 @@ import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "@/features/pronunciation/hooks/useAudioRecorder";
 import * as styles from "./PronunciationModal.css.ts";
 import { Button } from "@/shared/components/Button";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
 
 export function RecordingStage() {
-  const {
-    setCurrentStage,
-    setRecordedAudioBlob,
-    currentContext,
-    setSttTranscript,
-  } = usePronunciationStore();
+  const { setCurrentStage, setRecordedAudioBlob } = usePronunciationStore();
   const recordingWaveformRef = useRef<HTMLDivElement>(null);
-
-  // react-speech-recognition 훅
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-    isMicrophoneAvailable,
-  } = useSpeechRecognition();
 
   const {
     initializeRecorder,
@@ -41,28 +24,14 @@ export function RecordingStage() {
 
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // 브라우저 지원 체크
-  useEffect(() => {
-    if (!browserSupportsSpeechRecognition) {
-      console.warn("브라우저가 음성 인식을 지원하지 않습니다.");
-    }
-    if (!isMicrophoneAvailable) {
-      console.warn("마이크를 사용할 수 없습니다.");
-    }
-  }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
-
-  // wavesurfer 초기화 STT 정리
+  // wavesurfer 초기화
   useEffect(() => {
     if (!recordingWaveformRef.current) return;
 
     initializeRecorder(recordingWaveformRef.current);
     setIsInitialized(true);
 
-    return () => {
-      cleanup();
-      // STT 정리
-      SpeechRecognition.stopListening();
-    };
+    return cleanup;
   }, [initializeRecorder, cleanup]);
 
   // 자동으로 녹음 시작
@@ -74,24 +43,8 @@ export function RecordingStage() {
           console.error("Failed to start recording automatically");
         }
       });
-
-      // STT 시작
-      if (browserSupportsSpeechRecognition) {
-        resetTranscript(); // 이전 텍스트 초기화
-        SpeechRecognition.startListening({
-          continuous: true, // 계속 듣기
-          language: "ko-KR", // 한국어 설정
-        });
-        console.log("🎤 STT started listening...");
-      }
     }
-  }, [
-    isInitialized,
-    startRecording,
-    browserSupportsSpeechRecognition,
-    isRecording,
-    resetTranscript,
-  ]);
+  }, [isInitialized, startRecording, isRecording]);
 
   // 녹음 완료 처리
   useEffect(() => {
@@ -112,68 +65,10 @@ export function RecordingStage() {
 
   const handleStopRecording = () => {
     stopRecording();
-
-    // STT 중지
-    if (listening) {
-      SpeechRecognition.stopListening();
-      console.log("🔴 STT stopped");
-    }
-
-    // 최종 STT 결과 출력
-    console.log("================== STT 최종 결과 ==================");
-    console.log("📝 인식된 텍스트:", transcript || "(인식된 텍스트 없음)");
-    console.log(
-      "📖 원본 텍스트:",
-      currentContext?.text || "(원본 텍스트 없음)"
-    );
-
-    //ANCHOR ✅ STT 결과를 store에 저장
-    setSttTranscript(transcript || "");
-
-    // CER 계산 (간단한 비교)
-    if (transcript && currentContext?.text) {
-      const similarity = calculateSimpleSimilarity(
-        currentContext.text,
-        transcript
-      );
-      console.log("✅ 텍스트 유사도:", `${(similarity * 100).toFixed(1)}%`);
-    }
-    console.log("==================================================");
-  };
-
-  // 간단한 텍스트 유사도 계산 함수
-  const calculateSimpleSimilarity = (text1: string, text2: string): number => {
-    const clean1 = text1.replace(/\s/g, "").toLowerCase();
-    const clean2 = text2.replace(/\s/g, "").toLowerCase();
-
-    let matches = 0;
-    const maxLength = Math.max(clean1.length, clean2.length);
-    const minLength = Math.min(clean1.length, clean2.length);
-
-    for (let i = 0; i < minLength; i++) {
-      if (clean1[i] === clean2[i]) matches++;
-    }
-
-    return maxLength > 0 ? matches / maxLength : 0;
   };
 
   const handlePauseResume = () => {
     pauseRecording();
-    if (isPaused) {
-      // 재녹음
-      if (browserSupportsSpeechRecognition) {
-        SpeechRecognition.startListening({
-          continuous: true,
-          language: "ko-KR",
-        });
-        console.log("▶️ STT resumed");
-      }
-      console.log("⏸️ true STT paused");
-    } else {
-      SpeechRecognition.stopListening();
-      //일시정지 클릭
-      console.log("⏸️ false STT paused");
-    }
   };
 
   return (
@@ -189,15 +84,7 @@ export function RecordingStage() {
         </h2>
         <p className={styles.stageSubtitle}>자연스럽게 따라 말해보세요</p>
       </div>
-      {/* 선택한 텍스트 표시 */}
-      <motion.div
-        className={styles.textDisplay}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <p className={styles.choiceText}>"{currentContext?.text}"</p>
-      </motion.div>
+
       {/* 실시간 파형 표시 */}
       <div className={styles.recordingSection}>
         <div className={styles.waveformContainer}>
@@ -213,27 +100,7 @@ export function RecordingStage() {
             ⏱️ {formatTime(recordingTime)}
           </span>
         </div>
-        {/* STT 상태 표시 (디버깅용) */}
-        {browserSupportsSpeechRecognition && (
-          <div
-            className={styles.sttStatus}
-            style={{ marginTop: "10px", fontSize: "12px", color: "#666" }}
-          >
-            <span>🎙️ STT: {listening ? "듣는 중" : "중지"}</span>
-            {transcript && (
-              <div
-                style={{
-                  marginTop: "5px",
-                  padding: "5px",
-                  backgroundColor: "#f0f0f0",
-                  borderRadius: "4px",
-                }}
-              >
-                인식 중: {transcript}
-              </div>
-            )}
-          </div>
-        )}
+
         {/* 녹음 상태 인디케이터 */}
 
         {isPaused ? (
@@ -281,6 +148,15 @@ export function RecordingStage() {
 
       {/* 컨트롤 버튼들 */}
       <div className={styles.recordingControls}>
+        {/* <motion.button
+          className={styles.pauseButton}
+          onClick={handlePauseResume}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isPaused ? '▶️ 재개' : '⏸️ 일시정지'}
+        </motion.button> */}
+
         <Button
           variant="sub"
           size="small"
@@ -304,6 +180,15 @@ export function RecordingStage() {
         >
           녹음 완료
         </Button>
+        {/* 
+        <motion.button
+          className={styles.stopButton}
+          onClick={handleStopRecording}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          ⏹️ 녹음 완료
+        </motion.button> */}
       </div>
 
       {/* 안내 메시지 */}

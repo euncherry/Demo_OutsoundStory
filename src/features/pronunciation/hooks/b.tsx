@@ -1,13 +1,13 @@
 // src/features/pronunciation/components/RecordingStage.tsx
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "@/features/pronunciation/hooks/useAudioRecorder";
 import * as styles from "./PronunciationModal.css.ts";
 import { Button } from "@/shared/components/Button";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
 
 export function RecordingStage() {
   const {
@@ -40,6 +40,7 @@ export function RecordingStage() {
   } = useAudioRecorder();
 
   const [isInitialized, setIsInitialized] = useState(false);
+  const [finalTranscript, setFinalTranscript] = useState<string>("");
 
   // 브라우저 지원 체크
   useEffect(() => {
@@ -51,7 +52,7 @@ export function RecordingStage() {
     }
   }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
 
-  // wavesurfer 초기화 STT 정리
+  // wavesurfer 초기화
   useEffect(() => {
     if (!recordingWaveformRef.current) return;
 
@@ -61,14 +62,18 @@ export function RecordingStage() {
     return () => {
       cleanup();
       // STT 정리
-      SpeechRecognition.stopListening();
+      if (listening) {
+        SpeechRecognition.stopListening();
+      }
     };
-  }, [initializeRecorder, cleanup]);
+  }, [initializeRecorder, cleanup, listening]);
 
-  // 자동으로 녹음 시작
+  // 자동으로 녹음 & STT 시작
   useEffect(() => {
     if (isInitialized && !isRecording) {
-      console.log("Attempting to start recording...");
+      console.log("Attempting to start recording and STT...");
+
+      // 녹음 시작
       startRecording().then((success) => {
         if (!success) {
           console.error("Failed to start recording automatically");
@@ -88,18 +93,31 @@ export function RecordingStage() {
   }, [
     isInitialized,
     startRecording,
-    browserSupportsSpeechRecognition,
     isRecording,
+    browserSupportsSpeechRecognition,
     resetTranscript,
   ]);
+
+  // 실시간 transcript 변경 감지 (디버깅용)
+  useEffect(() => {
+    if (transcript) {
+      console.log("📝 실시간 STT 결과:", transcript);
+    }
+  }, [transcript]);
 
   // 녹음 완료 처리
   useEffect(() => {
     if (recordedBlob) {
+      // STT 결과 저장
+      setFinalTranscript(transcript);
+
+      // 상태 업데이트
       setRecordedAudioBlob(recordedBlob);
+
+      // 다음 단계로 이동
       setCurrentStage("analyzing");
     }
-  }, [recordedBlob, setRecordedAudioBlob, setCurrentStage]);
+  }, [recordedBlob, transcript, setRecordedAudioBlob, setCurrentStage]);
 
   const formatTime = (milliseconds: number) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -111,6 +129,7 @@ export function RecordingStage() {
   };
 
   const handleStopRecording = () => {
+    // 녹음 중지
     stopRecording();
 
     // STT 중지
@@ -139,6 +158,46 @@ export function RecordingStage() {
       console.log("✅ 텍스트 유사도:", `${(similarity * 100).toFixed(1)}%`);
     }
     console.log("==================================================");
+
+    // 최종 transcript 저장
+    setFinalTranscript(transcript);
+  };
+
+  const handlePauseResume = () => {
+    // // 현재 상태를 먼저 확인하고, 반대로 동작
+    // if (!isPaused) {
+    //   // 현재 녹음 중 → 일시정지로 변경
+    //   pauseRecording();
+
+    //   // STT도 일시정지
+    //   if (listening) {
+    //     SpeechRecognition.stopListening();
+    //     console.log("⏸️ STT paused");
+    //   }
+    // } else {
+    //   // 현재 일시정지 → 재개로 변경
+    //   pauseRecording();
+
+    //   // STT도 재개
+    //   if (browserSupportsSpeechRecognition) {
+    //     SpeechRecognition.startListening({
+    //       continuous: true,
+    //       language: "ko-KR",
+    //     });
+    //     console.log("▶️ STT resumed");
+    //   }
+    // }
+
+    // {isPaused ? "재개" : "일시정지"}
+
+    pauseRecording();
+    if (isPaused) {
+      SpeechRecognition.stopListening();
+      console.log("⏸️ true STT paused");
+    } else {
+      SpeechRecognition.stopListening();
+      console.log("⏸️ false STT paused");
+    }
   };
 
   // 간단한 텍스트 유사도 계산 함수
@@ -157,25 +216,6 @@ export function RecordingStage() {
     return maxLength > 0 ? matches / maxLength : 0;
   };
 
-  const handlePauseResume = () => {
-    pauseRecording();
-    if (isPaused) {
-      // 재녹음
-      if (browserSupportsSpeechRecognition) {
-        SpeechRecognition.startListening({
-          continuous: true,
-          language: "ko-KR",
-        });
-        console.log("▶️ STT resumed");
-      }
-      console.log("⏸️ true STT paused");
-    } else {
-      SpeechRecognition.stopListening();
-      //일시정지 클릭
-      console.log("⏸️ false STT paused");
-    }
-  };
-
   return (
     <motion.div
       className={styles.stageContainer}
@@ -189,15 +229,7 @@ export function RecordingStage() {
         </h2>
         <p className={styles.stageSubtitle}>자연스럽게 따라 말해보세요</p>
       </div>
-      {/* 선택한 텍스트 표시 */}
-      <motion.div
-        className={styles.textDisplay}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <p className={styles.choiceText}>"{currentContext?.text}"</p>
-      </motion.div>
+
       {/* 실시간 파형 표시 */}
       <div className={styles.recordingSection}>
         <div className={styles.waveformContainer}>
@@ -213,6 +245,7 @@ export function RecordingStage() {
             ⏱️ {formatTime(recordingTime)}
           </span>
         </div>
+
         {/* STT 상태 표시 (디버깅용) */}
         {browserSupportsSpeechRecognition && (
           <div
@@ -234,8 +267,8 @@ export function RecordingStage() {
             )}
           </div>
         )}
-        {/* 녹음 상태 인디케이터 */}
 
+        {/* 녹음 상태 인디케이터 */}
         {isPaused ? (
           <div
             className={styles.recordingIndicator}
@@ -312,6 +345,11 @@ export function RecordingStage() {
           📢 마이크에 대고 명확하게 발음해주세요
         </p>
         <p className={styles.guideText}>최대 30초까지 녹음 가능합니다</p>
+        {!browserSupportsSpeechRecognition && (
+          <p className={styles.guideText} style={{ color: "#ff6b6b" }}>
+            ⚠️ 브라우저가 음성 인식을 지원하지 않습니다
+          </p>
+        )}
       </div>
     </motion.div>
   );

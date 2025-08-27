@@ -18,21 +18,24 @@ interface PronunciationState {
   standardAudioUrl: string | null;
   recordedAudioBlob: Blob | null;
 
+  // STT 결과
+  sttTranscript: string | null;
+
   // 분석 결과
-  analysisResult: {
-    totalScore: number;
-    pitchScore: number;
-    rhythmScore: number;
-    clarityScore: number;
-    affinityChange: number;
-  } | null;
+  // analysisResult: {
+  //   totalScore: number;
+  //   pitchScore: number;
+  //   rhythmScore: number;
+  //   clarityScore: number;
+  //   affinityChange: number;
+  // } | null;
 
   // Actions
   setCurrentStage: (stage: PronunciationState["currentStage"]) => void;
   setCurrentContext: (context: PronunciationState["currentContext"]) => void;
-  setStandardAudioUrl: (url: string) => void;
   setRecordedAudioBlob: (blob: Blob) => void;
-  setAnalysisResult: (result: PronunciationState["analysisResult"]) => void;
+  setSttTranscript: (transcript: string | null) => void;
+  // setAnalysisResult: (result: PronunciationState["analysisResult"]) => void;
   reset: () => void;
 }
 
@@ -44,21 +47,28 @@ export const usePronunciationStore = create<PronunciationState>()(
       currentContext: null,
       standardAudioUrl: null,
       recordedAudioBlob: null,
+      sttTranscript: null,
       analysisResult: null,
 
       // Actions
       setCurrentStage: (stage) => set({ currentStage: stage }),
-      setCurrentContext: (context) => set({ currentContext: context }),
-      setStandardAudioUrl: (url) => set({ standardAudioUrl: url }),
+      setCurrentContext: (context) =>
+        set({
+          currentContext: context,
+          standardAudioUrl: context?.audioReference || null,
+        }),
       setRecordedAudioBlob: (blob) => set({ recordedAudioBlob: blob }),
-      setAnalysisResult: (result) => set({ analysisResult: result }),
+      setSttTranscript: (transcript) => set({ sttTranscript: transcript }),
+
+      // setAnalysisResult: (result) => set({ analysisResult: result }),
       reset: () =>
         set({
           currentStage: "prepare",
           currentContext: null,
           standardAudioUrl: null,
           recordedAudioBlob: null,
-          analysisResult: null,
+          sttTranscript: null,
+          // analysisResult: null,
         }),
     }),
     { name: "PronunciationStore" }

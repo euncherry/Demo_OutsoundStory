@@ -1,21 +1,24 @@
 // src/features/pronunciation/components/ResultsStage.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import { usePronunciationStore } from '@/store/pronunciationStore';
-import { ComparisonTabs } from './ComparisonTabs.tsx';
-import { DetailAnalysis } from './DetailAnalysis.tsx';
-import * as styles from './ResultsStage.css.ts';
-import { Button3D } from '@/shared/components/3DButton';
+import React from "react";
+import { motion } from "framer-motion";
+import { usePronunciationStore } from "@/store/pronunciationStore";
+import { useScoreStore } from "@/store/scoreStore";
+import { ComparisonTabs } from "./ComparisonTabs.tsx";
+import { DetailAnalysis } from "./DetailAnalysis.tsx";
+import * as styles from "./ResultsStage.css.ts";
+import { Button3D } from "@/shared/components/3DButton";
 
 interface ResultsStageProps {
   onComplete: () => void;
 }
 
 export function ResultsStage({ onComplete }: ResultsStageProps) {
-  const { analysisResult, currentContext, setCurrentStage } = usePronunciationStore();
+  const { currentContext, setCurrentStage } = usePronunciationStore();
+
+  const { analysisResult } = useScoreStore();
 
   const handleRetry = () => {
-    setCurrentStage('prepare');
+    setCurrentStage("prepare");
   };
 
   if (!analysisResult || !currentContext) return null;
@@ -44,7 +47,10 @@ export function ResultsStage({ onComplete }: ResultsStageProps) {
 
         {/* 상세 분석 영역 (30%) */}
         <div className={styles.detailSection}>
-          <DetailAnalysis result={analysisResult} npcId={currentContext.npcId} />
+          <DetailAnalysis
+            result={analysisResult}
+            npcId={currentContext.npcId}
+          />
         </div>
       </div>
 

@@ -150,7 +150,7 @@
         },
         {
           "id": "choice3",
-          "text": "현실적이긴 하지만... 좀 차갑게 느껴져요.",
+          "text": "안녕하세요 반갑습니다",
           "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -2
