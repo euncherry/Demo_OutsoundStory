@@ -21,14 +21,7 @@ interface PronunciationState {
   // STT 결과
   sttTranscript: string | null;
 
-  // 분석 결과
-  // analysisResult: {
-  //   totalScore: number;
-  //   pitchScore: number;
-  //   rhythmScore: number;
-  //   clarityScore: number;
-  //   affinityChange: number;
-  // } | null;
+
 
   // Actions
   setCurrentStage: (stage: PronunciationState["currentStage"]) => void;

@@ -180,8 +180,8 @@ export function PitchContourTab() {
         }
       );
 
-      console.log("Ref frequencies:", refFrequencies.length);
-      console.log("User frequencies:", userFrequencies.length);
+      // console.log("Ref frequencies:", refFrequencies.length);
+      // console.log("User frequencies:", userFrequencies.length);
 
       // 표준 발음 피치 데이터 계산
       const refValidFrequencies = refFrequencies.filter(
@@ -297,7 +297,7 @@ export function PitchContourTab() {
     baseFrequency: number,
     CanvasRef: React.RefObject<HTMLCanvasElement | null>
   ) => {
-    console.log("drawPitchContour", frequencies, baseFrequency, CanvasRef);
+    // console.log("drawPitchContour", frequencies, baseFrequency, CanvasRef);
     const canvas = CanvasRef.current;
     if (!canvas) {
       console.error("Canvas ref not found");

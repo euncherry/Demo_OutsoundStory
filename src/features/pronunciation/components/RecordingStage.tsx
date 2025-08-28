@@ -136,7 +136,7 @@ export function RecordingStage() {
         currentContext.text,
         transcript
       );
-      console.log("✅ 텍스트 유사도:", `${(similarity * 100).toFixed(1)}%`);
+      console.log("✅ 텍스트 유사도(simple):", `${(similarity * 100).toFixed(1)}%`);
     }
     console.log("==================================================");
   };

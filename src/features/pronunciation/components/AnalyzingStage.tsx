@@ -35,7 +35,7 @@ export function AnalyzingStage() {
   });
 
   useEffect(() => {
-    console.log("🔍 분석 시작 step : ", steps);
+    // console.log("🔍 분석 시작 step : ", steps);
     // 이미 분석이 시작되었거나 진행 중이면 실행하지 않음
     if (hasStartedRef.current || isAnalyzing) {
       return;

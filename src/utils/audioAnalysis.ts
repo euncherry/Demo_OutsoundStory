@@ -1,8 +1,13 @@
 // src/utils/audioAnalysis.ts
+
 // 오디오 전처리 → toMono, downsample, zeroMeanUnitVar
 // 파형 분석 → maxNormalizedCrossCorr, calculateRMSPattern
 // 피치 분석 → analyzePitchPattern
 // 텍스트 정확도 → calculateCER
+
+
+import { CERConfig, CER_PRESETS } from '@/types/pronunciation';
+
 
 //ANCHOR ============= 오디오 전처리 함수 =============
 export function toMono(audioBuffer: AudioBuffer): Float32Array {
@@ -127,6 +132,125 @@ export function calculateRMSPattern(
   return { segmentScores, averageScore };
 }
 
+//ANCHOR ============= Peak Amplitude 분석 =============
+export function calculatePeakAmplitudeScore(
+  refPeaks: number[][] | null,
+  userPeaks: number[][] | null,
+  windowSize = 10
+): {
+  peakScore: number;
+  alignmentScore: number;
+  magnitudeScore: number;
+} {
+  if (!refPeaks || !userPeaks || refPeaks.length === 0 || userPeaks.length === 0) {
+    return { peakScore: 0, alignmentScore: 0, magnitudeScore: 0 };
+  }
+
+  // 채널 0의 peak 데이터 추출 (모노 또는 첫 번째 채널)
+  const refAmplitudes = refPeaks[0] || [];
+  const userAmplitudes = userPeaks[0] || [];
+
+  // 길이 정규화 - 더 짧은 쪽에 맞춤
+  const minLength = Math.min(refAmplitudes.length, userAmplitudes.length);
+  const normalizedRef = refAmplitudes.slice(0, minLength);
+  const normalizedUser = userAmplitudes.slice(0, minLength);
+
+  // 1. Peak Magnitude 비교 (진폭 크기 유사도)
+  let magnitudeScore = 0;
+  for (let i = 0; i < minLength; i++) {
+    const refPeak = Math.abs(normalizedRef[i]);
+    const userPeak = Math.abs(normalizedUser[i]);
+    
+    // 두 peak 중 작은 값 / 큰 값으로 유사도 계산
+    const similarity = Math.min(refPeak, userPeak) / Math.max(refPeak, userPeak, 0.001);
+    magnitudeScore += similarity;
+  }
+  magnitudeScore = magnitudeScore / minLength;
+
+  // 2. Peak Pattern Alignment (peak 발생 위치/패턴 유사도)
+  const refPeakIndices = findPeakIndices(normalizedRef, 0.3); // 30% 이상인 peak 찾기
+  const userPeakIndices = findPeakIndices(normalizedUser, 0.3);
+  
+  let alignmentScore = 0;
+  if (refPeakIndices.length > 0 && userPeakIndices.length > 0) {
+    // 각 reference peak에 대해 가장 가까운 user peak 찾기
+    for (const refIdx of refPeakIndices) {
+      const closestUserIdx = findClosestPeak(refIdx, userPeakIndices, windowSize);
+      if (closestUserIdx !== -1) {
+        // 거리가 가까울수록 높은 점수
+        const distance = Math.abs(refIdx - closestUserIdx);
+        const score = Math.max(0, 1 - distance / windowSize);
+        alignmentScore += score;
+      }
+    }
+    alignmentScore = alignmentScore / refPeakIndices.length;
+  }
+
+  // 3. Peak Energy Distribution (에너지 분포 유사도)
+  const refEnergy = calculatePeakEnergy(normalizedRef);
+  const userEnergy = calculatePeakEnergy(normalizedUser);
+  const energyScore = Math.min(refEnergy, userEnergy) / Math.max(refEnergy, userEnergy, 0.001);
+
+  // 최종 Peak Score (가중 평균)
+  const peakScore = (
+    magnitudeScore * 0.4 +    // 진폭 크기 40%
+    alignmentScore * 0.4 +    // 위치 정렬 40%
+    energyScore * 0.2        // 에너지 분포 20%
+  );
+
+  console.log("🎯 Peak Analysis:", {
+    magnitudeScore: (magnitudeScore * 100).toFixed(1),
+    alignmentScore: (alignmentScore * 100).toFixed(1),
+    energyScore: (energyScore * 100).toFixed(1),
+    finalPeakScore: (peakScore * 100).toFixed(1)
+  });
+
+  return { peakScore, alignmentScore, magnitudeScore };
+}
+
+// Helper: Peak 인덱스 찾기
+function findPeakIndices(amplitudes: number[], threshold = 0.3): number[] {
+  const maxAmp = Math.max(...amplitudes.map(Math.abs));
+  const indices: number[] = [];
+  
+  for (let i = 1; i < amplitudes.length - 1; i++) {
+    const current = Math.abs(amplitudes[i]);
+    const prev = Math.abs(amplitudes[i - 1]);
+    const next = Math.abs(amplitudes[i + 1]);
+    
+    // Local maximum이면서 threshold 이상인 점
+    if (current > prev && current > next && current > maxAmp * threshold) {
+      indices.push(i);
+    }
+  }
+  
+  return indices;
+}
+
+// Helper: 가장 가까운 peak 찾기
+function findClosestPeak(target: number, peaks: number[], windowSize: number): number {
+  let closestIdx = -1;
+  let minDistance = windowSize;
+  
+  for (const peak of peaks) {
+    const distance = Math.abs(target - peak);
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestIdx = peak;
+    }
+  }
+  
+  return closestIdx;
+}
+
+// Helper: Peak 에너지 계산
+function calculatePeakEnergy(amplitudes: number[]): number {
+  return Math.sqrt(
+    amplitudes.reduce((sum, amp) => sum + amp * amp, 0) / amplitudes.length
+  );
+}
+
+
 //ANCHOR ============= Pitch Pattern Matching =============
 export function analyzePitchPattern(
   refFrequencies: (number | null)[],
@@ -179,10 +303,18 @@ export function analyzePitchPattern(
 //ANCHOR ============= CER (Character Error Rate) =============
 export function calculateCER(
   reference: string,
-  hypothesis: string
-): { cer: number; accuracy: number; errors: number } {
-  console.log("🔍🎵📈 reference : ", reference);
-  console.log("🔍🎵📈 hypothesis : ", hypothesis);
+  hypothesis: string,
+  config: CERConfig = CER_PRESETS.default
+): {
+  cer: number;
+  accuracy: number;
+  errors: number;
+  semanticScore: number;
+  adjustedCER: number;
+}{
+  console.log("🔍🎵📈 참조 텍스트 (reference) : ", reference);
+  console.log("🔍🎵📈 STT 한거 (hypothesis) : ", hypothesis);
+  
   const refChars = reference.replace(/\s/g, "").split("");
   const hypChars = hypothesis.replace(/\s/g, "").split("");
 
@@ -201,8 +333,8 @@ export function calculateCER(
     for (let j = 1; j <= n; j++) {
       const cost = refChars[i - 1] === hypChars[j - 1] ? 0 : 1;
       dp[i][j] = Math.min(
-        dp[i - 1][j] + 1, // 삭제
-        dp[i][j - 1] + 1, // 삽입
+        dp[i - 1][j] + 1,     // 삭제
+        dp[i][j - 1] + 1,     // 삽입
         dp[i - 1][j - 1] + cost // 치환
       );
     }
@@ -211,7 +343,30 @@ export function calculateCER(
   const errors = dp[m][n];
   const cer = m > 0 ? errors / m : 0;
   const accuracy = Math.max(0, 1 - cer);
-  console.log("🔍🎵📈 CER : ", cer);
-  console.log("🔍🎵📈 Accuracy : ", accuracy);
-  return { cer, accuracy, errors };
+  
+  // ✨ 새로운 SemanticScore 계산
+  const { tau, alpha, gamma } = config;
+  
+  // Step 1: Dead zone 적용 (미세 오차 무시)
+  const cerPrime = Math.max(0, cer - tau);
+  
+  // Step 2: Clamping with penalty strength
+  const base = Math.max(0, 1 - alpha * cerPrime);
+  
+  // Step 3: Curve shaping
+  const semanticScore = 100 * Math.pow(base, gamma);
+  
+  console.log("🎵🎵🎵 원본 CER : ", cer.toFixed(3));
+  console.log("🎵🎵🎵 Dead zone 적용 CER' : ", cerPrime.toFixed(3));
+  console.log("🎵🎵🎵 Base (클램프) : ", base.toFixed(3));
+  console.log("🎵🎵🎵 Semantic Score : ", semanticScore.toFixed(1));
+  console.log("🎵🎵🎵 기존 Accuracy : ", (accuracy * 100).toFixed(1) + "%");
+  
+  return { 
+    cer, 
+    accuracy, 
+    errors,
+    semanticScore: Math.round(semanticScore),
+    adjustedCER: cerPrime
+  };
 }

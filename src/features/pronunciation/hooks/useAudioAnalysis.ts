@@ -1,19 +1,21 @@
 // src/features/pronunciation/hooks/useAudioAnalysis.ts
 // 오디오 분석 훅
-// initializeAudio() → analyzeWaveform() → analyzePitch() → analyzeSpectrogram() → calculateFinalScore()
+// initializeAudio() → analyzeWaveform() → analyzePitch() → analyzeSpectrogram() → analyzeCER() → calculateFinalScore()
 
 import { useCallback, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
 import Pitchfinder from "pitchfinder";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
-import { ANALYSIS_STEPS } from "@/types/pronunciation";
+import { ANALYSIS_STEPS ,CER_PRESETS} from "@/types/pronunciation";
 
 import {
   toMono,
   downsample,
+
   maxNormalizedCrossCorr,
   calculateRMSPattern,
+  calculatePeakAmplitudeScore,
   analyzePitchPattern,
   calculateCER,
 } from "@/utils/audioAnalysis";
@@ -110,7 +112,7 @@ export function useAudioAnalysis() {
     const refPCM = toMono(refBuffer);
     const userPCM = toMono(userBuffer);
 
-    // NCC 계산
+    //NOTE  NCC 계산
     const refDownsampled = downsample(refPCM, refBuffer.sampleRate, 4000);
     const userDownsampled = downsample(userPCM, userBuffer.sampleRate, 4000);
     const nccScore = maxNormalizedCrossCorr(
@@ -120,12 +122,29 @@ export function useAudioAnalysis() {
       0.5
     );
 
-    // RMS 패턴 분석
+    //NOTE RMS 패턴 분석
     const rmsResult = calculateRMSPattern(refPCM, userPCM, 10);
 
-    // Peaks 데이터
+    //NOTE Peaks 데이터
     const refPeaks = refWavesurfer.exportPeaks();
     const userPeaks = userWavesurfer.exportPeaks();
+    const peakResult = calculatePeakAmplitudeScore(refPeaks, userPeaks);
+
+ //NOTE 최종 Waveform 점수 (NCC + RMS + Peak)
+ const combinedScore = (
+  nccScore * 0.35 +           // NCC 35%
+  rmsResult.averageScore * 0.35 + // RMS 35%
+  peakResult.peakScore * 0.3      // Peak 30%
+) * 100;
+
+    console.log("📊📊📊📊📊📊📊📊📊📊 Waveform 종합 분석:", {
+      NCC: (nccScore * 100).toFixed(1),
+      RMS: (rmsResult.averageScore * 100).toFixed(1),
+      Peak: (peakResult.peakScore * 100).toFixed(1),
+      // Combined: combinedScore.toFixed(1),
+      Combined: (nccScore * 100).toFixed(1)
+    });
+
 
     setWaveformAnalysis({
       refPCMData: refPCM,
@@ -142,7 +161,7 @@ export function useAudioAnalysis() {
     return {
       nccScore,
       rmsScore: rmsResult.averageScore,
-      combinedScore: (nccScore * 0.5 + rmsResult.averageScore * 0.5) * 100,
+      combinedScore: (nccScore * 0.5 + Math.max(rmsResult.averageScore, peakResult.peakScore) * 0.5) * 100,
     };
   }, [setWaveformAnalysis, updateAnalysisProgress]);
 
@@ -298,33 +317,66 @@ export function useAudioAnalysis() {
     };
   }, [setSpectrogramAnalysis, updateAnalysisProgress]);
 
+
+   //ANCHOR 5. CER 분석 (새로 분리된 함수)
+   const analyzeCER = useCallback(async () => {
+    updateAnalysisProgress(ANALYSIS_STEPS.CALCULATING_SCORE, 85);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    let cerScore = 0; // 기본값 (STT 결과가 없을 경우)
+    let cerResult = null;
+
+    if (sttTranscript && currentContext?.text) {
+      const cerConfig = CER_PRESETS.default;
+      cerResult = calculateCER(
+        currentContext.text,
+        sttTranscript,
+        cerConfig
+      );
+      
+      // semanticScore 사용
+      cerScore = cerResult.semanticScore;
+      
+      console.log('📊 CER 분석 결과:', {
+        원본: currentContext.text,
+        STT: sttTranscript,
+        점수: cerScore,
+        상세: cerResult
+      });
+    } else {
+      console.log('⚠️ STT 결과 없음, 기본값 사용');
+    }
+
+  
+
+    updateAnalysisProgress(ANALYSIS_STEPS.CALCULATING_SCORE, 90);
+
+    return {
+      cerScore,
+      accuracy: cerResult?.accuracy || 1.0,
+      errors: cerResult?.errors || 0,
+      hasSTTResult: !!(sttTranscript && currentContext?.text)
+    };
+  }, [sttTranscript, currentContext, updateAnalysisProgress]);
+
+
   // 5. 최종 점수 계산
   const calculateFinalScore = useCallback(
     async (
       waveformScore: number,
       pitchScore: number,
-      spectrogramScore: number
+      spectrogramScore: number,
+      cerScore: number
     ) => {
       updateAnalysisProgress(ANALYSIS_STEPS.CALCULATING_SCORE, 90);
       await new Promise((resolve) => setTimeout(resolve, 300)); // 0.3초 딜레이
 
-      // CER 계산 (STT 결과가 있다면)
-      //TODO : STT 결과 필요
-      // const cerScore = 100; // 임시값, 실제로는 STT 결과 필요
-
-      //TODO : 구현완료시
-      const { accuracy } = calculateCER(
-        currentContext?.text || "", // "안녕하세요" (참조 텍스트)
-        sttTranscript || "" // "안녕하세요" (STT 결과)
-      );
-      const cerScore = accuracy * 100; // 정확도를 점수로 변환
-
       // 가중 평균
       const weights = {
-        waveform: 0.3,
-        pitch: 0.2,
-        spectrogram: 0.1,
-        cer: 0.4,
+        waveform: 0.2,    // 30% - 진폭 유사도
+        pitch: 0.2,       // 20% - 피치 패턴
+        spectrogram: 0.0, // 10% - 주파수 분석
+        cer: 0.5,         // 40% - 텍스트 정확도
       };
 
       const totalScore = Math.round(
@@ -333,6 +385,37 @@ export function useAudioAnalysis() {
           spectrogramScore * weights.spectrogram +
           cerScore * weights.cer
       );
+
+      const totalWaveformObj = {
+        "waveformScore" :waveformScore,
+        "weights.waveform":weights.waveform,
+        "waveformScore * weights.waveform":waveformScore * weights.waveform,
+      }
+
+      const pitchScoreObj = {
+        "pitchScore" :pitchScore,
+        "weights.pitch":weights.pitch,
+        "pitchScore * weights.pitch":pitchScore * weights.pitch,
+        }
+
+      const spectrogramScoreObj = {
+        "spectrogramScore" :spectrogramScore,
+        "weights.spectrogram":weights.spectrogram,
+        "spectrogramScore * weights.spectrogram":spectrogramScore * weights.spectrogram,
+        }
+        
+      const cerScoreObj = {
+        "cerScore" :cerScore,
+        "weights.cer":weights.cer,
+        "cerScore * weights.cer":cerScore * weights.cer,
+        }
+        
+        
+      console.log("🔍🔍🔍 totalScore : ", totalScore);
+      console.log("🔍🔍🔍 waveformScore * weights.waveform : " , totalWaveformObj);
+      console.log("🔍🔍🔍 pitchScore * weights.pitch : ", pitchScoreObj);
+      console.log("🔍🔍🔍 spectrogramScore * weights.spectrogram : ",spectrogramScoreObj );
+      console.log("🔍🔍🔍 cerScore * weights.cer : ", cerScoreObj);
 
       // 피드백 생성
       const feedback = [];
@@ -372,12 +455,13 @@ export function useAudioAnalysis() {
       const waveformResult = await analyzeWaveform();
       const pitchResult = await analyzePitch();
       const spectrogramResult = await analyzeSpectrogram();
-
+      const cerResult = await analyzeCER();
       // 최종 점수 계산
       const finalResult = await calculateFinalScore(
         waveformResult.combinedScore,
         pitchResult.patternScore,
-        spectrogramResult.averageScore
+        spectrogramResult.averageScore,
+        cerResult.cerScore
       );
 
       // 클린업
@@ -396,6 +480,10 @@ export function useAudioAnalysis() {
       console.log("pitchResult", pitchResult);
       console.log("spectrogramResult", spectrogramResult);
       console.log("finalResult", finalResult);
+      console.log("💩💩💩 waveformResult.combinedScore", waveformResult.combinedScore);
+      console.log("💩💩💩 pitchResult.patternScore", pitchResult.patternScore);
+      console.log("💩💩💩 spectrogramResult.averageScore", spectrogramResult.averageScore);
+      console.log("💩💩💩 cerResult.cerScore", cerResult.cerScore);
       console.log("=====================================================");
 
       return finalResult;
@@ -408,6 +496,7 @@ export function useAudioAnalysis() {
     analyzeWaveform,
     analyzePitch,
     analyzeSpectrogram,
+    analyzeCER,
     calculateFinalScore,
   ]);
 

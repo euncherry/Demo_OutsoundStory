@@ -21,3 +21,17 @@ export interface AnalysisProgress {
   percentage: number;
   isComplete: boolean;
 }
+
+//ANCHOR ============= CER (Character Error Rate) =============
+export interface CERConfig {
+  tau: number;    // dead zone threshold (default: 0.05)
+  alpha: number;  // penalty strength (default: 3.0)
+  gamma: number;  // curve sensitivity (default: 0.9)
+}
+
+export const CER_PRESETS = {
+  strict: { tau: 0.01, alpha: 4.0, gamma: 0.8 },    // 엄격한 평가
+  default: { tau: 0.05, alpha: 3.0, gamma: 0.9 },   // 권장 설정
+  lenient: { tau: 0.1, alpha: 2.0, gamma: 1.0 },    // 관대한 평가
+  practice: { tau: 0.15, alpha: 1.5, gamma: 1.2 }   // 연습 모드
+};
