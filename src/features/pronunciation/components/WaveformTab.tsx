@@ -1,175 +1,78 @@
-// src/features/pronunciation/components/WaveformTab.tsx
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+import WaveSurfer from 'wavesurfer.js';
 import { usePronunciationStore } from '@/store/pronunciationStore';
-import { useWavesurfer } from '@/features/pronunciation/hooks/useWavesurfer.ts';
+import { useScoreStore } from '@/store/scoreStore';
 import * as styles from './ResultsStage.css.ts';
 
 export function WaveformTab() {
-  const { currentContext, recordedAudioBlob } = usePronunciationStore();
+  const { 
+    currentContext,
+    recordedAudioBlob,
+  } = usePronunciationStore();
+  const { analysisResult,waveformAnalysis } = useScoreStore();
+  
   const standardWaveformRef = useRef<HTMLDivElement>(null);
   const userWaveformRef = useRef<HTMLDivElement>(null);
+  
+  const refWavesurferRef = useRef<WaveSurfer | null>(null);
+  const userWavesurferRef = useRef<WaveSurfer | null>(null);
 
-  const {
-    createWavesurfer: createStandardWS,
-    loadAudio: loadStandardAudio,
-    playPause: playStandardAudio,
-    destroy: destroyStandard,
-    isPlaying: isStandardPlaying,
-  } = useWavesurfer();
-
-  const {
-    createWavesurfer: createUserWS,
-    loadAudio: loadUserAudio,
-    playPause: playUserAudio,
-    destroy: destroyUser,
-    isPlaying: isUserPlaying,
-  } = useWavesurfer();
-
-  const [amplitudeMatch, setAmplitudeMatch] = useState(88);
-
-  // 표준 음성 wavesurfer
+  // 표준 음성 WaveSurfer (그래프만)
   useEffect(() => {
     if (!standardWaveformRef.current || !currentContext) return;
 
-    const wavesurfer = createStandardWS(standardWaveformRef.current, {
+    const wavesurfer = WaveSurfer.create({
+      container: standardWaveformRef.current,
       height: 80,
       waveColor: '#4CAF50',
       progressColor: '#2E7D32',
       cursorColor: '#4CAF50',
       barWidth: 2,
       barRadius: 1,
-      responsive: true,
+      interact: true,
+      url: currentContext.audioReference || '/src/assets/audio/references/Default.wav',
     });
 
-    loadStandardAudio(
-      currentContext.audioReference || '/src/assets/audio/references/Default.wav',
-    );
+    refWavesurferRef.current = wavesurfer;
 
-    return destroyStandard;
+    return () => {
+      wavesurfer.destroy();
+    };
   }, [currentContext]);
 
-  // 사용자 음성 wavesurfer
+  // 사용자 음성 WaveSurfer (그래프만)
   useEffect(() => {
     if (!userWaveformRef.current || !recordedAudioBlob) return;
 
-    const wavesurfer = createUserWS(userWaveformRef.current, {
+    const blobUrl = URL.createObjectURL(recordedAudioBlob);
+    const wavesurfer = WaveSurfer.create({
+      container: userWaveformRef.current,
       height: 80,
       waveColor: '#FF9800',
       progressColor: '#F57C00',
       cursorColor: '#FF9800',
       barWidth: 2,
       barRadius: 1,
-      responsive: true,
+      interact: true,
+      url: blobUrl,
     });
 
-    loadUserAudio(recordedAudioBlob);
+    userWavesurferRef.current = wavesurfer;
 
-    return destroyUser;
+    return () => {
+      URL.revokeObjectURL(blobUrl);
+      wavesurfer.destroy();
+    };
   }, [recordedAudioBlob]);
 
-  //SECTION  분석을 위한 로그
-  // 표준 음성 wavesurfer
-  useEffect(() => {
-    if (!standardWaveformRef.current || !currentContext) return;
+  const handlePlayRef = () => {
+    refWavesurferRef.current?.playPause();
+  };
 
-    const wavesurfer = createStandardWS(standardWaveformRef.current, {
-      height: 80,
-      waveColor: '#4CAF50',
-      progressColor: '#2E7D32',
-      cursorColor: '#4CAF50',
-      barWidth: 2,
-      barRadius: 1,
-      responsive: true,
-    });
-
-    // ✅ 표준 음성 데이터 로그
-    wavesurfer.on('ready', () => {
-      console.log('========= 📊 표준 음성 WaveForm 데이터 =========');
-
-      // 1. 디코딩된 오디오 버퍼
-      const audioBuffer = wavesurfer.getDecodedData();
-      console.log('AudioBuffer:', audioBuffer);
-      console.log('- 샘플레이트:', audioBuffer?.sampleRate);
-      console.log('- 길이(초):', audioBuffer?.duration);
-      console.log('- 채널 수:', audioBuffer?.numberOfChannels);
-
-      // 2. 채널별 PCM 데이터 (실제 파형 데이터)
-      const channelData = audioBuffer?.getChannelData(0);
-      console.log('Channel 0 PCM 데이터:', channelData);
-      console.log('- 샘플 수:', channelData?.length);
-      console.log('- 최대값:', channelData ? Math.max(...channelData) : 0);
-      console.log('- 최소값:', channelData ? Math.min(...channelData) : 0);
-      console.log('- 처음 100개 샘플:', channelData?.slice(0, 100));
-
-      // 3. Peaks (렌더링용 간소화된 데이터)
-      const peaks = wavesurfer.exportPeaks();
-      console.log('Peaks 데이터:', peaks);
-      console.log('- Peaks 길이:', peaks[0].length);
-
-      // 4. 현재 재생 상태
-      console.log('Duration:', wavesurfer.getDuration());
-      console.log('Current Time:', wavesurfer.getCurrentTime());
-      console.log('Playing:', wavesurfer.isPlaying());
-      console.log('==============================================');
-    });
-
-    loadStandardAudio(
-      currentContext.audioReference || '/src/assets/audio/references/Default.wav',
-    );
-
-    return destroyStandard;
-  }, [currentContext]);
-
-  // 사용자 음성 wavesurfer
-  useEffect(() => {
-    if (!userWaveformRef.current || !recordedAudioBlob) return;
-
-    const wavesurfer = createUserWS(userWaveformRef.current, {
-      height: 80,
-      waveColor: '#FF9800',
-      progressColor: '#F57C00',
-      cursorColor: '#FF9800',
-      barWidth: 2,
-      barRadius: 1,
-      responsive: true,
-    });
-
-    // ✅ 사용자 음성 데이터 로그
-    wavesurfer.on('ready', () => {
-      console.log('========= 📊 사용자 음성 WaveForm 데이터 =========');
-
-      // 1. 녹음된 Blob 정보
-      console.log('Recorded Blob:', recordedAudioBlob);
-      console.log('- Blob 크기:', recordedAudioBlob.size);
-      console.log('- Blob 타입:', recordedAudioBlob.type);
-
-      // 2. 디코딩된 오디오 버퍼
-      const audioBuffer = wavesurfer.getDecodedData();
-      console.log('AudioBuffer:', audioBuffer);
-
-      // 3. 채널별 PCM 데이터
-      const channelData = audioBuffer?.getChannelData(0);
-      console.log('User PCM 데이터:', channelData);
-      console.log(
-        '- RMS:',
-        channelData
-          ? Math.sqrt(channelData.reduce((sum, x) => sum + x * x, 0) / channelData.length)
-          : 0,
-      );
-
-      // 4. Peaks 비교용
-      const peaks = wavesurfer.exportPeaks();
-      console.log('User Peaks:', peaks);
-
-      console.log('==============================================');
-    });
-
-    loadUserAudio(recordedAudioBlob);
-
-    return destroyUser;
-  }, [recordedAudioBlob]);
-  //!SECTION 분석을 위한 로그
-
+  const handlePlayUser = () => {
+    userWavesurferRef.current?.playPause();
+  };
+console.log("🔍🔍🔍🔍🔍🔍🔍🔍🔍 analysisResult",analysisResult)
   return (
     <div className={styles.waveformContainer}>
       <div className={styles.waveformHeader}>
@@ -186,8 +89,8 @@ export function WaveformTab() {
             <div className={styles.waveLegend} style={{ backgroundColor: '#4CAF50' }} />
             <span>표준 발음</span>
           </div>
-          <button className={styles.wavePlayButton} onClick={playStandardAudio}>
-            {isStandardPlaying ? '⏸️' : '▶️'}
+          <button className={styles.wavePlayButton} onClick={handlePlayRef}>
+            ▶️
           </button>
         </div>
         <div className={styles.waveformWrapper}>
@@ -202,8 +105,8 @@ export function WaveformTab() {
             <div className={styles.waveLegend} style={{ backgroundColor: '#FF9800' }} />
             <span>내 발음</span>
           </div>
-          <button className={styles.wavePlayButton} onClick={playUserAudio}>
-            {isUserPlaying ? '⏸️' : '▶️'}
+          <button className={styles.wavePlayButton} onClick={handlePlayUser}>
+            ▶️
           </button>
         </div>
         <div className={styles.waveformWrapper}>
@@ -211,32 +114,40 @@ export function WaveformTab() {
         </div>
       </div>
 
-      {/* 분석 결과 */}
-      <div className={styles.waveformAnalysis}>
-        <div className={styles.analysisCard}>
-          <div className={styles.analysisIcon}>📈</div>
-          <div className={styles.analysisContent}>
-            <div className={styles.analysisTitle}>진폭 유사도</div>
-            <div className={styles.analysisScore}>{amplitudeMatch}%</div>
+      {/* Store에서 가져온 분석 결과 표시 */}
+      {analysisResult && (
+        <div className={styles.waveformAnalysis}>
+          <div className={styles.analysisCard}>
+            <div className={styles.analysisIcon}>📊</div>
+            <div className={styles.analysisContent}>
+              <div className={styles.analysisTitle}>NCC 상관도</div>
+              <div className={styles.analysisScore}>
+                {Math.round((waveformAnalysis?.nccScore || 0) * 100)}%
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.analysisCard}>
-          <div className={styles.analysisIcon}>⏱️</div>
-          <div className={styles.analysisContent}>
-            <div className={styles.analysisTitle}>타이밍 일치도</div>
-            <div className={styles.analysisScore}>92%</div>
+          <div className={styles.analysisCard}>
+            <div className={styles.analysisIcon}>📈</div>
+            <div className={styles.analysisContent}>
+              <div className={styles.analysisTitle}>RMS 패턴</div>
+              <div className={styles.analysisScore}>
+                {Math.round((waveformAnalysis?.rmsScore || 0) * 100)}%
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.analysisCard}>
-          <div className={styles.analysisIcon}>🎯</div>
-          <div className={styles.analysisContent}>
-            <div className={styles.analysisTitle}>전체 정확도</div>
-            <div className={styles.analysisScore}>{amplitudeMatch}%</div>
+          <div className={styles.analysisCard}>
+            <div className={styles.analysisIcon}>🎯</div>
+            <div className={styles.analysisContent}>
+              <div className={styles.analysisTitle}>파형 종합</div>
+              <div className={styles.analysisScore}>
+                {analysisResult.waveformScore}%
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

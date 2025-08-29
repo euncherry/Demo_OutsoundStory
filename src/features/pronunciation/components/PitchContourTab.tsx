@@ -1,9 +1,8 @@
 // src/features/pronunciation/components/PitchContourTab.tsx
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import Pitchfinder from "pitchfinder";
+import React, { useRef, useEffect, useState } from "react";
 import { useWavesurfer } from "@wavesurfer/react";
-
 import { usePronunciationStore } from "@/store/pronunciationStore";
+import { useScoreStore } from "@/store/scoreStore";
 import * as styles from "./ResultsStage.css.ts";
 
 interface PitchData {
@@ -14,8 +13,9 @@ interface PitchData {
 }
 
 export function PitchContourTab() {
-  // 각 오디오 데이터
   const { recordedAudioBlob, currentContext } = usePronunciationStore();
+  const { pitchAnalysis } = useScoreStore(); // scoreStore에서 분석된 데이터 가져오기
+  
   const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
 
   const refContainerRef = useRef<HTMLDivElement>(null);
@@ -24,19 +24,9 @@ export function PitchContourTab() {
   const refCanvasRef = useRef<HTMLCanvasElement>(null);
   const userCanvasRef = useRef<HTMLCanvasElement>(null);
 
-  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
-  const [pitchInfo, setPitchInfo] = useState<{
-    refPitchData: PitchData;
-    userPitchData: PitchData;
-    similarity: number;
-  } | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  //  audioReference WaveSurfer 초기화 - sampleRate 낮춤
+  // WaveSurfer 설정 - 표준 발음
   const {
     wavesurfer: refWavesurfer,
-    isPlaying: isRefPlaying,
-    currentTime: refCurrentTime,
   } = useWavesurfer({
     container: refContainerRef,
     height: 200,
@@ -56,17 +46,13 @@ export function PitchContourTab() {
     hideScrollbar: false,
     audioRate: 1,
     autoplay: false,
-    url:
-      currentContext?.audioReference ||
-      "/src/assets/audio/references/Default.wav",
-    sampleRate: 11025, // 낮은 샘플레이트 설정
+    url: currentContext?.audioReference || "/src/assets/audio/references/Default.wav",
+    sampleRate: 11025,
   });
 
-  // recordedAudioBlob WaveSurfer 초기화 - sampleRate 낮춤
+  // WaveSurfer 설정 - 사용자 발음
   const {
     wavesurfer: userWavesurfer,
-    isPlaying: isUserPlaying,
-    currentTime: userCurrentTime,
   } = useWavesurfer({
     container: userContainerRef,
     height: 200,
@@ -87,225 +73,31 @@ export function PitchContourTab() {
     audioRate: 1,
     autoplay: false,
     url: userAudioUrl || "/src/assets/audio/references/Default.wav",
-    sampleRate: 11025, // 낮은 샘플레이트 설정
+    sampleRate: 11025,
   });
 
+  // 사용자 오디오 URL 설정
   useEffect(() => {
-    if (!recordedAudioBlob) {
-      console.log("no recordedAudioBlob", recordedAudioBlob);
-      setError("오디오 데이터를 로드할 수 없습니다.");
-      return;
-    }
-    if (!currentContext) {
-      console.log("no currentContext", currentContext);
-      setError("오디오 데이터를 로드할 수 없습니다.");
-      return;
-    }
-
-    // 표준 음성 로드
     if (recordedAudioBlob) {
-      // Blob URL 생성
       const blobUrl = URL.createObjectURL(recordedAudioBlob);
       setUserAudioUrl(blobUrl);
-
-      // 클린업 함수로 메모리 해제
       return () => {
         URL.revokeObjectURL(blobUrl);
       };
     }
-  }, [currentContext, recordedAudioBlob]);
+  }, [recordedAudioBlob]);
 
-  // 시간 포맷팅
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  // 음정 분석 함수 - 표준 발음과 사용자 발음 모두 분석
-  const analyzePitch = useCallback(async () => {
-    console.log("analyzePitch");
-    if (!refWavesurfer || !userWavesurfer) {
-      console.error("WaveSurfer not initialized");
-      setError("WaveSurfer가 초기화되지 않았습니다");
-      return;
-    }
-
-    setIsAnalyzing(true);
-    setError(null);
-
-    try {
-      console.log("Starting pitch analysis for both audios...");
-
-      // 표준 발음 분석
-      const refAudioBuffer = refWavesurfer.getDecodedData();
-      const userAudioBuffer = userWavesurfer.getDecodedData();
-
-      if (!refAudioBuffer || !userAudioBuffer) {
-        console.error("No audio buffer available");
-        setError("오디오 데이터를 로드할 수 없습니다.");
-        setIsAnalyzing(false);
-        return;
-      }
-
-      // 표준 발음 분석
-      const refPeaks = refAudioBuffer.getChannelData(0);
-      const refSampleRate = refAudioBuffer.sampleRate || 11025;
-      const refAlgo = "AMDF";
-      const refDetectPitch = Pitchfinder[refAlgo]({
-        sampleRate: refSampleRate,
-      });
-      const refDuration = refPeaks.length / refSampleRate;
-      const refBpm = refPeaks.length / refDuration / 60;
-      const refFrequencies = Pitchfinder.frequencies(refDetectPitch, refPeaks, {
-        tempo: refBpm,
-        quantization: refBpm,
-      });
-
-      // 사용자 발음 분석
-      const userPeaks = userAudioBuffer.getChannelData(0);
-      const userSampleRate = userAudioBuffer.sampleRate || 11025;
-      const userAlgo = "AMDF";
-      const userDetectPitch = Pitchfinder[userAlgo]({
-        sampleRate: userSampleRate,
-      });
-      const userDuration = userPeaks.length / userSampleRate;
-      const userBpm = userPeaks.length / userDuration / 60;
-      const userFrequencies = Pitchfinder.frequencies(
-        userDetectPitch,
-        userPeaks,
-        {
-          tempo: userBpm,
-          quantization: userBpm,
-        }
-      );
-
-      // console.log("Ref frequencies:", refFrequencies.length);
-      // console.log("User frequencies:", userFrequencies.length);
-
-      // 표준 발음 피치 데이터 계산
-      const refValidFrequencies = refFrequencies.filter(
-        (f) => f !== null && f > 0
-      );
-      const refFrequencyMap: { [key: number]: number } = {};
-      let refMaxAmount = 0;
-      let refBaseFrequency = 0;
-
-      refFrequencies.forEach((frequency) => {
-        if (!frequency) return;
-        const tolerance = 10;
-        const rounded = Math.round(frequency * tolerance) / tolerance;
-
-        if (!refFrequencyMap[rounded]) refFrequencyMap[rounded] = 0;
-        refFrequencyMap[rounded] += 1;
-
-        if (refFrequencyMap[rounded] > refMaxAmount) {
-          refMaxAmount = refFrequencyMap[rounded];
-          refBaseFrequency = rounded;
-        }
-      });
-
-      // 사용자 발음 피치 데이터 계산
-      const userValidFrequencies = userFrequencies.filter(
-        (f) => f !== null && f > 0
-      );
-      const userFrequencyMap: { [key: number]: number } = {};
-      let userMaxAmount = 0;
-      let userBaseFrequency = 0;
-
-      userFrequencies.forEach((frequency) => {
-        if (!frequency) return;
-        const tolerance = 10;
-        const rounded = Math.round(frequency * tolerance) / tolerance;
-
-        if (!userFrequencyMap[rounded]) userFrequencyMap[rounded] = 0;
-        userFrequencyMap[rounded] += 1;
-
-        if (userFrequencyMap[rounded] > userMaxAmount) {
-          userMaxAmount = userFrequencyMap[rounded];
-          userBaseFrequency = rounded;
-        }
-      });
-
-      if (
-        refValidFrequencies.length === 0 ||
-        userValidFrequencies.length === 0
-      ) {
-        console.warn("No valid frequencies detected");
-        setError("음정을 감지할 수 없습니다.");
-        setIsAnalyzing(false);
-        return;
-      }
-
-      const refPitchData: PitchData = {
-        frequencies: refFrequencies,
-        baseFrequency: refBaseFrequency,
-        averagePitch:
-          refValidFrequencies.reduce((a, b) => a + b, 0) /
-          refValidFrequencies.length,
-        pitchRange: {
-          min: Math.min(...refValidFrequencies),
-          max: Math.max(...refValidFrequencies),
-        },
-      };
-
-      const userPitchData: PitchData = {
-        frequencies: userFrequencies,
-        baseFrequency: userBaseFrequency,
-        averagePitch:
-          userValidFrequencies.reduce((a, b) => a + b, 0) /
-          userValidFrequencies.length,
-        pitchRange: {
-          min: Math.min(...userValidFrequencies),
-          max: Math.max(...userValidFrequencies),
-        },
-      };
-
-      console.log("Ref pitch data:", refPitchData);
-      console.log("User pitch data:", userPitchData);
-
-      // 유사도 계산 (간단한 평균 피치 비교)
-      const pitchDifference = Math.abs(
-        refPitchData.averagePitch - userPitchData.averagePitch
-      );
-      const maxPitch = Math.max(
-        refPitchData.averagePitch,
-        userPitchData.averagePitch
-      );
-      const similarity = Math.max(0, 100 - (pitchDifference / maxPitch) * 100);
-
-      setPitchInfo({ refPitchData, userPitchData, similarity });
-
-      // 음정 그래프 그리기
-      drawPitchContour(refFrequencies, refBaseFrequency, refCanvasRef);
-      drawPitchContour(userFrequencies, userBaseFrequency, userCanvasRef);
-    } catch (error) {
-      console.error("Pitch analysis error:", error);
-      setError(
-        `음정 분석 오류: ${
-          error instanceof Error ? error.message : "알 수 없는 오류"
-        }`
-      );
-    } finally {
-      setIsAnalyzing(false);
-    }
-  }, [refWavesurfer, userWavesurfer]);
-
-  // 음정 그래프 그리기 - WaveSurfer 예제와 동일한 스타일
+  // 피치 콘투어 그리기 함수 (기존과 동일)
   const drawPitchContour = (
-    frequencies: number[],
+    frequencies: (number | null)[],
     baseFrequency: number,
-    CanvasRef: React.RefObject<HTMLCanvasElement | null>
+    canvasRef: React.RefObject<HTMLCanvasElement | null>
   ) => {
-    // console.log("drawPitchContour", frequencies, baseFrequency, CanvasRef);
-    const canvas = CanvasRef.current;
+    const canvas = canvasRef.current;
     if (!canvas) {
       console.error("Canvas ref not found");
       return;
     }
-
-    const wrapper = canvas.parentElement;
-    if (!wrapper) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) {
@@ -330,7 +122,7 @@ export function PitchContourTab() {
     const pointSize = 3;
     let prevY = 0;
 
-    frequencies.forEach((frequency: number, index: number) => {
+    frequencies.forEach((frequency, index) => {
       if (!frequency) return;
 
       // Y 위치 계산 (주파수를 높이로 변환)
@@ -348,41 +140,66 @@ export function PitchContourTab() {
     console.log("Pitch contour drawn successfully");
   };
 
-  // WaveSurfer 이벤트 리스너
+  // pitchAnalysis 데이터로 그래프 그리기
   useEffect(() => {
-    if (!refWavesurfer) {
-      console.log("no refWavesurfer", refWavesurfer);
-      return;
-    }
-    if (!userWavesurfer) {
-      console.log("no userWavesurfer", userWavesurfer);
-      return;
-    }
-    const handleReady = () => {
-      console.log("WaveSurfer ready");
-      analyzePitch();
+    if (!pitchAnalysis || !refWavesurfer || !userWavesurfer) return;
+
+    const { refFrequencies, userFrequencies, refBaseFrequency, userBaseFrequency } = pitchAnalysis;
+
+    // 표준 발음 피치 콘투어 그리기
+    drawPitchContour(refFrequencies, refBaseFrequency, refCanvasRef);
+    
+    // 사용자 발음 피치 콘투어 그리기
+    drawPitchContour(userFrequencies, userBaseFrequency, userCanvasRef);
+
+  }, [pitchAnalysis, refWavesurfer, userWavesurfer]);
+
+  // 분석된 데이터로 PitchData 형태 변환
+  const pitchInfo = React.useMemo(() => {
+    if (!pitchAnalysis) return null;
+
+    const {
+      refFrequencies,
+      userFrequencies,
+      refBaseFrequency,
+      userBaseFrequency,
+      refAveragePitch,
+      userAveragePitch,
+    } = pitchAnalysis;
+
+    // 유효한 주파수만 필터링
+    const refValidFreqs = refFrequencies.filter((f): f is number => f !== null && f > 0);
+    const userValidFreqs = userFrequencies.filter((f): f is number => f !== null && f > 0);
+
+    if (refValidFreqs.length === 0 || userValidFreqs.length === 0) return null;
+
+    const refPitchData: PitchData = {
+      frequencies: refFrequencies,
+      baseFrequency: refBaseFrequency,
+      averagePitch: refAveragePitch,
+      pitchRange: {
+        min: Math.min(...refValidFreqs),
+        max: Math.max(...refValidFreqs),
+      },
     };
 
-    const handleDecode = () => {
-      console.log("Audio decoded");
-      analyzePitch();
+    const userPitchData: PitchData = {
+      frequencies: userFrequencies,
+      baseFrequency: userBaseFrequency,
+      averagePitch: userAveragePitch,
+      pitchRange: {
+        min: Math.min(...userValidFreqs),
+        max: Math.max(...userValidFreqs),
+      },
     };
 
-    const refUnsubscribeReady = refWavesurfer.on("ready", handleReady);
-    const refUnsubscribeDecode = refWavesurfer.on("decode", handleDecode);
-    const userUnsubscribeReady = userWavesurfer.on("ready", handleReady);
-    const userUnsubscribeDecode = userWavesurfer.on("decode", handleDecode);
+    // 유사도 계산
+    const pitchDifference = Math.abs(refAveragePitch - userAveragePitch);
+    const maxPitch = Math.max(refAveragePitch, userAveragePitch);
+    const similarity = Math.max(0, 100 - (pitchDifference / maxPitch) * 100);
 
-    return () => {
-      refUnsubscribeReady();
-      refUnsubscribeDecode();
-      userUnsubscribeReady();
-      userUnsubscribeDecode();
-    };
-  }, [refWavesurfer, userWavesurfer, analyzePitch]);
-
-  const refDuration = refWavesurfer ? refWavesurfer.getDuration() : 0;
-  const userDuration = userWavesurfer ? userWavesurfer.getDuration() : 0;
+    return { refPitchData, userPitchData, similarity };
+  }, [pitchAnalysis]);
 
   return (
     <div className={styles.pitchContainer}>
@@ -394,37 +211,7 @@ export function PitchContourTab() {
       </div>
 
       <div className={styles.chartsContainer}>
-        {/* 표준 발음 차트 */}
-        {/* <div className={styles.chartContainer}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '100px',
-              backgroundColor: 'white',
-              borderRadius: '10px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <canvas
-              ref={refCanvasRef}
-              className={styles.pitchCanvas}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </div>
-          <p style={{ textAlign: 'center', marginTop: '8px', color: '#4CAF50' }}>
-            표준 발음
-          </p>
-        </div> */}
-
-        {/* Waveform Display */}
+        {/* 표준 발음 웨이브폼 + 피치 콘투어 */}
         <div
           className="waveform-container"
           style={{
@@ -451,50 +238,6 @@ export function PitchContourTab() {
             }}
           />
         </div>
-
-        {/* Pitch Contour Display */}
-
-        {/* 내 발음 차트 */}
-        {/* <div className={styles.chartContainer}>
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '100px',
-              backgroundColor: 'white',
-              borderRadius: '10px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <canvas
-              ref={userCanvasRef}
-              className={styles.pitchCanvas}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
-            />
-          </div>
-          <p style={{ textAlign: 'center', marginTop: '8px', color: '#FF9800' }}>
-            내 발음
-          </p>
-        </div> */}
-
-        <div className="waveform-container">
-          <div
-            ref={userContainerRef}
-            className="waveform"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-        </div>
       </div>
 
       <div className={styles.chartsContainer}>
@@ -502,6 +245,7 @@ export function PitchContourTab() {
           <p>🎼 내 발음 Pitch Contour</p>
         </div>
 
+        {/* 사용자 발음 웨이브폼 + 피치 콘투어 */}
         <div
           className="waveform-container"
           style={{
@@ -528,7 +272,9 @@ export function PitchContourTab() {
             }}
           />
         </div>
-        {error && (
+
+        {/* 에러 표시 */}
+        {!pitchAnalysis && (
           <div
             style={{
               color: "#ff6b6b",
@@ -539,28 +285,28 @@ export function PitchContourTab() {
               fontSize: "14px",
             }}
           >
-            ⚠️ {error}
+            ⚠️ 피치 분석 데이터가 없습니다. 먼저 발음 분석을 진행해주세요.
           </div>
         )}
+
+        {/* 사용자 발음 정보 표시 */}
         {pitchInfo && (
           <div className="pitch-info">
             <span>
-              Base:{" "}
-              {Math.round(Math.round(pitchInfo.userPitchData.baseFrequency))}Hz
+              Base: {Math.round(pitchInfo.userPitchData.baseFrequency)}Hz
             </span>
             <span>
-              Avg:{" "}
-              {Math.round(Math.round(pitchInfo.userPitchData.averagePitch))}Hz
+              Avg: {Math.round(pitchInfo.userPitchData.averagePitch)}Hz
             </span>
             <span>
-              Range:{" "}
-              {Math.round(Math.round(pitchInfo.userPitchData.pitchRange.min))}-
-              {Math.round(Math.round(pitchInfo.userPitchData.pitchRange.max))}Hz
+              Range: {Math.round(pitchInfo.userPitchData.pitchRange.min)}-
+              {Math.round(pitchInfo.userPitchData.pitchRange.max)}Hz
             </span>
           </div>
         )}
       </div>
 
+      {/* 분석 결과 표시 */}
       <div className={styles.pitchAnalysis}>
         <div className={styles.analysisItem}>
           <span className={styles.analysisLabel}>평균 피치 (표준):</span>

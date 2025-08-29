@@ -5,6 +5,7 @@ import {
   AnalysisProgress,
   AnalysisStep,
   ANALYSIS_STEPS,
+  VADAnalysis,
 } from "@/types/pronunciation";
 
 // 분석 데이터 타입 정의
@@ -29,10 +30,16 @@ interface PitchAnalysis {
 }
 
 interface SpectrogramAnalysis {
-  refSpectrogramData: any; // Spectrogram plugin의 내부 데이터
-  userSpectrogramData: any;
+  refSpectrogramData: unknown; // Spectrogram plugin의 내부 데이터
+  userSpectrogramData: unknown;
   frequencyBandScores: number[];
   mfccScore: number;
+}
+
+interface CERAnalysis {
+  accuracy: number;
+  errors: number;
+  hasSTTResult: boolean;
 }
 
 interface AnalysisResult {
@@ -52,6 +59,8 @@ interface ScoreState {
   waveformAnalysis: WaveformAnalysis | null;
   pitchAnalysis: PitchAnalysis | null;
   spectrogramAnalysis: SpectrogramAnalysis | null;
+  cerAnalysis: CERAnalysis | null;
+  vadAnalysis: VADAnalysis | null; // 새로 추가
 
   // 분석 진행 상태
   analysisProgress: AnalysisProgress;
@@ -63,6 +72,8 @@ interface ScoreState {
   setWaveformAnalysis: (analysis: WaveformAnalysis | null) => void;
   setPitchAnalysis: (analysis: PitchAnalysis | null) => void;
   setSpectrogramAnalysis: (analysis: SpectrogramAnalysis | null) => void;
+  setCERAnalysis: (analysis: CERAnalysis | null) => void;
+  setVADAnalysis: (analysis: VADAnalysis | null) => void; // 새로 추가
   updateAnalysisProgress: (step: AnalysisStep, percentage: number) => void;
   setAnalysisResult: (result: ScoreState["analysisResult"]) => void;
 
@@ -81,6 +92,8 @@ export const useScoreStore = create<ScoreState>()(
         waveformAnalysis: null,
         pitchAnalysis: null,
         spectrogramAnalysis: null,
+        cerAnalysis: null,
+        vadAnalysis: null, // 새로 추가
 
         analysisProgress: {
           currentStep: ANALYSIS_STEPS.LOADING_AUDIO,
@@ -93,6 +106,8 @@ export const useScoreStore = create<ScoreState>()(
         setPitchAnalysis: (analysis) => set({ pitchAnalysis: analysis }),
         setSpectrogramAnalysis: (analysis) =>
           set({ spectrogramAnalysis: analysis }),
+        setCERAnalysis: (analysis) => set({ cerAnalysis: analysis }),
+        setVADAnalysis: (analysis) => set({ vadAnalysis: analysis }), // 새로 추가
 
         updateAnalysisProgress: (step, percentage) =>
           set({
@@ -110,6 +125,8 @@ export const useScoreStore = create<ScoreState>()(
             waveformAnalysis: null,
             pitchAnalysis: null,
             spectrogramAnalysis: null,
+            cerAnalysis: null,
+            vadAnalysis: null, // 새로 추가
             analysisProgress: {
               currentStep: ANALYSIS_STEPS.LOADING_AUDIO,
               percentage: 0,

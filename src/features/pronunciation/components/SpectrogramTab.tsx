@@ -1,11 +1,14 @@
 // src/features/pronunciation/components/SpectrogramTab.tsx
 import React, { useRef, useEffect, useState } from "react";
 import { usePronunciationStore } from "@/store/pronunciationStore";
+import { useScoreStore } from "@/store/scoreStore";
 import { useWavesurfer } from "@/features/pronunciation/hooks/useWavesurfer.ts";
 import * as styles from "./ResultsStage.css.ts";
 
 export function SpectrogramTab() {
   const { currentContext, recordedAudioBlob } = usePronunciationStore();
+  const { spectrogramAnalysis } = useScoreStore(); // scoreStore에서 분석된 데이터 가져오기
+
   const standardWaveformRef = useRef<HTMLDivElement>(null);
   const userWaveformRef = useRef<HTMLDivElement>(null);
 
