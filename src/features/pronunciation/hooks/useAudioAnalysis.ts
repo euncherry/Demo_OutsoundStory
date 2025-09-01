@@ -38,9 +38,9 @@ export function useAudioAnalysis() {
 
   const refWavesurferRef = useRef<WaveSurfer | null>(null);
   const userWavesurferRef = useRef<WaveSurfer | null>(null);
-  
+
   // VAD 결과 저장용
-  const vadResultRef = useRef<{ 
+  const vadResultRef = useRef<{
     refTrimmed: Float32Array | null;
     userTrimmed: Float32Array | null;
     refVAD: unknown;
@@ -59,9 +59,11 @@ export function useAudioAnalysis() {
 
     const refWavesurfer = WaveSurfer.create({
       container: refContainer,
-      waveColor: "transparent", 
+      waveColor: "transparent",
       progressColor: "transparent",
-      url: currentContext?.audioReference || "/src/assets/audio/references/Default.wav",
+      url:
+        currentContext?.audioReference ||
+        "/src/assets/audio/references/Default.wav",
       sampleRate: 11025,
     });
 
@@ -74,7 +76,7 @@ export function useAudioAnalysis() {
     const userWavesurfer = WaveSurfer.create({
       container: userContainer,
       waveColor: "transparent",
-      progressColor: "transparent", 
+      progressColor: "transparent",
       url: userBlobUrl,
       sampleRate: 11025,
     });
@@ -120,21 +122,21 @@ export function useAudioAnalysis() {
 
     // VAD 적용
     const refVAD = detectVoiceActivity(refPCM, {
-      energyThreshold: 0.005,  // 더 민감하게
-      minVoiceDuration: 0.05,  // 50ms 이상
+      energyThreshold: 0.005, // 더 민감하게
+      minVoiceDuration: 0.05, // 50ms 이상
       maxSilenceDuration: 0.15, // 150ms 이하 gap은 연결
       sampleRate: 11025,
       windowSize: 256,
-      marginSeconds: 0.02      // 20ms 여백
+      marginSeconds: 0.02, // 20ms 여백
     });
-    
+
     const userVAD = detectVoiceActivity(userPCM, {
       energyThreshold: 0.005,
-      minVoiceDuration: 0.05, 
+      minVoiceDuration: 0.05,
       maxSilenceDuration: 0.15,
       sampleRate: 11025,
       windowSize: 256,
-      marginSeconds: 0.02
+      marginSeconds: 0.02,
     });
 
     // 정리된 데이터 저장
@@ -142,7 +144,7 @@ export function useAudioAnalysis() {
       refTrimmed: refVAD.trimmedData,
       userTrimmed: userVAD.trimmedData,
       refVAD,
-      userVAD
+      userVAD,
     };
 
     // VAD 결과를 스토어에 저장
@@ -151,13 +153,17 @@ export function useAudioAnalysis() {
       userVADResult: userVAD,
       silenceRemoved: {
         ref: refVAD.silenceRatio,
-        user: userVAD.silenceRatio
-      }
+        user: userVAD.silenceRatio,
+      },
     });
 
     console.log("🔊✂️ VAD 적용 완료:", {
-      참조: `${refBuffer.length} → ${refVAD.trimmedLength} (${(refVAD.silenceRatio*100).toFixed(1)}% 제거)`,
-      사용자: `${userBuffer.length} → ${userVAD.trimmedLength} (${(userVAD.silenceRatio*100).toFixed(1)}% 제거)`
+      참조: `${refBuffer.length} → ${refVAD.trimmedLength} (${(
+        refVAD.silenceRatio * 100
+      ).toFixed(1)}% 제거)`,
+      사용자: `${userBuffer.length} → ${userVAD.trimmedLength} (${(
+        userVAD.silenceRatio * 100
+      ).toFixed(1)}% 제거)`,
     });
 
     updateAnalysisProgress(ANALYSIS_STEPS.SILENCE_TRIMMED, 25);
@@ -170,7 +176,7 @@ export function useAudioAnalysis() {
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     const { refTrimmed, userTrimmed } = vadResultRef.current;
-    
+
     if (!refTrimmed || !userTrimmed) {
       throw new Error("VAD trimmed data not available");
     }
@@ -178,7 +184,12 @@ export function useAudioAnalysis() {
     // 정리된 데이터로 분석 실행
     const refDownsampled = downsample(refTrimmed, 11025, 4000);
     const userDownsampled = downsample(userTrimmed, 11025, 4000);
-    const nccScore = maxNormalizedCrossCorr(refDownsampled, userDownsampled, 4000, 0.5);
+    const nccScore = maxNormalizedCrossCorr(
+      refDownsampled,
+      userDownsampled,
+      4000,
+      0.5
+    );
 
     // RMS 패턴 분석
     const rmsResult = calculateRMSPattern(refTrimmed, userTrimmed, 10);
@@ -190,17 +201,17 @@ export function useAudioAnalysis() {
     const userPeaks = userWavesurfer!.exportPeaks();
     const peakResult = calculatePeakAmplitudeScore(refPeaks, userPeaks);
 
-    const combinedScore = (
-      nccScore * 0.35 + 
-      rmsResult.averageScore * 0.35 + 
-      peakResult.peakScore * 0.3
-    ) * 100;
+    const combinedScore =
+      (nccScore * 0.35 +
+        rmsResult.averageScore * 0.35 +
+        peakResult.peakScore * 0.3) *
+      100;
 
     console.log("📊 VAD 적용된 Waveform 분석:", {
       NCC: (nccScore * 100).toFixed(1),
       RMS: (rmsResult.averageScore * 100).toFixed(1),
       Peak: (peakResult.peakScore * 100).toFixed(1),
-      Combined: combinedScore.toFixed(1)
+      Combined: combinedScore.toFixed(1),
     });
 
     setWaveformAnalysis({
@@ -218,7 +229,7 @@ export function useAudioAnalysis() {
     return {
       nccScore,
       rmsScore: rmsResult.averageScore,
-      combinedScore
+      combinedScore,
     };
   }, [setWaveformAnalysis, updateAnalysisProgress]);
 
@@ -228,7 +239,7 @@ export function useAudioAnalysis() {
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     const { refTrimmed, userTrimmed } = vadResultRef.current;
-    
+
     if (!refTrimmed || !userTrimmed) {
       throw new Error("VAD trimmed data not available");
     }
@@ -236,13 +247,13 @@ export function useAudioAnalysis() {
     // 정리된 데이터로 주파수 분석
     const sampleRate = 11025;
     const detectPitch = Pitchfinder.AMDF({ sampleRate });
-    
+
     const refFrequencies = Pitchfinder.frequencies(detectPitch, refTrimmed, {
       tempo: 120,
       quantization: 120,
     });
     const userFrequencies = Pitchfinder.frequencies(detectPitch, userTrimmed, {
-      tempo: 120, 
+      tempo: 120,
       quantization: 120,
     });
 
@@ -269,8 +280,12 @@ export function useAudioAnalysis() {
     const userBase = calculateBaseFrequency(userFrequencies);
 
     // 평균 피치
-    const validRef = refFrequencies.filter(f => f !== null && f > 0) as number[];
-    const validUser = userFrequencies.filter(f => f !== null && f > 0) as number[];
+    const validRef = refFrequencies.filter(
+      (f) => f !== null && f > 0
+    ) as number[];
+    const validUser = userFrequencies.filter(
+      (f) => f !== null && f > 0
+    ) as number[];
 
     const refAvg = validRef.reduce((a, b) => a + b, 0) / validRef.length;
     const userAvg = validUser.reduce((a, b) => a + b, 0) / validUser.length;
@@ -282,7 +297,7 @@ export function useAudioAnalysis() {
       참조길이: refFrequencies.length,
       사용자길이: userFrequencies.length,
       패턴점수: (patternResult.patternScore * 100).toFixed(1) + "%",
-      기존예상: "79% → 95%+ 개선"
+      기존예상: "79% → 95%+ 개선",
     });
 
     setPitchAnalysis({
@@ -300,7 +315,10 @@ export function useAudioAnalysis() {
     return {
       patternScore: patternResult.patternScore * 100,
       averageDifference: Math.abs(refAvg - userAvg),
-      similarity: Math.max(0, 100 - (Math.abs(refAvg - userAvg) / refAvg) * 100),
+      similarity: Math.max(
+        0,
+        100 - (Math.abs(refAvg - userAvg) / refAvg) * 100
+      ),
     };
   }, [setPitchAnalysis, updateAnalysisProgress]);
 
@@ -374,23 +392,19 @@ export function useAudioAnalysis() {
 
     if (sttTranscript && currentContext?.text) {
       const cerConfig = CER_PRESETS.default;
-      cerResult = calculateCER(
-        currentContext.text,
-        sttTranscript,
-        cerConfig
-      );
-      
+      cerResult = calculateCER(currentContext.text, sttTranscript, cerConfig);
+
       // semanticScore 사용
       cerScore = cerResult.semanticScore;
-      
-      console.log('📊 CER 분석 결과:', {
+
+      console.log("📊 CER 분석 결과:", {
         원본: currentContext.text,
         STT: sttTranscript,
         점수: cerScore,
-        상세: cerResult
+        상세: cerResult,
       });
     } else {
-      console.log('⚠️ STT 결과 없음, 기본값 사용');
+      console.log("⚠️ STT 결과 없음, 기본값 사용");
     }
 
     updateAnalysisProgress(ANALYSIS_STEPS.CALCULATING_SCORE, 90);
@@ -399,7 +413,7 @@ export function useAudioAnalysis() {
       cerScore,
       accuracy: cerResult?.accuracy || 1.0,
       errors: cerResult?.errors || 0,
-      hasSTTResult: !!(sttTranscript && currentContext?.text)
+      hasSTTResult: !!(sttTranscript && currentContext?.text),
     };
   }, [sttTranscript, currentContext, updateAnalysisProgress]);
 
@@ -414,12 +428,32 @@ export function useAudioAnalysis() {
       updateAnalysisProgress(ANALYSIS_STEPS.CALCULATING_SCORE, 90);
       await new Promise((resolve) => setTimeout(resolve, 300)); // 0.3초 딜레이
 
+      // CER 점수가 0점이면 총점도 0점
+      if (cerScore === 0) {
+        const totalScore = 0;
+
+        console.log("🔍🔍🔍 CER 점수 0점으로 인해 총점 0점 처리");
+        console.log("🔍🔍🔍 CER 점수 0점으로 인해 전체 모든 점수 0점 처리");
+
+        setAnalysisResult({
+          totalScore,
+          waveformScore: 0,
+          pitchScore: 0,
+          spectrogramScore: 0,
+          cerScore,
+          feedback: ["STT 결과가 없어 분석을 완료할 수 없습니다."],
+        });
+
+        updateAnalysisProgress(ANALYSIS_STEPS.ANALYSIS_COMPLETE, 100);
+        return { totalScore };
+      }
+
       // 가중 평균
       const weights = {
-        waveform: 0.2,    // 20% - 진폭 유사도
-        pitch: 0.2,       // 20% - 피치 패턴
+        waveform: 0.2, // 20% - 진폭 유사도
+        pitch: 0.2, // 20% - 피치 패턴
         spectrogram: 0.0, // 0% - 주파수 분석 (VAD로 대체)
-        cer: 0.5,         // 50% - 텍스트 정확도
+        cer: 0.5, // 50% - 텍스트 정확도
       };
 
       const totalScore = Math.round(
@@ -430,33 +464,40 @@ export function useAudioAnalysis() {
       );
 
       const totalWaveformObj = {
-        "waveformScore" :waveformScore,
-        "weights.waveform":weights.waveform,
-        "waveformScore * weights.waveform":waveformScore * weights.waveform,
-      }
+        waveformScore: waveformScore,
+        "weights.waveform": weights.waveform,
+        "waveformScore * weights.waveform": waveformScore * weights.waveform,
+      };
 
       const pitchScoreObj = {
-        "pitchScore" :pitchScore,
-        "weights.pitch":weights.pitch,
-        "pitchScore * weights.pitch":pitchScore * weights.pitch,
-        }
+        pitchScore: pitchScore,
+        "weights.pitch": weights.pitch,
+        "pitchScore * weights.pitch": pitchScore * weights.pitch,
+      };
 
       const spectrogramScoreObj = {
-        "spectrogramScore" :spectrogramScore,
-        "weights.spectrogram":weights.spectrogram,
-        "spectrogramScore * weights.spectrogram":spectrogramScore * weights.spectrogram,
-        }
-        
+        spectrogramScore: spectrogramScore,
+        "weights.spectrogram": weights.spectrogram,
+        "spectrogramScore * weights.spectrogram":
+          spectrogramScore * weights.spectrogram,
+      };
+
       const cerScoreObj = {
-        "cerScore" :cerScore,
-        "weights.cer":weights.cer,
-        "cerScore * weights.cer":cerScore * weights.cer,
-        }
-        
+        cerScore: cerScore,
+        "weights.cer": weights.cer,
+        "cerScore * weights.cer": cerScore * weights.cer,
+      };
+
       console.log("🔍🔍🔍 totalScore : ", totalScore);
-      console.log("🔍🔍🔍 waveformScore * weights.waveform : " , totalWaveformObj);
+      console.log(
+        "🔍🔍🔍 waveformScore * weights.waveform : ",
+        totalWaveformObj
+      );
       console.log("🔍🔍🔍 pitchScore * weights.pitch : ", pitchScoreObj);
-      console.log("🔍🔍🔍 spectrogramScore * weights.spectrogram : ",spectrogramScoreObj );
+      console.log(
+        "🔍🔍🔍 spectrogramScore * weights.spectrogram : ",
+        spectrogramScoreObj
+      );
       console.log("🔍🔍🔍 cerScore * weights.cer : ", cerScoreObj);
 
       // 피드백 생성
@@ -518,7 +559,7 @@ export function useAudioAnalysis() {
 
       console.log("🎊 VAD 적용된 최종 분석 완료!");
       console.log("예상 개선: Pitch 79% → 95%+");
-      
+
       return finalResult;
     } catch (error) {
       console.error("Analysis failed:", error);

@@ -1,6 +1,6 @@
 // src/features/pronunciation/store/pronunciationStore.ts
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 interface PronunciationState {
   // 현재 상태
@@ -21,8 +21,6 @@ interface PronunciationState {
   // STT 결과
   sttTranscript: string | null;
 
-
-
   // Actions
   setCurrentStage: (stage: PronunciationState["currentStage"]) => void;
   setCurrentContext: (context: PronunciationState["currentContext"]) => void;
@@ -34,36 +32,46 @@ interface PronunciationState {
 
 export const usePronunciationStore = create<PronunciationState>()(
   devtools(
-    (set) => ({
-      // State
-      currentStage: "prepare",
-      currentContext: null,
-      standardAudioUrl: null,
-      recordedAudioBlob: null,
-      sttTranscript: null,
-      analysisResult: null,
+    persist(
+      (set) => ({
+        // State
+        currentStage: "prepare",
+        currentContext: null,
+        standardAudioUrl: null,
+        recordedAudioBlob: null,
+        sttTranscript: null,
+        analysisResult: null,
 
-      // Actions
-      setCurrentStage: (stage) => set({ currentStage: stage }),
-      setCurrentContext: (context) =>
-        set({
-          currentContext: context,
-          standardAudioUrl: context?.audioReference || null,
-        }),
-      setRecordedAudioBlob: (blob) => set({ recordedAudioBlob: blob }),
-      setSttTranscript: (transcript) => set({ sttTranscript: transcript }),
+        // Actions
+        setCurrentStage: (stage) => set({ currentStage: stage }),
+        setCurrentContext: (context) =>
+          set({
+            currentContext: context,
+            standardAudioUrl: context?.audioReference || null,
+          }),
+        setRecordedAudioBlob: (blob) => set({ recordedAudioBlob: blob }),
+        setSttTranscript: (transcript) => set({ sttTranscript: transcript }),
 
-      // setAnalysisResult: (result) => set({ analysisResult: result }),
-      reset: () =>
-        set({
-          currentStage: "prepare",
-          currentContext: null,
-          standardAudioUrl: null,
-          recordedAudioBlob: null,
-          sttTranscript: null,
-          // analysisResult: null,
+        // setAnalysisResult: (result) => set({ analysisResult: result }),
+        reset: () =>
+          set({
+            currentStage: "prepare",
+            currentContext: null,
+            standardAudioUrl: null,
+            recordedAudioBlob: null,
+            sttTranscript: null,
+            // analysisResult: null,
+          }),
+      }),
+      {
+        name: "PronunciationStore",
+        partialize: (state) => ({
+          currentContext: state.currentContext,
+          currentStage: state.currentStage,
+          standardAudioUrl: state.standardAudioUrl,
         }),
-    }),
+      }
+    ),
     { name: "PronunciationStore" }
   )
 );
