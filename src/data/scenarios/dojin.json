@@ -148,7 +148,7 @@
         {
           "characterType": "player",
           "position": "center",
-          "emotion": "determined"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -181,7 +181,7 @@
         {
           "id": "choice3",
           "text": "성공하신 건 좋지만 다른 사람을 무시하는 건 좀...",
-          "audioReference": "/assets/audio/references/dojin_choice3.mp3",
+          "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -4
         }

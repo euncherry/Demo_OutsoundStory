@@ -4,6 +4,7 @@ import { useWavesurfer } from "@wavesurfer/react";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
 import * as styles from "./ResultsStage.css.ts";
+import "./PitchContourTab.css.ts";
 
 interface PitchData {
   frequencies: (number | null)[];
@@ -15,7 +16,7 @@ interface PitchData {
 export function PitchContourTab() {
   const { recordedAudioBlob, currentContext } = usePronunciationStore();
   const { pitchAnalysis } = useScoreStore(); // scoreStore에서 분석된 데이터 가져오기
-  
+
   const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
 
   const refContainerRef = useRef<HTMLDivElement>(null);
@@ -25,9 +26,7 @@ export function PitchContourTab() {
   const userCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // WaveSurfer 설정 - 표준 발음
-  const {
-    wavesurfer: refWavesurfer,
-  } = useWavesurfer({
+  const { wavesurfer: refWavesurfer } = useWavesurfer({
     container: refContainerRef,
     height: 200,
     waveColor: "rgba(255, 200, 220, 1)",
@@ -46,14 +45,14 @@ export function PitchContourTab() {
     hideScrollbar: false,
     audioRate: 1,
     autoplay: false,
-    url: currentContext?.audioReference || "/src/assets/audio/references/Default.wav",
+    url:
+      currentContext?.audioReference ||
+      "/src/assets/audio/references/Default.wav",
     sampleRate: 11025,
   });
 
   // WaveSurfer 설정 - 사용자 발음
-  const {
-    wavesurfer: userWavesurfer,
-  } = useWavesurfer({
+  const { wavesurfer: userWavesurfer } = useWavesurfer({
     container: userContainerRef,
     height: 200,
     waveColor: "#7db496",
@@ -144,14 +143,18 @@ export function PitchContourTab() {
   useEffect(() => {
     if (!pitchAnalysis || !refWavesurfer || !userWavesurfer) return;
 
-    const { refFrequencies, userFrequencies, refBaseFrequency, userBaseFrequency } = pitchAnalysis;
+    const {
+      refFrequencies,
+      userFrequencies,
+      refBaseFrequency,
+      userBaseFrequency,
+    } = pitchAnalysis;
 
     // 표준 발음 피치 콘투어 그리기
     drawPitchContour(refFrequencies, refBaseFrequency, refCanvasRef);
-    
+
     // 사용자 발음 피치 콘투어 그리기
     drawPitchContour(userFrequencies, userBaseFrequency, userCanvasRef);
-
   }, [pitchAnalysis, refWavesurfer, userWavesurfer]);
 
   // 분석된 데이터로 PitchData 형태 변환
@@ -168,8 +171,12 @@ export function PitchContourTab() {
     } = pitchAnalysis;
 
     // 유효한 주파수만 필터링
-    const refValidFreqs = refFrequencies.filter((f): f is number => f !== null && f > 0);
-    const userValidFreqs = userFrequencies.filter((f): f is number => f !== null && f > 0);
+    const refValidFreqs = refFrequencies.filter(
+      (f): f is number => f !== null && f > 0
+    );
+    const userValidFreqs = userFrequencies.filter(
+      (f): f is number => f !== null && f > 0
+    );
 
     if (refValidFreqs.length === 0 || userValidFreqs.length === 0) return null;
 
@@ -212,125 +219,94 @@ export function PitchContourTab() {
 
       <div className={styles.chartsContainer}>
         {/* 표준 발음 웨이브폼 + 피치 콘투어 */}
-        <div
-          className="waveform-container"
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "calc(200px + 2rem)",
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-            padding: "1rem 0",
-          }}
-        >
-          <div ref={refContainerRef} className="waveform" />
-          <canvas
-            ref={refCanvasRef}
-            className="pitch-canvas"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 10,
-            }}
-          />
-        </div>
-      </div>
-
-      <div className={styles.chartsContainer}>
-        <div className={styles.chartContainer}>
-          <p>🎼 내 발음 Pitch Contour</p>
+        <div className={styles.pitchChart}>
+          <div className={styles.waveLabel} style={{ paddingBottom: "1rem" }}>
+            <div
+              className={styles.waveLegend}
+              style={{
+                background: "linear-gradient(135deg, #ff8fab, #ffc3d0)",
+              }}
+            />
+            <span className={styles.analysisColumnH4}>
+              표준 발음 Pitch Contour
+            </span>
+          </div>
+          <div className={styles.pitchWaveformContainer}>
+            <div ref={refContainerRef} className={styles.pitchWaveform} />
+            <canvas ref={refCanvasRef} className={styles.pitchCanvasOverlay} />
+          </div>
         </div>
 
         {/* 사용자 발음 웨이브폼 + 피치 콘투어 */}
-        <div
-          className="waveform-container"
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "calc(200px + 2rem)",
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-            padding: "1rem 0",
-          }}
-        >
-          <div ref={userContainerRef} className="waveform" />
-          <canvas
-            ref={userCanvasRef}
-            className="pitch-canvas"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              zIndex: 10,
-            }}
-          />
+        <div className={styles.pitchChart}>
+          <div className={styles.waveLabel}>
+            <div
+              className={styles.waveLegend}
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(140, 163, 196), rgb(181, 198, 220))",
+              }}
+            />
+            <span
+              className={styles.analysisColumnH4}
+              style={{ color: "#8ca3c4" }}
+            >
+              표준 발음 Pitch Contour
+            </span>
+          </div>
+          <div className={styles.pitchWaveformContainer}>
+            <div ref={userContainerRef} className={styles.pitchWaveform} />
+            <canvas ref={userCanvasRef} className={styles.pitchCanvasOverlay} />
+          </div>
+          {/* 에러 표시 */}
+          {!pitchAnalysis && (
+            <div className={styles.errorMessage}>
+              ⚠️ 피치 분석 데이터가 없습니다. 먼저 발음 분석을 진행해주세요.
+            </div>
+          )}
+          {/* 사용자 발음 정보 표시 */}
+          {pitchInfo && (
+            <div className={styles.pitchInfoDisplay}>
+              <span>
+                Base: {Math.round(pitchInfo.userPitchData.baseFrequency)}Hz
+              </span>
+              <span>
+                Avg: {Math.round(pitchInfo.userPitchData.averagePitch)}Hz
+              </span>
+              <span>
+                Range: {Math.round(pitchInfo.userPitchData.pitchRange.min)}-
+                {Math.round(pitchInfo.userPitchData.pitchRange.max)}Hz
+              </span>
+            </div>
+          )}
         </div>
-
-        {/* 에러 표시 */}
-        {!pitchAnalysis && (
-          <div
-            style={{
-              color: "#ff6b6b",
-              padding: "10px",
-              marginTop: "10px",
-              background: "rgba(255, 107, 107, 0.1)",
-              borderRadius: "5px",
-              fontSize: "14px",
-            }}
-          >
-            ⚠️ 피치 분석 데이터가 없습니다. 먼저 발음 분석을 진행해주세요.
-          </div>
-        )}
-
-        {/* 사용자 발음 정보 표시 */}
-        {pitchInfo && (
-          <div className="pitch-info">
-            <span>
-              Base: {Math.round(pitchInfo.userPitchData.baseFrequency)}Hz
-            </span>
-            <span>
-              Avg: {Math.round(pitchInfo.userPitchData.averagePitch)}Hz
-            </span>
-            <span>
-              Range: {Math.round(pitchInfo.userPitchData.pitchRange.min)}-
-              {Math.round(pitchInfo.userPitchData.pitchRange.max)}Hz
-            </span>
-          </div>
-        )}
       </div>
 
       {/* 분석 결과 표시 */}
-      <div className={styles.pitchAnalysis}>
-        <div className={styles.analysisItem}>
-          <span className={styles.analysisLabel}>평균 피치 (표준):</span>
-          <span className={styles.analysisValue}>
+      <div className={styles.pitchAnalysisGrid}>
+        <div className={styles.pitchItem}>
+          <span className={styles.pitchLabel}>평균 피치 (표준):</span>
+          <span className={styles.pitchValue}>
             {pitchInfo?.refPitchData.averagePitch.toFixed(1) || 0}Hz
           </span>
         </div>
-        <div className={styles.analysisItem}>
-          <span className={styles.analysisLabel}>평균 피치 (사용자):</span>
-          <span className={styles.analysisValue}>
+        <div className={styles.pitchItem}>
+          <span className={styles.pitchLabel}>평균 피치 (사용자):</span>
+          <span className={styles.pitchValue}>
             {pitchInfo?.userPitchData.averagePitch.toFixed(1) || 0}Hz
           </span>
         </div>
-        <div className={styles.analysisItem}>
-          <span className={styles.analysisLabel}>피치 범위:</span>
-          <span className={styles.analysisValue}>
+        <div className={styles.pitchItem}>
+          <span className={styles.pitchLabel}>피치 범위:</span>
+          <span className={styles.pitchValue}>
             {pitchInfo?.userPitchData.pitchRange.min.toFixed(1) || 0}-
             {pitchInfo?.userPitchData.pitchRange.max.toFixed(1) || 0}Hz
           </span>
         </div>
-        <div className={styles.analysisItem}>
-          <span className={styles.analysisLabel}>유사도:</span>
+        <div className={styles.pitchItem}>
+          <span className={styles.pitchLabel}>유사도:</span>
           <span
-            className={styles.analysisValue}
+            className={styles.pitchValue}
             style={{
               color:
                 pitchInfo && pitchInfo.similarity > 70

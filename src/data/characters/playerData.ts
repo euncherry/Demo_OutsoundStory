@@ -3,10 +3,11 @@ export interface PlayerEmotions {
   normal: string;
   happy: string;
   sad: string;
-  surprised: string;
+  surprised?: string;
   angry: string;
   shy: string;
-  determined: string;
+  determined?: string;
+  melancholy?: string;
 }
 
 export interface PlayerData {
@@ -15,14 +16,14 @@ export interface PlayerData {
     female: PlayerEmotions;
     male: PlayerEmotions;
   };
-  themeColor : {
+  themeColor: {
     female: string;
     male: string;
-  }
-  dialogueTextColor : {
+  };
+  dialogueTextColor: {
     female: string;
     male: string;
-  }
+  };
 }
 
 export const playerData: PlayerData = {
@@ -32,10 +33,10 @@ export const playerData: PlayerData = {
       normal: "/src/assets/characters/player/female/normal.png",
       happy: "/src/assets/characters/player/female/happy.png",
       sad: "/src/assets/characters/player/female/sad.png",
-      surprised: "/src/assets/characters/player/female/surprised.png",
+      // surprised: "/src/assets/characters/player/female/surprised.png",
       angry: "/src/assets/characters/player/female/angry.png",
       shy: "/src/assets/characters/player/female/shy.png",
-      determined: "/src/assets/characters/player/female/determined.png",
+      melancholy: "/src/assets/characters/player/female/melancholy.png",
     },
     male: {
       normal: "/src/assets/characters/player/male/normal.png",

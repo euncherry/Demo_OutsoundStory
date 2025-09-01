@@ -1,47 +1,47 @@
 // src/pages/NPCSelection/NPCSelection.css.ts
-import { style, keyframes } from '@vanilla-extract/css';
-import { vars } from '@shared/styles/theme.css';
+import { style, keyframes } from "@vanilla-extract/css";
+import { vars } from "@shared/styles/theme.css";
 
 // 애니메이션
 const scanline = keyframes({
-  '0%': { transform: 'translateX(-100%)' },
-  '100%': { transform: 'translateX(100%)' },
+  "0%": { transform: "translateX(-100%)" },
+  "100%": { transform: "translateX(100%)" },
 });
 
 const glitch = keyframes({
-  '0%': {
-    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    transform: 'translate(0)',
+  "0%": {
+    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    transform: "translate(0)",
     opacity: 0.2,
   },
-  '80%': {
-    clipPath: 'polygon(0 0, 100% 5%, 100% 100%, 0 95%)',
-    transform: 'translate(0)',
+  "80%": {
+    clipPath: "polygon(0 0, 100% 5%, 100% 100%, 0 95%)",
+    transform: "translate(0)",
     opacity: 0.1,
   },
-  '100%': {
-    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    transform: 'translate(0)',
+  "100%": {
+    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    transform: "translate(0)",
     opacity: 0,
   },
 });
 
 const shimmer = keyframes({
-  '0%': { backgroundPosition: '200% center' },
-  '100%': { backgroundPosition: '-200% center' },
+  "0%": { backgroundPosition: "200% center" },
+  "100%": { backgroundPosition: "-200% center" },
 });
 
 // 컨테이너
 export const container = style({
-  position: 'relative',
-  width: '100vw',
-  height: '100vh',
-  overflow: 'hidden',
+  position: "relative",
+  width: "100vw",
+  height: "100vh",
+  overflow: "hidden",
   background: vars.colors.background,
 });
 
 export const backgroundGradient = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
   opacity: 0.5,
   zIndex: -1,
@@ -49,27 +49,27 @@ export const backgroundGradient = style({
 
 // 헤더
 export const header = style({
-  position: 'relative',
-  textAlign: 'center',
+  position: "relative",
+  textAlign: "center",
   padding: vars.spacing.xl,
   zIndex: 10,
 });
 
 export const backButton = style({
-  position: 'absolute',
+  position: "absolute",
   left: vars.spacing.xl,
-  top: '50%',
-  transform: 'translateY(-50%)',
+  top: "50%",
+  transform: "translateY(-50%)",
   padding: `${vars.spacing.sm} ${vars.spacing.md}`,
   background: vars.colors.backgroundGlass,
   border: `2px solid ${vars.colors.glassBorder}`,
   borderRadius: vars.borderRadius.md,
   color: vars.colors.text,
-  cursor: 'pointer',
+  cursor: "pointer",
   transition: vars.transitions.normal,
 
-  ':hover': {
-    transform: 'translateY(-50%) translateX(-5px)',
+  ":hover": {
+    transform: "translateY(-50%) translateX(-5px)",
     background: vars.colors.buttonHover,
   },
 });
@@ -78,9 +78,9 @@ export const title = style({
   fontSize: vars.fontSize.xxxl,
   fontWeight: vars.fontWeight.bold,
   background: vars.colors.gradient,
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
   marginBottom: vars.spacing.sm,
 });
 
@@ -91,66 +91,66 @@ export const subtitle = style({
 
 // 가로 스크롤 컨테이너
 export const horizontalScrollWrapper = style({
-  position: 'relative',
-  width: '100%',
-  height: 'calc(100vh - 200px)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
+  position: "relative",
+  width: "100%",
+  height: "calc(100vh - 200px)",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
   padding: `0 ${vars.spacing.xxl}`,
-  overflow: 'hidden',
-  '@media': {
-    '(max-width: 768px)': {
+  overflow: "hidden",
+  "@media": {
+    "(max-width: 768px)": {
       padding: `0 ${vars.spacing.lg}`,
     },
   },
 });
 
 export const horizontalGridContainer = style({
-  display: 'flex',
+  display: "flex",
   gap: vars.spacing.xl,
-  alignItems: 'center',
-  height: '450px',
-  width: '100%',
-  overflowX: 'visible',
-  paddingLeft: '3rem',
-  paddingRight: '3rem',
-  userSelect: 'none',
-  '@media': {
-    '(max-width: 768px)': {
+  alignItems: "center",
+  height: "450px",
+  width: "100%",
+  overflowX: "visible",
+  paddingLeft: "3rem",
+  paddingRight: "3rem",
+  userSelect: "none",
+  "@media": {
+    "(max-width: 768px)": {
       gap: vars.spacing.lg,
-      height: '400px',
-      paddingLeft: '5%',
-      paddingRight: '5%',
+      height: "400px",
+      paddingLeft: "5%",
+      paddingRight: "5%",
     },
   },
 });
 
 export const cardWrapper = style({
   flexShrink: 0,
-  width: '320px',
-  height: '420px',
-  '@media': {
-    '(max-width: 768px)': {
-      width: '280px',
-      height: '380px',
+  width: "320px",
+  height: "420px",
+  "@media": {
+    "(max-width: 768px)": {
+      width: "280px",
+      height: "380px",
     },
   },
 });
 
 // 스크롤 인디케이터
 export const scrollIndicator = style({
-  position: 'absolute',
-  bottom: '40px',
-  left: '50%',
-  transform: 'translateX(-50%)',
+  position: "absolute",
+  bottom: "40px",
+  left: "50%",
+  transform: "translateX(-50%)",
   color: vars.colors.textMuted,
   fontSize: vars.fontSize.sm,
   fontWeight: vars.fontWeight.medium,
   padding: `${vars.spacing.sm} ${vars.spacing.lg}`,
   background: vars.colors.backgroundGlass,
-  backdropFilter: 'blur(10px)',
+  backdropFilter: "blur(10px)",
   borderRadius: vars.borderRadius.full,
   border: `1px solid ${vars.colors.glassBorder}`,
   zIndex: 10,
@@ -158,24 +158,58 @@ export const scrollIndicator = style({
 
 // NPC 카드
 export const npcCard = style({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
+  position: "relative",
+  width: "100%",
+  height: "100%",
   background: vars.colors.backgroundGlass,
-  backdropFilter: 'blur(20px)',
+  backdropFilter: "blur(20px)",
   border: `2px solid ${vars.colors.glassBorder}`,
   borderRadius: vars.borderRadius.xl,
   padding: vars.spacing.lg,
-  cursor: 'pointer',
+  cursor: "pointer",
   transition: vars.transitions.normal,
-  transformStyle: 'preserve-3d',
-  perspective: '1000px',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
+  transformStyle: "preserve-3d",
+  perspective: "1000px",
+  overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
 
-  ':hover': {
+  ":hover": {
     boxShadow: `0 20px 40px ${vars.colors.shadowHover}`,
+  },
+});
+
+// 잠금 오버레이
+export const lockOverlay = style({
+  inset: 0,
+  background: "rgba(255, 255, 255, 0.22)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: vars.borderRadius.xl,
+  zIndex: 10,
+});
+
+export const lockIcon = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  color: vars.colors.textTertiary,
+  fontWeight: vars.fontWeight.bold,
+  fontSize: vars.fontSize.sm,
+  wordBreak: "keep-all",
+  textAlign: "center",
+  padding: "1rem 2rem",
+  boxSizing: "border-box",
+  lineHeight: 1.5,
+
+  "::before": {
+    content: "🔒",
+    fontSize: "1rem",
+    paddingBottom: "0.5rem",
+    // marginBottom: vars.spacing.md,
+    display: "block",
   },
 });
 
@@ -186,63 +220,64 @@ export const mysteryCard = style({
     rgba(155, 255, 255, 0.1), 
     rgba(255, 255, 155, 0.1))`,
   animation: `${shimmer} 3s linear infinite`,
-  backgroundSize: '200% 100%',
+  backgroundSize: "200% 100%",
 });
 
 export const glitchEffect = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  background: 'linear-gradient(90deg, transparent, rgba(212, 102, 194, 1), transparent)',
-  pointerEvents: 'none',
+  background:
+    "linear-gradient(90deg, transparent, rgba(212, 102, 194, 1), transparent)",
+  pointerEvents: "none",
   animation: `${glitch} 3s ease-in-out infinite`,
-  '::before': {
+  "::before": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     inset: 0,
     background:
-      'linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent)',
+      "linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent)",
     animation: `${scanline} 2s linear infinite`,
   },
 });
 
 export const hologramOverlay = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
   background: `repeating-linear-gradient(
     0deg,
     transparent,
     transparent 2px,
-    rgba(185, 255, 255, 0.3) 2px,
-    rgba(247, 224, 247, 0.5) 4px
+    rgba(185, 255, 255, 0.1) 2px,
+    rgba(247, 224, 247, 0.2) 4px
   )`,
-  pointerEvents: 'none',
+  pointerEvents: "none",
 });
 
 // 이미지
 export const imageWrapper = style({
-  position: 'relative',
-  width: '100%',
-  height: '200px',
+  position: "relative",
+  width: "100%",
+  height: "200px",
   marginBottom: vars.spacing.md,
-  overflow: 'hidden',
+  overflow: "hidden",
   borderRadius: vars.borderRadius.md,
-  pointerEvents : 'none',
+  pointerEvents: "none",
 });
 
 export const profileImage = style({
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
   transition: vars.transitions.normal,
 });
 
 // 정보
 export const cardInfo = style({
-  textAlign: 'center',
+  textAlign: "center",
   flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-start",
 });
 
 export const npcName = style({
@@ -272,49 +307,140 @@ export const npcIntro = style({
 
 // 호버 효과
 export const hoverEffect = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  pointerEvents: 'none',
+  pointerEvents: "none",
 });
 
 export const sparkles = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
 });
 
 export const sparkle = style({
-  position: 'absolute',
-  fontSize: '20px',
+  position: "absolute",
+  fontSize: "20px",
 });
-
-
-
-
 
 // 카드 앞/뒷면. cardFront, cardBack 스타일 추가:
 export const cardFront = style({
   // 효과적으로 겹침 및 회전
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  width: '100%',
-  height: '100%',
-  background: 'transparent',
+  width: "100%",
+  height: "100%",
+  background: "transparent",
   zIndex: 2,
-  display: 'flex',
-  flexDirection: 'column',
+  display: "flex",
+  flexDirection: "column",
 });
 
 export const cardBack = style({
-  position: 'absolute',
+  position: "absolute",
   inset: 0,
-  width: '100%',
-  height: '100%',
-  background: 'rgba(255,255,255,0.96)',
+  width: "100%",
+  height: "100%",
+  background: "rgba(255,255,255,0.96)",
   zIndex: 3,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontSize: '1.15em',
-  color: '#333',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "1.15em",
+  color: "#333",
   borderRadius: vars.borderRadius.xl,
+});
+
+// 카드 뒤면 해금 정보 스타일들
+export const unlockInfo = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: vars.spacing.lg,
+  textAlign: "center",
+  width: "100%",
+});
+
+export const unlockTitle = style({
+  fontSize: vars.fontSize.lg,
+  fontWeight: vars.fontWeight.bold,
+  color: vars.colors.text,
+  marginBottom: vars.spacing.md,
+});
+
+export const unlockHint = style({
+  fontSize: vars.fontSize.md,
+  color: vars.colors.textSecondary,
+  marginBottom: vars.spacing.lg,
+  lineHeight: 1.5,
+});
+
+export const unlockProgress = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: vars.spacing.sm,
+  width: "100%",
+});
+
+export const progressBar = style({
+  width: "100%",
+  height: "8px",
+  background: "rgba(0, 0, 0, 0.1)",
+  borderRadius: "4px",
+  overflow: "hidden",
+  marginBottom: vars.spacing.xs,
+});
+
+export const progressFill = style({
+  height: "100%",
+  background: "linear-gradient(90deg, #4CAF50, #45a049)",
+  borderRadius: "4px",
+  transition: "width 0.5s ease",
+});
+
+export const progressText = style({
+  fontSize: vars.fontSize.sm,
+  color: vars.colors.textMuted,
+  fontWeight: vars.fontWeight.medium,
+});
+
+// 몰래 먼저 플레이 버튼 스타일
+export const secretPlayButton = style({
+  fontSize: vars.fontSize.sm,
+  color: "#FF6B9D",
+  fontWeight: vars.fontWeight.bold,
+  cursor: "pointer",
+  padding: `${vars.spacing.xs} ${vars.spacing.sm}`,
+  borderRadius: vars.borderRadius.sm,
+  background: "rgba(255, 107, 157, 0.1)",
+  border: "1px solid rgba(255, 107, 157, 0.3)",
+  transition: "all 0.3s ease",
+  textShadow: "0 0 8px rgba(255, 107, 157, 0.5)",
+  position: "relative",
+  overflow: "hidden",
+
+  "::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: "-100%",
+    width: "100%",
+    height: "100%",
+    background:
+      "linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.2), transparent)",
+    transition: "left 0.5s ease",
+  },
+
+  ":hover": {
+    background: "rgba(255, 107, 157, 0.2)",
+    border: "1px solid rgba(255, 107, 157, 0.6)",
+    transform: "scale(1.05)",
+    textShadow: "0 0 12px rgba(255, 107, 157, 0.8)",
+    boxShadow: "0 4px 12px rgba(255, 107, 157, 0.3)",
+  },
+
+  ":active": {
+    transform: "scale(0.98)",
+  },
 });

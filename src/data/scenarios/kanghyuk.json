@@ -40,7 +40,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "surprised"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -82,7 +82,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "surprised"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -102,7 +102,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "determined"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -115,21 +115,21 @@
         {
           "id": "choice1",
           "text": "이해해요. 처음부터 다시 시작해봐요, 진짜 강혁씨와.",
-          "audioReference": "/src/assets/audio/references/kanghyuk_choice1.mp3",
+          "audioReference": "/assets/audio/references/kanghyuk_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 15
         },
         {
           "id": "choice2",
           "text": "혼란스럽긴 하지만... 시간을 좀 주세요.",
-          "audioReference": "/src/assets/audio/references/kanghyuk_choice2.mp3",
+          "audioReference": "/assets/audio/references/kanghyuk_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice3",
           "text": "그래도 거짓말은 용서할 수 없어요. 우리 끝내요.",
-          "audioReference": "/src/assets/audio/references/kanghyuk_choice3.mp3",
+          "audioReference": "/assets/audio/references/kanghyuk_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -10
         }

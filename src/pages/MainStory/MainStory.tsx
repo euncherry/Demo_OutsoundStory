@@ -45,19 +45,28 @@ export function MainStory() {
 
   // 대화 완료 처리 - 발음 분석 완료 시에만 처리
   useEffect(() => {
+    console.log("isComplete", isComplete);
+    console.log("hasCompleted", hasCompleted);
     if (isComplete && !hasCompleted) {
       // 스토리 완료 시 한 번만 호출
       onStoryComplete();
       setHasCompleted(true);
       console.log(`🏁 ${selectedNPC} 스토리 완료됨`);
-      
+
       updateProgress("hasCompletedDialogue", true);
       // PlayerRoom으로 이동
       setTimeout(() => {
         navigate("/room");
       }, 1000);
     }
-  }, [isComplete, navigate, updateProgress, onStoryComplete, hasCompleted, selectedNPC]);
+  }, [
+    isComplete,
+    navigate,
+    updateProgress,
+    onStoryComplete,
+    hasCompleted,
+    selectedNPC,
+  ]);
 
   // 선택지 선택 처리
   const handleChoiceSelect = (choice: Choice) => {

@@ -18,7 +18,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "surprised"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -38,7 +38,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "surprised"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -64,7 +64,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "surprised"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -143,7 +143,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "determined"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",

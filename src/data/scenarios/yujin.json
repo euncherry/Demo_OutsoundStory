@@ -1,0 +1,261 @@
+{
+  "npcId": "yujin",
+  "npcName": "유진",
+  "scenes": [
+    {
+      "id": "scene1",
+      "type": "narration",
+      "text": "편의점에서 일하던 중, 갑자기 전화가 온다.",
+      "background": "/assets/backgrounds/convenience_store_night.jpg",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene2"
+    },
+    {
+      "id": "scene2",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "뭐해요? 술 마셔요? 나라니까요. 유진. 방금 메시지 보냈잖아요!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "energetic"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "편의점이요? 어디? 나 출출한데 뭐 사먹으러 가야겠다! 운동 좋아해요?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "shy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "excited"
+        }
+      ],
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
+      "type": "narration",
+      "text": "PC방을 찾아갔더니 진상 손님과 맞서고 있는 유진을 목격한다.",
+      "background": "/assets/backgrounds/pc_room.jpg",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "excited"
+        }
+      ],
+      "nextSceneId": "scene5"
+    },
+    {
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "손님 때문에 다른 손님들이 싫어하잖아요! 주먹을 여자 패는데 쓰라고 부모님이 가르치디?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "worried"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "angry"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(진상의 팔을 꺾어서 제압하는 모습이... 대단하긴 한데 좀 무섭기도 하고...)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "confident"
+        }
+      ],
+      "nextSceneId": "scene7"
+    },
+    {
+      "id": "scene7",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "어? 언제 왔어요? 목숨을 구해준 사람한테 신세진 건 제대로 갚아야죠. 짜계치 만들었으니까 다 먹어야 돼요!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "cheerful"
+        }
+      ],
+      "nextSceneId": "scene8"
+    },
+    {
+      "id": "scene8",
+      "type": "narration",
+      "text": "며칠 후, 함께 닭발집에서 저녁을 먹는다.",
+      "background": "/assets/backgrounds/restaurant_night.jpg",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "happy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene9"
+    },
+    {
+      "id": "scene9",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "스트레스 받을 때 먹으면 더 좋아요. 나한테 스트레스 준 사람을 닭발이라고 생각하고 확 뜯는 거에요!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "happy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "playful"
+        }
+      ],
+      "nextSceneId": "scene10"
+    },
+    {
+      "id": "scene10",
+      "type": "narration",
+      "text": "식사 후 집으로 가던 중, 갑자기 복수심에 불타는 진상이 나타난다.",
+      "background": "/assets/backgrounds/street_night.jpg",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "defensive"
+        }
+      ],
+      "nextSceneId": "scene11"
+    },
+    {
+      "id": "scene11",
+      "type": "dialogue",
+      "speaker": "yujin",
+      "text": "미친! 안 쪽팔리냐? 후회할 짓 하지 말고 그냥 가지?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "brave"
+        }
+      ],
+      "nextSceneId": "scene12"
+    },
+    {
+      "id": "scene12",
+      "type": "choice",
+      "text": "위험한 상황에서 어떻게 행동할까?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yujin",
+          "position": "right",
+          "emotion": "worried"
+        }
+      ],
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "유진씨! 피해요! (유진을 보호하려고 나선다)",
+          "audioReference": "/assets/audio/references/yujin_choice1.mp3",
+          "nextSceneId": null,
+          "affinityChange": 15
+        },
+        {
+          "id": "choice2",
+          "text": "경찰에 신고하겠다고 위협한다",
+          "audioReference": "/assets/audio/references/yujin_choice2.mp3",
+          "nextSceneId": null,
+          "affinityChange": 5
+        },
+        {
+          "id": "choice3",
+          "text": "유진씨가 알아서 해결하도록 뒤로 물러난다",
+          "audioReference": "/assets/audio/references/yujin_choice3.mp3",
+          "nextSceneId": null,
+          "affinityChange": -8
+        }
+      ]
+    }
+  ]
+}

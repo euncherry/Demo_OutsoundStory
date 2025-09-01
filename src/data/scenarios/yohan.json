@@ -44,7 +44,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "shocked"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
@@ -70,7 +70,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "worried"
+          "emotion": "sad"
         },
         {
           "characterType": "npc",
@@ -96,7 +96,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "worried"
+          "emotion": "sad"
         }
       ],
       "nextSceneId": "scene7"
@@ -135,7 +135,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "determined"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",

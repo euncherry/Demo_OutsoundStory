@@ -8,6 +8,11 @@ import jihoonScenario from "@/data/scenarios/jihoon.json";
 import dojinScenario from "@/data/scenarios/dojin.json";
 import yohanScenario from "@/data/scenarios/yohan.json";
 import kanghyukScenario from "@/data/scenarios/kanghyuk.json";
+import gaeulScenario from "@/data/scenarios/gaeul.json";
+import mihyunScenario from "@/data/scenarios/mihyun.json";
+import yujinScenario from "@/data/scenarios/yujin.json";
+import chaerinScenario from "@/data/scenarios/chaerin.json";
+import sunhwaScenario from "@/data/scenarios/sunhwa.json";
 
 interface Scene {
   id: string;
@@ -51,6 +56,11 @@ export function useDialogueFlow() {
       dojin: dojinScenario as Scenario,
       yohan: yohanScenario as Scenario,
       kanghyuk: kanghyukScenario as Scenario,
+      gaeul: gaeulScenario as Scenario,
+      mihyun: mihyunScenario as Scenario,
+      yujin: yujinScenario as Scenario,
+      chaerin: chaerinScenario as Scenario,
+      sunhwa: sunhwaScenario as Scenario,
     };
 
     const loadedScenario = scenarioMap[selectedNPC];
@@ -84,7 +94,7 @@ export function useDialogueFlow() {
       setCurrentSceneIndex(nextIndex);
       setCurrentScene(scenario.scenes[nextIndex]);
     } else {
-      setIsComplete(true);
+      // setIsComplete(true);
     }
   };
 
@@ -92,7 +102,7 @@ export function useDialogueFlow() {
   const selectChoice = (choice: Choice) => {
     // 데모 버전: 선택 후 종료
     if (choice.nextSceneId === null) {
-      setIsComplete(true);
+      // setIsComplete(true);
     }
   };
 

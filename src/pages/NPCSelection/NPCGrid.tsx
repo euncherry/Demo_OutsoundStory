@@ -3,7 +3,8 @@ import React, { useRef, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { NPCCard } from "./NPCCard";
 import { getAllNPCs } from "@/data/npcs/npcData";
-import { useCharacterStore } from "@/store";
+//Anchor : 해금
+// import { useCharacterStore } from "@/store";
 
 import * as styles from "./NPCSelection.css.ts";
 
@@ -12,30 +13,33 @@ interface NPCGridProps {
 }
 
 export function NPCGrid({ onSelectNPC }: NPCGridProps) {
+  //Anchor : 해금
+  // const { getAvailableNPCs } = useCharacterStore();
 
-  
-
-
-  const { getAvailableNPCs } = useCharacterStore();
-
+  //Anchor : 해금
   // 사용 가능한 NPC ID 목록
-  const availableNPCIds = useMemo(() => getAvailableNPCs(), [getAvailableNPCs]);
-  
+  // const availableNPCIds = useMemo(() => getAvailableNPCs(), [getAvailableNPCs]);
+
   // 전체 NPC 데이터 (성별에 맞는 데이터)
   const allNPCs = useMemo(() => getAllNPCs(), []);
   // NPCs 데이터를 메모이제이션하여 불필요한 재렌더링 방지
 
-    // 실제 표시할 NPC 목록 (해금된 것만)
-    const displayNPCs = useMemo(() => {
-      return allNPCs.filter(npc => availableNPCIds.includes(npc.id));
-    }, [allNPCs, availableNPCIds]);
-    
-    // 잠긴 NPC 목록 (미해금)
-    const lockedNPCs = useMemo(() => {
-      return allNPCs.filter(npc => !availableNPCIds.includes(npc.id));
-    }, [allNPCs, availableNPCIds]);
-  
-    
+  //Anchor : 해금
+  // 실제 표시할 NPC 목록 (해금된 것만)
+  // const displayNPCs = useMemo(() => {
+  //   return allNPCs.filter((npc) => availableNPCIds.includes(npc.id));
+  // }, [allNPCs, availableNPCIds]);
+
+  //Anchor : 해금
+  // 잠긴 NPC 목록 (미해금)
+  // const lockedNPCs = useMemo(() => {
+  //   return allNPCs.filter((npc) => !availableNPCIds.includes(npc.id));
+  // }, [allNPCs, availableNPCIds]);
+
+  //Anchor : 해금 - 모든 NPC를 표시
+  const displayNPCs = useMemo(() => {
+    return allNPCs;
+  }, [allNPCs]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -119,7 +123,8 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
             <NPCCard npc={npc} index={index} onSelect={onSelectNPC} />
           </div>
         ))}
-            {lockedNPCs.map((npc, index) => (
+        {/*Anchor : 해금
+        {lockedNPCs.map((npc, index) => (
           <div
             key={npc.id}
             className={styles.cardWrapper}
@@ -130,10 +135,17 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
               }
             }}
           >
-            <NPCCard npc={npc} index={index} onSelect={() => {}}
-              isLocked={true} />
+            <NPCCard
+              npc={npc}
+              index={index}
+              onSelect={() => {
+                console.log("잠긴 캐릭터 클릭");
+              }}
+              isLocked={true}
+            />
           </div>
         ))}
+        */}
       </motion.div>
 
       {/* 스크롤 인디케이터 */}

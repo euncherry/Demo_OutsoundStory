@@ -1,88 +1,123 @@
 // src/features/pronunciation/components/SpectrogramTab.tsx
 import React, { useRef, useEffect, useState } from "react";
+import WaveSurfer from "wavesurfer.js";
+import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
 import { usePronunciationStore } from "@/store/pronunciationStore";
-import { useScoreStore } from "@/store/scoreStore";
-import { useWavesurfer } from "@/features/pronunciation/hooks/useWavesurfer.ts";
 import * as styles from "./ResultsStage.css.ts";
 
 export function SpectrogramTab() {
   const { currentContext, recordedAudioBlob } = usePronunciationStore();
-  const { spectrogramAnalysis } = useScoreStore(); // scoreStore에서 분석된 데이터 가져오기
+  // spectrogramAnalysis는 현재 사용되지 않으므로 주석 처리
+  // const { spectrogramAnalysis } = useScoreStore();
 
   const standardWaveformRef = useRef<HTMLDivElement>(null);
   const userWaveformRef = useRef<HTMLDivElement>(null);
 
-  const {
-    createWavesurfer: createStandardWS,
-    addSpectrogram: addStandardSpectrogram,
-    loadAudio: loadStandardAudio,
-    playPause: playStandardAudio,
-    destroy: destroyStandard,
-    isPlaying: isStandardPlaying,
-  } = useWavesurfer();
+  const refWavesurferRef = useRef<WaveSurfer | null>(null);
+  const userWavesurferRef = useRef<WaveSurfer | null>(null);
 
-  const {
-    createWavesurfer: createUserWS,
-    addSpectrogram: addUserSpectrogram,
-    loadAudio: loadUserAudio,
-    playPause: playUserAudio,
-    destroy: destroyUser,
-    isPlaying: isUserPlaying,
-  } = useWavesurfer();
+  const [isStandardPlaying, setIsStandardPlaying] = useState(false);
+  const [isUserPlaying, setIsUserPlaying] = useState(false);
 
-  const [frequencyMatch, setFrequencyMatch] = useState(82);
+  const [frequencyMatch] = useState(82);
 
   // 표준 음성 wavesurfer 초기화
   useEffect(() => {
     if (!standardWaveformRef.current || !currentContext) return;
 
-    const wavesurfer = createStandardWS(standardWaveformRef.current, {
+    const wavesurfer = WaveSurfer.create({
+      container: standardWaveformRef.current,
       height: 120,
       waveColor: "rgba(100, 0, 100, 0.6)",
       progressColor: "rgb(100, 0, 100)",
+      barWidth: 2,
+      barRadius: 1,
     });
 
     // 스펙트로그램 추가
-    addStandardSpectrogram({
-      height: 150,
-      labels: true,
-      scale: "mel",
-    });
+    (wavesurfer as any).registerPlugin(
+      Spectrogram.create({
+        height: 150,
+        labels: true,
+        scale: "mel",
+      })
+    );
+
+    // 이벤트 리스너
+    wavesurfer.on("play", () => setIsStandardPlaying(true));
+    wavesurfer.on("pause", () => setIsStandardPlaying(false));
+    wavesurfer.on("finish", () => setIsStandardPlaying(false));
 
     // 표준 음성 로드
-    loadStandardAudio(
+    wavesurfer.load(
       currentContext.audioReference ||
         "/src/assets/audio/references/Default.wav"
     );
 
-    return destroyStandard;
+    refWavesurferRef.current = wavesurfer;
+
+    return () => {
+      wavesurfer.destroy();
+    };
   }, [currentContext]);
 
   // 사용자 음성 wavesurfer 초기화
   useEffect(() => {
     if (!userWaveformRef.current || !recordedAudioBlob) return;
 
-    const wavesurfer = createUserWS(userWaveformRef.current, {
+    const blobUrl = URL.createObjectURL(recordedAudioBlob);
+    const wavesurfer = WaveSurfer.create({
+      container: userWaveformRef.current,
       height: 120,
       waveColor: "rgba(200, 100, 0, 0.6)",
       progressColor: "rgb(200, 100, 0)",
+      barWidth: 2,
+      barRadius: 1,
     });
 
     // 스펙트로그램 추가
-    addUserSpectrogram({
-      height: 150,
-      labels: true,
-      scale: "mel",
-    });
+    (wavesurfer as any).registerPlugin(
+      Spectrogram.create({
+        height: 150,
+        labels: true,
+        scale: "mel",
+      })
+    );
+
+    // 이벤트 리스너
+    wavesurfer.on("play", () => setIsUserPlaying(true));
+    wavesurfer.on("pause", () => setIsUserPlaying(false));
+    wavesurfer.on("finish", () => setIsUserPlaying(false));
 
     // 녹음된 음성 로드
-    loadUserAudio(recordedAudioBlob);
+    wavesurfer.load(blobUrl);
 
-    return destroyUser;
+    userWavesurferRef.current = wavesurfer;
+
+    return () => {
+      URL.revokeObjectURL(blobUrl);
+      wavesurfer.destroy();
+    };
   }, [recordedAudioBlob]);
+
+  const playStandardAudio = () => {
+    refWavesurferRef.current?.playPause();
+  };
+
+  const playUserAudio = () => {
+    userWavesurferRef.current?.playPause();
+  };
 
   return (
     <div className={styles.spectrogramContainer}>
+      {/* 헤더 섹션 */}
+      <div className={styles.spectrogramHeader}>
+        <h3 className={styles.sectionTitle}>📊 Spectrogram Analysis</h3>
+        <div className={styles.spectrogramInfo}>
+          음성의 주파수 패턴을 시각적으로 비교합니다
+        </div>
+      </div>
+
       {/* 표준 발음 */}
       <div className={styles.audioSection}>
         <div className={styles.audioHeader}>

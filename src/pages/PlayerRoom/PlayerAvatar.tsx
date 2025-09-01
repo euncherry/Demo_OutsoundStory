@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { usePlayerStore } from "@/store";
 import * as styles from "./PlayerRoom.css.ts";
 
-
 import { playerData } from "@/data/characters/playerData";
 
 const playerAssets = {
@@ -56,9 +55,11 @@ export function PlayerAvatar() {
             height: "100%",
             position: "relative",
           }}
-          animate={{
-            rotate: [-0.5, 0.5, -0.5],
-          }}
+          animate={
+            {
+              // rotate: [-0.5, 0.5, -0.5],
+            }
+          }
           transition={{
             duration: 6,
             repeat: Infinity,

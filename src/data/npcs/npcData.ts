@@ -1,5 +1,5 @@
 // src/data/npcs/npcData.ts
-import { usePlayerStore } from '@/store';
+import { usePlayerStore } from "@/store";
 
 export interface NPCData {
   id: string;
@@ -23,13 +23,13 @@ export interface NPCData {
 }
 
 // 유틸리티 함수들
-const getNPCImagePath = (id: string, type: string, gender: 'male' | 'female') => 
+const getNPCImagePath = (id: string, type: string, gender: "male" | "female") =>
   `/src/assets/characters/npc/${gender}/${id}/${type}.png`;
 
-const getNPCProfileImagePath = (id: string, gender: 'male' | 'female') => 
+const getNPCProfileImagePath = (id: string, gender: "male" | "female") =>
   `/src/assets/characters/npcProfile/${gender}/${id}.png`;
 
-const getNPCEmotions = (id: string, gender: 'male' | 'female') => ({
+const getNPCEmotions = (id: string, gender: "male" | "female") => ({
   normal: getNPCImagePath(id, "normal", gender),
   happy: getNPCImagePath(id, "normal", gender),
   sad: getNPCImagePath(id, "normal", gender),
@@ -52,7 +52,6 @@ const femaleNpcData: Record<string, NPCData> = {
     voiceType: "bright",
     themeColor: "#FFB6C1",
     dialogueTextColor: "#C63B72",
-    
   },
   yujin: {
     id: "yujin",
@@ -96,7 +95,7 @@ const femaleNpcData: Record<string, NPCData> = {
     themeColor: "#98FB98",
     dialogueTextColor: "#2E7D32",
   },
-  Gaeul: {
+  gaeul: {
     id: "gaeul",
     name: "Han Gaeul",
     nameKo: "한가을",
@@ -104,8 +103,8 @@ const femaleNpcData: Record<string, NPCData> = {
     occupation: "대학생 & 카페 아르바이트",
     personality: "밝고 활발하며 호기심이 많음",
     introduction: "청춘의 에너지가 넘치는 대학생",
-    profileImage: getNPCProfileImagePath("Gaeul", "female"),
-    emotions: getNPCEmotions("Gaeul", "female"),
+    profileImage: getNPCProfileImagePath("gaeul", "female"),
+    emotions: getNPCEmotions("gaeul", "female"),
     voiceType: "mysterious",
     themeColor: "#DDA0DD",
     dialogueTextColor: "#8B008B",
@@ -121,7 +120,8 @@ const maleNpcData: Record<string, NPCData> = {
     age: 24,
     occupation: "카페 알바생 & 밴드 드러머",
     personality: "밝고 자유분방하지만 내향적",
-    introduction: "겉보기엔 활발하지만 마음에 드는 사람 앞에서는 긴장하는 순수한 청년",
+    introduction:
+      "겉보기엔 활발하지만 마음에 드는 사람 앞에서는 긴장하는 순수한 청년",
     profileImage: getNPCProfileImagePath("hojun", "male"),
     emotions: getNPCEmotions("hojun", "male"),
     voiceType: "warm",
@@ -174,10 +174,10 @@ const maleNpcData: Record<string, NPCData> = {
     id: "kanghyuk",
     name: "Seo Kanghyuk",
     nameKo: "서강혁",
-    age: '??',
+    age: "??",
     occupation: "???",
     personality: "신비롭고 알 수 없는 성격",
-    introduction: "도진의 ???, ???한 ???남자",
+    introduction: "도진의 ???",
     profileImage: getNPCProfileImagePath("kanghyuk", "male"),
     emotions: getNPCEmotions("kanghyuk", "male"),
     voiceType: "mysterious",
@@ -189,9 +189,9 @@ const maleNpcData: Record<string, NPCData> = {
 // 현재 플레이어의 성별에 따라 적절한 NPC 데이터 반환
 const getCurrentNpcData = (): Record<string, NPCData> => {
   const gender = usePlayerStore.getState().gender;
-  
+
   // 플레이어가 여성이면 남성 NPC, 남성이면 여성 NPC
-  return gender === 'female' ? maleNpcData : femaleNpcData;
+  return gender === "female" ? maleNpcData : femaleNpcData;
 };
 
 // ID로 NPC 조회
@@ -216,9 +216,9 @@ export const getFemaleNPCs = (): NPCData[] => {
 };
 
 // 디버깅용: 현재 사용 중인 NPC 데이터 세트 확인
-export const getCurrentNpcDataSet = (): 'male' | 'female' => {
+export const getCurrentNpcDataSet = (): "male" | "female" => {
   const gender = usePlayerStore.getState().gender;
-  return gender === 'female' ? 'male' : 'female';
+  return gender === "female" ? "male" : "female";
 };
 
 // 기존 호환성을 위한 export (deprecated - 추후 제거 예정)

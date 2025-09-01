@@ -292,9 +292,11 @@ export const playButton = style({
 });
 
 export const spectrogramWrapper = style({
-  backgroundColor: "rgba(0, 0, 0, 0.05)",
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 237, 255, 0.5))",
   borderRadius: vars.borderRadius.sm,
   overflow: "hidden",
+  border: "1px solid rgba(230, 220, 255, 0.3)",
 });
 
 export const waveform = style({
@@ -317,13 +319,13 @@ export const analysisResult = style({
 export const matchScore = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.semibold,
-  color: vars.colors.primary,
+  color: "#9b7eb0",
   marginBottom: vars.spacing.sm,
 });
 
 export const resultDescription = style({
   fontSize: vars.fontSize.sm,
-  color: vars.colors.textSecondary,
+  color: "rgba(107, 91, 149, 0.7)",
 });
 
 export const loadingContainer = style({
@@ -392,11 +394,12 @@ export const analysisGrid = style({
 });
 
 export const analysisColumn = style({
-  "& h4": {
-    marginBottom: vars.spacing.sm,
-    color: vars.colors.text,
-    fontWeight: vars.fontWeight.semibold,
-  },
+  // h4 스타일은 별도로 정의
+});
+
+export const analysisColumnH4 = style({
+  color: vars.colors.text,
+  fontWeight: vars.fontWeight.semibold,
 });
 
 export const similarityScore = style({
@@ -419,7 +422,7 @@ export const pitchHeader = style({
 
 export const pitchInfo = style({
   fontSize: vars.fontSize.sm,
-  color: vars.colors.textSecondary,
+  color: "rgba(107, 91, 149, 0.7)",
   marginTop: vars.spacing.xs,
 });
 
@@ -456,4 +459,282 @@ export const analyzingMessage = style({
   justifyContent: "center",
   height: "300px",
   gap: vars.spacing.md,
+});
+
+// WaveformTab 전용 스타일들 추가
+export const waveformContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: vars.spacing.lg,
+});
+
+export const waveformHeader = style({
+  textAlign: "center",
+  padding: vars.spacing.lg,
+  background:
+    "linear-gradient(135deg, rgba(255, 253, 231, 0.3), rgba(255, 255, 255, 0.6))",
+  borderRadius: vars.borderRadius.lg,
+  border: "1px solid rgba(255, 253, 231, 0.5)",
+});
+
+export const sectionTitle = style({
+  fontSize: vars.fontSize.xl,
+  fontWeight: vars.fontWeight.semibold,
+  background: "linear-gradient(135deg, #9b7eb0, #d4668f)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  marginBottom: vars.spacing.sm,
+});
+
+export const waveformInfo = style({
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.7)",
+  marginTop: vars.spacing.xs,
+});
+
+export const waveSection = style({
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(230, 220, 255, 0.2))",
+  borderRadius: vars.borderRadius.lg,
+  padding: vars.spacing.lg,
+  border: "1px solid rgba(255, 255, 255, 0.9)",
+});
+
+export const waveHeader = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: vars.spacing.md,
+});
+
+export const waveLabel = style({
+  display: "flex",
+  alignItems: "center",
+  gap: vars.spacing.sm,
+  fontSize: vars.fontSize.md,
+  fontWeight: vars.fontWeight.medium,
+  color: "rgba(107, 91, 149, 0.9)",
+});
+
+export const waveLegend = style({
+  width: "12px",
+  height: "12px",
+  borderRadius: "50%",
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  animation: "legendPulse 2s ease-in-out infinite",
+});
+
+export const wavePlayButton = style({
+  padding: `${vars.spacing.sm} ${vars.spacing.md}`,
+  fontSize: vars.fontSize.sm,
+  fontWeight: vars.fontWeight.semibold,
+  border: "none",
+  borderRadius: vars.borderRadius.md,
+  cursor: "pointer",
+  transition: "all 0.2s ease",
+  background:
+    "linear-gradient(135deg, rgba(245, 242, 255, 1), rgba(237, 232, 255, 1))",
+  color: "rgba(155, 126, 176, 0.8)",
+  boxShadow:
+    "0 6px 0 rgba(220, 210, 240, 0.8), 0 10px 0 rgba(220, 210, 240, 0.4), 0 14px 20px rgba(230, 220, 255, 0.25), inset 0 -2px 5px rgba(220, 210, 240, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.9)",
+  transform: "translateY(-4px)",
+
+  ":hover": {
+    transform: "translateY(-2px)",
+    boxShadow:
+      "0 4px 0 rgba(220, 210, 240, 0.8), 0 7px 0 rgba(220, 210, 240, 0.4), 0 10px 15px rgba(230, 220, 255, 0.3), inset 0 -2px 5px rgba(220, 210, 240, 0.25), inset 0 1px 2px rgba(255, 255, 255, 1)",
+  },
+
+  ":active": {
+    transform: "translateY(0)",
+    boxShadow:
+      "0 2px 0 rgba(220, 210, 240, 0.9), 0 3px 0 rgba(220, 210, 240, 0.5), 0 4px 10px rgba(230, 220, 255, 0.2), inset 0 -1px 3px rgba(220, 210, 240, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.8)",
+  },
+});
+
+export const waveformWrapper = style({
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 237, 255, 0.5))",
+  borderRadius: vars.borderRadius.sm,
+  padding: vars.spacing.lg,
+  border: "1px solid rgba(230, 220, 255, 0.3)",
+  position: "relative",
+  overflow: "hidden",
+});
+
+export const waveformAnalysis = style({
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  gap: vars.spacing.md,
+  marginTop: vars.spacing.lg,
+});
+
+export const analysisCard = style({
+  display: "flex",
+  alignItems: "center",
+  gap: vars.spacing.sm,
+  padding: vars.spacing.md,
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 230, 250, 0.4))",
+  borderRadius: vars.borderRadius.md,
+  border: "1px solid rgba(255, 255, 255, 0.95)",
+  boxShadow: "0 2px 10px rgba(230, 220, 255, 0.1)",
+  transition: "all 0.3s ease",
+  position: "relative",
+
+  ":hover": {
+    transform: "translateY(-2px)",
+    boxShadow: "0 4px 15px rgba(230, 220, 255, 0.2)",
+  },
+});
+
+export const analysisIcon = style({
+  fontSize: vars.fontSize.xl,
+  animation: "float 3s ease-in-out infinite",
+});
+
+export const analysisContent = style({
+  flex: 1,
+});
+
+export const analysisTitle = style({
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.6)",
+  marginBottom: vars.spacing.xs,
+});
+
+export const analysisScore = style({
+  fontSize: vars.fontSize.lg,
+  fontWeight: vars.fontWeight.bold,
+  background: "linear-gradient(135deg, #9b7eb0, #d4668f)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+});
+
+// CSS 애니메이션을 위한 전역 스타일 (실제로는 별도 CSS 파일이나 전역 스타일 시스템 사용 권장)
+// 이 부분은 컴포넌트에서 직접 처리하는 것이 좋습니다
+
+// PitchContourTab 추가 스타일들
+export const pitchChart = style({
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(243, 237, 255, 0.3))",
+  borderRadius: vars.borderRadius.lg,
+  padding: vars.spacing.lg,
+  border: "1px solid rgba(255, 255, 255, 0.9)",
+});
+
+export const pitchAnalysisGrid = style({
+  display: "grid",
+  gridTemplateColumns: "repeat(2, 1fr)",
+  gap: vars.spacing.md,
+  padding: vars.spacing.lg,
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 230, 250, 0.3))",
+  borderRadius: vars.borderRadius.lg,
+  border: "1px solid rgba(255, 255, 255, 0.9)",
+});
+
+export const pitchItem = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: vars.spacing.sm,
+  background: "rgba(255, 255, 255, 0.5)",
+  borderRadius: vars.borderRadius.sm,
+});
+
+export const pitchLabel = style({
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.7)",
+});
+
+export const pitchValue = style({
+  fontSize: vars.fontSize.md,
+  fontWeight: vars.fontWeight.bold,
+  background: "linear-gradient(135deg, #d4668f, #9b7eb0)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+});
+
+export const analysisItem = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: vars.spacing.sm,
+  background: "rgba(255, 255, 255, 0.5)",
+  borderRadius: vars.borderRadius.sm,
+  marginBottom: vars.spacing.sm,
+});
+
+export const analysisLabel = style({
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.7)",
+});
+
+export const analysisValue = style({
+  fontSize: vars.fontSize.md,
+  fontWeight: vars.fontWeight.bold,
+  background: "linear-gradient(135deg, #d4668f, #9b7eb0)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+});
+
+export const pitchWaveformContainer = style({
+  position: "relative",
+  width: "100%",
+  height: "calc(200px + 2rem)",
+  borderRadius: "10px",
+  overflow: "hidden",
+  boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+  padding: "1rem 0",
+});
+
+export const pitchWaveform = style({
+  width: "100%",
+});
+
+export const pitchCanvasOverlay = style({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: 10,
+});
+
+export const pitchInfoDisplay = style({
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  padding: vars.spacing.md,
+  background: "rgba(255, 255, 255, 0.1)",
+  borderRadius: vars.borderRadius.md,
+  marginTop: vars.spacing.md,
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.8)",
+});
+
+export const errorMessage = style({
+  color: "#ff6b6b",
+  padding: vars.spacing.sm,
+  marginTop: vars.spacing.sm,
+  background: "rgba(255, 107, 107, 0.1)",
+  borderRadius: vars.borderRadius.sm,
+  fontSize: vars.fontSize.sm,
+});
+
+// SpectrogramTab 전용 스타일들
+export const spectrogramHeader = style({
+  textAlign: "center",
+  padding: vars.spacing.lg,
+  background:
+    "linear-gradient(135deg, rgba(255, 253, 231, 0.3), rgba(255, 255, 255, 0.6))",
+  borderRadius: vars.borderRadius.lg,
+  border: "1px solid rgba(255, 253, 231, 0.5)",
+});
+
+export const spectrogramInfo = style({
+  fontSize: vars.fontSize.sm,
+  color: "rgba(107, 91, 149, 0.7)",
+  marginTop: vars.spacing.xs,
 });

@@ -1,19 +1,17 @@
-import React, { useRef, useEffect } from 'react';
-import WaveSurfer from 'wavesurfer.js';
-import { usePronunciationStore } from '@/store/pronunciationStore';
-import { useScoreStore } from '@/store/scoreStore';
-import * as styles from './ResultsStage.css.ts';
+import React, { useRef, useEffect } from "react";
+import WaveSurfer from "wavesurfer.js";
+import { usePronunciationStore } from "@/store/pronunciationStore";
+import { useScoreStore } from "@/store/scoreStore";
+import * as styles from "./ResultsStage.css.ts";
+import "./WaveformTab.css.ts";
 
 export function WaveformTab() {
-  const { 
-    currentContext,
-    recordedAudioBlob,
-  } = usePronunciationStore();
-  const { analysisResult,waveformAnalysis } = useScoreStore();
-  
+  const { currentContext, recordedAudioBlob } = usePronunciationStore();
+  const { analysisResult, waveformAnalysis } = useScoreStore();
+
   const standardWaveformRef = useRef<HTMLDivElement>(null);
   const userWaveformRef = useRef<HTMLDivElement>(null);
-  
+
   const refWavesurferRef = useRef<WaveSurfer | null>(null);
   const userWavesurferRef = useRef<WaveSurfer | null>(null);
 
@@ -24,13 +22,13 @@ export function WaveformTab() {
     const wavesurfer = WaveSurfer.create({
       container: standardWaveformRef.current,
       height: 80,
-      waveColor: '#4CAF50',
-      progressColor: '#2E7D32',
-      cursorColor: '#4CAF50',
-      barWidth: 2,
-      barRadius: 1,
+      waveColor: "#4CAF50",
+      progressColor: "#2E7D32",
+      cursorColor: "#4CAF50",
       interact: true,
-      url: currentContext.audioReference || '/src/assets/audio/references/Default.wav',
+      url:
+        currentContext.audioReference ||
+        "/src/assets/audio/references/Default.wav",
     });
 
     refWavesurferRef.current = wavesurfer;
@@ -48,11 +46,9 @@ export function WaveformTab() {
     const wavesurfer = WaveSurfer.create({
       container: userWaveformRef.current,
       height: 80,
-      waveColor: '#FF9800',
-      progressColor: '#F57C00',
-      cursorColor: '#FF9800',
-      barWidth: 2,
-      barRadius: 1,
+      waveColor: "#FF9800",
+      progressColor: "#F57C00",
+      cursorColor: "#FF9800",
       interact: true,
       url: blobUrl,
     });
@@ -72,7 +68,7 @@ export function WaveformTab() {
   const handlePlayUser = () => {
     userWavesurferRef.current?.playPause();
   };
-console.log("🔍🔍🔍🔍🔍🔍🔍🔍🔍 analysisResult",analysisResult)
+
   return (
     <div className={styles.waveformContainer}>
       <div className={styles.waveformHeader}>
@@ -86,11 +82,16 @@ console.log("🔍🔍🔍🔍🔍🔍🔍🔍🔍 analysisResult",analysisResult
       <div className={styles.waveSection}>
         <div className={styles.waveHeader}>
           <div className={styles.waveLabel}>
-            <div className={styles.waveLegend} style={{ backgroundColor: '#4CAF50' }} />
+            <div
+              className={styles.waveLegend}
+              style={{
+                background: "linear-gradient(135deg, #ff8fab, #ffc3d0)",
+              }}
+            />
             <span>표준 발음</span>
           </div>
           <button className={styles.wavePlayButton} onClick={handlePlayRef}>
-            ▶️
+            ▶️ 재생
           </button>
         </div>
         <div className={styles.waveformWrapper}>
@@ -102,11 +103,16 @@ console.log("🔍🔍🔍🔍🔍🔍🔍🔍🔍 analysisResult",analysisResult
       <div className={styles.waveSection}>
         <div className={styles.waveHeader}>
           <div className={styles.waveLabel}>
-            <div className={styles.waveLegend} style={{ backgroundColor: '#FF9800' }} />
+            <div
+              className={styles.waveLegend}
+              style={{
+                background: "linear-gradient(135deg, #8ca3c4, #b5c6dc)",
+              }}
+            />
             <span>내 발음</span>
           </div>
           <button className={styles.wavePlayButton} onClick={handlePlayUser}>
-            ▶️
+            ▶️ 재생
           </button>
         </div>
         <div className={styles.waveformWrapper}>

@@ -1,0 +1,161 @@
+{
+  "npcId": "sunhwa",
+  "npcName": "한선화",
+  "scenes": [
+    {
+      "id": "scene1",
+      "type": "narration",
+      "text": "편의점에서 일하던 중, 헌팅포차에서 받은 번호로 전화를 건다.",
+      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene2"
+    },
+    {
+      "id": "scene2",
+      "type": "dialogue",
+      "speaker": "sunhwa",
+      "text": "어머~ 목소리 좋네. 누구지? 혹시 나한테 번호 따간 남자 중에 한 명?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "dialogue",
+      "speaker": "sunhwa",
+      "text": "아아! 나 구해준 오빠네? 저녁에 나와요. 6시에 맛있는 저녁 살테니까!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
+      "type": "narration",
+      "text": "오래된 순댓국집에서 만나 함께 술을 마신다.",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "happy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene5"
+    },
+    {
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "sunhwa",
+      "text": "나 여기 5년째 단골이에요. 내가 또 한 미모 하니까 플러팅하는 남자들이 많았는데...",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "dialogue",
+      "speaker": "sunhwa",
+      "text": "요가 강사에요. 일주일에 8일 술 마시는데도 이렇게 텐션 좋은거 보면 알겠죠? 시간내서 한 번 와요!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene7"
+    },
+    {
+      "id": "scene7",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(식사 중에 오빠들 전화가 계속 온다. 남사친이 많은 스타일인가...)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "worried"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "sunhwa",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "선화씨 예쁘셔서 그런지 인기가 너무 많으신거 아니에요?",
+          "audioReference": "/assets/audio/references/dojin_choice1.mp3",
+          "nextSceneId": null,
+          "affinityChange": 5
+        },
+        {
+          "id": "choice2",
+          "text": "원래 그렇게 아는 오빠들이 많아요?",
+          "audioReference": "/assets/audio/references/dojin_choice2.mp3",
+          "nextSceneId": null,
+          "affinityChange": 3
+        },
+        {
+          "id": "choice3",
+          "text": "인기 많으신 건 알겠는데, 식사 중에는 좀...",
+          "audioReference": "/src/assets/audio/references/Default.wav",
+          "nextSceneId": null,
+          "affinityChange": -4
+        }
+      ]
+    }
+  ]
+}

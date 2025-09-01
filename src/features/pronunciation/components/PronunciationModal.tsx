@@ -44,7 +44,7 @@ export function PronunciationModal({
       );
       if (!confirmClose) return;
     }
-    if(currentStage === "results") {
+    if (currentStage === "results") {
       setIsComplete(true);
     }
     reset();
@@ -54,8 +54,10 @@ export function PronunciationModal({
   const handleComplete = () => {
     // 발음 분석 완료 시 스토리도 완료로 설정
     setIsComplete(true);
-    
+
     if (analysisResult) {
+      // 발음 분석 완료 시 스토리도 완료로 설정
+      setIsComplete(true);
       onComplete({
         totalScore: analysisResult.totalScore,
         //TODO : 최종 매력 계산 로직 추가 필요
