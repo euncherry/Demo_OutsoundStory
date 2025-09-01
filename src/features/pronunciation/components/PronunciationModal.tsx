@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
+import { useDialogueFlow } from "@/features/dialogue/hooks/useDialogueFlow";
 import { PrepareStage } from "./PrepareStage";
 import { RecordingStage } from "./RecordingStage";
 import { AnalyzingStage } from "./AnalyzingStage";
@@ -22,6 +23,7 @@ export function PronunciationModal({
 }: PronunciationModalProps) {
   const { currentStage, reset } = usePronunciationStore();
   const { analysisResult } = useScoreStore();
+  const { setIsComplete } = useDialogueFlow();
 
   // ESC 키로 모달 닫기
   useEffect(() => {
@@ -42,11 +44,17 @@ export function PronunciationModal({
       );
       if (!confirmClose) return;
     }
+    if(currentStage === "results") {
+      setIsComplete(true);
+    }
     reset();
     onClose();
   };
 
   const handleComplete = () => {
+    // 발음 분석 완료 시 스토리도 완료로 설정
+    setIsComplete(true);
+    
     if (analysisResult) {
       onComplete({
         totalScore: analysisResult.totalScore,

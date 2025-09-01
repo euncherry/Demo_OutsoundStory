@@ -1,5 +1,5 @@
 // src/features/dialogue/components/CharacterSprite.tsx
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { usePlayerStore } from "@/store";
 import { getNPCById } from "@/data/npcs/npcData";
 import { playerData, PlayerEmotions } from "@/data/characters/playerData";
@@ -21,12 +21,11 @@ export function CharacterSprite({
   isSpeaking = false,
 }: CharacterSpriteProps) {
   const { gender } = usePlayerStore();
-  const [isVisible, setIsVisible] = useState(false);
 
   // 컴포넌트 마운트 시 자연스럽게 나타나기
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(true);
+      // 자연스러운 등장 효과를 위한 타이머
     }, 50); // 약간의 딜레이로 더 자연스럽게
 
     return () => clearTimeout(timer);
@@ -40,17 +39,24 @@ export function CharacterSprite({
           emotion as keyof PlayerEmotions
         ] ||
         playerData.emotions[gender as keyof typeof playerData.emotions]?.normal;
+
+        console.log("playerImage ==> ",playerImage)
       return {
         image: playerImage,
-        themeColor: playerData.themeColor,
+        themeColor: playerData.themeColor[gender ||"female"],
         name: "나",
       };
     } else if (npcId) {
       const npcData = getNPCById(npcId);
+      if (!npcData) return null;
+      
+      // npcData에서 감정에 맞는 이미지 가져오기
+      const npcImage = npcData.emotions[emotion as keyof typeof npcData.emotions] || npcData.emotions.normal;
+      
       return {
-        image: `/src/assets/characters/npc/${npcId}/${emotion}.png`,
-        themeColor: npcData?.themeColor || "rgba(139, 92, 246, 1)",
-        name: npcData?.nameKo || npcId,
+        image: npcImage,
+        themeColor: npcData.themeColor,
+        name: npcData.id,
       };
     }
     return null;

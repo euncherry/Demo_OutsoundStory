@@ -39,16 +39,16 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
       return {
         speakerColor:
           gender === "male"
-            ? playerData.themeMaleColor
-            : playerData.themeFemaleColor,
+            ? playerData.themeColor.male
+            : playerData.themeColor.female,
         textColor:
           gender === "male"
-            ? playerData.dialogueMaleTextColor
-            : playerData.dialogueFemaleTextColor,
+            ? playerData.dialogueTextColor.male
+            : playerData.dialogueTextColor.female,
         indicatorColor:
           gender === "male"
-            ? playerData.themeMaleColor
-            : playerData.themeFemaleColor,
+            ? playerData.themeColor.male
+            : playerData.themeColor.female,
       };
     }
 

@@ -4,20 +4,18 @@ import { motion } from "framer-motion";
 import { usePlayerStore } from "@/store";
 import * as styles from "./PlayerRoom.css.ts";
 
-import femaleBody from "@/assets/characters/player/female/normal.png";
-import femaleNormal from "@/assets/characters/player/female/normal.png";
 
-import maleBody from "@/assets/characters/player/male/body.png";
-import maleNormal from "@/assets/characters/player/male/faces/def.png";
+import { playerData } from "@/data/characters/playerData";
 
 const playerAssets = {
+  //todo : faces 플레이어 데이터에서 가져오기
   male: {
-    body: maleBody,
-    faces: maleNormal,
+    body: playerData.emotions.male.normal,
+    faces: playerData.emotions.male.normal,
   },
   female: {
-    body: femaleBody,
-    faces: femaleNormal,
+    body: playerData.emotions.female.normal,
+    faces: playerData.emotions.female.normal,
   },
 };
 

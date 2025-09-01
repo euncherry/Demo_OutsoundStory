@@ -206,7 +206,7 @@ export const title = style({
 
 export const Logo = style({
   width: '100%',
-  height: '250px', // 원하는 높이로 조정
+  height: '350px', // 원하는 높이로 조정
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'contain', // 또는 원하는 크기로 조정

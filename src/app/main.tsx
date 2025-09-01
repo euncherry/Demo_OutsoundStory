@@ -11,6 +11,9 @@ if (import.meta.env.DEV) {
     player: usePlayerStore.getState(),
     gameFlow: useGameFlowStore.getState(),
   };
+  
+  // 캐릭터 디버그 유틸리티 추가
+  import('@/utils/debug/characterDebug');
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

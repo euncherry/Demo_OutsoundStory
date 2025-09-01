@@ -102,6 +102,7 @@ export function useDialogueFlow() {
     currentSceneIndex,
     totalScenes: scenario?.scenes.length || 0,
     isComplete,
+    setIsComplete,
     nextScene,
     selectChoice,
   };

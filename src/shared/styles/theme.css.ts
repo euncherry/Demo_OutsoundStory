@@ -299,9 +299,12 @@ export const maleTheme = createTheme(vars, {
     holographic:
       'linear-gradient(135deg, rgba(200, 230, 255, 0.6), rgba(255, 224, 236, 0.6), rgba(230, 235, 240, 0.6), rgba(220, 200, 255, 0.6))',
     sparkle: 'rgba(240, 248, 255, 1)',
-    gradient:
-      'linear-gradient(135deg, rgba(200, 230, 255, 1), rgba(180, 230, 255, 1), rgba(255, 224, 236, 1), rgba(230, 235, 239, 1), rgba(255, 200, 150, 1))',
-    // Choice 버튼 색상 (male)
+    // gradient:
+    //   'linear-gradient(135deg, rgba(200, 230, 255, 1), rgba(180, 230, 255, 1), rgba(255, 224, 236, 1), rgba(230, 235, 239, 1), rgba(255, 200, 150, 1))',
+      gradient:
+      'linear-gradient(135deg, rgb(134, 198, 250), rgb(161, 109, 250))',
+
+      // Choice 버튼 색상 (male)
     // choiceText: "rgba(112, 128, 144, 1)",
     choiceText: '#000',
     choiceBackground:

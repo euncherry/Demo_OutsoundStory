@@ -4,11 +4,14 @@ import { useState, useRef, useEffect } from 'react';
 import * as styles from './Splash.css.ts';
 import { Button } from '../../shared/components/Button';
 import { useThemeStore } from '@store/themeStore';
-import logoImage from '@assets/ui/decorations/Logo.png'; // 메인 로고 이미지
+import { useCharacterStore } from '@/store';
+import logoImage from '@assets/ui/decorations/Logo1.png'; // 메인 로고 이미지
+import logoImage2 from '@assets/ui/decorations/Logo2.png'; // 메인 로고 이미지
 
 export function Splash() {
   const navigate = useNavigate();
   const { currentTheme, setTheme } = useThemeStore();
+  const { resetCharacters } = useCharacterStore();
   const [splitPosition, setSplitPosition] = useState(50); // 중앙 분할선 위치 (%)
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,6 +78,17 @@ export function Splash() {
     }
   }, [isDragging]);
 
+  // 처음부터 시작: 모든 캐릭터 진행 기록 초기화 후 이동
+  const handleStartNew = () => {
+    try {
+      resetCharacters();
+      // persist 데이터도 제거
+      localStorage.removeItem('character-storage');
+    } finally {
+      navigate('/player-setup');
+    }
+  };
+
   return (
     <div className={styles.container} ref={containerRef}>
       {/* <div className={styles.heart1} />
@@ -106,12 +120,21 @@ export function Splash() {
       </div>
 
       <div className={styles.title}>
-        <div
-          className={styles.Logo}
-          style={{
-            backgroundImage: `url(${logoImage})`,
-          }}
-        />{' '}
+        {currentTheme === 'female' ? (
+          <div
+            className={styles.Logo}
+            style={{
+              backgroundImage: `url(${logoImage2})`,
+            }}
+          />
+        ) : (
+          <div
+            className={styles.Logo}
+            style={{
+              backgroundImage: `url(${logoImage})`,
+            }}
+          />
+        )}
       </div>
 
       {/* 버튼 섹션 */}
@@ -120,7 +143,7 @@ export function Splash() {
           <Button
             variant="mainSolid"
             size="large"
-            onClick={() => navigate('/player-setup')}
+            onClick={handleStartNew}
           >
             처음부터
           </Button>

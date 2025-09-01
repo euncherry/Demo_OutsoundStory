@@ -15,10 +15,14 @@ export interface PlayerData {
     female: PlayerEmotions;
     male: PlayerEmotions;
   };
-  themeFemaleColor: string;
-  dialogueFemaleTextColor: string;
-  themeMaleColor: string;
-  dialogueMaleTextColor: string;
+  themeColor : {
+    female: string;
+    male: string;
+  }
+  dialogueTextColor : {
+    female: string;
+    male: string;
+  }
 }
 
 export const playerData: PlayerData = {
@@ -43,8 +47,14 @@ export const playerData: PlayerData = {
       determined: "/src/assets/characters/player/male/determined.png",
     },
   },
-  themeFemaleColor: "rgba(233, 30, 99, 1)",
-  dialogueFemaleTextColor: "rgba(212, 102, 143, 1)",
-  themeMaleColor: "rgba(0, 120, 215, 1)",
-  dialogueMaleTextColor: "rgba(107, 127, 166, 1)",
+  themeColor: {
+    female: "rgba(233, 30, 99, 1)",
+    male: "rgba(91, 158, 190, 1)",
+    // male: "rgba(0, 120, 215, 1)",
+  },
+  dialogueTextColor: {
+    female: "rgba(212, 102, 143, 1)",
+    male: "rgb(30, 58, 138)",
+    // rgb(30, 58, 138)
+  },
 };

@@ -12,7 +12,7 @@ const glitch = keyframes({
   '0%': {
     clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
     transform: 'translate(0)',
-    opacity: 0.1,
+    opacity: 0.2,
   },
   '80%': {
     clipPath: 'polygon(0 0, 100% 5%, 100% 100%, 0 95%)',
@@ -212,8 +212,8 @@ export const hologramOverlay = style({
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 255, 255, 0.03) 2px,
-    rgba(0, 255, 255, 0.03) 4px
+    rgba(185, 255, 255, 0.3) 2px,
+    rgba(247, 224, 247, 0.5) 4px
   )`,
   pointerEvents: 'none',
 });
@@ -226,6 +226,7 @@ export const imageWrapper = style({
   marginBottom: vars.spacing.md,
   overflow: 'hidden',
   borderRadius: vars.borderRadius.md,
+  pointerEvents : 'none',
 });
 
 export const profileImage = style({
@@ -284,4 +285,36 @@ export const sparkles = style({
 export const sparkle = style({
   position: 'absolute',
   fontSize: '20px',
+});
+
+
+
+
+
+// 카드 앞/뒷면. cardFront, cardBack 스타일 추가:
+export const cardFront = style({
+  // 효과적으로 겹침 및 회전
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  background: 'transparent',
+  zIndex: 2,
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const cardBack = style({
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(255,255,255,0.96)',
+  zIndex: 3,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: '1.15em',
+  color: '#333',
+  borderRadius: vars.borderRadius.xl,
 });

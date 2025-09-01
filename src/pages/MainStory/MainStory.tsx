@@ -1,10 +1,11 @@
 // src/pages/MainStory/MainStory.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGameFlowStore, useCharacterStore } from "@/store";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useDialogueFlow } from "@features/dialogue/hooks/useDialogueFlow";
+import { useStoryProgress } from "@/features/story/hooks/useStoryProgress";
 import { DialogueBox } from "@features/dialogue/components/DialogueBox";
 import { CharacterSprite } from "@features/dialogue/components/CharacterSprite";
 import { ChoiceButtons } from "@features/dialogue/components/ChoiceButtons";
@@ -17,6 +18,7 @@ export function MainStory() {
   const { updateProgress } = useGameFlowStore();
   const { setCurrentContext } = usePronunciationStore();
   const { selectedNPC } = useCharacterStore();
+  const { onStoryStart, onStoryComplete } = useStoryProgress();
 
   const {
     scenario,
@@ -28,25 +30,37 @@ export function MainStory() {
     selectChoice,
   } = useDialogueFlow();
 
-  const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
   const [showPronunciation, setShowPronunciation] = useState(false);
+  const [hasCompleted, setHasCompleted] = useState(false);
+  const startedRef = useRef(false);
 
-  // 대화 완료 처리
+  // 스토리 시작 시 한 번만 호출 (StrictMode 대응)
   useEffect(() => {
-    if (isComplete && !showPronunciation) {
+    if (startedRef.current) return;
+    if (!selectedNPC) return;
+    onStoryStart();
+    startedRef.current = true;
+    console.log(`🚀 ${selectedNPC} 스토리 시작됨`);
+  }, [selectedNPC]);
+
+  // 대화 완료 처리 - 발음 분석 완료 시에만 처리
+  useEffect(() => {
+    if (isComplete && !hasCompleted) {
+      // 스토리 완료 시 한 번만 호출
+      onStoryComplete();
+      setHasCompleted(true);
+      console.log(`🏁 ${selectedNPC} 스토리 완료됨`);
+      
       updateProgress("hasCompletedDialogue", true);
-      // 발음 분석이 없으면 바로 PlayerRoom으로
-      if (!selectedChoice) {
-        setTimeout(() => {
-          navigate("/room");
-        }, 1000);
-      }
+      // PlayerRoom으로 이동
+      setTimeout(() => {
+        navigate("/room");
+      }, 1000);
     }
-  }, [isComplete, showPronunciation, selectedChoice, navigate, updateProgress]);
+  }, [isComplete, navigate, updateProgress, onStoryComplete, hasCompleted, selectedNPC]);
 
   // 선택지 선택 처리
   const handleChoiceSelect = (choice: Choice) => {
-    setSelectedChoice(choice);
     console.log("선택지 선택 ", choice);
     // 발음 컨텍스트 설정
     setCurrentContext({

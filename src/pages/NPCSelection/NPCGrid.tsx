@@ -3,6 +3,8 @@ import React, { useRef, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { NPCCard } from "./NPCCard";
 import { getAllNPCs } from "@/data/npcs/npcData";
+import { useCharacterStore } from "@/store";
+
 import * as styles from "./NPCSelection.css.ts";
 
 interface NPCGridProps {
@@ -10,14 +12,57 @@ interface NPCGridProps {
 }
 
 export function NPCGrid({ onSelectNPC }: NPCGridProps) {
+
+  
+
+
+  const { getAvailableNPCs } = useCharacterStore();
+
+  // 사용 가능한 NPC ID 목록
+  const availableNPCIds = useMemo(() => getAvailableNPCs(), [getAvailableNPCs]);
+  
+  // 전체 NPC 데이터 (성별에 맞는 데이터)
+  const allNPCs = useMemo(() => getAllNPCs(), []);
   // NPCs 데이터를 메모이제이션하여 불필요한 재렌더링 방지
-  const npcs = useMemo(() => getAllNPCs(), []);
+
+    // 실제 표시할 NPC 목록 (해금된 것만)
+    const displayNPCs = useMemo(() => {
+      return allNPCs.filter(npc => availableNPCIds.includes(npc.id));
+    }, [allNPCs, availableNPCIds]);
+    
+    // 잠긴 NPC 목록 (미해금)
+    const lockedNPCs = useMemo(() => {
+      return allNPCs.filter(npc => !availableNPCIds.includes(npc.id));
+    }, [allNPCs, availableNPCIds]);
+  
+    
+
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   // 드래그 제약 계산
   const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+  useEffect(() => {
+    const updateDragConstraints = () => {
+      if (containerRef.current) {
+        const container = containerRef.current;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
 
+        setDragConstraints({
+          left: -(scrollWidth - clientWidth),
+          right: 0,
+        });
+      }
+    };
+
+    updateDragConstraints();
+    window.addEventListener("resize", updateDragConstraints);
+
+    return () => {
+      window.removeEventListener("resize", updateDragConstraints);
+    };
+  }, [displayNPCs]); // displayNPCs 변경 시 재계산
   useEffect(() => {
     const updateDragConstraints = () => {
       if (containerRef.current) {
@@ -60,7 +105,7 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
         transition={{ duration: 0.5 }}
         style={{ cursor: isDragging ? "grabbing" : "grab" }}
       >
-        {npcs.map((npc, index) => (
+        {displayNPCs.map((npc, index) => (
           <div
             key={npc.id}
             className={styles.cardWrapper}
@@ -72,6 +117,21 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
             }}
           >
             <NPCCard npc={npc} index={index} onSelect={onSelectNPC} />
+          </div>
+        ))}
+            {lockedNPCs.map((npc, index) => (
+          <div
+            key={npc.id}
+            className={styles.cardWrapper}
+            onClick={() => {
+              // 드래그 중이 아닐 때만 선택 가능
+              if (!isDragging) {
+                onSelectNPC(npc.id);
+              }
+            }}
+          >
+            <NPCCard npc={npc} index={index} onSelect={() => {}}
+              isLocked={true} />
           </div>
         ))}
       </motion.div>
