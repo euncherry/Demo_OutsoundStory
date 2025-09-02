@@ -16,7 +16,7 @@ import * as styles from "./MainStory.css.ts";
 export function MainStory() {
   const navigate = useNavigate();
   const { updateProgress } = useGameFlowStore();
-  const { setCurrentContext } = usePronunciationStore();
+  const { setCurrentContext ,setCurrentStage} = usePronunciationStore();
   const { selectedNPC } = useCharacterStore();
   const { onStoryStart, onStoryComplete } = useStoryProgress();
 
@@ -79,6 +79,9 @@ export function MainStory() {
       audioReference: choice.audioReference,
     });
 
+
+
+    setCurrentStage("prepare");
     // 발음 분석 모달 열기
     setShowPronunciation(true);
 
