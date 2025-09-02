@@ -10,8 +10,6 @@ import {
 
 // 분석 데이터 타입 정의
 interface WaveformAnalysis {
-  refPCMData: Float32Array | null;
-  userPCMData: Float32Array | null;
   refPeaks: number[][] | null;
   userPeaks: number[][] | null;
   nccScore: number;

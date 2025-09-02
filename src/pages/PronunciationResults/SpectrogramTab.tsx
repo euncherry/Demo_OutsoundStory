@@ -1,4 +1,4 @@
-// src/features/pronunciation/components/SpectrogramTab.tsx
+// src/pages/PronunciationResults/SpectrogramTab.tsx
 import React, { useRef, useEffect, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";

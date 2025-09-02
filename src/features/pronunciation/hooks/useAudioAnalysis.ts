@@ -215,8 +215,6 @@ export function useAudioAnalysis() {
     });
 
     setWaveformAnalysis({
-      refPCMData: refTrimmed,
-      userPCMData: userTrimmed,
       refPeaks,
       userPeaks,
       nccScore,

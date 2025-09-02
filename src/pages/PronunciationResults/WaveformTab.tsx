@@ -1,3 +1,4 @@
+// src/features/pronunciation/components/WaveformTab.tsx
 import React, { useRef, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { usePronunciationStore } from "@/store/pronunciationStore";

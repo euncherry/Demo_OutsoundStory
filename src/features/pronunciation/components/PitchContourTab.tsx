@@ -304,19 +304,10 @@ export function PitchContourTab() {
           </span>
         </div>
         <div className={styles.pitchItem}>
-          <span className={styles.pitchLabel}>유사도:</span>
-          <span
-            className={styles.pitchValue}
-            style={{
-              color:
-                pitchInfo && pitchInfo.similarity > 70
-                  ? "#4CAF50"
-                  : pitchInfo && pitchInfo.similarity > 50
-                  ? "#FF9800"
-                  : "#F44336",
-            }}
-          >
-            {pitchInfo?.similarity.toFixed(1) || 0}%
+          <span className={styles.pitchLabel}>피치 범위:</span>
+          <span className={styles.pitchValue}>
+            {pitchInfo?.refPitchData.pitchRange.min.toFixed(1) || 0}-
+            {pitchInfo?.refPitchData.pitchRange.max.toFixed(1) || 0}Hz
           </span>
         </div>
       </div>
