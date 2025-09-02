@@ -24,13 +24,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "shy"
         }
       ],
@@ -44,13 +44,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "shy"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "normal"
         }
       ],
@@ -64,13 +64,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "embarrassed"
         }
       ],
@@ -84,13 +84,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "confident"
         }
       ],
@@ -104,13 +104,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "normal"
         }
       ],
@@ -124,13 +124,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "worried"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "sad"
         }
       ],
@@ -158,13 +158,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "anxious"
         }
       ],
@@ -178,13 +178,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "touched"
         }
       ],
@@ -198,13 +198,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+            "position": "left",
           "emotion": "worried"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "sad"
         }
       ],
@@ -217,13 +217,13 @@
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "worried"
         },
         {
           "characterType": "npc",
           "npcId": "mihyun",
-          "position": "left",
+          "position": "right",
           "emotion": "hopeful"
         }
       ],

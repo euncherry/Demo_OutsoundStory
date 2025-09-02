@@ -71,7 +71,7 @@ export function PitchContourTab() {
     hideScrollbar: false,
     audioRate: 1,
     autoplay: false,
-    url: userAudioUrl || "/src/assets/audio/references/Default.wav",
+    url: userAudioUrl || "/src/assets/audio/references/empty.wav",
     sampleRate: 11025,
   });
 

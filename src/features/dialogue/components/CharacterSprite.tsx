@@ -4,6 +4,7 @@ import { usePlayerStore } from "@/store";
 import { getNPCById } from "@/data/npcs/npcData";
 import { playerData, PlayerEmotions } from "@/data/characters/playerData";
 import * as styles from "./Dialogue.css.ts";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CharacterSpriteProps {
   characterType: "player" | "npc";
@@ -40,19 +41,21 @@ export function CharacterSprite({
         ] ||
         playerData.emotions[gender as keyof typeof playerData.emotions]?.normal;
 
-        console.log("playerImage ==> ",playerImage)
+      console.log("playerImage ==> ", playerImage);
       return {
         image: playerImage,
-        themeColor: playerData.themeColor[gender ||"female"],
+        themeColor: playerData.themeColor[gender || "female"],
         name: "나",
       };
     } else if (npcId) {
       const npcData = getNPCById(npcId);
       if (!npcData) return null;
-      
+
       // npcData에서 감정에 맞는 이미지 가져오기
-      const npcImage = npcData.emotions[emotion as keyof typeof npcData.emotions] || npcData.emotions.normal;
-      
+      const npcImage =
+        npcData.emotions[emotion as keyof typeof npcData.emotions] ||
+        npcData.emotions.normal;
+
       return {
         image: npcImage,
         themeColor: npcData.themeColor,
@@ -74,25 +77,33 @@ export function CharacterSprite({
       }}
     >
       {/* 말하는 중 효과 */}
-      {isSpeaking && (
+      {/* {isSpeaking && (
         <div
           className={styles.speakingGlow}
           style={{
             background: `radial-gradient(circle, ${characterData.themeColor}80 0%, transparent 70%)`,
           }}
         />
-      )}
+      )} */}
 
-      {/* 캐릭터 이미지 */}
-      <img
-        src={characterData.image}
-        alt={`${characterData.name} ${emotion}`}
-        className={styles.characterFull}
-        style={{
-          opacity: 1,
-          filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
-        }}
-      />
+      {/* 캐릭터 이미지 - 페이드 인/아웃 효과 추가 */}
+      <AnimatePresence>
+        <motion.img
+          key={emotion}
+          src={characterData.image}
+          alt={`${characterData.name} ${emotion}`}
+          className={styles.characterFull}
+          layoutId={`${characterData.name}-face`} // 공통 layoutId
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          // style={{
+          //   opacity: 1,
+          //   filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
+          // }}
+        />
+      </AnimatePresence>
     </div>
   );
 }
