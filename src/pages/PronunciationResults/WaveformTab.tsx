@@ -6,8 +6,11 @@ import { useScoreStore } from "@/store/scoreStore";
 import * as styles from "./ResultsStage.css.ts";
 import "./WaveformTab.css.ts";
 
-export function WaveformTab() {
-  const { currentContext, recordedAudioBlob } = usePronunciationStore();
+interface WaveformTabProps {
+  userAudioUrl: string | null;
+}
+export function WaveformTab({ userAudioUrl }: WaveformTabProps) {
+  const { currentContext } = usePronunciationStore();
   const { analysisResult, waveformAnalysis } = useScoreStore();
 
   const standardWaveformRef = useRef<HTMLDivElement>(null);
@@ -41,9 +44,8 @@ export function WaveformTab() {
 
   // 사용자 음성 WaveSurfer (그래프만)
   useEffect(() => {
-    if (!userWaveformRef.current || !recordedAudioBlob) return;
+    if (!userWaveformRef.current || !userAudioUrl) return;
 
-    const blobUrl = URL.createObjectURL(recordedAudioBlob);
     const wavesurfer = WaveSurfer.create({
       container: userWaveformRef.current,
       height: 80,
@@ -51,16 +53,16 @@ export function WaveformTab() {
       progressColor: "#F57C00",
       cursorColor: "#FF9800",
       interact: true,
-      url: blobUrl,
+      url: userAudioUrl,
     });
 
     userWavesurferRef.current = wavesurfer;
 
+    // cleanup 함수 추가
     return () => {
-      URL.revokeObjectURL(blobUrl);
       wavesurfer.destroy();
     };
-  }, [recordedAudioBlob]);
+  }, [userAudioUrl]);
 
   const handlePlayRef = () => {
     refWavesurferRef.current?.playPause();

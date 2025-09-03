@@ -1,111 +1,124 @@
 // src/pages/PronunciationResults/SpectrogramTab.tsx
 import React, { useRef, useEffect, useState } from "react";
-import WaveSurfer from "wavesurfer.js";
+import { useWavesurfer } from "@wavesurfer/react";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import * as styles from "./ResultsStage.css.ts";
 
-export function SpectrogramTab() {
-  const { currentContext, recordedAudioBlob } = usePronunciationStore();
-  // spectrogramAnalysis는 현재 사용되지 않으므로 주석 처리
-  // const { spectrogramAnalysis } = useScoreStore();
+interface SpectrogramTabProps {
+  userAudioUrl: string | null;
+}
 
-  const standardWaveformRef = useRef<HTMLDivElement>(null);
-  const userWaveformRef = useRef<HTMLDivElement>(null);
-
-  const refWavesurferRef = useRef<WaveSurfer | null>(null);
-  const userWavesurferRef = useRef<WaveSurfer | null>(null);
-
-  const [isStandardPlaying, setIsStandardPlaying] = useState(false);
-  const [isUserPlaying, setIsUserPlaying] = useState(false);
+export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
+  const { currentContext } = usePronunciationStore();
 
   const [frequencyMatch] = useState(82);
 
-  // 표준 음성 wavesurfer 초기화
-  useEffect(() => {
-    if (!standardWaveformRef.current || !currentContext) return;
+  const standardContainerRef = useRef<HTMLDivElement>(null);
+  const userContainerRef = useRef<HTMLDivElement>(null);
 
-    const wavesurfer = WaveSurfer.create({
-      container: standardWaveformRef.current,
+  // 표준 발음 WaveSurfer 설정
+  const { wavesurfer: standardWavesurfer, isPlaying: isStandardPlaying } =
+    useWavesurfer({
+      container: standardContainerRef,
       height: 120,
       waveColor: "rgba(100, 0, 100, 0.6)",
       progressColor: "rgb(100, 0, 100)",
       barWidth: 2,
+      barGap: 1,
       barRadius: 1,
+      normalize: true,
+      minPxPerSec: 50,
+      fillParent: true,
+      autoCenter: true,
+      interact: true,
+      dragToSeek: false,
+      hideScrollbar: false,
+      audioRate: 1,
+      autoplay: false,
+      url:
+        currentContext?.audioReference ||
+        "/src/assets/audio/references/Default.wav",
+      sampleRate: 8000,
     });
 
-    // 스펙트로그램 추가
-    (wavesurfer as any).registerPlugin(
-      Spectrogram.create({
-        height: 150,
-        labels: true,
-        scale: "mel",
-      })
-    );
-
-    // 이벤트 리스너
-    wavesurfer.on("play", () => setIsStandardPlaying(true));
-    wavesurfer.on("pause", () => setIsStandardPlaying(false));
-    wavesurfer.on("finish", () => setIsStandardPlaying(false));
-
-    // 표준 음성 로드
-    wavesurfer.load(
-      currentContext.audioReference ||
-        "/src/assets/audio/references/Default.wav"
-    );
-
-    refWavesurferRef.current = wavesurfer;
-
-    return () => {
-      wavesurfer.destroy();
-    };
-  }, [currentContext]);
-
-  // 사용자 음성 wavesurfer 초기화
-  useEffect(() => {
-    if (!userWaveformRef.current || !recordedAudioBlob) return;
-
-    const blobUrl = URL.createObjectURL(recordedAudioBlob);
-    const wavesurfer = WaveSurfer.create({
-      container: userWaveformRef.current,
+  // 사용자 발음 WaveSurfer 설정
+  const { wavesurfer: userWavesurfer, isPlaying: isUserPlaying } =
+    useWavesurfer({
+      container: userContainerRef,
       height: 120,
       waveColor: "rgba(200, 100, 0, 0.6)",
       progressColor: "rgb(200, 100, 0)",
       barWidth: 2,
+      barGap: 1,
       barRadius: 1,
+      normalize: true,
+      minPxPerSec: 50,
+      fillParent: true,
+      autoCenter: true,
+      interact: true,
+      dragToSeek: false,
+      hideScrollbar: false,
+      audioRate: 1,
+      autoplay: false,
+      url: userAudioUrl || undefined,
+      sampleRate: 8000,
     });
 
-    // 스펙트로그램 추가
-    (wavesurfer as any).registerPlugin(
+  // 표준 발음 Spectrogram 플러그인 등록
+  useEffect(() => {
+    if (!standardWavesurfer) return;
+
+    const spectrogram = standardWavesurfer.registerPlugin(
       Spectrogram.create({
         height: 150,
         labels: true,
         scale: "mel",
-      })
+        labelsBackground: "rgba(0, 0, 0, 0.1)",
+        frequencyMax: 8000,
+        frequencyMin: 0,
+        fftSamples: 1024,
+        useWebWorker: true,
+      }) as any
     );
 
-    // 이벤트 리스너
-    wavesurfer.on("play", () => setIsUserPlaying(true));
-    wavesurfer.on("pause", () => setIsUserPlaying(false));
-    wavesurfer.on("finish", () => setIsUserPlaying(false));
+    return () => {
+      spectrogram.destroy();
+    };
+  }, [standardWavesurfer]);
 
-    // 녹음된 음성 로드
-    wavesurfer.load(blobUrl);
+  // 사용자 발음 Spectrogram 플러그인 등록
+  useEffect(() => {
+    if (!userWavesurfer || !userAudioUrl) return;
 
-    userWavesurferRef.current = wavesurfer;
+    const spectrogram = userWavesurfer.registerPlugin(
+      Spectrogram.create({
+        height: 150,
+        labels: true,
+        scale: "mel",
+        labelsBackground: "rgba(0, 0, 0, 0.1)",
+        frequencyMax: 8000,
+        frequencyMin: 0,
+        fftSamples: 1024,
+        useWebWorker: true,
+      }) as any
+    );
 
     return () => {
-      URL.revokeObjectURL(blobUrl);
-      wavesurfer.destroy();
+      spectrogram.destroy();
     };
-  }, [recordedAudioBlob]);
+  }, [userWavesurfer, userAudioUrl]);
 
   const playStandardAudio = () => {
-    refWavesurferRef.current?.playPause();
+    if (standardWavesurfer) {
+      standardWavesurfer.playPause();
+    }
   };
 
   const playUserAudio = () => {
-    userWavesurferRef.current?.playPause();
+    if (userWavesurfer) {
+      userWavesurfer.playPause();
+    }
   };
 
   return (
@@ -127,7 +140,7 @@ export function SpectrogramTab() {
           </button>
         </div>
         <div className={styles.spectrogramWrapper}>
-          <div ref={standardWaveformRef} className={styles.waveform} />
+          <div ref={standardContainerRef} className={styles.waveform} />
         </div>
       </div>
 
@@ -138,12 +151,23 @@ export function SpectrogramTab() {
       <div className={styles.audioSection}>
         <div className={styles.audioHeader}>
           <h3 className={styles.audioTitle}>내 발음</h3>
-          <button className={styles.playButton} onClick={playUserAudio}>
+          <button
+            className={styles.playButton}
+            onClick={playUserAudio}
+            disabled={!userAudioUrl}
+          >
             {isUserPlaying ? "⏸️" : "▶️"}
           </button>
         </div>
         <div className={styles.spectrogramWrapper}>
-          <div ref={userWaveformRef} className={styles.waveform} />
+          <div ref={userContainerRef} className={styles.waveform} />
+          {!userAudioUrl && (
+            <div
+              style={{ padding: "20px", textAlign: "center", color: "#999" }}
+            >
+              녹음된 오디오가 없습니다
+            </div>
+          )}
         </div>
       </div>
 

@@ -8,7 +8,10 @@ import * as styles from "./ResultsStage.css.ts";
 
 type TabType = "spectrogram" | "pitch" | "waveform";
 
-export function ComparisonTabs() {
+interface ComparisonTabsProps {
+  userAudioUrl: string | null;
+}
+export function ComparisonTabs({ userAudioUrl }: ComparisonTabsProps) {
   const [activeTab, setActiveTab] = useState<TabType>("spectrogram");
 
   const tabs = [
@@ -20,13 +23,13 @@ export function ComparisonTabs() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "spectrogram":
-        return <SpectrogramTab />;
+        return <SpectrogramTab userAudioUrl={userAudioUrl} />;
       case "pitch":
-        return <PitchContourTab />;
+        return <PitchContourTab userAudioUrl={userAudioUrl} />;
       case "waveform":
-        return <WaveformTab />;
+        return <WaveformTab userAudioUrl={userAudioUrl} />;
       default:
-        return <SpectrogramTab />;
+        return <SpectrogramTab userAudioUrl={userAudioUrl} />;
     }
   };
 

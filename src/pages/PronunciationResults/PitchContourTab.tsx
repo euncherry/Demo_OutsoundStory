@@ -1,5 +1,5 @@
 // src/pages/PronunciationResults/PitchContourTab.tsx
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { useWavesurfer } from "@wavesurfer/react";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
@@ -12,12 +12,13 @@ interface PitchData {
   averagePitch: number;
   pitchRange: { min: number; max: number };
 }
+interface PitchContourTabProps {
+  userAudioUrl: string | null;
+}
 
-export function PitchContourTab() {
-  const { recordedAudioBlob, currentContext } = usePronunciationStore();
+export function PitchContourTab({ userAudioUrl }: PitchContourTabProps) {
+  const { currentContext } = usePronunciationStore();
   const { pitchAnalysis } = useScoreStore(); // scoreStore에서 분석된 데이터 가져오기
-
-  const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
 
   const refContainerRef = useRef<HTMLDivElement>(null);
   const userContainerRef = useRef<HTMLDivElement>(null);
@@ -71,20 +72,11 @@ export function PitchContourTab() {
     hideScrollbar: false,
     audioRate: 1,
     autoplay: false,
-    url: userAudioUrl || "/src/assets/audio/references/empty.wav",
+    // url: userAudioUrl || "/src/assets/audio/references/empty.wav",
+    url: userAudioUrl || undefined,
+
     sampleRate: 11025,
   });
-
-  // 사용자 오디오 URL 설정
-  useEffect(() => {
-    if (recordedAudioBlob) {
-      const blobUrl = URL.createObjectURL(recordedAudioBlob);
-      setUserAudioUrl(blobUrl);
-      return () => {
-        URL.revokeObjectURL(blobUrl);
-      };
-    }
-  }, [recordedAudioBlob]);
 
   // 피치 콘투어 그리기 함수 (기존과 동일)
   const drawPitchContour = (
@@ -251,7 +243,7 @@ export function PitchContourTab() {
               className={styles.analysisColumnH4}
               style={{ color: "#8ca3c4" }}
             >
-              표준 발음 Pitch Contour
+              내 발음 Pitch Contour
             </span>
           </div>
           <div className={styles.pitchWaveformContainer}>

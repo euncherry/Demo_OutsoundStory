@@ -1,12 +1,11 @@
 // src/pages/Splash/Splash.tsx
-import { useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
-import * as styles from './Splash.css.ts';
-import { Button } from '../../shared/components/Button';
-import { useThemeStore } from '@store/themeStore';
-import { useCharacterStore } from '@/store';
-import logoImage from '@assets/ui/decorations/Logo1.png'; // 메인 로고 이미지
-import logoImage2 from '@assets/ui/decorations/Logo2.png'; // 메인 로고 이미지
+import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import * as styles from "./Splash.css.ts";
+import { Button } from "../../shared/components/Button";
+import { useThemeStore } from "@store/themeStore";
+import { useCharacterStore } from "@/store";
+import logoImage from "@assets/ui/logo/logo.png"; // 메인 로고 이미지
 
 export function Splash() {
   const navigate = useNavigate();
@@ -64,16 +63,16 @@ export function Splash() {
   // 이벤트 리스너 등록/해제
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.addEventListener('touchmove', handleTouchMove);
-      document.addEventListener('touchend', handleTouchEnd);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchEnd);
 
       return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-        document.removeEventListener('touchmove', handleTouchMove);
-        document.removeEventListener('touchend', handleTouchEnd);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
       };
     }
   }, [isDragging]);
@@ -83,9 +82,9 @@ export function Splash() {
     try {
       resetCharacters();
       // persist 데이터도 제거
-      localStorage.removeItem('character-storage');
+      localStorage.removeItem("character-storage");
     } finally {
-      navigate('/player-setup');
+      navigate("/player-setup");
     }
   };
 
@@ -99,32 +98,32 @@ export function Splash() {
 
       <div
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 100,
           left: 100,
-          width: '200px',
-          height: '150px',
+          width: "200px",
+          height: "150px",
           zIndex: 1000,
         }}
       >
-        <button className={styles.button} onClick={() => setTheme('global')}>
+        <button className={styles.button} onClick={() => setTheme("global")}>
           Global
         </button>
-        <button className={styles.button} onClick={() => setTheme('female')}>
+        <button className={styles.button} onClick={() => setTheme("female")}>
           Female
         </button>
-        <button className={styles.button} onClick={() => setTheme('male')}>
+        <button className={styles.button} onClick={() => setTheme("male")}>
           Male
         </button>
         <p>Current: {currentTheme}</p>
       </div>
 
       <div className={styles.title}>
-        {currentTheme === 'female' ? (
+        {currentTheme === "female" ? (
           <div
             className={styles.Logo}
             style={{
-              backgroundImage: `url(${logoImage2})`,
+              backgroundImage: `url(${logoImage})`,
             }}
           />
         ) : (
@@ -140,17 +139,13 @@ export function Splash() {
       {/* 버튼 섹션 */}
       <div className={styles.buttonSection}>
         <div className={styles.buttonContainer}>
-          <Button
-            variant="mainSolid"
-            size="large"
-            onClick={handleStartNew}
-          >
+          <Button variant="mainSolid" size="large" onClick={handleStartNew}>
             처음부터
           </Button>
           <Button
             variant="subSolid"
             size="large"
-            onClick={() => navigate('/continue')}
+            onClick={() => navigate("/continue")}
             // disabled
           >
             이어하기
@@ -159,69 +154,74 @@ export function Splash() {
       </div>
 
       {/* 좌측 이미지 섹션 */}
-      <div
+      {/* <div
         className={styles.leftSection}
         style={{
           clipPath: `polygon(0 0, ${splitPosition}% 0, ${splitPosition}% 100%, 0 100%)`,
-          transition: isDragging ? 'none' : 'all 0.5s ease',
+          transition: isDragging ? "none" : "all 0.5s ease",
         }}
       />
+       */}
 
       {/* 우측 이미지 섹션 */}
+      {/* 
       <div
         className={styles.rightSection}
         style={{
           clipPath: `polygon(${splitPosition}% 0, 100% 0, 100% 100%, ${splitPosition}% 100%)`,
-          transition: isDragging ? 'none' : 'all 0.5s ease',
+          transition: isDragging ? "none" : "all 0.5s ease",
         }}
-      />
+      /> 
+      */}
 
       {/* 드래그 핸들 */}
-      <div
+      {/* <div
         style={{
-          position: 'absolute',
+          position: "absolute",
           left: `${splitPosition}%`,
           top: 0,
           bottom: 0,
-          width: '4px',
+          width: "4px",
           background:
-            'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 182, 193, 0.8))',
-          cursor: 'col-resize',
+            "linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 182, 193, 0.8))",
+          cursor: "col-resize",
           zIndex: 5,
-          transition: isDragging ? 'none' : 'all 0.5s ease',
-          boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
+          transition: isDragging ? "none" : "all 0.5s ease",
+          boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
         }}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
-      >
-        {/* 드래그 아이콘 */}
-        <div
+      > */}
+
+      {/* 드래그 아이콘 */}
+      {/* <div
           style={{
-            position: 'absolute',
-            top: '75%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '30px',
-            height: '30px',
-            borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.9)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+            position: "absolute",
+            top: "75%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "30px",
+            height: "30px",
+            borderRadius: "50%",
+            background: "rgba(255, 255, 255, 0.9)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
           <span
             style={{
-              fontSize: '16px',
-              color: '#666',
-              userSelect: 'none',
+              fontSize: "16px",
+              color: "#666",
+              userSelect: "none",
             }}
           >
             ⇔
           </span>
-        </div>
-      </div>
+        </div> */}
+
+      {/* </div> */}
     </div>
   );
 }

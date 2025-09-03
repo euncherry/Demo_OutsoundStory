@@ -1,12 +1,8 @@
-// src/features/pronunciation/store/pronunciationStore.ts
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 interface PronunciationState {
-  // 현재 상태
   currentStage: "prepare" | "recording" | "analyzing" | "results";
-
-  // 컨텍스트 정보
   currentContext: {
     npcId: string;
     choiceId: string;
@@ -14,54 +10,82 @@ interface PronunciationState {
     audioReference?: string;
   } | null;
 
-  // 오디오 데이터
   standardAudioUrl: string | null;
-  recordedAudioBlob: Blob | null;
-
-  // STT 결과
+  recordedAudioBlob: Blob | null; // 실제 사용 X, runtime용
+  recordedAudioUrl: string | null; // 실제 사용 X, runtime용
+  recordedAudioBase64: string | null; // 새로 추가: persist 저장용
   sttTranscript: string | null;
 
-  // Actions
   setCurrentStage: (stage: PronunciationState["currentStage"]) => void;
   setCurrentContext: (context: PronunciationState["currentContext"]) => void;
   setRecordedAudioBlob: (blob: Blob) => void;
+  setRecordedAudioBase64: (base64: string) => void;
   setSttTranscript: (transcript: string | null) => void;
-  // setAnalysisResult: (result: PronunciationState["analysisResult"]) => void;
+  cleanupRecordedAudioUrl: () => void;
   reset: () => void;
 }
 
 export const usePronunciationStore = create<PronunciationState>()(
   devtools(
     persist(
-      (set) => ({
-        // State
+      (set, get) => ({
         currentStage: "prepare",
         currentContext: null,
         standardAudioUrl: null,
         recordedAudioBlob: null,
+        recordedAudioUrl: null,
+        recordedAudioBase64: null,
         sttTranscript: null,
         analysisResult: null,
 
-        // Actions
         setCurrentStage: (stage) => set({ currentStage: stage }),
         setCurrentContext: (context) =>
           set({
             currentContext: context,
             standardAudioUrl: context?.audioReference || null,
           }),
-        setRecordedAudioBlob: (blob) => set({ recordedAudioBlob: blob }),
+
+        // Blob => base64 변환하는 함수
+        setRecordedAudioBlob: (blob: Blob) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64 = reader.result as string;
+            set({
+              recordedAudioBlob: blob,
+              recordedAudioUrl: URL.createObjectURL(blob),
+              recordedAudioBase64: base64,
+            });
+          };
+          reader.readAsDataURL(blob); // base64 encode
+        },
+        setRecordedAudioBase64: (base64: string) =>
+          set({ recordedAudioBase64: base64 }),
+
         setSttTranscript: (transcript) => set({ sttTranscript: transcript }),
 
-        // setAnalysisResult: (result) => set({ analysisResult: result }),
-        reset: () =>
+        cleanupRecordedAudioUrl: () => {
+          const state = get();
+          if (state.recordedAudioUrl) {
+            URL.revokeObjectURL(state.recordedAudioUrl);
+            set({ recordedAudioUrl: null });
+          }
+        },
+
+        reset: () => {
+          const state = get();
+          if (state.recordedAudioUrl) {
+            URL.revokeObjectURL(state.recordedAudioUrl);
+          }
           set({
             currentStage: "prepare",
             currentContext: null,
             standardAudioUrl: null,
             recordedAudioBlob: null,
+            recordedAudioUrl: null,
+            recordedAudioBase64: null,
             sttTranscript: null,
-            // analysisResult: null,
-          }),
+          });
+        },
       }),
       {
         name: "PronunciationStore",
@@ -69,6 +93,7 @@ export const usePronunciationStore = create<PronunciationState>()(
           currentContext: state.currentContext,
           currentStage: state.currentStage,
           standardAudioUrl: state.standardAudioUrl,
+          recordedAudioBase64: state.recordedAudioBase64, // persist 대상 변경!
         }),
       }
     ),

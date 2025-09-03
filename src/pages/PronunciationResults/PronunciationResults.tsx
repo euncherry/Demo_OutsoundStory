@@ -1,5 +1,5 @@
 // src/pages/PronunciationResults/PronunciationResults.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
@@ -12,9 +12,33 @@ import * as styles from "./ResultsStage.css.ts";
 
 export function PronunciationResults() {
   const navigate = useNavigate();
-  const { currentContext, reset, setCurrentStage } = usePronunciationStore();
+  const { currentContext, reset, setCurrentStage, recordedAudioBase64 } =
+    usePronunciationStore();
   const { analysisResult } = useScoreStore();
   const { setIsComplete } = useDialogueFlow();
+
+  const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
+
+  function base64ToBlob(base64: string): Blob {
+    const arr = base64.split(",");
+    const mime = arr[0].match(/:(.*?);/)?.[1] || "audio/wav";
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) u8arr[n] = bstr.charCodeAt(n);
+    return new Blob([u8arr], { type: mime });
+  }
+  // 중앙에서 오디오 URL 관리
+  useEffect(() => {
+    if (!recordedAudioBase64) return;
+
+    if (recordedAudioBase64) {
+      const blob = base64ToBlob(recordedAudioBase64);
+      const url = URL.createObjectURL(blob);
+      setUserAudioUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [recordedAudioBase64]);
 
   // 필수 데이터가 없으면 메인 스토리로 리다이렉트
   useEffect(() => {
@@ -24,18 +48,15 @@ export function PronunciationResults() {
   }, [analysisResult, currentContext, navigate]);
 
   const handleRetry = () => {
-    setCurrentStage("prepare");
     navigate("/story"); // 다시 스토리 페이지로 돌아가서 모달 열기
+    setCurrentStage("prepare");
+    reset();
   };
 
   const handleComplete = () => {
     setIsComplete(true);
     reset();
     navigate("/story"); // 스토리 완료 후 메인 스토리로 돌아감
-  };
-
-  const handleBack = () => {
-    navigate("/story");
   };
 
   if (!analysisResult || !currentContext) return null;
@@ -71,7 +92,7 @@ export function PronunciationResults() {
         {/* 메인 콘텐츠 영역 */}
         <div className={styles.resultsContent}>
           <div className={styles.comparisonSection}>
-            <ComparisonTabs />
+            <ComparisonTabs userAudioUrl={userAudioUrl} />
           </div>
           <div className={styles.detailSection}>
             <DetailAnalysis npcId={currentContext.npcId} />

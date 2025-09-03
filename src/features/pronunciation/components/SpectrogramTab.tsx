@@ -4,6 +4,7 @@ import WaveSurfer from "wavesurfer.js";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import * as styles from "./ResultsStage.css.ts";
+import { q } from "framer-motion/client";
 
 export function SpectrogramTab() {
   const { currentContext, recordedAudioBlob } = usePronunciationStore();
@@ -63,9 +64,21 @@ export function SpectrogramTab() {
 
   // 사용자 음성 wavesurfer 초기화
   useEffect(() => {
-    if (!userWaveformRef.current || !recordedAudioBlob) return;
+    if (!userWaveformRef.current || !recordedAudioBlob) {
+      const blobUrl = URL.createObjectURL(recordedAudioBlob || new Blob());
+      console.log(
+        "return 🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍blobUrl",
+        blobUrl
+      );
+
+      return;
+    }
 
     const blobUrl = URL.createObjectURL(recordedAudioBlob);
+    console.log(
+      "🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍blobUrl",
+      blobUrl
+    );
     const wavesurfer = WaveSurfer.create({
       container: userWaveformRef.current,
       height: 120,
