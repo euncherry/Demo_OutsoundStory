@@ -98,10 +98,10 @@ export function CharacterSprite({
           animate={{ opacity: 1 }}
           exit={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          // style={{
-          //   opacity: 1,
-          //   filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
-          // }}
+          style={{
+            opacity: 1,
+            filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
+          }}
         />
       </AnimatePresence>
     </div>

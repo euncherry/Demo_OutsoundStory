@@ -25,13 +25,34 @@
           "characterType": "npc",
           "npcId": "kanghyuk",
           "position": "right",
-          "emotion": "normal"
+          "emotion": "angry"
         }
       ],
       "nextSceneId": "scene3"
     },
     {
       "id": "scene3",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "도진씨가 좋아하던 사람들에게 일부러 접근한거도 진짜에요?",
+      "background": "/src/assets/backgrounds/car_interior.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "angry"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "kanghyuk",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene4"
+    },
+    {
+      "id": "scene4",
       "type": "dialogue",
       "speaker": "kanghyuk",
       "text": "...처음부터 말했다면, 나를 있는 그대로 봐줬을까?",
@@ -46,13 +67,13 @@
           "characterType": "npc",
           "npcId": "kanghyuk",
           "position": "right",
-          "emotion": "sad"
+          "emotion": "angry"
         }
       ],
-      "nextSceneId": "scene4"
+      "nextSceneId": "scene5"
     },
     {
-      "id": "scene4",
+      "id": "scene5",
       "type": "monologue",
       "speaker": "player",
       "text": "(요한씨 말대로 강혁씨가 일부러 접근한 걸까...?)",
@@ -61,19 +82,19 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "sad"
+          "emotion": "angry"
         },
         {
           "characterType": "npc",
           "npcId": "kanghyuk",
           "position": "right",
-          "emotion": "sad"
+          "emotion": "normal"
         }
       ],
-      "nextSceneId": "scene5"
+      "nextSceneId": "scene6"
     },
     {
-      "id": "scene5",
+      "id": "scene6",
       "type": "dialogue",
       "speaker": "kanghyuk",
       "text": "형이 좋아했던 사람들... 맞아. 내가 먼저 다가갔어. 하지만 너는 달랐어.",
@@ -88,16 +109,17 @@
           "characterType": "npc",
           "npcId": "kanghyuk",
           "position": "right",
-          "emotion": "serious"
+          "emotion": "angry"
         }
       ],
-      "nextSceneId": "scene6"
+      "nextSceneId": "scene7"
     },
     {
-      "id": "scene6",
+      "id": "scene7",
       "type": "choice",
       "text": "강혁의 고백에 어떻게 대답할까?",
       "background": "/src/assets/backgrounds/car_interior.png",
+      "speaker": "player",
       "characters": [
         {
           "characterType": "player",
@@ -108,13 +130,13 @@
           "characterType": "npc",
           "npcId": "kanghyuk",
           "position": "right",
-          "emotion": "serious"
+          "emotion": "blank"
         }
       ],
       "choices": [
         {
           "id": "choice1",
-          "text": "이해해요. 처음부터 다시 시작해봐요, 진짜 강혁씨와.",
+          "text": "처음부터 다시 시작해봐요, 진짜 강혁씨와.",
           "audioReference": "/assets/audio/references/kanghyuk_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 15

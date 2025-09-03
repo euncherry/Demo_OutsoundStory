@@ -6,12 +6,12 @@
       "id": "scene1",
       "type": "narration",
       "text": "미용실에 들어서자 낯익은 얼굴이 반겨준다.",
-      "background": "/assets/backgrounds/hair_salon.jpg",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
           "position": "center",
-          "emotion": "normal"
+          "emotion": "surprised"
         }
       ],
       "nextSceneId": "scene2"
@@ -21,17 +21,18 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "헐! 여기서 또 보네요? 왜 연락 안 했어요? 다른 여자한테 연락한 줄 알았잖아요!",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
-          "emotion": "surprised"
+          "position": "left",
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "excited"
+          "position": "right",
+          "emotion": "surprised"
         }
       ],
       "nextSceneId": "scene3"
@@ -41,17 +42,18 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "연락했는데요? 없는 번호라고 나와서 일부러 없는 번호 찍어준 줄 알았어요.",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "shy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "shocked"
+          "position": "right",
+          "emotion": "sad"
         }
       ],
       "nextSceneId": "scene4"
@@ -61,17 +63,18 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "헐! 진짜네? 내가 잘못 찍어줬나봐요. 미안해요! 머리 예쁘게 커트해줄테니까 기분 풀어요.",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
-          "emotion": "normal"
+          "position": "left",
+          "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "apologetic"
+          "position": "right",
+          "emotion": "shy"
         }
       ],
       "nextSceneId": "scene5"
@@ -81,17 +84,18 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "앞으로 커트는 여기 와서 해요. 돈 안 받을 거니까. 너무 고마워서 그래요.",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "bright"
+          "position": "right",
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene6"
@@ -101,17 +105,18 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "저녁에 밥이라도 같이 먹자고요. 번호 다시 찍어줄게요!",
+      "background": "src/assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "shy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "flirty"
+          "position": "right",
+          "emotion": "normal"
         }
       ],
       "nextSceneId": "scene7"
@@ -120,17 +125,17 @@
       "id": "scene7",
       "type": "narration",
       "text": "공원에서 만나 배달음식을 시켜먹으며 즐거운 시간을 보낸다.",
-      "background": "/assets/backgrounds/park_afternoon.jpg",
+      "background": "src/assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
+          "position": "right",
           "emotion": "happy"
         }
       ],
@@ -140,18 +145,19 @@
       "id": "scene8",
       "type": "dialogue",
       "speaker": "chaerin",
-      "text": "그날 옥상에서 다음날 나 미용사 자격증 시험 있었어요. 당신 덕분에 붙었어요!",
+      "text": "그날 옥상에서 다음날 나 네일 자격증 시험 있었어요. 당신 덕분에 붙었어요!",
+      "background": "src/assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "grateful"
+          "position": "right",
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene9"
@@ -161,17 +167,18 @@
       "type": "monologue",
       "speaker": "player",
       "text": "(긍정적인 에너지가 넘치는 사람이다. 같이 있으면 좋은 일이 생길 것 같은 느낌...)",
+      "background": "src/assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "cheerful"
+          "position": "right",
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene10"
@@ -180,7 +187,8 @@
       "id": "scene10",
       "type": "narration",
       "text": "편의점에서 일하던 중, 지갑을 도둑맞는 사건이 발생한다.",
-      "background": "/assets/backgrounds/convenience_store_night.jpg",
+      "speaker": "player",
+      "background": "src/assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -195,17 +203,18 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "고민거리가 뭔지는 계속 얘기 안 해줄거에요? 앞으로 사소한 것도 서로 숨기지 않기로 해요.",
+      "background": "src/assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "worried"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "concerned"
+          "position": "right",
+          "emotion": "worried"
         }
       ],
       "nextSceneId": "scene12"
@@ -215,37 +224,38 @@
       "id": "scene12",
       "type": "choice",
       "text": "채린의 진심어린 마음을 확인한 후 어떻게 대답할까?",
+      "background": "src/assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
-          "position": "right",
+          "position": "left",
           "emotion": "shy"
         },
         {
           "characterType": "npc",
           "npcId": "chaerin",
-          "position": "left",
-          "emotion": "hopeful"
+          "position": "right",
+          "emotion": "worried"
         }
       ],
       "choices": [
         {
           "id": "choice1",
-          "text": "나도 채린씨 좋아하는 것 같아요. 약속할게요, 절대 숨기지 않을게요.",
+          "text": "절대 숨기지 않을게요.",
           "audioReference": "/assets/audio/references/chaerin_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
-          "text": "채린씨와 있으면 긍정적이 되는 것 같아요. 고마워요.",
+          "text": "채린씨와 있으면 긍정적이 되는 것 같아요.",
           "audioReference": "/assets/audio/references/chaerin_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
-          "text": "너무 빨리 가는 것 같은데... 천천히 알아가면 안 될까요?",
+          "text": "천천히 알아가면 안 될까요?",
           "audioReference": "/assets/audio/references/chaerin_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -3

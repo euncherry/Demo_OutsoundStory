@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "도서관에서 이력서를 수정하던 중, 책 수레를 밀며 지나가는 사서를 발견한다.",
-      "background": "/src/assets/backgrounds/default.png",
+      "background": "/src/assets/backgrounds/library.png",
       "characters": [
         {
           "characterType": "player",
@@ -21,6 +21,7 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "혹시... 그때 헌팅포차에서 절 구해주신 분 아니신가요?",
+      "background": "/src/assets/backgrounds/library.png",
       "characters": [
         {
           "characterType": "player",
@@ -41,6 +42,7 @@
       "type": "monologue",
       "speaker": "player",
       "text": "(메시지를 보냈는데 답이 없었던 그녀다. 도서관 사서였구나...)",
+      "background": "/src/assets/backgrounds/library.png",
       "characters": [
         {
           "characterType": "player",
@@ -61,6 +63,7 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "메시지를 보냈다고요? 받은 적 없는데... 아, 번호가 틀렸네요! 오타가 있었나 봐요.",
+      "background": "/src/assets/backgrounds/library.png",
       "characters": [
         {
           "characterType": "player",
@@ -71,7 +74,7 @@
           "characterType": "npc",
           "npcId": "mihyun",
           "position": "right",
-          "emotion": "embarrassed"
+          "emotion": "surprised"
         }
       ],
       "nextSceneId": "scene5"
@@ -81,6 +84,7 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "내일 점심 같이 먹을래요? 제가 신세진 것도 있고... 자리는 제가 정할게요.",
+      "background": "/src/assets/backgrounds/library.png",
       "characters": [
         {
           "characterType": "player",
@@ -91,7 +95,7 @@
           "characterType": "npc",
           "npcId": "mihyun",
           "position": "right",
-          "emotion": "confident"
+          "emotion": "shy"
         }
       ],
       "nextSceneId": "scene6"
@@ -100,12 +104,12 @@
       "id": "scene6",
       "type": "narration",
       "text": "이탈리안 레스토랑에서 식사를 하며 대화를 나눈다.",
-      "background": "/assets/backgrounds/restaurant_noon.jpg",
+      "background": "src/assets/backgrounds/restaurant.png",
       "characters": [
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "normal"
+          "emotion": "happy"
         },
         {
           "characterType": "npc",
@@ -121,6 +125,7 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "아버지도 군인이세요... 지금도... 춤추는 걸 너무 싫어하셔서...",
+      "background": "src/assets/backgrounds/restaurant.png",
       "characters": [
         {
           "characterType": "player",
@@ -140,7 +145,7 @@
       "id": "scene8",
       "type": "narration",
       "text": "밤, 클럽 밖에서 우연히 화려한 복장으로 변신한 미현을 만난다.",
-      "background": "/assets/backgrounds/club_night.jpg",
+      "background": "src/assets/backgrounds/club.png",
       "characters": [
         {
           "characterType": "player",
@@ -155,6 +160,7 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "다 봤네요... 이런 내 모습을 싫어하는 사람이라면 좋진 않겠죠.",
+      "background": "src/assets/backgrounds/club.png",
       "characters": [
         {
           "characterType": "player",
@@ -165,7 +171,7 @@
           "characterType": "npc",
           "npcId": "mihyun",
           "position": "right",
-          "emotion": "anxious"
+          "emotion": "worried"
         }
       ],
       "nextSceneId": "scene10"
@@ -175,6 +181,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "싫진 않아요. 오히려 멋있어요. 사람마다 자기 사정이 있는 거잖아요.",
+      "background": "src/assets/backgrounds/club.png",
       "characters": [
         {
           "characterType": "player",
@@ -185,7 +192,7 @@
           "characterType": "npc",
           "npcId": "mihyun",
           "position": "right",
-          "emotion": "touched"
+          "emotion": "normal"
         }
       ],
       "nextSceneId": "scene11"
@@ -195,10 +202,11 @@
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "중학교 때까지 춤을 췄어요. 아빠한테 들켜서 춤출 때 입던 옷들을 다 찢어서 버리셨어요.",
+      "background": "src/assets/backgrounds/club.png",
       "characters": [
         {
           "characterType": "player",
-            "position": "left",
+          "position": "left",
           "emotion": "worried"
         },
         {
@@ -214,6 +222,7 @@
       "id": "scene12",
       "type": "choice",
       "text": "미현의 고백을 들은 후 어떻게 반응할까?",
+      "background": "/src/assets/backgrounds/club.png",
       "characters": [
         {
           "characterType": "player",
@@ -224,13 +233,13 @@
           "characterType": "npc",
           "npcId": "mihyun",
           "position": "right",
-          "emotion": "hopeful"
+          "emotion": "shy"
         }
       ],
       "choices": [
         {
           "id": "choice1",
-          "text": "반전 매력이 있는 예쁜 사람이에요. 더 알아가고 싶어요.",
+          "text": "반전 매력이 있네요. 더 알아가고 싶어요.",
           "audioReference": "/assets/audio/references/mihyun_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 10

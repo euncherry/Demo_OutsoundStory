@@ -12,18 +12,13 @@
     {
       "id": "scene2",
       "type": "dialogue",
-      "speaker": "jihoon",
-      "text": "벌써 이렇게 늦었네요. 혼자 가시기 위험할 수 있는데... 같은 방향이면 함께 갈까요?",
+      "speaker": "player",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+      "text": "알바 첫날에 회식은 처음이에요! 환대해 주셔서 감사해요.",
       "characters": [
         {
           "characterType": "player",
-          "position": "left",
-          "emotion": "normal"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "jihoon",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],
@@ -31,61 +26,57 @@
     },
     {
       "id": "scene3",
-      "type": "narration",
-      "text": "함께 걷는 조용한 거리. 가로등 불빛이 따뜻하게 비춘다.",
-      "background": "/src/assets/backgrounds/street_night.png",
+      "type": "monologue",
+      "speaker": "player",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+      "text": "(아! 배부르다! 요즘 돈 없어서 외식이나 배달은 꿈도 못 꿨는데..)",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "center",
+          "emotion": "happy"
+        }
+      ],
       "nextSceneId": "scene4"
     },
     {
       "id": "scene4",
       "type": "dialogue",
-      "speaker": "player",
-      "text": "사실 저... 예전에 아나운서가 되고 싶었어요. 지금은 포기했지만...",
+      "speaker": "jihoon",
+      "text": "한 잔 더 마실래요? 도진이 형이 사주는 와인 먹을 기회 흔치 않아요.",
+      "background": "/src/assets/backgrounds/cafe_night.png",
       "characters": [
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "sad"
+          "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "jihoon",
           "position": "right",
-          "emotion": "normal"
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene5"
     },
     {
-      "id": "scene5",
+      "id": "scene6",
       "type": "dialogue",
-      "speaker": "jihoon",
-      "text": "포기하신 이유가 있나요? 아직 늦지 않았을 텐데...",
+      "speaker": "hojun",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+      "text": "그만 마셔요. 더 마시면 취할지도 몰라요. 와인이 은근히 잘 취하는 술이에요.",
       "characters": [
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "sad"
+          "emotion": "shy"
         },
         {
           "characterType": "npc",
-          "npcId": "jihoon",
-          "position": "right",
-          "emotion": "curious"
-        }
-      ],
-      "nextSceneId": "scene6"
-    },
-    {
-      "id": "scene6",
-      "type": "monologue",
-      "speaker": "player",
-      "text": "(묵묵히 내 옆에서 걸어주는 지훈... 참 세심한 사람이야.)",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "left",
-          "emotion": "happy"
+          "npcId": "hojun",
+          "position": "center",
+          "emotion": "worried"
         },
         {
           "characterType": "npc",
@@ -99,58 +90,124 @@
     {
       "id": "scene7",
       "type": "dialogue",
-      "speaker": "jihoon",
-      "text": "꿈을 포기한다는 건... 쉽지 않은 결정이었을 거예요. 하지만 가끔은 현실을 직시하는 것도 용기죠.",
+      "speaker": "player",
+      "text": "아. 네. 안 그래도 그만 마시려고 했어요.",
+      "background": "/src/assets/backgrounds/cafe_night.png",
       "characters": [
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "normal"
+          "emotion": "shy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "center",
+          "emotion": "worried"
         },
         {
           "characterType": "npc",
           "npcId": "jihoon",
           "position": "right",
-          "emotion": "serious"
+          "emotion": "normal"
         }
       ],
       "nextSceneId": "scene8"
     },
     {
       "id": "scene8",
-      "type": "choice",
-      "text": "지훈의 현실적인 조언에 뭐라고 대답할까?",
+      "type": "dialogue",
+      "speaker": "jihoon",
+      "text": "야. 누가 보면 호준이 너가 흑기산줄 알겠다.",
+      "background": "/src/assets/backgrounds/cafe_night.png",
       "characters": [
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "normal"
+          "emotion": "shy2"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "hojun",
+          "position": "center",
+          "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "jihoon",
           "position": "right",
-          "emotion": "serious"
+          "emotion": "happy"
         }
       ],
+      "nextSceneId": "scene9"
+    },
+    {
+      "id": "scene9",
+      "type": "dialogue",
+      "speaker": "player",
+      "text": "저 조금 어지러워서, 먼저 들어가야 할 것 같아요",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "shy"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "jihoon",
+          "position": "right",
+          "emotion": "worried"
+        }
+      ],
+      "nextSceneId": "scene10"
+    },
+    {
+      "id": "scene10",
+      "type": "dialogue",
+      "speaker": "jihoon",
+      "text": "그래요. 요한이 형. 저도 가볼게요. 집이 이쪽이에요? 같은 방향이면 같이 가요.",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "shy2"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "jihoon",
+          "position": "right",
+          "emotion": "happy"
+        }
+      ],
+      "nextSceneId": "scene11"
+    },
+    {
+      "id": "scene11",
+      "type": "choice",
+      "speaker": "player",
+      "text": "같이 가자는 지훈씨 제안… 뭐라고 말하는 게 좋을까?",
+      "background": "/src/assets/backgrounds/cafe_night.png",
+
       "choices": [
         {
           "id": "choice1",
-          "text": "지훈씨는 참 어른스러우시네요. 덕분에 위로가 됐어요.",
+          "text": "먼저 들어가세요.",
           "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice2",
-          "text": "맞아요. 지훈씨 말을 들으니 다시 생각해보게 되네요.",
+          "text": "네, 너무 좋아요.",
           "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 6
         },
         {
           "id": "choice3",
-          "text": "안녕하세요 감사합니다",
+          "text": "자전거 타고 빨리 가야 되는 거 아니에요?",
           "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -2

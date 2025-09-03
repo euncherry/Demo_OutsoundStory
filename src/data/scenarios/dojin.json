@@ -5,27 +5,36 @@
     {
       "id": "scene1",
       "type": "narration",
+      "speaker": "dojin",
+
       "text": "카페 문이 거칠게 열리며 고급 정장을 입은 남자가 들어온다.",
       "background": "/src/assets/backgrounds/cafe_afternoon.png",
-
+      "characters": [
+        {
+          "characterType": "npc",
+          "npcId": "dojin",
+          "position": "cemter",
+          "emotion": "wink"
+        }
+      ],
       "nextSceneId": "scene2"
     },
     {
       "id": "scene2",
       "type": "dialogue",
       "speaker": "dojin",
-      "text": "요한! 여기 있었네. 오늘 투자 미팅에서 또 대박 쳤어. 이번엔 10억 추가 투자 확정.",
+      "text": "야, 요한! 나 오늘 계약도 성공했어. 돈 버는게 제일 쉽다.",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
-          "emotion": "normal"
+          "position": "left",
+          "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "left",
-          "emotion": "normal"
+          "position": "cemter",
+          "emotion": "wink"
         },
         {
           "characterType": "npc",
@@ -40,17 +49,17 @@
       "id": "scene3",
       "type": "dialogue",
       "speaker": "yohan",
-      "text": "그래, 축하한다. 커피 마시고 갈래?",
+      "text": "그래, 축하한다. 커피라도 한잔 마시고 갈래?",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
+          "position": "left",
           "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "left",
+          "position": "center",
           "emotion": "normal"
         },
         {
@@ -65,71 +74,71 @@
     {
       "id": "scene4",
       "type": "dialogue",
-      "speaker": "dojin",
-      "text": "이런 작은 카페나 운영하면서 만족하고 사는 너와는 차원이 다르지.",
+      "speaker": "yohan",
+      "text": "아, 인사해. 오늘부터 같이 일하기로 한 알바생이야.",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
+          "position": "left",
           "emotion": "angry"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "left",
-          "emotion": "smirk"
+          "position": "center",
+          "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
           "position": "right",
-          "emotion": "sad"
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene5"
     },
     {
       "id": "scene5",
-      "type": "monologue",
-      "speaker": "player",
-      "text": "(저 사람 왜 저래? 요한씨를 무시하는 것 같은데...)",
+      "type": "dialogue",
+      "speaker": "dojin",
+      "text": "... 넌 여전히 이런 구석진 카페에서 소꿉놀이하느라 바쁘구나?",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
-          "emotion": "angry"
+          "position": "left",
+          "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "left",
-          "emotion": "confident"
+          "position": "center",
+          "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
           "position": "right",
-          "emotion": "sad"
+          "emotion": "blank"
         }
       ],
       "nextSceneId": "scene6"
     },
     {
       "id": "scene6",
-      "type": "dialogue",
-      "speaker": "dojin",
-      "text": "새로 온 알바생이야? 나는 서도진. 이 동네에서 제일 잘나가는 스타트업 대표지.",
+      "type": "monologue",
+      "speaker": "player",
+      "text": "(…뭐 저렇게까지 말하지? 옆에서 듣기에도 기분 나쁜데.)",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
-          "emotion": "normal"
+          "position": "left",
+          "emotion": "angry"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "left",
-          "emotion": "confident"
+          "position": "center",
+          "emotion": "happy"
         },
         {
           "characterType": "npc",
@@ -142,19 +151,46 @@
     },
     {
       "id": "scene7",
-      "type": "choice",
-      "text": "도진의 거만한 태도에 뭐라고 대답할까?",
+      "type": "dialogue",
+      "speaker": "dojin",
+      "text": "아, 네가 새로 온 알바생? 나는 서도진. 보다시피 이 동네에서 제일 잘나가는 사람이지.",
       "characters": [
         {
           "characterType": "player",
-          "position": "center",
-          "emotion": "normal"
+          "position": "left",
+          "emotion": "angry"
         },
         {
           "characterType": "npc",
           "npcId": "dojin",
+          "position": "center",
+          "emotion": "wink"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene8"
+    },
+    {
+      "id": "scene8",
+      "type": "choice",
+      "speaker": "player",
+      "text": "도진의 거만한 태도에 뭐라고 대답할까?",
+      "characters": [
+        {
+          "characterType": "player",
           "position": "left",
-          "emotion": "confident"
+          "emotion": "angry"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "dojin",
+          "position": "center",
+          "emotion": "wink"
         },
         {
           "characterType": "npc",
@@ -166,21 +202,21 @@
       "choices": [
         {
           "id": "choice1",
-          "text": "성공하셨다니 축하드려요. 그런데 요한씨 카페도 정말 좋은 곳이에요.",
+          "text": "성공하셨다니 축하드려요.",
           "audioReference": "/assets/audio/references/dojin_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice2",
-          "text": "안녕하세요. 저는 이곳에서 일하게 된 신입이에요.",
+          "text": "저는 이곳에서 일하게 된 신입이에요.",
           "audioReference": "/assets/audio/references/dojin_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 3
         },
         {
           "id": "choice3",
-          "text": "성공하신 건 좋지만 다른 사람을 무시하는 건 좀...",
+          "text": "무시하는 태도가 너무 별로네요.",
           "audioReference": "/src/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -4

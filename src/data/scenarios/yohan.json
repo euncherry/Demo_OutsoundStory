@@ -5,107 +5,15 @@
     {
       "id": "scene1",
       "type": "narration",
-      "text": "평화로운 카페, 요한이 조용히 커피를 내리고 있다.",
-      "background": "src/assets/backgrounds/cafe_morning.jpg",
+      "text": "진상 손님이 한바탕 휩쓸고 간 카페 안에는 어색하고 어수선한 공기만이 감돌았다.",
+      "background": "src/assets/backgrounds/cafe_morning.png",
       "nextSceneId": "scene2"
     },
     {
       "id": "scene2",
-      "type": "dialogue",
-      "speaker": "yohan",
-      "text": "어서오세요. 오늘도 일찍 오셨네요. 항상 감사합니다.",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "left",
-          "emotion": "normal"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "yohan",
-          "position": "right",
-          "emotion": "smile"
-        }
-      ],
-      "nextSceneId": "scene3"
-    },
-    {
-      "id": "scene3",
       "type": "narration",
-      "text": "갑자기 문이 거칠게 열리며 화려한 차림의 여자가 들어온다.",
-      "nextSceneId": "scene4"
-    },
-    {
-      "id": "scene4",
-      "type": "dialogue",
-      "speaker": "ex_girlfriend",
-      "text": "김요한! 또 이런 가짜 인생 살고 있네? 언제까지 착한 척 할래?",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "left",
-          "emotion": "normal"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "ex_girlfriend",
-          "position": "center",
-          "emotion": "normal"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "yohan",
-          "position": "right",
-          "emotion": "troubled"
-        }
-      ],
-      "nextSceneId": "scene5"
-    },
-    {
-      "id": "scene5",
-      "type": "dialogue",
-      "speaker": "yohan",
-      "text": "...민서야. 그만 돌아가. 우린 이미 끝난 사이야.",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "left",
-          "emotion": "sad"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "ex_girlfriend",
-          "position": "center",
-          "emotion": "normal"
-        },
-        {
-          "characterType": "npc",
-          "npcId": "yohan",
-          "position": "right",
-          "emotion": "troubled"
-        }
-      ],
-      "nextSceneId": "scene6"
-    },
-    {
-      "id": "scene6",
-      "type": "monologue",
-      "speaker": "player",
-      "text": "(요한씨가 곤란해하는 것 같은데... 내가 나서야 하나?)",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "left",
-          "emotion": "sad"
-        }
-      ],
-      "nextSceneId": "scene7"
-    },
-    {
-      "id": "scene7",
-      "type": "dialogue",
-      "speaker": "ex_girlfriend",
-      "text": "끝난 사이? 웃기지 마. 네가 날 버릴 수 있을 것 같아?",
+      "text": "잠시 후, 문이 열리고 카페 사장 요한이 모습을 드러냈다.",
+      "background": "src/assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -114,23 +22,83 @@
         },
         {
           "characterType": "npc",
-          "npcId": "ex_girlfriend",
-          "position": "center",
+          "npcId": "yohan",
+          "position": "right",
           "emotion": "normal"
+        }
+      ],
+      "nextSceneId": "scene3"
+    },
+    {
+      "id": "scene3",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "text": "(여주)씨 무슨일 있었나요? 분위기가 소란한데.. ",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "angry"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
           "position": "right",
-          "emotion": "sad"
+          "emotion": "worried"
         }
       ],
-      "nextSceneId": "scene8"
+      "nextSceneId": "scene4"
+    },
+
+    {
+      "id": "scene4",
+      "type": "dialogue",
+      "speaker": "player",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "사장님.. 아까 어떤 이상한 여자손님이 '김태형'이라는 사람을 찾았어요.",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "sad"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "surprised"
+        }
+      ],
+      "nextSceneId": "scene5"
     },
     {
-      "id": "scene8",
-      "type": "choice",
-      "text": "요한을 괴롭히는 전 여자친구. 어떻게 할까?",
+      "id": "scene5",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "…김태형이요? 혹시… 어떻게 생겼어요?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "sad"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "worried"
+        }
+      ],
+      "nextSceneId": "scene6"
+    },
+    {
+      "id": "scene6",
+      "type": "dialogue",
+      "speaker": "player",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "엄청 예쁘게 생겼는데, 말투가 완전… 아, 어깨에 'TH' 이니셜 문신이 있었어요.",
       "characters": [
         {
           "characterType": "player",
@@ -139,35 +107,112 @@
         },
         {
           "characterType": "npc",
-          "npcId": "ex_girlfriend",
-          "position": "center",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "blank"
+        }
+      ],
+      "nextSceneId": "scene7"
+    },
+    {
+      "id": "scene7",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "…!",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
           "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
           "position": "right",
-          "emotion": "troubled"
+          "emotion": "surprised"
+        }
+      ],
+      "nextSceneId": "scene8"
+    },
+    {
+      "id": "scene8",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "그 여자가… (여주)씨한테 뭐라 하진 않았어요? 해코지 같은 거…",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "surprised"
+        }
+      ],
+      "nextSceneId": "scene9"
+    },
+    {
+      "id": "scene9",
+      "type": "dialogue",
+      "speaker": "yohan",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "text": "아뇨. 내일 다시 온다고 하고 그냥 갔어요. 아는 분이세요?",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "surprised"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "surprised"
+        }
+      ],
+      "nextSceneId": "scene10"
+    },
+    {
+      "id": "scene10",
+      "type": "choice",
+      "text": "…(여주)씨는… 사람의 본성이 착하다고 생각해요, 악하다고 생각해요?",
+      "background": "src/assets/backgrounds/cafe_morning.png",
+      "characters": [
+        {
+          "characterType": "player",
+          "position": "left",
+          "emotion": "normal"
+        },
+        {
+          "characterType": "npc",
+          "npcId": "yohan",
+          "position": "right",
+          "emotion": "worried"
         }
       ],
       "choices": [
         {
           "id": "choice1",
-          "text": "죄송하지만 다른 손님들께 방해가 되니 나가주세요.",
+          "text": "사람은 본래 착하다고 믿어요.",
           "audioReference": "src/assets/audio/references/yohan_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
-          "text": "요한씨, 괜찮으세요? 제가 도움이 필요하면 말씀해주세요.",
+          "text": "완전히 선하거나 악한 게 있을까요?",
           "audioReference": "src/assets/audio/references/yohan_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
-          "text": "(조용히 지켜보며 개입하지 않는다)",
+          "text": "사람은 누구나 나쁜마음이 있죠.",
           "audioReference": "src/assets/audio/references/yohan_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": 0

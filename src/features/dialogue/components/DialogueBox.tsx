@@ -16,6 +16,12 @@ interface DialogueBoxProps {
 export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
   const { name, gender } = usePlayerStore();
 
+  // (여주)를 player 이름으로 교체하는 함수
+  const replacePlayerName = (text: string) => {
+    if (!name) return text;
+    return text.replace(/\(여주\)/g, name);
+  };
+
   const getSpeakerName = () => {
     if (!speaker) return "";
 
@@ -92,7 +98,7 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <p className={styles.narrationText}>{text}</p>
+              <p className={styles.narrationText}>{replacePlayerName(text)}</p>
             </motion.div>
           ) : type === "monologue" ? (
             // 독백 (이탤릭체, 괄호)
@@ -102,7 +108,7 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <p className={styles.monologueText}>{text}</p>
+              <p className={styles.monologueText}>{replacePlayerName(text)}</p>
             </motion.div>
           ) : (
             // 대화 (말풍선)
@@ -124,7 +130,7 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
                 className={styles.dialogueText}
                 style={{ color: themeColors.textColor }}
               >
-                {text}
+                {replacePlayerName(text)}
               </p>
 
               {/* 다음 표시 */}

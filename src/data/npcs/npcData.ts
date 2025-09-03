@@ -19,6 +19,12 @@ export interface NPCData {
     sad?: string;
     surprised?: string;
     angry?: string;
+    worried?: string;
+    shy?: string;
+    blank?: string;
+    serious?: string;
+    wink?: string;
+    shy2?: string;
   };
 }
 
@@ -31,10 +37,16 @@ const getNPCProfileImagePath = (id: string, gender: "male" | "female") =>
 
 const getNPCEmotions = (id: string, gender: "male" | "female") => ({
   normal: getNPCImagePath(id, "normal", gender),
-  happy: getNPCImagePath(id, "normal", gender),
-  sad: getNPCImagePath(id, "normal", gender),
-  surprised: getNPCImagePath(id, "normal", gender),
-  angry: getNPCImagePath(id, "normal", gender),
+  happy: getNPCImagePath(id, "happy", gender),
+  sad: getNPCImagePath(id, "sad", gender),
+  surprised: getNPCImagePath(id, "surprised", gender),
+  angry: getNPCImagePath(id, "angry", gender),
+  worried: getNPCImagePath(id, "worried", gender),
+  shy: getNPCImagePath(id, "shy", gender),
+  blank: getNPCImagePath(id, "blank", gender),
+  serious: getNPCImagePath(id, "serious", gender),
+  wink: getNPCImagePath(id, "wink", gender),
+  shy2: getNPCImagePath(id, "shy2", gender),
 });
 
 // 남성 플레이어를 위한 여성 NPC 데이터
