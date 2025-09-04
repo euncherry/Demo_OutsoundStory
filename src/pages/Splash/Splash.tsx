@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import * as styles from "./Splash.css";
-import { Button } from "../../shared/components/Button";
 import { useThemeStore } from "@store/themeStore";
 import { useCharacterStore } from "@/store";
 import logoImage from "@assets/ui/logo/logo.png"; // 메인 로고 이미지
@@ -12,71 +11,71 @@ export function Splash() {
   const navigate = useNavigate();
   const { currentTheme, setTheme } = useThemeStore();
   const { resetCharacters } = useCharacterStore();
-  const [splitPosition, setSplitPosition] = useState(50); // 중앙 분할선 위치 (%)
-  const [isDragging, setIsDragging] = useState(false);
+  // const [splitPosition, setSplitPosition] = useState(50); // 중앙 분할선 위치 (%)
+  // const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // 드래그 시작
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
+  // const handleMouseDown = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   setIsDragging(true);
+  // };
 
-  // 터치 시작 (모바일)
-  const handleTouchStart = () => {
-    setIsDragging(true);
-  };
+  // // 터치 시작 (모바일)
+  // const handleTouchStart = () => {
+  //   setIsDragging(true);
+  // };
 
-  // 드래그 중
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging || !containerRef.current) return;
+  // // 드래그 중
+  // const handleMouseMove = (e: MouseEvent) => {
+  //   if (!isDragging || !containerRef.current) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - containerRect.left;
-    const percentage = (x / containerRect.width) * 100;
+  //   const containerRect = containerRef.current.getBoundingClientRect();
+  //   const x = e.clientX - containerRect.left;
+  //   const percentage = (x / containerRect.width) * 100;
 
-    // 10%에서 90% 사이로 제한
-    setSplitPosition(Math.min(90, Math.max(10, percentage)));
-  };
+  //   // 10%에서 90% 사이로 제한
+  //   setSplitPosition(Math.min(90, Math.max(10, percentage)));
+  // };
 
-  // 터치 이동 (모바일)
-  const handleTouchMove = (e: TouchEvent) => {
-    if (!isDragging || !containerRef.current) return;
+  // // 터치 이동 (모바일)
+  // const handleTouchMove = (e: TouchEvent) => {
+  //   if (!isDragging || !containerRef.current) return;
 
-    const touch = e.touches[0];
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const x = touch.clientX - containerRect.left;
-    const percentage = (x / containerRect.width) * 100;
+  //   const touch = e.touches[0];
+  //   const containerRect = containerRef.current.getBoundingClientRect();
+  //   const x = touch.clientX - containerRect.left;
+  //   const percentage = (x / containerRect.width) * 100;
 
-    setSplitPosition(Math.min(90, Math.max(10, percentage)));
-  };
+  //   setSplitPosition(Math.min(90, Math.max(10, percentage)));
+  // };
 
-  // 드래그 종료
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
+  // // 드래그 종료
+  // const handleMouseUp = () => {
+  //   setIsDragging(false);
+  // };
 
-  // 터치 종료 (모바일)
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
+  // // 터치 종료 (모바일)
+  // const handleTouchEnd = () => {
+  //   setIsDragging(false);
+  // };
 
-  // 이벤트 리스너 등록/해제
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      document.addEventListener("touchmove", handleTouchMove);
-      document.addEventListener("touchend", handleTouchEnd);
+  // // 이벤트 리스너 등록/해제
+  // useEffect(() => {
+  //   if (isDragging) {
+  //     document.addEventListener("mousemove", handleMouseMove);
+  //     document.addEventListener("mouseup", handleMouseUp);
+  //     document.addEventListener("touchmove", handleTouchMove);
+  //     document.addEventListener("touchend", handleTouchEnd);
 
-      return () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        document.removeEventListener("touchmove", handleTouchMove);
-        document.removeEventListener("touchend", handleTouchEnd);
-      };
-    }
-  }, [isDragging, handleMouseMove, handleTouchMove]);
+  //     return () => {
+  //       document.removeEventListener("mousemove", handleMouseMove);
+  //       document.removeEventListener("mouseup", handleMouseUp);
+  //       document.removeEventListener("touchmove", handleTouchMove);
+  //       document.removeEventListener("touchend", handleTouchEnd);
+  //     };
+  //   }
+  // }, [isDragging, handleMouseMove, handleTouchMove]);
 
   // 처음부터 시작: 모든 캐릭터 진행 기록 초기화 후 이동
   const handleStartNew = () => {

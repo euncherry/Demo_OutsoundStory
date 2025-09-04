@@ -1,4 +1,4 @@
-// src/pages/PronunciationResults/SpectrogramTab.tsx
+// src / pages / PronunciationResults / SpectrogramTab.tsx;
 import React, { useRef, useEffect, useState } from "react";
 import { useWavesurfer } from "@wavesurfer/react";
 import Spectrogram from "wavesurfer.js/dist/plugins/spectrogram.esm.js";
@@ -18,55 +18,52 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
   const userContainerRef = useRef<HTMLDivElement>(null);
 
   // 표준 발음 WaveSurfer 설정
-  const {
-    wavesurfer: standardWavesurfer,
-    isPlaying: isStandardPlaying,
-  } = useWavesurfer({
-    container: standardContainerRef,
-    height: 120,
-    waveColor: "rgba(100, 0, 100, 0.6)",
-    progressColor: "rgb(100, 0, 100)",
-    barWidth: 2,
-    barGap: 1,
-    barRadius: 1,
-    normalize: true,
-    minPxPerSec: 50,
-    fillParent: true,
-    autoCenter: true,
-    interact: true,
-    dragToSeek: false,
-    hideScrollbar: false,
-    audioRate: 1,
-    autoplay: false,
-    url:
-      currentContext?.audioReference || "/assets/audio/references/Default.wav",
-    sampleRate: 8000,
-  });
+  const { wavesurfer: standardWavesurfer, isPlaying: isStandardPlaying } =
+    useWavesurfer({
+      container: standardContainerRef,
+      height: 120,
+      waveColor: "rgba(100, 0, 100, 0.6)",
+      progressColor: "rgb(100, 0, 100)",
+      barWidth: 2,
+      barGap: 1,
+      barRadius: 1,
+      normalize: true,
+      minPxPerSec: 50,
+      fillParent: true,
+      autoCenter: true,
+      interact: true,
+      dragToSeek: false,
+      hideScrollbar: false,
+      audioRate: 1,
+      autoplay: false,
+      url:
+        currentContext?.audioReference ||
+        "/assets/audio/references/Default.wav",
+      sampleRate: 8000,
+    });
 
   // 사용자 발음 WaveSurfer 설정
-  const {
-    wavesurfer: userWavesurfer,
-    isPlaying: isUserPlaying,
-  } = useWavesurfer({
-    container: userContainerRef,
-    height: 120,
-    waveColor: "rgba(200, 100, 0, 0.6)",
-    progressColor: "rgb(200, 100, 0)",
-    barWidth: 2,
-    barGap: 1,
-    barRadius: 1,
-    normalize: true,
-    minPxPerSec: 50,
-    fillParent: true,
-    autoCenter: true,
-    interact: true,
-    dragToSeek: false,
-    hideScrollbar: false,
-    audioRate: 1,
-    autoplay: false,
-    url: userAudioUrl || undefined,
-    sampleRate: 8000,
-  });
+  const { wavesurfer: userWavesurfer, isPlaying: isUserPlaying } =
+    useWavesurfer({
+      container: userContainerRef,
+      height: 120,
+      waveColor: "rgba(200, 100, 0, 0.6)",
+      progressColor: "rgb(200, 100, 0)",
+      barWidth: 2,
+      barGap: 1,
+      barRadius: 1,
+      normalize: true,
+      minPxPerSec: 50,
+      fillParent: true,
+      autoCenter: true,
+      interact: true,
+      dragToSeek: false,
+      hideScrollbar: false,
+      audioRate: 1,
+      autoplay: false,
+      url: userAudioUrl || undefined,
+      sampleRate: 8000,
+    });
 
   // 표준 발음 Spectrogram 플러그인 등록
   useEffect(() => {

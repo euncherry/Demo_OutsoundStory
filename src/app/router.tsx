@@ -6,10 +6,12 @@ import { PlayerRoom } from "@pages/PlayerRoom/PlayerRoom";
 import { NPCSelection } from "@pages/NPCSelection/NPCSelection";
 import { MainStory } from "@pages/MainStory/MainStory";
 import { PronunciationResults } from "@pages/PronunciationResults/PronunciationResults"; // 새 라우트 추가
+import AboutPage from "@/pages/test/AboutPage";
 
 export function Router() {
   return (
     <Routes>
+      <Route path="/test" element={<AboutPage />} />
       <Route path="/" element={<Splash />} />
       <Route path="/player-setup" element={<PlayerSetup />} />
       <Route path="/room" element={<PlayerRoom />} />
