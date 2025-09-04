@@ -5,6 +5,7 @@ import { style, keyframes } from "@vanilla-extract/css";
 // import { theme } from '@shared/styles/theme.css';
 import heartUrl from "@assets/ui/decorations/heart.png";
 import { vars } from "@shared/styles/theme.css"; // vars를 import
+import serviceGirl from "@/assets/ui/serviceGirl.jpg";
 
 const float = keyframes({
   "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
@@ -95,7 +96,7 @@ export const container = style({
   height: "100dvh",
   position: "relative",
   overflow: "hidden",
-  backgroundImage: "url(assets/ui/serviceGirl.jpg)",
+  backgroundImage: `url(${serviceGirl})`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   backgroundSize: "cover",
