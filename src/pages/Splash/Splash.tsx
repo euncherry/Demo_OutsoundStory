@@ -1,11 +1,12 @@
 // src/pages/Splash/Splash.tsx
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import * as styles from "./Splash.css.ts";
+import * as styles from "./Splash.css";
 import { Button } from "../../shared/components/Button";
 import { useThemeStore } from "@store/themeStore";
 import { useCharacterStore } from "@/store";
 import logoImage from "@assets/ui/logo/logo.png"; // 메인 로고 이미지
+import { Button3D } from "@shared/components/3DButton";
 
 export function Splash() {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ export function Splash() {
         document.removeEventListener("touchend", handleTouchEnd);
       };
     }
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove, handleTouchMove]);
 
   // 처음부터 시작: 모든 캐릭터 진행 기록 초기화 후 이동
   const handleStartNew = () => {
@@ -139,17 +140,19 @@ export function Splash() {
       {/* 버튼 섹션 */}
       <div className={styles.buttonSection}>
         <div className={styles.buttonContainer}>
-          <Button variant="mainSolid" size="large" onClick={handleStartNew}>
+          <Button3D variant="main" size="large" onClick={handleStartNew}>
             처음부터
-          </Button>
-          <Button
-            variant="subSolid"
+          </Button3D>
+          <Button3D
+            variant="sub"
             size="large"
+            // customSize={{
+            //   padding: "1.2rem 3rem",
+            // }}
             onClick={() => navigate("/continue")}
-            // disabled
           >
             이어하기
-          </Button>
+          </Button3D>
         </div>
       </div>
 

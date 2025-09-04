@@ -1,4 +1,4 @@
-// src/pages/MainStory/MainStory.css.ts
+// src/pages/MainStory/MainStory.css
 import { style } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 

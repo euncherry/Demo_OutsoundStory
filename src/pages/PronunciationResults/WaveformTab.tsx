@@ -3,8 +3,7 @@ import React, { useRef, useEffect } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
-import * as styles from "./ResultsStage.css.ts";
-import "./WaveformTab.css.ts";
+import * as styles from "./ResultsStage.css";
 
 interface WaveformTabProps {
   userAudioUrl: string | null;

@@ -1,7 +1,7 @@
 // src/pages/PlayerRoom/EnvironmentEffects.tsx
-import React from 'react';
-import { motion } from 'framer-motion';
-import * as styles from './PlayerRoom.css.ts';
+import React from "react";
+import { motion } from "framer-motion";
+import * as styles from "./PlayerRoom.css";
 
 export function EnvironmentEffects() {
   // 파티클 생성
@@ -36,14 +36,14 @@ export function EnvironmentEffects() {
               opacity: 0,
             }}
             animate={{
-              y: '110vh',
+              y: "110vh",
               opacity: [0, 0.5, 0.5, 0],
             }}
             transition={{
               duration: particle.duration,
               delay: particle.delay,
               repeat: Infinity,
-              ease: 'linear',
+              ease: "linear",
             }}
           />
         ))}
@@ -67,7 +67,7 @@ export function EnvironmentEffects() {
               duration: 3,
               delay: particle.delay,
               repeat: Infinity,
-              ease: 'easeInOut',
+              ease: "easeInOut",
             }}
           />
         ))}
@@ -80,12 +80,12 @@ export function EnvironmentEffects() {
             key={`rain-${i}`}
             className={styles.raindrop}
             initial={{ y: -100 }}
-            animate={{ y: '100vh' }}
+            animate={{ y: "100vh" }}
             transition={{
               duration: 1 + Math.random(),
               delay: Math.random() * 2,
               repeat: Infinity,
-              ease: 'linear',
+              ease: "linear",
             }}
             style={{
               left: `${Math.random() * 30 + 60}%`,

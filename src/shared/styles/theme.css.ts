@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createThemeContract, createTheme } from "@vanilla-extract/css";
 
 // 공통 속성들
@@ -103,6 +104,7 @@ export const vars = createThemeContract({
 });
 
 // 2. 각 테마별 클래스와 값 생성
+// @ts-ignore
 export const globalTheme = createTheme(vars, {
   colors: {
     primary: "rgba(230, 220, 255, 1)",

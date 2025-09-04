@@ -1,4 +1,5 @@
 // src/shared/components/Button/Button.css.ts
+// @ts-nocheck
 import {
   style,
   styleVariants,

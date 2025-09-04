@@ -1,7 +1,7 @@
 // src/pages/PlayerRoom/DiaryHint.tsx
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import * as styles from './PlayerRoom.css.ts';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import * as styles from "./PlayerRoom.css";
 
 interface DiaryHintProps {
   isOpen: boolean;
@@ -14,9 +14,9 @@ export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
   const [showPrevious, setShowPrevious] = useState(false);
 
   const diaryQuotes = [
-    '또 하루가 그냥 지나갔다...',
-    '변화가 필요한데 용기가 없어',
-    '누군가와 대화하고 싶다',
+    "또 하루가 그냥 지나갔다...",
+    "변화가 필요한데 용기가 없어",
+    "누군가와 대화하고 싶다",
   ];
 
   const handleClick = () => {
@@ -42,7 +42,7 @@ export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
   // 외부 클릭 핸들러
   const handleClickOutside = (e: React.MouseEvent) => {
     // 버튼이나 팝업 내부를 클릭한 경우는 무시
-    if ((e.target as HTMLElement).closest('.diary-button, .diary-popup')) {
+    if ((e.target as HTMLElement).closest(".diary-button, .diary-popup")) {
       return;
     }
     setIsOpen(false);
@@ -52,7 +52,11 @@ export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
     <>
       <div
         onClick={handleClickOutside}
-        style={{ position: 'fixed', inset: 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
       />
       <motion.button
         className={`${styles.diaryButton} diary-button`}
@@ -63,7 +67,7 @@ export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
-        {isOpen ? '📖' : '📔'}
+        {isOpen ? "📖" : "📔"}
       </motion.button>
 
       <AnimatePresence>
@@ -91,7 +95,9 @@ export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
             transition={{ duration: 0 }}
             style={{ zIndex: 0 }}
           >
-            <p className={styles.diaryQuote}>"{diaryQuotes[currentQuoteIndex]}"</p>
+            <p className={styles.diaryQuote}>
+              "{diaryQuotes[currentQuoteIndex]}"
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

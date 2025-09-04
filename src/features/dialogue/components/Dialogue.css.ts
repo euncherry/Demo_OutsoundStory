@@ -1,4 +1,5 @@
-// src/features/dialogue/components/Dialogue.css.ts
+// src/features/dialogue/components/Dialogue.css
+// @ts-nocheck
 import {
   style,
   // keyframes

@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "@/features/pronunciation/hooks/useAudioRecorder";
-import * as styles from "./PronunciationModal.css.ts";
+import * as styles from "./PronunciationModal.css";
 import { Button } from "@/shared/components/Button";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -136,7 +136,10 @@ export function RecordingStage() {
         currentContext.text,
         transcript
       );
-      console.log("✅ 텍스트 유사도(simple):", `${(similarity * 100).toFixed(1)}%`);
+      console.log(
+        "✅ 텍스트 유사도(simple):",
+        `${(similarity * 100).toFixed(1)}%`
+      );
     }
     console.log("==================================================");
   };
@@ -215,18 +218,36 @@ export function RecordingStage() {
         </div>
         {/* STT 상태 표시 (디버깅용) */}
         {browserSupportsSpeechRecognition && (
+          //TODO : css추가 sttStatus
           <div
-            className={styles.sttStatus}
-            style={{ marginTop: "10px", fontSize: "12px", color: "#666" }}
+            style={{
+              padding: "0.5rem 1rem",
+              marginBottom: "0.5rem",
+              minHeight: "7rem",
+              background:
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 220, 255, 0.3))",
+              borderRadius: "0.5rem",
+              border: "1px solid rgba(230, 220, 255, 0.4)",
+              boxShadow: "0 4px 12px rgba(230, 220, 255, 0.15)",
+              fontSize: "14px",
+              color: "rgba(107, 91, 149, 0.9)",
+              fontWeight: "500",
+            }}
           >
-            <span>🎙️ STT: {listening ? "듣는 중" : "중지"}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              🎙️ STT: {listening ? "듣는 중" : "중지"}
+            </span>
             {transcript && (
               <div
                 style={{
-                  marginTop: "5px",
-                  padding: "5px",
-                  backgroundColor: "#f0f0f0",
-                  borderRadius: "4px",
+                  marginTop: "8px",
+                  padding: "8px 12px",
+                  backgroundColor: "rgba(255, 255, 255, 0.7)",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(230, 220, 255, 0.3)",
+                  fontSize: "13px",
+                  color: "rgba(107, 91, 149, 0.8)",
+                  fontStyle: "italic",
                 }}
               >
                 인식 중: {transcript}

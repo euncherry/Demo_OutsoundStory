@@ -9,14 +9,14 @@ import { useStoryProgress } from "@/features/story/hooks/useStoryProgress";
 import { DialogueBox } from "@features/dialogue/components/DialogueBox";
 import { CharacterSprite } from "@features/dialogue/components/CharacterSprite";
 import { ChoiceButtons } from "@features/dialogue/components/ChoiceButtons";
-import { ExtendedScene, SceneCharacter, Choice } from "@/types/dialogue.types";
+import { Scene, SceneCharacter, Choice } from "@/types/dialogue.types";
 import { PronunciationModal } from "@/features/pronunciation/components/PronunciationModal";
-import * as styles from "./MainStory.css.ts";
+import * as styles from "./MainStory.css";
 
 export function MainStory() {
   const navigate = useNavigate();
   const { updateProgress } = useGameFlowStore();
-  const { setCurrentContext ,setCurrentStage} = usePronunciationStore();
+  const { setCurrentContext, setCurrentStage } = usePronunciationStore();
   const { selectedNPC } = useCharacterStore();
   const { onStoryStart, onStoryComplete } = useStoryProgress();
 
@@ -41,7 +41,7 @@ export function MainStory() {
     onStoryStart();
     startedRef.current = true;
     console.log(`🚀 ${selectedNPC} 스토리 시작됨`);
-  }, [selectedNPC]);
+  }, [selectedNPC, onStoryStart]);
 
   // 대화 완료 처리 - 발음 분석 완료 시에만 처리
   useEffect(() => {
@@ -79,8 +79,6 @@ export function MainStory() {
       audioReference: choice.audioReference,
     });
 
-
-
     setCurrentStage("prepare");
     // 발음 분석 모달 열기
     setShowPronunciation(true);
@@ -90,8 +88,8 @@ export function MainStory() {
       id: choice.id,
       text: choice.text,
       audioReference: choice.audioReference,
-      nextSceneId: choice.nextDialogueId || null,
       affinityChange: choice.affinityChange,
+      nextSceneId: choice.nextSceneId,
     };
 
     // 선택 처리
@@ -100,7 +98,12 @@ export function MainStory() {
 
   // ✅ 현재 씬의 캐릭터들 렌더링
   const renderCharacters = () => {
-    const sceneWithCharacters = currentScene as ExtendedScene;
+    // 타입 가드를 사용하여 안전하게 캐스팅
+    if (!currentScene || typeof currentScene !== "object") {
+      return null;
+    }
+
+    const sceneWithCharacters = (currentScene as unknown) as Scene;
     if (!sceneWithCharacters?.characters) {
       return null;
     }
@@ -187,7 +190,7 @@ export function MainStory() {
       {renderCharacters()}
 
       {/* ✅ 기존 방식도 호환성을 위해 유지 (characters 배열이 없는 경우) */}
-      {!(currentScene as ExtendedScene).characters &&
+      {!((currentScene as unknown) as Scene).characters &&
         currentScene.type === "dialogue" &&
         currentScene.speaker !== "player" && (
           <CharacterSprite
@@ -197,7 +200,6 @@ export function MainStory() {
                 ? scenario.npcId
                 : currentScene.speaker!
             }
-            emotion={currentScene.emotion}
             isSpeaking={true}
           />
         )}
@@ -219,7 +221,6 @@ export function MainStory() {
             choices={(currentScene.choices || []).map((choice) => ({
               ...choice,
               koreanText: choice.text, // text를 koreanText로 매핑
-              nextDialogueId: choice.nextSceneId || "", // nextSceneId를 nextDialogueId로 매핑
             }))}
             onSelect={handleChoiceSelect}
           />

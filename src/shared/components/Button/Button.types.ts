@@ -1,23 +1,23 @@
 // src/shared/components/Button/Button.types.ts
 
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react";
 
 export type ButtonVariant =
-  | 'main'
-  | 'mainSolid'
-  | 'sub'
-  | 'subSolid'
-  | 'accent'
-  | 'choice'
-  | 'love'
-  | 'special'
-  | 'gender'
-  | 'purple'
-  | 'sunset';
+  | "main"
+  | "mainSolid"
+  | "sub"
+  | "subSolid"
+  | "accent"
+  | "choice"
+  | "love"
+  | "special"
+  | "gender"
+  | "purple"
+  | "sunset";
 
-export type ButtonSize = 'small' | 'medium' | 'large' | 'xlarge' | 'custom';
+export type ButtonSize = "small" | "medium" | "large" | "xlarge" | "custom";
 
-export type GenderButton = 'male' | 'female';
+export type GenderButton = "male" | "female";
 
 export interface CustomSize {
   width?: string | number;
@@ -34,7 +34,7 @@ export interface ButtonProps {
   disabled?: boolean;
   fullWidth?: boolean;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
   className?: string;
   style?: CSSProperties; // style prop 추가
   loading?: boolean;
@@ -42,7 +42,7 @@ export interface ButtonProps {
   choiceIndex?: number;
 }
 
-export interface IconButtonProps extends Omit<ButtonProps, 'children'> {
+export interface IconButtonProps extends Omit<ButtonProps, "children"> {
   icon: React.ReactNode;
   label?: string;
 }

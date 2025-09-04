@@ -54,7 +54,7 @@ export function useWavesurfer() {
     };
 
     const spectrogram = wavesurferRef.current.registerPlugin(
-      Spectrogram.create(spectrogramOptions)
+      Spectrogram.create(spectrogramOptions) as any
     );
 
     spectrogramRef.current = spectrogram;

@@ -6,7 +6,7 @@ import { getAllNPCs } from "@/data/npcs/npcData";
 //Anchor : 해금
 // import { useCharacterStore } from "@/store";
 
-import * as styles from "./NPCSelection.css.ts";
+import * as styles from "./NPCSelection.css";
 
 interface NPCGridProps {
   onSelectNPC: (npcId: string) => void;

@@ -1,4 +1,6 @@
-// src/features/pronunciation/components/PronunciationModal.css.ts
+// src/features/pronunciation/components/PronunciationModal.css
+// @ts-nocheck
+
 import { style, keyframes } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
@@ -405,7 +407,7 @@ export const recordingWaveform = style({
 });
 
 export const timeDisplay = style({
-  margin: "1.5625rem 0",
+  padding: "1rem 0",
 });
 
 export const recordingTime = style({

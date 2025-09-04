@@ -1,6 +1,6 @@
-// src/pages/PlayerRoom/PlayerRoom.css.ts
+// src/pages/PlayerRoom/PlayerRoom.css
 import { style, keyframes, globalStyle } from "@vanilla-extract/css";
-import { vars } from "@/shared/styles/theme.css.ts";
+import { vars } from "@/shared/styles/theme.css";
 
 // 컨테이너
 export const container = style({

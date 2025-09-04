@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { NPCData } from "@/data/npcs/npcData";
-import * as styles from "./NPCSelection.css.ts";
+import * as styles from "./NPCSelection.css";
 
 interface NPCCardProps {
   npc: NPCData;

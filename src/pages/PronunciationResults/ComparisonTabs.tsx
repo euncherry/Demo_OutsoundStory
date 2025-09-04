@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SpectrogramTab } from "./SpectrogramTab.tsx";
 import { PitchContourTab } from "./PitchContourTab.tsx";
 import { WaveformTab } from "./WaveformTab.tsx";
-import * as styles from "./ResultsStage.css.ts";
+import * as styles from "./ResultsStage.css";
 
 type TabType = "spectrogram" | "pitch" | "waveform";
 

@@ -2,7 +2,7 @@
 import React from "react";
 import { Gender } from "@/types/character.types";
 import { GenderButton } from "@shared/components/Button";
-import * as styles from "./PlayerSetup.css.ts";
+import * as styles from "./PlayerSetup.css";
 
 interface GenderSelectorProps {
   selectedGender: Gender | null;

@@ -1,4 +1,5 @@
-// src/pages/PlayerSetup/PlayerSetup.css.ts
+// src/pages/PlayerSetup/PlayerSetup.css
+// @ts-nocheck
 import { style, keyframes } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 

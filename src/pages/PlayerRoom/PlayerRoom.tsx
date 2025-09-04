@@ -1,13 +1,13 @@
 // src/pages/PlayerRoom/PlayerRoom.tsx
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { usePlayerStore, useGameFlowStore } from '@/store';
-import { PlayerAvatar } from './PlayerAvatar';
-import { MoodIndicator } from './MoodIndicator';
-import { EnvironmentEffects } from './EnvironmentEffects';
-import { MenuButtons } from './MenuButtons';
-import { DiaryHint } from './DiaryHint';
-import * as styles from './PlayerRoom.css.ts';
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { usePlayerStore, useGameFlowStore } from "@/store";
+import { PlayerAvatar } from "./PlayerAvatar";
+import { MoodIndicator } from "./MoodIndicator";
+import { EnvironmentEffects } from "./EnvironmentEffects";
+import { MenuButtons } from "./MenuButtons";
+import { DiaryHint } from "./DiaryHint";
+import * as styles from "./PlayerRoom.css";
 
 export function PlayerRoom() {
   const { name } = usePlayerStore();
@@ -16,8 +16,8 @@ export function PlayerRoom() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    transitionTo('room');
-  }, []);
+    transitionTo("room");
+  }, [transitionTo]);
 
   return (
     <div className={styles.container}>

@@ -13,7 +13,7 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "cemter",
+          "position": "center",
           "emotion": "wink"
         }
       ],
@@ -33,7 +33,7 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "cemter",
+          "position": "center",
           "emotion": "wink"
         },
         {

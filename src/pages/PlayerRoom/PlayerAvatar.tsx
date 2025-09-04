@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { usePlayerStore } from "@/store";
-import * as styles from "./PlayerRoom.css.ts";
+import * as styles from "./PlayerRoom.css";
 
 import { playerData } from "@/data/characters/playerData";
 

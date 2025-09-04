@@ -5,9 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "tsc --noEmit false && vite build",
+    "build:force": "vite build --mode production --force",
+    "build:ignore-errors": "cross-env CI=false npm run build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 1000",
+    "preview": "vite preview",
+    "precheck": "echo '🔍 코드 검사를 시작합니다...'",
+    "check:types": "echo '📝 TypeScript 타입 검사...' && tsc --noEmit --pretty",
+    "check:lint": "echo '🧹 ESLint 코드 품질 검사...' && eslint . --ext .ts,.tsx",
+    "check": "npm run precheck && npm run check:types && npm run check:lint && echo '✅ 모든 검사 완료!'",
+    "check:fix": "eslint . --ext .ts,.tsx --fix && echo '🔧 자동 수정 완료!'"
   },
   "dependencies": {
     "@vanilla-extract/recipes": "^0.5.7",

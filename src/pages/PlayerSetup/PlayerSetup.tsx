@@ -1,16 +1,16 @@
 // src/pages/PlayerSetup/PlayerSetup.tsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { usePlayerStore, useGameFlowStore, useThemeStore } from '@/store';
-import { Gender } from '@/types/character.types';
-import { GenderSelector } from './GenderSelector';
-import { NameInput } from './NameInput';
-import * as styles from './PlayerSetup.css.ts';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePlayerStore, useGameFlowStore, useThemeStore } from "@/store";
+import { Gender } from "@/types/character.types";
+import { GenderSelector } from "./GenderSelector";
+import { NameInput } from "./NameInput";
+import * as styles from "./PlayerSetup.css";
 
 export function PlayerSetup() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<'gender' | 'name'>('gender');
+  const [step, setStep] = useState<"gender" | "name">("gender");
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
 
   const { setPlayerInfo } = usePlayerStore();
@@ -25,7 +25,7 @@ export function PlayerSetup() {
 
     // 애니메이션 후 이름 입력으로 전환
     setTimeout(() => {
-      setStep('name');
+      setStep("name");
     }, 500);
   };
 
@@ -35,21 +35,21 @@ export function PlayerSetup() {
       setPlayerInfo({ name, gender: selectedGender });
 
       // 게임 페이즈 변경
-      transitionTo('room');
+      transitionTo("room");
 
       // PlayerRoom으로 이동
-      navigate('/room');
+      navigate("/room");
     }
   };
 
   const handleBack = () => {
-    if (step === 'name') {
-      setStep('gender');
+    if (step === "name") {
+      setStep("gender");
       setSelectedGender(null);
       // 테마 리셋
-      setTheme('global');
+      setTheme("global");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -63,7 +63,7 @@ export function PlayerSetup() {
         <h1 className={styles.title}>캐릭터 설정</h1>
 
         <AnimatePresence mode="wait">
-          {step === 'gender' ? (
+          {step === "gender" ? (
             <motion.div
               key="gender"
               initial={{ opacity: 0, x: 0 }}
@@ -92,7 +92,7 @@ export function PlayerSetup() {
         <div className={styles.progressBar}>
           <div
             className={styles.progressFill}
-            style={{ width: step === 'gender' ? '50%' : '100%' }}
+            style={{ width: step === "gender" ? "50%" : "100%" }}
           />
         </div>
       </div>

@@ -1,6 +1,7 @@
 // src/features/dialogue/hooks/useDialogueFlow.ts
 import { useState, useEffect } from "react";
-import { useCharacterStore } from "@/store";
+import { useCharacterStore } from "@/store/characterStore";
+import { Choice, Scene, SceneCharacter } from "@/types/game.types";
 
 // 시나리오 import
 import hojunScenario from "@/data/scenarios/hojun.json";
@@ -13,25 +14,6 @@ import mihyunScenario from "@/data/scenarios/mihyun.json";
 import yujinScenario from "@/data/scenarios/yujin.json";
 import chaerinScenario from "@/data/scenarios/chaerin.json";
 import sunhwaScenario from "@/data/scenarios/sunhwa.json";
-
-interface Scene {
-  id: string;
-  type: "dialogue" | "monologue" | "narration" | "choice";
-  speaker?: string;
-  text: string;
-  emotion?: string;
-  background?: string;
-  nextSceneId?: string | null;
-  choices?: Choice[];
-}
-
-interface Choice {
-  id: string;
-  text: string;
-  audioReference: string;
-  nextSceneId: string | null;
-  affinityChange?: number;
-}
 
 interface Scenario {
   npcId: string;
@@ -102,6 +84,7 @@ export function useDialogueFlow() {
   const selectChoice = (choice: Choice) => {
     // 데모 버전: 선택 후 종료
     if (choice.nextSceneId === null) {
+      //TODO : 선택지 선택 이후.
       // setIsComplete(true);
     }
   };

@@ -3,8 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { useWavesurfer } from "@wavesurfer/react";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
-import * as styles from "./ResultsStage.css.ts";
-import "./PitchContourTab.css.ts";
+import * as styles from "./ResultsStage.css";
 
 interface PitchData {
   frequencies: (number | null)[];

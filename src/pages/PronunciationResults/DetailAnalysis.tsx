@@ -2,7 +2,7 @@
 import React from "react";
 import { getNPCById } from "@/data/npcs/npcData.ts";
 import { useScoreStore } from "@/store/scoreStore";
-import * as styles from "./ResultsStage.css.ts";
+import * as styles from "./ResultsStage.css";
 
 interface DetailAnalysisProps {
   result?: unknown; // analysisResult 타입 (선택적)

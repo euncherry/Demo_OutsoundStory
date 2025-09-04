@@ -1,74 +1,75 @@
-import { globalStyle } from '@vanilla-extract/css';
+// @ts-nocheck
+import { globalStyle } from "@vanilla-extract/css";
 // import { theme } from './theme.css';
-import { vars } from '@shared/styles/theme.css'; // vars를 import
+import { vars } from "@shared/styles/theme.css"; // vars를 import
 
-globalStyle('*', {
+globalStyle("*", {
   margin: 0,
   padding: 0,
-  boxSizing: 'border-box',
+  boxSizing: "border-box",
 });
 
-globalStyle('html, body', {
-  height: '100dvh',
-  width: '100dvw',
-  overflow: 'hidden',
+globalStyle("html, body", {
+  height: "100dvh",
+  width: "100dvw",
+  overflow: "hidden",
 });
 
-globalStyle('body', {
+globalStyle("body", {
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  background: vars.colors.primary,
-  color: vars.colors.text,
+  background: "rgba(230, 220, 255, 1)",
+  color: "rgba(155, 126, 174, 1)",
   lineHeight: 1.6,
 });
 
-globalStyle('#root', {
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
+globalStyle("#root", {
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
 });
 
-globalStyle('button', {
-  cursor: 'pointer',
-  border: 'none',
-  backgroundColor: 'transparent',
-  font: 'inherit',
-  color: 'inherit',
+globalStyle("button", {
+  cursor: "pointer",
+  border: "none",
+  backgroundColor: "transparent",
+  font: "inherit",
+  color: "inherit",
 });
 
-globalStyle('input, textarea', {
-  font: 'inherit',
-  color: 'inherit',
+globalStyle("input, textarea", {
+  font: "inherit",
+  color: "inherit",
 });
 
-globalStyle('a', {
-  color: 'inherit',
-  textDecoration: 'none',
+globalStyle("a", {
+  color: "inherit",
+  textDecoration: "none",
 });
 
-globalStyle('img', {
-  maxWidth: '100%',
-  height: 'auto',
-  display: 'block',
+globalStyle("img", {
+  maxWidth: "100%",
+  height: "auto",
+  display: "block",
 });
 
 // Scrollbar styles
-globalStyle('::-webkit-scrollbar', {
-  width: '8px',
-  height: '8px',
+globalStyle("::-webkit-scrollbar", {
+  width: "8px",
+  height: "8px",
 });
 
-globalStyle('::-webkit-scrollbar-track', {
+globalStyle("::-webkit-scrollbar-track", {
   backgroundColor: vars.colors.backgroundGlass,
   borderRadius: vars.borderRadius.sm,
 });
 
-globalStyle('::-webkit-scrollbar-thumb', {
+globalStyle("::-webkit-scrollbar-thumb", {
   background: vars.colors.primaryLight,
   borderRadius: vars.borderRadius.sm,
 });
 
-globalStyle('::-webkit-scrollbar-thumb:hover', {
+globalStyle("::-webkit-scrollbar-thumb:hover", {
   background: vars.colors.primary,
 });

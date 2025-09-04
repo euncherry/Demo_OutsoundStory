@@ -1,8 +1,8 @@
 // src/pages/NPCSelection/NPCCard.tsx
-import React , {useState} from 'react';
-import { motion } from 'framer-motion';
-import { NPCData } from '@/data/npcs/npcData';
-import * as styles from './NPCSelection.css.ts';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { NPCData } from "@/data/npcs/npcData";
+import * as styles from "./NPCSelection.css";
 
 interface NPCCardProps {
   npc: NPCData;
@@ -11,12 +11,15 @@ interface NPCCardProps {
   isLocked?: boolean; // 잠금 상태
 }
 
-export function NPCCard({ npc, index, onSelect, isLocked = false }: NPCCardProps) {
-
+export function NPCCard({
+  npc,
+  index,
+  onSelect,
+  isLocked = false,
+}: NPCCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
-
-  const isKanghyuk = npc.id === 'kanghyuk';
+  const isKanghyuk = npc.id === "kanghyuk";
 
   const handleClick = (e: React.MouseEvent) => {
     // 이벤트 버블링 방지
@@ -28,99 +31,100 @@ export function NPCCard({ npc, index, onSelect, isLocked = false }: NPCCardProps
     }
   };
 
-    // 잠금 해제 조건 메시지
-    const getUnlockHint = () => {
-      if (npc.id === 'kanghyuk') {
-        return "서도진의 스토리를 완료하면 해금됩니다";
-      }
-      if (npc.id === 'hyejin') {
-        return "다른 캐릭터를 먼저 만나보세요";
-      }
-      return "조건을 달성하면 해금됩니다";
-    };
+  // 잠금 해제 조건 메시지
+  const getUnlockHint = () => {
+    if (npc.id === "kanghyuk") {
+      return "서도진의 스토리를 완료하면 해금됩니다";
+    }
+    if (npc.id === "hyejin") {
+      return "다른 캐릭터를 먼저 만나보세요";
+    }
+    return "조건을 달성하면 해금됩니다";
+  };
 
-    return (
-      <div className={styles.cardWrapper}>
+  return (
+    <div className={styles.cardWrapper}>
+      <motion.div
+        className={`${styles.npcCard} ${isKanghyuk ? styles.mysteryCard : ""}`}
+        onClick={handleClick}
+        style={{ perspective: "1000px" }}
+      >
         <motion.div
-          className={`${styles.npcCard} ${isKanghyuk ? styles.mysteryCard : ''}`}
-          onClick={handleClick}
-          style={{ perspective: '1000px' }}
+          animate={{
+            rotateY: isFlipped ? 180 : 0,
+          }}
+          transition={{ duration: 0.6 }}
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "relative",
+            transformStyle: "preserve-3d",
+          }}
         >
-          <motion.div
-            animate={{
-              rotateY: isFlipped ? 180 : 0,
-            }}
-            transition={{ duration: 0.6 }}
+          {/* 앞면 */}
+          <div
+            className={styles.cardFront}
             style={{
-              width: '100%',
-              height: '100%',
-              position: 'relative',
-              transformStyle: 'preserve-3d',
+              backfaceVisibility: "hidden",
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 2,
             }}
           >
-            {/* 앞면 */}
-            <div
-              className={styles.cardFront}
-              style={{
-                backfaceVisibility: 'hidden',
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                zIndex: 2,
-              }}
-            >
-              {/* 프로필 이미지 및 정보 */}
-              <div className={styles.imageWrapper}>
-                {/* 여기에 이미지 삽입 */}
-                <img
-                  className={styles.profileImage}
-                  src={npc.profileImage}
-                  alt={npc.nameKo}
-                  draggable={false}
-                />
-                {/* 강혁일 때 특수 효과 */}
-                {isKanghyuk && <div className={styles.glitchEffect} />}
-                {isKanghyuk && <div className={styles.hologramOverlay} />}
-                <div className={styles.sparkles}>
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <span key={i} className={styles.sparkle}>✨</span>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.cardInfo}>
-                <div className={styles.npcName}>{npc.nameKo}</div>
-                <div className={styles.npcAge}>{npc.age}세</div>
-                <div className={styles.npcOccupation}>{npc.occupation}</div>
-                <div className={styles.npcIntro}>{npc.introduction}</div>
+            {/* 프로필 이미지 및 정보 */}
+            <div className={styles.imageWrapper}>
+              {/* 여기에 이미지 삽입 */}
+              <img
+                className={styles.profileImage}
+                src={npc.profileImage}
+                alt={npc.nameKo}
+                draggable={false}
+              />
+              {/* 강혁일 때 특수 효과 */}
+              {isKanghyuk && <div className={styles.glitchEffect} />}
+              {isKanghyuk && <div className={styles.hologramOverlay} />}
+              <div className={styles.sparkles}>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span key={i} className={styles.sparkle}>
+                    ✨
+                  </span>
+                ))}
               </div>
             </div>
-            {/* 뒷면 */}
-            <div
-              className={styles.cardBack}
-              style={{
-                backfaceVisibility: 'hidden',
-                transform: 'rotateY(180deg)',
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                zIndex: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.15em',
-                background: 'rgba(255,255,255,0.96)',
-                color: '#333',
-              }}
-            >
-              {getUnlockHint()}
+            <div className={styles.cardInfo}>
+              <div className={styles.npcName}>{npc.nameKo}</div>
+              <div className={styles.npcAge}>{npc.age}세</div>
+              <div className={styles.npcOccupation}>{npc.occupation}</div>
+              <div className={styles.npcIntro}>{npc.introduction}</div>
             </div>
-          </motion.div>
+          </div>
+          {/* 뒷면 */}
+          <div
+            className={styles.cardBack}
+            style={{
+              backfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 3,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "1.15em",
+              background: "rgba(255,255,255,0.96)",
+              color: "#333",
+            }}
+          >
+            {getUnlockHint()}
+          </div>
         </motion.div>
-      </div>
-    );
-
+      </motion.div>
+    </div>
+  );
 
   // return (
   //   <motion.div
@@ -154,7 +158,6 @@ export function NPCCard({ npc, index, onSelect, isLocked = false }: NPCCardProps
   //         }}
   //       />
   //     )}
-      
 
   //     {/* 프로필 이미지 */}
   //     <div className={styles.imageWrapper} >

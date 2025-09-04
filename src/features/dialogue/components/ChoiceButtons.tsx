@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@shared/components/Button";
 import { Choice } from "@/types/game.types";
-import * as styles from "./Dialogue.css.ts";
+import * as styles from "./Dialogue.css";
 
 interface ChoiceButtonsProps {
   choices: Choice[];

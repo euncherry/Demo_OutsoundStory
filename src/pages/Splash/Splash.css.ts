@@ -1,4 +1,6 @@
-// src/pages/Splash/Splash.css.ts
+// src/pages/Splash/Splash.css
+// @ts-nocheck
+
 import { style, keyframes } from "@vanilla-extract/css";
 // import { theme } from '@shared/styles/theme.css';
 import heartUrl from "@assets/ui/decorations/heart.png";

@@ -8,12 +8,16 @@ import { ComparisonTabs } from "./ComparisonTabs";
 import { DetailAnalysis } from "./DetailAnalysis";
 import { Button3D } from "@/shared/components/3DButton";
 import { useDialogueFlow } from "@/features/dialogue/hooks/useDialogueFlow";
-import * as styles from "./ResultsStage.css.ts";
+import * as styles from "./ResultsStage.css";
 
 export function PronunciationResults() {
   const navigate = useNavigate();
-  const { currentContext, reset, setCurrentStage, recordedAudioBase64 } =
-    usePronunciationStore();
+  const {
+    currentContext,
+    reset,
+    setCurrentStage,
+    recordedAudioBase64,
+  } = usePronunciationStore();
   const { analysisResult } = useScoreStore();
   const { setIsComplete } = useDialogueFlow();
 

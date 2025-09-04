@@ -1,24 +1,24 @@
 // src/pages/PlayerSetup/NameInput.tsx
-import React, { useState } from 'react';
-import { Button } from '@shared/components/Button';
-import * as styles from './PlayerSetup.css.ts';
+import React, { useState } from "react";
+import { Button } from "@shared/components/Button";
+import * as styles from "./PlayerSetup.css";
 
 interface NameInputProps {
   onSubmit: (name: string) => void;
   initialName?: string;
 }
 
-export function NameInput({ onSubmit, initialName = '' }: NameInputProps) {
+export function NameInput({ onSubmit, initialName = "" }: NameInputProps) {
   const [name, setName] = useState(initialName);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = () => {
     if (name.trim().length > 10) {
-      setError('이름은 10자 이하로 입력해주세요');
+      setError("이름은 10자 이하로 입력해주세요");
       return;
     }
     // 이름이 비어있으면 placeholder 값인 '길동'을 사용
-    onSubmit(name.trim() || '명윤');
+    onSubmit(name.trim() || "명윤");
   };
 
   return (
@@ -30,13 +30,13 @@ export function NameInput({ onSubmit, initialName = '' }: NameInputProps) {
           value={name}
           onChange={(e) => {
             setName(e.target.value);
-            setError('');
+            setError("");
           }}
           placeholder="명윤"
           className={styles.nameInput}
           maxLength={10}
           onKeyPress={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               handleSubmit();
             }
           }}

@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@shared/components/Button";
-import * as styles from "./PlayerRoom.css.ts";
+import * as styles from "./PlayerRoom.css";
 
 export function MenuButtons() {
   const navigate = useNavigate();

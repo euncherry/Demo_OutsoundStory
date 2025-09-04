@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useScoreStore } from "@/store/scoreStore";
 import { useAudioAnalysis } from "@/features/pronunciation/hooks/useAudioAnalysis";
-import * as styles from "./PronunciationModal.css.ts";
+import * as styles from "./PronunciationModal.css";
 import { ANALYSIS_STEPS, AnalysisStep } from "@/types/pronunciation";
 
 export function AnalyzingStage() {
@@ -77,7 +77,21 @@ export function AnalyzingStage() {
   if (error) {
     return (
       <div className={styles.stageContainer}>
-        <div className={styles.errorMessage}>{error}</div>
+        //TODO : css추가
+        {/* <div className={styles.errorMessage}>{error}</div> */}
+        <div
+          style={{
+            color: "#ff6b6b",
+            fontSize: "1.125rem",
+            textAlign: "center",
+            padding: "1rem",
+            background: "rgba(255, 107, 107, 0.1)",
+            borderRadius: "0.5rem",
+            border: "1px solid rgba(255, 107, 107, 0.3)",
+          }}
+        >
+          {error}
+        </div>
       </div>
     );
   }

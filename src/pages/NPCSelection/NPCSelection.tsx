@@ -2,10 +2,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useCharacterStore, useGameFlowStore   } from "@/store";
+import { useCharacterStore, useGameFlowStore } from "@/store";
 import { useScoreStore } from "@/store/scoreStore";
 import { NPCGrid } from "./NPCGrid";
-import * as styles from "./NPCSelection.css.ts";
+import * as styles from "./NPCSelection.css";
 
 export function NPCSelection() {
   const navigate = useNavigate();
@@ -14,8 +14,6 @@ export function NPCSelection() {
   const { reset: resetScore } = useScoreStore();
 
   const handleSelectNPC = (npcId: string) => {
-
-
     // NPC 선택 저장
     selectNPC(npcId);
 
@@ -24,8 +22,6 @@ export function NPCSelection() {
     // 진행 상태 업데이트
     updateProgress("hasSelectedNPC", true);
     transitionTo("dialogue");
-
-
 
     // MainStory로 이동
     setTimeout(() => {

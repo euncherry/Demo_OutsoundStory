@@ -1,3 +1,6 @@
+// src/shared/components/3DButton/3DButton.css.ts (개선된 버전)
+// @ts-nocheck
+
 import { style } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
@@ -30,7 +33,56 @@ export const button3D = style({
   },
 });
 
-// 연한 보라색 버튼
+// 메인 테마 버튼 (primary 색상 사용) - RGBA로 투명도 적용
+export const main = style({
+  background: vars.colors.buttonMainSolid,
+  color: vars.colors.text,
+  textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)",
+  boxShadow: `
+    0 8px 0 color-mix(in srgb, ${vars.colors.primary} 60%, transparent),
+    0 12px 0 color-mix(in srgb, ${vars.colors.primary} 40%, transparent),
+    0 16px 25px ${vars.colors.shadow},
+    inset 0 -2px 5px color-mix(in srgb, ${vars.colors.primary} 20%, transparent),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9)
+  `,
+
+  ":active": {
+    boxShadow: `
+   
+      0 2px 0 ${vars.colors.primaryLight},
+      0 3px 0 ${vars.colors.primary},
+      0 4px 10px ${vars.colors.primaryDark},
+      inset 0 -1px 3px ${vars.colors.primary},
+      inset 0 1px 2px rgba(255, 255, 255, 0.8)
+    `,
+  },
+});
+
+// 서브 테마 버튼 (secondary 색상 사용) - RGBA로 투명도 적용
+export const sub = style({
+  background: vars.colors.buttonSubSolid,
+  color: vars.colors.textSecondary,
+  textShadow: "0 1px 2px rgba(255, 255, 255, 0.8)",
+  boxShadow: `
+    0 8px 0 color-mix(in srgb, ${vars.colors.secondary} 60%, transparent),
+    0 12px 0 color-mix(in srgb, ${vars.colors.secondary} 40%, transparent),
+    0 16px 25px ${vars.colors.shadow},
+    inset 0 -2px 5px color-mix(in srgb, ${vars.colors.secondary} 20%, transparent),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9)
+  `,
+
+  ":active": {
+    boxShadow: `
+      0 2px 0 color-mix(in srgb, ${vars.colors.secondary} 80%, transparent),
+      0 3px 0 color-mix(in srgb, ${vars.colors.secondary} 50%, transparent),
+      0 4px 10px ${vars.colors.shadow},
+      inset 0 -1px 3px color-mix(in srgb, ${vars.colors.secondary} 30%, transparent),
+      inset 0 1px 2px rgba(255, 255, 255, 0.8)
+    `,
+  },
+});
+
+// 연한 보라색 버튼 (기존 유지)
 export const purple = style({
   background:
     "linear-gradient(135deg, rgba(245, 242, 255, 1), rgba(237, 232, 255, 1))",
@@ -43,18 +95,6 @@ export const purple = style({
     inset 0 1px 2px rgba(255, 255, 255, 0.9)
   `,
 
-  ":hover": {
-    // background:
-    //   "linear-gradient(135deg, rgba(250, 248, 255, 1), rgba(242, 238, 255, 1))",
-    // boxShadow: `
-    //   0 5px 0 rgba(220, 210, 240, 0.8),
-    //   0 8px 0 rgba(220, 210, 240, 0.4),
-    //   0 12px 20px rgba(230, 220, 255, 0.3),
-    //   inset 0 -2px 5px rgba(220, 210, 240, 0.25),
-    //   inset 0 1px 2px rgba(255, 255, 255, 1)
-    // `,
-  },
-
   ":active": {
     boxShadow: `
       0 2px 0 rgba(220, 210, 240, 0.9),
@@ -66,7 +106,7 @@ export const purple = style({
   },
 });
 
-// 연한 핑크색 버튼
+// 연한 핑크색 버튼 (기존 유지)
 export const pink = style({
   background:
     "linear-gradient(135deg, rgba(255, 230, 238, 1), rgba(255, 220, 232, 1))",
@@ -103,7 +143,7 @@ export const pink = style({
   },
 });
 
-// 진한 핑크색 버튼
+// 진한 핑크색 버튼 (기존 유지)
 export const darkpink = style({
   background: "linear-gradient(135deg, #ffc3d0, #ff8fab, #d4668f)",
   color: "white",

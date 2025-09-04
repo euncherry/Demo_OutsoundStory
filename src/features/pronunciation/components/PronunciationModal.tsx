@@ -36,11 +36,8 @@ export function PronunciationModal({
   }, [currentStage, analysisResult, navigate, onClose]);
 
   useEffect(() => {
-console.log(currentStage)
-  }, []);
-
-
-
+    console.log(currentStage);
+  }, [currentStage]);
 
   const handleClose = () => {
     // 녹음 중이거나 분석 중일 때는 확인 메시지 표시

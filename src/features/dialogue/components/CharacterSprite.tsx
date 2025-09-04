@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { usePlayerStore } from "@/store";
 import { getNPCById } from "@/data/npcs/npcData";
 import { playerData, PlayerEmotions } from "@/data/characters/playerData";
-import * as styles from "./Dialogue.css.ts";
+import * as styles from "./Dialogue.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CharacterSpriteProps {

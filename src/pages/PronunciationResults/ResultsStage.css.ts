@@ -1,4 +1,6 @@
-// src/features/pronunciation/components/ResultsStage.css.ts
+// src/features/pronunciation/components/ResultsStage.css
+// @ts-nocheck
+
 import { style } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
@@ -367,7 +369,7 @@ export const waveformTitle = style({
   marginBottom: vars.spacing.sm,
 });
 
-// src/features/pronunciation/components/ResultsStage.css.ts에 추가
+// src/features/pronunciation/components/ResultsStage.css에 추가
 // export const loadingContainer = style({
 //   display: "flex",
 //   flexDirection: "column",

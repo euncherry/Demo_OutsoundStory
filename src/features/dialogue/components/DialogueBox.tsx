@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePlayerStore } from "@/store";
 import { getNPCById } from "@/data/npcs/npcData";
 import { playerData } from "@/data/characters/playerData";
-import * as styles from "./Dialogue.css.ts";
+import * as styles from "./Dialogue.css";
 
 interface DialogueBoxProps {
   type: "dialogue" | "monologue" | "narration";
