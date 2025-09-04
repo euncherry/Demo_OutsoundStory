@@ -37,8 +37,7 @@ export function PrepareStage() {
       barGap: 2,
       normalize: true,
       url:
-        currentContext.audioReference ||
-        "/src/assets/audio/references/Default.wav",
+        currentContext.audioReference || "/assets/audio/references/Default.wav",
     });
 
     wavesurfer.on("play", () => {

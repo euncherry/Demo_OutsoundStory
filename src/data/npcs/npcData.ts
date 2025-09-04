@@ -30,10 +30,10 @@ export interface NPCData {
 
 // 유틸리티 함수들
 const getNPCImagePath = (id: string, type: string, gender: "male" | "female") =>
-  `/src/assets/characters/npc/${gender}/${id}/${type}.png`;
+  `/assets/characters/npc/${gender}/${id}/${type}.png`;
 
 const getNPCProfileImagePath = (id: string, gender: "male" | "female") =>
-  `/src/assets/characters/npcProfile/${gender}/${id}.png`;
+  `/assets/characters/npcProfile/${gender}/${id}.png`;
 
 const getNPCEmotions = (id: string, gender: "male" | "female") => ({
   normal: getNPCImagePath(id, "normal", gender),

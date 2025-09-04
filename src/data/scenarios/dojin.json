@@ -8,7 +8,7 @@
       "speaker": "dojin",
 
       "text": "카페 문이 거칠게 열리며 고급 정장을 입은 남자가 들어온다.",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "npc",
@@ -217,7 +217,7 @@
         {
           "id": "choice3",
           "text": "무시하는 태도가 너무 별로네요.",
-          "audioReference": "/src/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -4
         }

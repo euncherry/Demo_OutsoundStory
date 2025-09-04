@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "따뜻한 오후의 카페, 익숙한 커피 향이 공간을 채우고 있다.",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "nextSceneId": "scene2"
     },
     {
@@ -14,7 +14,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "아르바이트를 시작한 지 벌써 일주일! 앞으로도 쭉 이랬으면 좋겠다~",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -29,7 +29,7 @@
       "type": "dialogue",
       "speaker": "hojun",
       "text": "뭐가 쭉 이랬으면 좋겠어요?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -50,7 +50,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "아, 깜짝이야! 놀랬잖아요? 어디서 튀어 나왔어요?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -72,7 +72,7 @@
       "type": "monologue",
       "speaker": "player",
       "text": "출근하던 내게 갑자기 호준 씨가 튀어나와 놀래키는 바람에 그만 소리를 지르고 말았다.",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -93,7 +93,7 @@
       "type": "dialogue",
       "speaker": "hojun",
       "text": "으, 내가 더 놀랬어요. 목소리가 왜 이렇게 커요?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -114,7 +114,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "내 뒤통수가 뇌리에 강렬하게 남았나 보죠?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -135,7 +135,7 @@
       "type": "dialogue",
       "speaker": "hojun",
       "text": " 흐~ 노 코멘트. 출근하는 거예요? 나도 카페에 놀러 가는데",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -156,7 +156,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": " 카페에 놀러 간다고요? 맞다. 음악 학원에서 드럼 가르친다고 했죠?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -177,7 +177,7 @@
       "type": "dialogue",
       "speaker": "hojun",
       "text": "맞아요. 밴드 활동도 하고 있는데 부업으로 재미있게 하고 있죠. 나중에 한 번 보여줄까요?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -197,7 +197,7 @@
       "id": "scene11",
       "type": "choice",
       "text": "호준이에게 뭐라고 대답할까?",
-      "background": "/src/assets/backgrounds/cafe_afternoon.png",
+      "background": "/assets/backgrounds/cafe_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -215,21 +215,21 @@
         {
           "id": "choice1",
           "text": "네? 아.. 좋아요.",
-          "audioReference": "/src/assets/audio/references/hojun_choice1.mp3",
+          "audioReference": "/assets/audio/references/hojun_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 10
         },
         {
           "id": "choice2",
           "text": "진짜요? 저 완전 보고 싶어요!",
-          "audioReference": "/src/assets/audio/references/hojun_choice2.mp3",
+          "audioReference": "/assets/audio/references/hojun_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice3",
           "text": "괜찮아요. 드럼에 딱히 관심 없어서요.",
-          "audioReference": "/src/assets/audio/references/hojun_choice3.mp3",
+          "audioReference": "/assets/audio/references/hojun_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -3
         }

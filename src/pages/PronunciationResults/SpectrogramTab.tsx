@@ -39,8 +39,7 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
     audioRate: 1,
     autoplay: false,
     url:
-      currentContext?.audioReference ||
-      "/src/assets/audio/references/Default.wav",
+      currentContext?.audioReference || "/assets/audio/references/Default.wav",
     sampleRate: 8000,
   });
 

@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "미용실에 들어서자 낯익은 얼굴이 반겨준다.",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -21,7 +21,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "헐! 여기서 또 보네요? 왜 연락 안 했어요? 다른 여자한테 연락한 줄 알았잖아요!",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -42,7 +42,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "연락했는데요? 없는 번호라고 나와서 일부러 없는 번호 찍어준 줄 알았어요.",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -63,7 +63,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "헐! 진짜네? 내가 잘못 찍어줬나봐요. 미안해요! 머리 예쁘게 커트해줄테니까 기분 풀어요.",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -84,7 +84,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "앞으로 커트는 여기 와서 해요. 돈 안 받을 거니까. 너무 고마워서 그래요.",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -105,7 +105,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "저녁에 밥이라도 같이 먹자고요. 번호 다시 찍어줄게요!",
-      "background": "src/assets/backgrounds/hair_salon.png",
+      "background": "assets/backgrounds/hair_salon.png",
       "characters": [
         {
           "characterType": "player",
@@ -125,7 +125,7 @@
       "id": "scene7",
       "type": "narration",
       "text": "공원에서 만나 배달음식을 시켜먹으며 즐거운 시간을 보낸다.",
-      "background": "src/assets/backgrounds/park_afternoon.png",
+      "background": "assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -146,7 +146,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "그날 옥상에서 다음날 나 네일 자격증 시험 있었어요. 당신 덕분에 붙었어요!",
-      "background": "src/assets/backgrounds/park_afternoon.png",
+      "background": "assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -167,7 +167,7 @@
       "type": "monologue",
       "speaker": "player",
       "text": "(긍정적인 에너지가 넘치는 사람이다. 같이 있으면 좋은 일이 생길 것 같은 느낌...)",
-      "background": "src/assets/backgrounds/park_afternoon.png",
+      "background": "assets/backgrounds/park_afternoon.png",
       "characters": [
         {
           "characterType": "player",
@@ -188,7 +188,7 @@
       "type": "narration",
       "text": "편의점에서 일하던 중, 지갑을 도둑맞는 사건이 발생한다.",
       "speaker": "player",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -203,7 +203,7 @@
       "type": "dialogue",
       "speaker": "chaerin",
       "text": "고민거리가 뭔지는 계속 얘기 안 해줄거에요? 앞으로 사소한 것도 서로 숨기지 않기로 해요.",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -224,7 +224,7 @@
       "id": "scene12",
       "type": "choice",
       "text": "채린의 진심어린 마음을 확인한 후 어떻게 대답할까?",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",

@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "카페에서 일하던 중, 밝은 목소리가 들려온다.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -21,7 +21,7 @@
       "type": "dialogue",
       "speaker": "gaeul",
       "text": "안녕하세요! 아이스 아메리카노 한 잔 주세요. 아, 그리고 혹시 와이파이 비밀번호 알려주실 수 있나요?",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -42,7 +42,7 @@
       "type": "monologue",
       "speaker": "player",
       "text": "(정말 밝은 사람이네. 대학생인가?)",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -63,7 +63,7 @@
       "type": "dialogue",
       "speaker": "gaeul",
       "text": "여기 자주 올 것 같은데, 혹시 스탬프 카드 같은 거 있나요? 저 커피 정말 좋아해서 하루에 세 잔은 마시거든요!",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -84,7 +84,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "아, 네! 스탬프 카드가 있어요. 10개 모으면 무료 음료 한 잔 드릴 수 있어요.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -105,7 +105,7 @@
       "type": "dialogue",
       "speaker": "gaeul",
       "text": "와! 정말요? 그럼 오늘부터 매일 와야겠어요! 혹시 혼자 오시는 분들도 많나요?",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -126,7 +126,7 @@
       "type": "dialogue",
       "speaker": "player",
       "text": "네, 혼자 오시는 분들이 꽤 많아요. 특히 공부하시는 분들이나 노트북 들고 오시는 분들이 많고요.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -147,7 +147,7 @@
       "type": "dialogue",
       "speaker": "gaeul",
       "text": "그렇군요! 저도 다음에 노트북 들고 와서 공부해볼까 봐요. 여기 분위기가 정말 좋네요.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -168,7 +168,7 @@
       "type": "dialogue",
       "speaker": "gaeul",
       "text": "아, 그리고 혹시 여기서 일하시는 분들이랑 친해질 수 있나요? 저 정말 사람들과 대화하는 걸 좋아해서요!",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -188,7 +188,7 @@
       "id": "scene10",
       "type": "choice",
       "text": "가을의 친근한 제안에 어떻게 대답할까?",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -206,21 +206,21 @@
         {
           "id": "choice1",
           "text": "가을님처럼 밝은 분이시면 너무 좋죠.",
-          "audioReference": "/src/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice2",
           "text": "너무 자주 오시면 다른 손님들이 불편해할 수도 있어요.",
-          "audioReference": "/src/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": 2
         },
         {
           "id": "choice3",
           "text": "아... 손님과 친해지는 건 좀 어려울 것 같아요.",
-          "audioReference": "/src/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -2
         }

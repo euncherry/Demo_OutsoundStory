@@ -46,8 +46,7 @@ export function PitchContourTab({ userAudioUrl }: PitchContourTabProps) {
     audioRate: 1,
     autoplay: false,
     url:
-      currentContext?.audioReference ||
-      "/src/assets/audio/references/Default.wav",
+      currentContext?.audioReference || "/assets/audio/references/Default.wav",
     sampleRate: 11025,
   });
 
@@ -71,7 +70,7 @@ export function PitchContourTab({ userAudioUrl }: PitchContourTabProps) {
     hideScrollbar: false,
     audioRate: 1,
     autoplay: false,
-    // url: userAudioUrl || "/src/assets/audio/references/empty.wav",
+    // url: userAudioUrl || "/assets/audio/references/empty.wav",
     url: userAudioUrl || undefined,
 
     sampleRate: 11025,

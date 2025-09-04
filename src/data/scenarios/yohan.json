@@ -6,14 +6,14 @@
       "id": "scene1",
       "type": "narration",
       "text": "진상 손님이 한바탕 휩쓸고 간 카페 안에는 어색하고 어수선한 공기만이 감돌았다.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "nextSceneId": "scene2"
     },
     {
       "id": "scene2",
       "type": "narration",
       "text": "잠시 후, 문이 열리고 카페 사장 요한이 모습을 드러냈다.",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -34,7 +34,7 @@
       "type": "dialogue",
       "speaker": "yohan",
       "text": "(여주)씨 무슨일 있었나요? 분위기가 소란한데.. ",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -55,7 +55,7 @@
       "id": "scene4",
       "type": "dialogue",
       "speaker": "player",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "사장님.. 아까 어떤 이상한 여자손님이 '김태형'이라는 사람을 찾았어요.",
       "characters": [
         {
@@ -76,7 +76,7 @@
       "id": "scene5",
       "type": "dialogue",
       "speaker": "yohan",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "…김태형이요? 혹시… 어떻게 생겼어요?",
       "characters": [
         {
@@ -97,7 +97,7 @@
       "id": "scene6",
       "type": "dialogue",
       "speaker": "player",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "엄청 예쁘게 생겼는데, 말투가 완전… 아, 어깨에 'TH' 이니셜 문신이 있었어요.",
       "characters": [
         {
@@ -118,7 +118,7 @@
       "id": "scene7",
       "type": "dialogue",
       "speaker": "yohan",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "…!",
       "characters": [
         {
@@ -139,7 +139,7 @@
       "id": "scene8",
       "type": "dialogue",
       "speaker": "yohan",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "그 여자가… (여주)씨한테 뭐라 하진 않았어요? 해코지 같은 거…",
       "characters": [
         {
@@ -160,7 +160,7 @@
       "id": "scene9",
       "type": "dialogue",
       "speaker": "yohan",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "text": "아뇨. 내일 다시 온다고 하고 그냥 갔어요. 아는 분이세요?",
       "characters": [
         {
@@ -181,7 +181,7 @@
       "id": "scene10",
       "type": "choice",
       "text": "…(여주)씨는… 사람의 본성이 착하다고 생각해요, 악하다고 생각해요?",
-      "background": "src/assets/backgrounds/cafe_morning.png",
+      "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {
           "characterType": "player",
@@ -199,21 +199,21 @@
         {
           "id": "choice1",
           "text": "사람은 본래 착하다고 믿어요.",
-          "audioReference": "src/assets/audio/references/yohan_choice1.mp3",
+          "audioReference": "assets/audio/references/yohan_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
           "text": "완전히 선하거나 악한 게 있을까요?",
-          "audioReference": "src/assets/audio/references/yohan_choice2.mp3",
+          "audioReference": "assets/audio/references/yohan_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
           "text": "사람은 누구나 나쁜마음이 있죠.",
-          "audioReference": "src/assets/audio/references/yohan_choice3.mp3",
+          "audioReference": "assets/audio/references/yohan_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": 0
         }

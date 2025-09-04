@@ -12,7 +12,7 @@ export default defineConfig({
       "@features": "/src/features",
       "@shared": "/src/shared",
       "@store": "/src/store",
-      "@assets": "/src/assets",
+      "@assets": "/public/assets",
       "@types": "/src/types",
       "@data": "/src/data",
     },

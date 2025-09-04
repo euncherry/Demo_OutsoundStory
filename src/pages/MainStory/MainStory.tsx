@@ -131,7 +131,7 @@ export function MainStory() {
 
   // 배경 이미지 결정
   const backgroundImage =
-    currentScene?.background || "/src/assets/backgrounds/default.png";
+    currentScene?.background || "/assets/backgrounds/default.png";
 
   if (!scenario || !currentScene) {
     return <div>Loading...</div>;

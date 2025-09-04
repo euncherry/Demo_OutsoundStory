@@ -63,7 +63,7 @@ export function useAudioAnalysis() {
       progressColor: "transparent",
       url:
         currentContext?.audioReference ||
-        "/src/assets/audio/references/Default.wav",
+        "/assets/audio/references/Default.wav",
       sampleRate: 11025,
     });
 

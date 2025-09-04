@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "편의점에서 일하던 중, 헌팅포차에서 받은 번호로 전화를 건다.",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "speaker": "player",
       "characters": [
         {
@@ -22,7 +22,7 @@
       "type": "dialogue",
       "speaker": "sunhwa",
       "text": "어머~ 목소리 좋네. 누구지? 혹시 나한테 번호 따간 남자 중에 한 명?",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -43,7 +43,7 @@
       "type": "dialogue",
       "speaker": "sunhwa",
       "text": "아아! 나 구해준 오빠네? 저녁에 나와요. 6시에 맛있는 저녁 살테니까!",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -63,7 +63,7 @@
       "id": "scene4",
       "type": "narration",
       "text": "오래된 순댓국집에서 만나 함께 술을 마신다.",
-      "background": "src/assets/backgrounds/sundae.png",
+      "background": "assets/backgrounds/sundae.png",
       "characters": [
         {
           "characterType": "player",
@@ -84,7 +84,7 @@
       "type": "dialogue",
       "speaker": "sunhwa",
       "text": "나 여기 5년째 단골이에요. 내가 또 한 미모 하니까 플러팅하는 남자들이 많았는데...",
-      "background": "src/assets/backgrounds/sundae.png",
+      "background": "assets/backgrounds/sundae.png",
       "characters": [
         {
           "characterType": "player",
@@ -105,7 +105,7 @@
       "type": "dialogue",
       "speaker": "sunhwa",
       "text": "요가 강사에요. 일주일에 8일 술 마시는데도 이렇게 텐션 좋은거 보면 알겠죠? 시간내서 한 번 와요!",
-      "background": "src/assets/backgrounds/sundae.png",
+      "background": "assets/backgrounds/sundae.png",
       "characters": [
         {
           "characterType": "player",
@@ -125,7 +125,7 @@
       "id": "scene7",
       "type": "choice",
       "text": "(식사 중에 오빠들 전화가 계속 온다. 남사친이 많은 스타일인가...)",
-      "background": "src/assets/backgrounds/sundae.png",
+      "background": "assets/backgrounds/sundae.png",
       "characters": [
         {
           "characterType": "player",
@@ -157,7 +157,7 @@
         {
           "id": "choice3",
           "text": "인기 많으신 건 알겠는데, 식사 중에는 좀...",
-          "audioReference": "/src/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -4
         }

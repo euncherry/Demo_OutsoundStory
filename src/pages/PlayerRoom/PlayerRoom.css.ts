@@ -9,7 +9,7 @@ export const container = style({
   height: "100vh",
   overflow: "hidden",
   backgroundColor: "#000000",
-  backgroundImage: "url(/src/assets/backgrounds/dirtyRoom.png)",
+  backgroundImage: "url(/assets/backgrounds/dirtyRoom.png)",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundPosition: "center",

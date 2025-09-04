@@ -6,7 +6,7 @@
       "id": "scene1",
       "type": "narration",
       "text": "편의점에서 일하던 중, 갑자기 전화가 온다.",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -21,7 +21,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "뭐해요? 술 마셔요? 나라니까요. 유진. 방금 메시지 보냈잖아요!",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -42,7 +42,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "편의점이요? 어디? 나 출출한데 뭐 사먹으러 가야겠다! 운동 좋아해요?",
-      "background": "src/assets/backgrounds/convenience_store.png",
+      "background": "assets/backgrounds/convenience_store.png",
       "characters": [
         {
           "characterType": "player",
@@ -62,7 +62,7 @@
       "id": "scene4",
       "type": "narration",
       "text": "PC방을 찾아갔더니 진상 손님과 맞서고 있는 유진을 목격한다.",
-      "background": "src/assets/backgrounds/pc_room.png",
+      "background": "assets/backgrounds/pc_room.png",
       "characters": [
         {
           "characterType": "player",
@@ -83,7 +83,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "손님 때문에 다른 손님들이 싫어하잖아요! 주먹을 여자 패는데 쓰라고 부모님이 가르치디?",
-      "background": "src/assets/backgrounds/pc_room.png",
+      "background": "assets/backgrounds/pc_room.png",
       "characters": [
         {
           "characterType": "player",
@@ -104,7 +104,7 @@
       "type": "monologue",
       "speaker": "player",
       "text": "(진상의 팔을 꺾어서 제압하는 모습이... 대단하긴 한데 좀 무섭기도 하고...)",
-      "background": "src/assets/backgrounds/pc_room.png",
+      "background": "assets/backgrounds/pc_room.png",
       "characters": [
         {
           "characterType": "player",
@@ -125,7 +125,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "어? 언제 왔어요? 목숨을 구해준 사람한테 신세진 건 제대로 갚아야죠. 짜계치 만들었으니까 다 먹어야 돼요!",
-      "background": "src/assets/backgrounds/pc_room.png",
+      "background": "assets/backgrounds/pc_room.png",
       "characters": [
         {
           "characterType": "player",
@@ -145,7 +145,7 @@
       "id": "scene8",
       "type": "narration",
       "text": "며칠 후, 함께 닭발집에서 저녁을 먹는다.",
-      "background": "src/assets/backgrounds/pocha.png",
+      "background": "assets/backgrounds/pocha.png",
       "characters": [
         {
           "characterType": "player",
@@ -166,7 +166,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "스트레스 받을 때 먹으면 더 좋아요. 나한테 스트레스 준 사람을 닭발이라고 생각하고 확 뜯는 거에요!",
-      "background": "/src/assets/backgrounds/pocha.png",
+      "background": "/assets/backgrounds/pocha.png",
       "characters": [
         {
           "characterType": "player",
@@ -186,7 +186,7 @@
       "id": "scene10",
       "type": "narration",
       "text": "식사 후 집으로 가던 중, 갑자기 복수심에 불타는 진상이 나타난다.",
-      "background": "/src/assets/backgrounds/street_night.png",
+      "background": "/assets/backgrounds/street_night.png",
       "characters": [
         {
           "characterType": "player",
@@ -207,7 +207,7 @@
       "type": "dialogue",
       "speaker": "yujin",
       "text": "미친! 안 쪽팔리냐? 후회할 짓 하지 말고 그냥 가지?",
-      "background": "/src/assets/backgrounds/street_night.png",
+      "background": "/assets/backgrounds/street_night.png",
       "characters": [
         {
           "characterType": "player",
@@ -227,7 +227,7 @@
       "id": "scene12",
       "type": "choice",
       "text": "위험한 상황에서 어떻게 행동할까?",
-      "background": "/src/assets/backgrounds/street_night.png",
+      "background": "/assets/backgrounds/street_night.png",
       "characters": [
         {
           "characterType": "player",
