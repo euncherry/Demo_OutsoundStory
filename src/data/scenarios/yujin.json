@@ -244,21 +244,21 @@
       "choices": [
         {
           "id": "choice1",
-          "text": "유진씨! 피해요! (유진을 보호하려고 나선다)",
+          "text": "유진씨, 제 뒤로 오세요",
           "audioReference": "/assets/audio/references/yujin_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 15
         },
         {
           "id": "choice2",
-          "text": "경찰에 신고하겠다고 위협한다",
+          "text": "멈추지 않으면 경찰에 신고하겠습니다.",
           "audioReference": "/assets/audio/references/yujin_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice3",
-          "text": "유진씨가 알아서 해결하도록 뒤로 물러난다",
+          "text": "유진씨, 그냥 사과하고 보내죠",
           "audioReference": "/assets/audio/references/yujin_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -8
