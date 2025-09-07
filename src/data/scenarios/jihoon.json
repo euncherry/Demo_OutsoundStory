@@ -207,7 +207,7 @@
         },
         {
           "id": "choice3",
-          "text": "자전거 타고 빨리 가야 되는 거 아니에요?",
+          "text": "안녕하세요 감사합니다",
           "audioReference": "/assets/audio/references/Default.wav",
           "nextSceneId": null,
           "affinityChange": -2
