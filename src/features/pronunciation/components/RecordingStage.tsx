@@ -115,7 +115,7 @@ export function RecordingStage() {
 
   const handleStartRecording = () => {
     setIsRecordingStarted(true);
-    handleStartRecording();
+    startListening();
     // if (browserSupportsSpeechRecognition) {
     //   resetTranscript(); // 이전 텍스트 초기화
     //   SpeechRecognition.startListening({
