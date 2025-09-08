@@ -9,6 +9,7 @@ const useSpeechToText = (options) => {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
   } = useSpeechRecognition();
 
   const startListening = () =>
@@ -27,6 +28,7 @@ const useSpeechToText = (options) => {
     stopListening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
   };
 };
 

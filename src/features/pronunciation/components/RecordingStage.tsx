@@ -7,9 +7,10 @@ import * as styles from "./PronunciationModal.css";
 import { Button3D } from "@/shared/components/3DButton";
 import { Button } from "@/shared/components/Button";
 import { RecordingIndicator } from "@/shared/components/RecordingIndicator";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+// import SpeechRecognition, {
+//   useSpeechRecognition,
+// } from "react-speech-recognition";
+import useSpeechToText from "@/pages/test/hooks/useSpeechToText";
 
 export function RecordingStage() {
   const {
@@ -21,13 +22,23 @@ export function RecordingStage() {
   const recordingWaveformRef = useRef<HTMLDivElement>(null);
 
   // react-speech-recognition 훅
+  // const {
+  //   transcript,
+  //   listening,
+  //   resetTranscript,
+  //   browserSupportsSpeechRecognition,
+  //   isMicrophoneAvailable,
+  // } = useSpeechRecognition();
+
   const {
     transcript,
     listening,
+    startListening,
+    stopListening,
     resetTranscript,
     browserSupportsSpeechRecognition,
     isMicrophoneAvailable,
-  } = useSpeechRecognition();
+  } = useSpeechToText();
 
   const {
     initializeRecorder,
@@ -65,7 +76,7 @@ export function RecordingStage() {
     return () => {
       cleanup();
       // STT 정리
-      SpeechRecognition.stopListening();
+      // SpeechRecognition.stopListening();
     };
   }, [initializeRecorder, cleanup]);
 
@@ -104,14 +115,14 @@ export function RecordingStage() {
 
   const handleStartRecording = () => {
     setIsRecordingStarted(true);
-    if (browserSupportsSpeechRecognition) {
-      resetTranscript(); // 이전 텍스트 초기화
-      SpeechRecognition.startListening({
-        continuous: true, // 계속 듣기
-        language: "ko-KR", // 한국어 설정
-      });
-      console.log("🎤 STT started listening...");
-    }
+    // if (browserSupportsSpeechRecognition) {
+    //   resetTranscript(); // 이전 텍스트 초기화
+    //   SpeechRecognition.startListening({
+    //     continuous: true, // 계속 듣기
+    //     language: "ko-KR", // 한국어 설정
+    //   });
+    //   console.log("🎤 STT started listening...");
+    // }
   };
 
   // 녹음 완료 처리
@@ -136,7 +147,7 @@ export function RecordingStage() {
 
     // STT 중지
     if (listening) {
-      SpeechRecognition.stopListening();
+      // SpeechRecognition.stopListening();
       console.log("🔴 STT stopped");
     }
 
@@ -183,193 +194,229 @@ export function RecordingStage() {
 
   const handlePauseResume = () => {
     pauseRecording();
-    if (isPaused) {
-      // 재녹음
-      if (browserSupportsSpeechRecognition) {
-        SpeechRecognition.startListening({
-          continuous: true,
-          language: "ko-KR",
-        });
-        console.log("▶️ STT resumed");
-      }
-      console.log("⏸️ true STT paused");
-    } else {
-      SpeechRecognition.stopListening();
-      //일시정지 클릭
-      console.log("⏸️ false STT paused");
-    }
+    // if (isPaused) {
+    //   // 재녹음
+    //   if (browserSupportsSpeechRecognition) {
+    //     SpeechRecognition.startListening({
+    //       continuous: true,
+    //       language: "ko-KR",
+    //     });
+    //     console.log("▶️ STT resumed");
+    //   }
+    //   console.log("⏸️ true STT paused");
+    // } else {
+    //   SpeechRecognition.stopListening();
+    //   //일시정지 클릭
+    //   console.log("⏸️ false STT paused");
+    // }
   };
 
   return (
-    <motion.div
-      className={styles.stageContainer}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <div className={styles.stageHeader}>
-        <h2 className={styles.stageTitle}>
-          {!isRecordingStarted
-            ? "🎙️ 녹음 준비"
-            : isPaused
-            ? "⏸️ 녹음 일시정지"
-            : "🔴 녹음 중..."}
-        </h2>
-        <p className={styles.stageSubtitle}>
-          {!isRecordingStarted
-            ? "녹음 버튼을 눌러 시작하세요"
-            : "자연스럽게 따라 말해보세요"}
-        </p>
-      </div>
-      {/* 선택한 텍스트 표시 */}
+    <>
       <motion.div
-        className={styles.textDisplay}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
+        className={styles.stageContainer}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
       >
-        <p className={styles.choiceText}>"{currentContext?.text}"</p>
-      </motion.div>
-      {/* 실시간 파형 표시 */}
-      <div className={styles.recordingSection}>
-        <div className={styles.waveformContainer}>
-          <div
-            ref={recordingWaveformRef}
-            className={styles.recordingWaveform}
-          />
+        <div className={styles.stageHeader}>
+          <h2 className={styles.stageTitle}>
+            {!isRecordingStarted
+              ? "🎙️ 녹음 준비"
+              : isPaused
+              ? "⏸️ 녹음 일시정지"
+              : "🔴 녹음 중..."}
+          </h2>
+          <p className={styles.stageSubtitle}>
+            {!isRecordingStarted
+              ? "녹음 버튼을 눌러 시작하세요"
+              : "자연스럽게 따라 말해보세요"}
+          </p>
         </div>
+        {/* 선택한 텍스트 표시 */}
+        <motion.div
+          className={styles.textDisplay}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <p className={styles.choiceText}>"{currentContext?.text}"</p>
+        </motion.div>
+        {/* 실시간 파형 표시 */}
+        <div className={styles.recordingSection}>
+          <div className={styles.waveformContainer}>
+            <div
+              ref={recordingWaveformRef}
+              className={styles.recordingWaveform}
+            />
+          </div>
 
-        {/* 녹음 시간 표시 */}
-        <div className={styles.timeDisplay}>
-          <span className={styles.recordingTime}>
-            ⏱️ {formatTime(recordingTime)}
-          </span>
-        </div>
-        {/* STT 상태 표시 (디버깅용) */}
-        {browserSupportsSpeechRecognition && (
-          //TODO : css추가 sttStatus
-          <div
-            style={{
-              padding: "0.5rem 1rem",
-              marginBottom: "0.5rem",
-              minHeight: "7rem",
-              background:
-                "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 220, 255, 0.3))",
-              borderRadius: "0.5rem",
-              border: "1px solid rgba(230, 220, 255, 0.4)",
-              boxShadow: "0 4px 12px rgba(230, 220, 255, 0.15)",
-              fontSize: "14px",
-              color: "rgba(107, 91, 149, 0.9)",
-              fontWeight: "500",
-            }}
-          >
-            <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              🎙️ STT: {listening ? "듣는 중" : "중지"}
+          {/* 녹음 시간 표시 */}
+          <div className={styles.timeDisplay}>
+            <span className={styles.recordingTime}>
+              ⏱️ {formatTime(recordingTime)}
             </span>
-            {transcript && (
-              <div
-                style={{
-                  marginTop: "8px",
-                  padding: "8px 12px",
-                  backgroundColor: "rgba(255, 255, 255, 0.7)",
-                  borderRadius: "8px",
-                  border: "1px solid rgba(230, 220, 255, 0.3)",
-                  fontSize: "13px",
-                  color: "rgba(107, 91, 149, 0.8)",
-                  fontStyle: "italic",
-                }}
+          </div>
+          {/* STT 상태 표시 (디버깅용) */}
+          {browserSupportsSpeechRecognition && (
+            //TODO : css추가 sttStatus
+            <div
+              style={{
+                padding: "0.5rem 1rem",
+                marginBottom: "0.5rem",
+                minHeight: "7rem",
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 220, 255, 0.3))",
+                borderRadius: "0.5rem",
+                border: "1px solid rgba(230, 220, 255, 0.4)",
+                boxShadow: "0 4px 12px rgba(230, 220, 255, 0.15)",
+                fontSize: "14px",
+                color: "rgba(107, 91, 149, 0.9)",
+                fontWeight: "500",
+              }}
+            >
+              <span
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
               >
-                인식 중: {transcript}
-              </div>
-            )}
-          </div>
-        )}
-        {/* 녹음 상태 인디케이터 */}
+                🎙️ STT: {listening ? "듣는 중" : "중지"}
+              </span>
+              {transcript && (
+                <div
+                  style={{
+                    marginTop: "8px",
+                    padding: "8px 12px",
+                    backgroundColor: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(230, 220, 255, 0.3)",
+                    fontSize: "13px",
+                    color: "rgba(107, 91, 149, 0.8)",
+                    fontStyle: "italic",
+                  }}
+                >
+                  인식 중: {transcript}
+                </div>
+              )}
+            </div>
+          )}
+          {/* 녹음 상태 인디케이터 */}
 
-        {isPaused ? (
-          <div
-            className={styles.recordingIndicator}
-            style={{ borderColor: "rgba(255, 224, 130, 1)" }}
-          >
-            <motion.div
-              className={styles.recordingDot}
-              animate={{
-                scale: isPaused ? 1 : [1, 1.2, 1],
-                opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 1,
-                repeat: isPaused ? 0 : Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <span
-              className={styles.recordingStatus}
-              style={{ color: "rgba(255, 224, 130, 1)" }}
+          {isPaused ? (
+            <div
+              className={styles.recordingIndicator}
+              style={{ borderColor: "rgba(255, 224, 130, 1)" }}
             >
-              일시정지됨
-            </span>
-          </div>
-        ) : (
-          <div className={styles.recordingIndicator}>
-            <motion.div
-              className={styles.recordingDot}
-              animate={{
-                scale: isPaused ? 1 : [1, 1.2, 1],
-                opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 1,
-                repeat: isPaused ? 0 : Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <span className={styles.recordingStatus}>녹음 중</span>
-          </div>
-        )}
-      </div>
+              <motion.div
+                className={styles.recordingDot}
+                animate={{
+                  scale: isPaused ? 1 : [1, 1.2, 1],
+                  opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: isPaused ? 0 : Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <span
+                className={styles.recordingStatus}
+                style={{ color: "rgba(255, 224, 130, 1)" }}
+              >
+                일시정지됨
+              </span>
+            </div>
+          ) : (
+            <div className={styles.recordingIndicator}>
+              <motion.div
+                className={styles.recordingDot}
+                animate={{
+                  scale: isPaused ? 1 : [1, 1.2, 1],
+                  opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 1,
+                  repeat: isPaused ? 0 : Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <span className={styles.recordingStatus}>녹음 중</span>
+            </div>
+          )}
+        </div>
 
-      {/* 컨트롤 버튼들 */}
-      <div className={styles.recordingControls}>
-        {!isRecordingStarted ? (
-          <Button3D variant="main" size="medium" onClick={handleStartRecording}>
-            🔴 녹음 시작
-          </Button3D>
-        ) : (
-          <>
-            <Button
-              variant="sub"
-              size="small"
-              onClick={handlePauseResume}
-              className={styles.pauseButton}
-              fullWidth
-              icon={!isPaused ? "⏸️" : "▶️"}
-              iconPosition="left"
-            >
-              {!isPaused ? "일시정지" : "재개"}
-            </Button>
-
-            <Button
+        {/* 컨트롤 버튼들 */}
+        <div className={styles.recordingControls}>
+          {!isRecordingStarted ? (
+            <Button3D
               variant="main"
-              size="small"
-              onClick={handleStopRecording}
-              className={styles.stopButton}
-              fullWidth
-              icon={"⏹️"}
-              iconPosition="left"
+              size="medium"
+              onClick={handleStartRecording}
             >
-              녹음 완료
-            </Button>
-          </>
-        )}
-      </div>
-      {/* 안내 메시지 */}
-      <div className={styles.guideSection}>
-        <p className={styles.guideText}>
-          📢 마이크에 대고 명확하게 발음해주세요
-        </p>
-        <p className={styles.guideText}>최대 30초까지 녹음 가능합니다</p>
-      </div>
-    </motion.div>
+              🔴 녹음 시작
+            </Button3D>
+          ) : (
+            <>
+              <Button
+                variant="sub"
+                size="small"
+                onClick={handlePauseResume}
+                className={styles.pauseButton}
+                fullWidth
+                icon={!isPaused ? "⏸️" : "▶️"}
+                iconPosition="left"
+              >
+                {!isPaused ? "일시정지" : "재개"}
+              </Button>
+
+              <Button
+                variant="main"
+                size="small"
+                onClick={handleStopRecording}
+                className={styles.stopButton}
+                fullWidth
+                icon={"⏹️"}
+                iconPosition="left"
+              >
+                녹음 완료
+              </Button>
+            </>
+          )}
+        </div>
+        {/* 안내 메시지 */}
+        <div className={styles.guideSection}>
+          <p className={styles.guideText}>
+            📢 마이크에 대고 명확하게 발음해주세요
+          </p>
+          <p className={styles.guideText}>최대 30초까지 녹음 가능합니다</p>
+        </div>
+        {/*  */}
+      </motion.div>
+      <>
+        {/* 음성 인식 데모 섹션 */}
+        <div className="speech-demo-container">
+          <h3>음성 인식 테스트</h3>
+          <p>아래 버튼을 누르고 마이크에 대고 말해보세요.</p>
+          <div className="transcript-box">
+            <textarea
+              className="transcript-textarea"
+              value={transcript}
+              readOnly
+              placeholder="음성 인식 결과가 여기에 표시됩니다..."
+            />
+            {listening && <div className="listening-indicator"></div>}
+          </div>
+          <div className="button-group">
+            <button
+              onClick={listening ? stopListening : startListening}
+              className={`speech-button ${listening ? "stop" : "start"}`}
+            >
+              {listening ? "음성인식 중지" : "음성인식 시작"}
+            </button>
+            <button onClick={resetTranscript} className="speech-button reset">
+              초기화
+            </button>
+          </div>
+        </div>
+      </>
+    </>
   );
 }
