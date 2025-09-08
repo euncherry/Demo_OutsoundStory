@@ -84,14 +84,14 @@ export function RecordingStage() {
       });
 
       // STT 시작
-      if (browserSupportsSpeechRecognition) {
-        resetTranscript(); // 이전 텍스트 초기화
-        SpeechRecognition.startListening({
-          continuous: true, // 계속 듣기
-          language: "ko-KR", // 한국어 설정
-        });
-        console.log("🎤 STT started listening...");
-      }
+      // if (browserSupportsSpeechRecognition) {
+      //   resetTranscript(); // 이전 텍스트 초기화
+      //   SpeechRecognition.startListening({
+      //     continuous: true, // 계속 듣기
+      //     language: "ko-KR", // 한국어 설정
+      //   });
+      //   console.log("🎤 STT started listening...");
+      // }
     }
   }, [
     isInitialized,
@@ -104,6 +104,14 @@ export function RecordingStage() {
 
   const handleStartRecording = () => {
     setIsRecordingStarted(true);
+    if (browserSupportsSpeechRecognition) {
+      resetTranscript(); // 이전 텍스트 초기화
+      SpeechRecognition.startListening({
+        continuous: true, // 계속 듣기
+        language: "ko-KR", // 한국어 설정
+      });
+      console.log("🎤 STT started listening...");
+    }
   };
 
   // 녹음 완료 처리
