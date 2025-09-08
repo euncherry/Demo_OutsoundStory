@@ -143,21 +143,21 @@
         {
           "id": "choice1",
           "text": "선화씨 예쁘셔서 그런지 인기가 너무 많으신거 아니에요?",
-          "audioReference": "/assets/audio/references/dojin_choice1.mp3",
+          "audioReference": "/assets/audio/references/sunhwa/sunhwa_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice2",
           "text": "원래 그렇게 아는 오빠들이 많아요?",
-          "audioReference": "/assets/audio/references/dojin_choice2.mp3",
+          "audioReference": "/assets/audio/references/sunhwa/sunhwa_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 3
         },
         {
           "id": "choice3",
           "text": "인기 많으신 건 알겠는데, 식사 중에는 좀...",
-          "audioReference": "/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/sunhwa/sunhwa_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -4
         }

@@ -240,21 +240,21 @@
         {
           "id": "choice1",
           "text": "반전 매력이 있네요. 더 알아가고 싶어요.",
-          "audioReference": "/assets/audio/references/mihyun_choice1.mp3",
+          "audioReference": "/assets/audio/references/mihyun/mihyun_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 10
         },
         {
           "id": "choice2",
           "text": "힘들었겠다. 유일한 스트레스 해소 방법이 춤이었는데...",
-          "audioReference": "/assets/audio/references/mihyun_choice2.mp3",
+          "audioReference": "/assets/audio/references/mihyun/mihyun_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 7
         },
         {
           "id": "choice3",
           "text": "아버지 말씀도 일리가 있지 않을까요?",
-          "audioReference": "/assets/audio/references/mihyun_choice3.mp3",
+          "audioReference": "/assets/audio/references/mihyun/mihyun_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -5
         }

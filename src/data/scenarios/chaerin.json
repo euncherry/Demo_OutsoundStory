@@ -242,21 +242,21 @@
         {
           "id": "choice1",
           "text": "절대 숨기지 않을게요.",
-          "audioReference": "/assets/audio/references/chaerin_choice1.mp3",
+          "audioReference": "/assets/audio/references/chaerin/chaerin_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
           "text": "채린씨와 있으면 긍정적이 되는 것 같아요.",
-          "audioReference": "/assets/audio/references/chaerin_choice2.mp3",
+          "audioReference": "/assets/audio/references/chaerin/chaerin_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
           "text": "천천히 알아가면 안 될까요?",
-          "audioReference": "/assets/audio/references/chaerin_choice3.mp3",
+          "audioReference": "/assets/audio/references/chaerin/chaerin_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -3
         }

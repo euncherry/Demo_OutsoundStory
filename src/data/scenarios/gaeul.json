@@ -206,21 +206,21 @@
         {
           "id": "choice1",
           "text": "가을님처럼 밝은 분이시면 너무 좋죠.",
-          "audioReference": "/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/gaeul/gaeul_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice2",
           "text": "너무 자주 오시면 다른 손님들이 불편해할 수도 있어요.",
-          "audioReference": "/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/gaeul/gaeul_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 2
         },
         {
           "id": "choice3",
           "text": "아... 손님과 친해지는 건 좀 어려울 것 같아요.",
-          "audioReference": "/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/gaeul/gaeul_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -2
         }

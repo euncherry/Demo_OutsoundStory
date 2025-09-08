@@ -203,21 +203,21 @@
         {
           "id": "choice1",
           "text": "성공하셨다니 축하드려요.",
-          "audioReference": "/assets/audio/references/dojin_choice1.mp3",
+          "audioReference": "/assets/audio/references/dojin/dojin_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice2",
           "text": "저는 이곳에서 일하게 된 신입이에요.",
-          "audioReference": "/assets/audio/references/dojin_choice2.mp3",
+          "audioReference": "/assets/audio/references/dojin/dojin_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 3
         },
         {
           "id": "choice3",
           "text": "무시하는 태도가 너무 별로네요.",
-          "audioReference": "/assets/audio/references/Default.wav",
+          "audioReference": "/assets/audio/references/dojin/dojin_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -4
         }

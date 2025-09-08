@@ -199,21 +199,21 @@
         {
           "id": "choice1",
           "text": "사람은 본래 착하다고 믿어요.",
-          "audioReference": "assets/audio/references/yohan_choice1.mp3",
+          "audioReference": "assets/audio/references/yohan/yohan_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 12
         },
         {
           "id": "choice2",
           "text": "완전히 선하거나 악한 게 있을까요?",
-          "audioReference": "assets/audio/references/yohan_choice2.mp3",
+          "audioReference": "assets/audio/references/yohan/yohan_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 8
         },
         {
           "id": "choice3",
           "text": "사람은 누구나 나쁜마음이 있죠.",
-          "audioReference": "assets/audio/references/yohan_choice3.mp3",
+          "audioReference": "assets/audio/references/yohan/yohan_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": 0
         }

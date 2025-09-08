@@ -215,21 +215,21 @@
         {
           "id": "choice1",
           "text": "네? 아.. 좋아요.",
-          "audioReference": "/assets/audio/references/hojun_choice1.mp3",
+          "audioReference": "/assets/audio/references/hojun/hojun_choice1.mp3",
           "nextSceneId": null,
           "affinityChange": 10
         },
         {
           "id": "choice2",
           "text": "진짜요? 저 완전 보고 싶어요!",
-          "audioReference": "/assets/audio/references/hojun_choice2.mp3",
+          "audioReference": "/assets/audio/references/hojun/hojun_choice2.mp3",
           "nextSceneId": null,
           "affinityChange": 5
         },
         {
           "id": "choice3",
           "text": "괜찮아요. 드럼에 딱히 관심 없어서요.",
-          "audioReference": "/assets/audio/references/hojun_choice3.mp3",
+          "audioReference": "/assets/audio/references/hojun/hojun_choice3.mp3",
           "nextSceneId": null,
           "affinityChange": -3
         }
