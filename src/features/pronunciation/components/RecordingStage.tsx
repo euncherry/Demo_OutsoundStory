@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "@/features/pronunciation/hooks/useAudioRecorder";
 import * as styles from "./PronunciationModal.css";
+import { Button3D } from "@/shared/components/3DButton";
 import { Button } from "@/shared/components/Button";
+import { RecordingIndicator } from "@/shared/components/RecordingIndicator";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -41,6 +43,8 @@ export function RecordingStage() {
 
   const [isInitialized, setIsInitialized] = useState(false);
 
+  const [isRecordingStarted, setIsRecordingStarted] = useState(false);
+
   // 브라우저 지원 체크
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -67,11 +71,15 @@ export function RecordingStage() {
 
   // 자동으로 녹음 시작
   useEffect(() => {
-    if (isInitialized && !isRecording) {
-      console.log("Attempting to start recording...");
+    if (!isRecordingStarted || isRecording || !isInitialized) return;
+    console.log("[useEffect] isRecordingStarted", isRecordingStarted);
+    if (isInitialized && !isRecording && isRecordingStarted) {
+      console.log("[useEffect] Attempting to start recording...");
+      console.log("[useEffect] isInitialized", isInitialized);
+      console.log("[useEffect] isRecording", isRecording);
       startRecording().then((success) => {
         if (!success) {
-          console.error("Failed to start recording automatically");
+          console.error("[useEffect] Failed to start recording automatically");
         }
       });
 
@@ -91,7 +99,12 @@ export function RecordingStage() {
     browserSupportsSpeechRecognition,
     isRecording,
     resetTranscript,
+    isRecordingStarted,
   ]);
+
+  const handleStartRecording = () => {
+    setIsRecordingStarted(true);
+  };
 
   // 녹음 완료 처리
   useEffect(() => {
@@ -105,9 +118,9 @@ export function RecordingStage() {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes
+    return `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}`;
   };
 
   const handleStopRecording = () => {
@@ -188,9 +201,17 @@ export function RecordingStage() {
     >
       <div className={styles.stageHeader}>
         <h2 className={styles.stageTitle}>
-          {isPaused ? "⏸️ 녹음 일시정지" : "🔴 녹음 중..."}
+          {!isRecordingStarted
+            ? "🎙️ 녹음 준비"
+            : isPaused
+            ? "⏸️ 녹음 일시정지"
+            : "🔴 녹음 중..."}
         </h2>
-        <p className={styles.stageSubtitle}>자연스럽게 따라 말해보세요</p>
+        <p className={styles.stageSubtitle}>
+          {!isRecordingStarted
+            ? "녹음 버튼을 눌러 시작하세요"
+            : "자연스럽게 따라 말해보세요"}
+        </p>
       </div>
       {/* 선택한 텍스트 표시 */}
       <motion.div
@@ -302,31 +323,38 @@ export function RecordingStage() {
 
       {/* 컨트롤 버튼들 */}
       <div className={styles.recordingControls}>
-        <Button
-          variant="sub"
-          size="small"
-          onClick={handlePauseResume}
-          className={styles.pauseButton}
-          fullWidth
-          icon={!isPaused ? "⏸️" : "▶️"}
-          iconPosition="left"
-        >
-          {!isPaused ? "일시정지" : "재개"}
-        </Button>
+        {!isRecordingStarted ? (
+          <Button3D variant="main" size="medium" onClick={handleStartRecording}>
+            🔴 녹음 시작
+          </Button3D>
+        ) : (
+          <>
+            <Button
+              variant="sub"
+              size="small"
+              onClick={handlePauseResume}
+              className={styles.pauseButton}
+              fullWidth
+              icon={!isPaused ? "⏸️" : "▶️"}
+              iconPosition="left"
+            >
+              {!isPaused ? "일시정지" : "재개"}
+            </Button>
 
-        <Button
-          variant="main"
-          size="small"
-          onClick={handleStopRecording}
-          className={styles.stopButton}
-          fullWidth
-          icon={"⏹️"}
-          iconPosition="left"
-        >
-          녹음 완료
-        </Button>
+            <Button
+              variant="main"
+              size="small"
+              onClick={handleStopRecording}
+              className={styles.stopButton}
+              fullWidth
+              icon={"⏹️"}
+              iconPosition="left"
+            >
+              녹음 완료
+            </Button>
+          </>
+        )}
       </div>
-
       {/* 안내 메시지 */}
       <div className={styles.guideSection}>
         <p className={styles.guideText}>

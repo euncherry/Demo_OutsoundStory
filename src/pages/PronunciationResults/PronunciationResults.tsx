@@ -12,12 +12,8 @@ import * as styles from "./ResultsStage.css";
 
 export function PronunciationResults() {
   const navigate = useNavigate();
-  const {
-    currentContext,
-    reset,
-    setCurrentStage,
-    recordedAudioBase64,
-  } = usePronunciationStore();
+  const { currentContext, reset, setCurrentStage, recordedAudioBase64 } =
+    usePronunciationStore();
   const { analysisResult } = useScoreStore();
   const { setIsComplete } = useDialogueFlow();
 
