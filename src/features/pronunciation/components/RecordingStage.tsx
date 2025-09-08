@@ -115,6 +115,7 @@ export function RecordingStage() {
 
   const handleStartRecording = () => {
     setIsRecordingStarted(true);
+    handleStartRecording();
     // if (browserSupportsSpeechRecognition) {
     //   resetTranscript(); // 이전 텍스트 초기화
     //   SpeechRecognition.startListening({
@@ -194,6 +195,13 @@ export function RecordingStage() {
 
   const handlePauseResume = () => {
     pauseRecording();
+    if (listening) {
+      stopListening();
+      console.log("🔴 STT stopped");
+    } else {
+      startListening();
+      console.log("🔴 STT started");
+    }
     // if (isPaused) {
     //   // 재녹음
     //   if (browserSupportsSpeechRecognition) {
