@@ -16,7 +16,7 @@ globalStyle("html", {
   overflowX: "hidden",
 });
 globalStyle(" body", {
-  height: "103dvh",
+  height: "110dvh",
   width: "100dvw",
 });
 
