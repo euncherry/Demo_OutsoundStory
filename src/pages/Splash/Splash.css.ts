@@ -195,8 +195,8 @@ export const title = style({
   fontWeight: vars.fontWeight.normal,
   color: vars.colors.primary,
   position: "absolute",
-  top: "20%",
-  left: "50%",
+  bottom: "2dvh",
+  left: "42%",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -210,7 +210,7 @@ export const title = style({
 
 export const Logo = style({
   width: "100%",
-  height: "350px", // 원하는 높이로 조정
+  height: "40dvh", // 원하는 높이로 조정
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   backgroundSize: "contain", // 또는 원하는 크기로 조정

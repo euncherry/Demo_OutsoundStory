@@ -192,7 +192,7 @@ export const medium = style({
 });
 
 export const large = style({
-  padding: `${vars.spacing.lg} ${vars.spacing.xxl}`,
+  padding: `2dvh 4dvw`,
   fontSize: vars.fontSize.lg,
   borderRadius: vars.borderRadius.xl, // 24px
 });
