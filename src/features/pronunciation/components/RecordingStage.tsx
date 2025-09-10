@@ -77,11 +77,11 @@ export function RecordingStage() {
       console.log("[useEffect] Attempting to start recording...");
       console.log("[useEffect] isInitialized", isInitialized);
       console.log("[useEffect] isRecording", isRecording);
-      // startRecording().then((success) => {
-      //   if (!success) {
-      //     console.error("[useEffect] Failed to start recording automatically");
-      //   }
-      // });
+      startRecording().then((success) => {
+        if (!success) {
+          console.error("[useEffect] Failed to start recording automatically");
+        }
+      });
     }
   }, [
     isInitialized,
