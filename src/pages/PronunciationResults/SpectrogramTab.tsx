@@ -18,52 +18,55 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
   const userContainerRef = useRef<HTMLDivElement>(null);
 
   // 표준 발음 WaveSurfer 설정
-  const { wavesurfer: standardWavesurfer, isPlaying: isStandardPlaying } =
-    useWavesurfer({
-      container: standardContainerRef,
-      height: 120,
-      waveColor: "rgba(100, 0, 100, 0.6)",
-      progressColor: "rgb(100, 0, 100)",
-      barWidth: 2,
-      barGap: 1,
-      barRadius: 1,
-      normalize: true,
-      minPxPerSec: 50,
-      fillParent: true,
-      autoCenter: true,
-      interact: true,
-      dragToSeek: false,
-      hideScrollbar: false,
-      audioRate: 1,
-      autoplay: false,
-      url:
-        currentContext?.audioReference ||
-        "/assets/audio/references/Default.wav",
-      sampleRate: 8000,
-    });
+  const {
+    wavesurfer: standardWavesurfer,
+    isPlaying: isStandardPlaying,
+  } = useWavesurfer({
+    container: standardContainerRef,
+    height: 120,
+    waveColor: "rgba(100, 0, 100, 0.6)",
+    progressColor: "rgb(100, 0, 100)",
+    barWidth: 2,
+    barGap: 1,
+    barRadius: 1,
+    normalize: true,
+    minPxPerSec: 50,
+    fillParent: true,
+    autoCenter: true,
+    interact: true,
+    dragToSeek: false,
+    hideScrollbar: false,
+    audioRate: 1,
+    autoplay: false,
+    url:
+      currentContext?.audioReference || "/assets/audio/references/Default.wav",
+    sampleRate: 8000,
+  });
 
   // 사용자 발음 WaveSurfer 설정
-  const { wavesurfer: userWavesurfer, isPlaying: isUserPlaying } =
-    useWavesurfer({
-      container: userContainerRef,
-      height: 120,
-      waveColor: "rgba(200, 100, 0, 0.6)",
-      progressColor: "rgb(200, 100, 0)",
-      barWidth: 2,
-      barGap: 1,
-      barRadius: 1,
-      normalize: true,
-      minPxPerSec: 50,
-      fillParent: true,
-      autoCenter: true,
-      interact: true,
-      dragToSeek: false,
-      hideScrollbar: false,
-      audioRate: 1,
-      autoplay: false,
-      url: userAudioUrl || undefined,
-      sampleRate: 8000,
-    });
+  const {
+    wavesurfer: userWavesurfer,
+    isPlaying: isUserPlaying,
+  } = useWavesurfer({
+    container: userContainerRef,
+    height: 120,
+    waveColor: "rgba(200, 100, 0, 0.6)",
+    progressColor: "rgb(200, 100, 0)",
+    barWidth: 2,
+    barGap: 1,
+    barRadius: 1,
+    normalize: true,
+    minPxPerSec: 50,
+    fillParent: true,
+    autoCenter: true,
+    interact: true,
+    dragToSeek: false,
+    hideScrollbar: false,
+    audioRate: 1,
+    autoplay: false,
+    url: userAudioUrl || undefined,
+    sampleRate: 8000,
+  });
 
   // 표준 발음 Spectrogram 플러그인 등록
   useEffect(() => {
@@ -125,7 +128,10 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
     <div className={styles.spectrogramContainer}>
       {/* 헤더 섹션 */}
       <div className={styles.spectrogramHeader}>
-        <h3 className={styles.sectionTitle}>📊 Spectrogram Analysis</h3>
+        <h3 className={styles.sectionTitle}>
+          {" "}
+          <strong>📊 Spectrogram Analysis</strong>
+        </h3>
         <div className={styles.spectrogramInfo}>
           음성의 주파수 패턴을 시각적으로 비교합니다
         </div>
@@ -174,10 +180,12 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
       {/* 분석 결과 */}
       <div className={styles.analysisResult}>
         <div className={styles.matchScore}>
-          📊 주파수 일치도: <strong>{frequencyMatch}%</strong>
+          <strong>Spectrogram 이란?</strong>
         </div>
         <div className={styles.resultDescription}>
-          Mel Scale 기반으로 주파수 패턴을 비교한 결과입니다.
+          Mel Scale 기반으로 주파수 패턴을 비교한 결과입니다. <br></br> 가로축은
+          시간을, 세로축은 주파수를 나타내며, 색상의 강도는 해당 주파수 대역의
+          에너지를 의미합니다.
         </div>
       </div>
     </div>

@@ -93,7 +93,7 @@ export const heart5 = style([
 
 export const container = style({
   width: "100dvw",
-  height: "100dvh",
+  height: "103dvh",
   position: "relative",
   overflow: "hidden",
   backgroundImage: `url(${serviceGirl})`,

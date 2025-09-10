@@ -9,10 +9,15 @@ globalStyle("*", {
   boxSizing: "border-box",
 });
 
-globalStyle("html, body", {
+globalStyle("html", {
   height: "100dvh",
   width: "100dvw",
-  overflow: "hidden",
+  overflowY: "auto",
+  overflowX: "hidden",
+});
+globalStyle(" body", {
+  height: "103dvh",
+  width: "100dvw",
 });
 
 globalStyle("body", {

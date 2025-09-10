@@ -12,12 +12,17 @@ import * as styles from "./ResultsStage.css";
 
 export function PronunciationResults() {
   const navigate = useNavigate();
-  const { currentContext, reset, setCurrentStage, recordedAudioBase64 } =
-    usePronunciationStore();
+  const {
+    currentContext,
+    reset,
+    setCurrentStage,
+    recordedAudioBase64,
+  } = usePronunciationStore();
   const { analysisResult } = useScoreStore();
   const { setIsComplete } = useDialogueFlow();
 
   const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
+  const [animatedScore, setAnimatedScore] = useState(0);
 
   function base64ToBlob(base64: string): Blob {
     const arr = base64.split(",");
@@ -39,6 +44,37 @@ export function PronunciationResults() {
       return () => URL.revokeObjectURL(url);
     }
   }, [recordedAudioBase64]);
+
+  // 점수 카운트 애니메이션
+  useEffect(() => {
+    if (!analysisResult) return;
+
+    const targetScore = analysisResult.totalScore;
+    const duration = 2000; // 2초
+    const startTime = Date.now();
+
+    const animateScore = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // easeOutCubic 이징 함수
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      const currentScore = Math.round(targetScore * easeOutCubic);
+
+      setAnimatedScore(currentScore);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScore);
+      }
+    };
+
+    // 약간의 지연 후 애니메이션 시작
+    const timer = setTimeout(() => {
+      requestAnimationFrame(animateScore);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [analysisResult]);
 
   // 필수 데이터가 없으면 메인 스토리로 리다이렉트
   useEffect(() => {
@@ -83,10 +119,8 @@ export function PronunciationResults() {
       >
         {/* 헤더 */}
         <div className={styles.resultsHeader}>
-          <h1 className={styles.resultsTitle}>🎯 발음 분석 결과</h1>
-          <div className={styles.totalScore}>
-            종합 점수: ⭐ {analysisResult.totalScore}/100
-          </div>
+          <h1 className={styles.resultsTitle}>🏆 발음 연습 결과</h1>
+          <div className={styles.totalScore}>종합 점수: {animatedScore}점</div>
         </div>
 
         {/* 메인 콘텐츠 영역 */}

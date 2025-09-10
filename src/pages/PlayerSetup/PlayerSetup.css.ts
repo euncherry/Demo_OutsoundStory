@@ -9,7 +9,7 @@ const fadeIn = keyframes({
 });
 
 export const container = style({
-  minHeight: "100vh",
+  minHeight: "103vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

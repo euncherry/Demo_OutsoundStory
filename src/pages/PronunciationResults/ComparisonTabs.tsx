@@ -20,6 +20,25 @@ export function ComparisonTabs({ userAudioUrl }: ComparisonTabsProps) {
     { id: "waveform", label: "파형 비교", icon: "🌊" },
   ] as const;
 
+  const getTabIndicatorStyle = () => {
+    const activeIndex = tabs.findIndex((tab) => tab.id === activeTab);
+    const width = `calc(33.33% - 3.33px)`;
+    const left = `calc(${activeIndex * 33.33}% + 5px)`;
+
+    let background = "linear-gradient(135deg, #d4668f, #ff8fab)";
+    if (activeTab === "pitch") {
+      background = "linear-gradient(135deg, #9b7eb0, #b9a0c9)";
+    } else if (activeTab === "waveform") {
+      background = "linear-gradient(135deg, #6b7fa6, #8ca3c4)";
+    }
+
+    return {
+      width,
+      left,
+      background,
+    };
+  };
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "spectrogram":
@@ -37,6 +56,7 @@ export function ComparisonTabs({ userAudioUrl }: ComparisonTabsProps) {
     <div className={styles.tabsContainer}>
       {/* 탭 헤더 */}
       <div className={styles.tabsHeader}>
+        <div className={styles.tabIndicator} style={getTabIndicatorStyle()} />
         {tabs.map((tab) => (
           <motion.button
             key={tab.id}
@@ -44,8 +64,6 @@ export function ComparisonTabs({ userAudioUrl }: ComparisonTabsProps) {
               activeTab === tab.id ? styles.tabButtonActive : ""
             }`}
             onClick={() => setActiveTab(tab.id as TabType)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
           >
             <span className={styles.tabIcon}>{tab.icon}</span>
             <span className={styles.tabLabel}>{tab.label}</span>

@@ -73,7 +73,9 @@ export function WaveformTab({ userAudioUrl }: WaveformTabProps) {
   return (
     <div className={styles.waveformContainer}>
       <div className={styles.waveformHeader}>
-        <h3 className={styles.sectionTitle}>🌊 WaveForm Comparison</h3>
+        <h3 className={styles.sectionTitle}>
+          <strong>🌊 WaveForm Comparison</strong>
+        </h3>
         <div className={styles.waveformInfo}>
           음성의 진폭(볼륨) 패턴을 시간에 따라 비교합니다
         </div>
@@ -120,41 +122,6 @@ export function WaveformTab({ userAudioUrl }: WaveformTabProps) {
           <div ref={userWaveformRef} />
         </div>
       </div>
-
-      {/* Store에서 가져온 분석 결과 표시 */}
-      {analysisResult && (
-        <div className={styles.waveformAnalysis}>
-          <div className={styles.analysisCard}>
-            <div className={styles.analysisIcon}>📊</div>
-            <div className={styles.analysisContent}>
-              <div className={styles.analysisTitle}>NCC 상관도</div>
-              <div className={styles.analysisScore}>
-                {Math.round((waveformAnalysis?.nccScore || 0) * 100)}%
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.analysisCard}>
-            <div className={styles.analysisIcon}>📈</div>
-            <div className={styles.analysisContent}>
-              <div className={styles.analysisTitle}>RMS 패턴</div>
-              <div className={styles.analysisScore}>
-                {Math.round((waveformAnalysis?.rmsScore || 0) * 100)}%
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.analysisCard}>
-            <div className={styles.analysisIcon}>🎯</div>
-            <div className={styles.analysisContent}>
-              <div className={styles.analysisTitle}>파형 종합</div>
-              <div className={styles.analysisScore}>
-                {analysisResult.waveformScore}%
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

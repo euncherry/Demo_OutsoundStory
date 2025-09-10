@@ -1,5 +1,5 @@
 // src/features/pronunciation/components/RecordingStage.tsx
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "@/features/pronunciation/hooks/useAudioRecorder";
@@ -20,12 +20,16 @@ export function RecordingStage() {
 
   const recordingWaveformRef = useRef<HTMLDivElement>(null);
 
+  // 🔥 정리 실행 여부를 추적하는 ref (중복 실행 방지)
+  const isCleaningUpRef = useRef(false);
+
   const {
     transcript,
     listening,
     startListening,
     stopListening,
     resetTranscript,
+    cleanup: cleanupSTT,
     browserSupportsSpeechRecognition,
     isMicrophoneAvailable,
   } = useSpeechToText();
@@ -36,17 +40,63 @@ export function RecordingStage() {
     stopRecording,
     pauseRecording,
     cleanup,
+    stopAllMediaTracks,
     isRecording,
     isPaused,
     recordingTime,
     recordedBlob,
   } = useAudioRecorder();
 
-  const [isInitialized, setIsInitialized] = useState(false);
-
   const [isRecordingStarted, setIsRecordingStarted] = useState(false);
 
-  const [isDone, setIsDone] = useState(false);
+  // 🔥 안전한 정리 함수 - 의존성 없이 안정적으로 구현
+  const performCleanup = useCallback(() => {
+    // 중복 실행 방지
+    if (isCleaningUpRef.current) {
+      console.log("⚠️ 이미 정리 중입니다.");
+      return;
+    }
+
+    isCleaningUpRef.current = true;
+    console.log("🧹 리소스 정리 시작...");
+
+    try {
+      // 1. STT 정리 (안전하게)
+      try {
+        if (cleanupSTT) {
+          cleanupSTT();
+        }
+      } catch (error) {
+        console.warn("STT 정리 중 오류:", error);
+      }
+
+      // 2. 마이크 스트림 해제 (안전하게)
+      try {
+        stopAllMediaTracks();
+      } catch (error) {
+        console.warn("MediaStream 정리 중 오류:", error);
+      }
+
+      // 3. 오디오 녹음 정리 (안전하게)
+      try {
+        cleanup();
+      } catch (error) {
+        console.warn("오디오 정리 중 오류:", error);
+      }
+
+      // 4. 컴포넌트 상태 초기화
+      setIsRecordingStarted(false);
+
+      console.log("✅ 리소스 정리 완료");
+    } catch (error) {
+      console.error("정리 중 예상치 못한 오류:", error);
+    } finally {
+      // 정리 플래그 해제
+      setTimeout(() => {
+        isCleaningUpRef.current = false;
+      }, 100);
+    }
+  }, []); // 🔥 의존성 없음 - 안정적인 참조
 
   // 브라우저 지원 체크
   useEffect(() => {
@@ -58,64 +108,79 @@ export function RecordingStage() {
     }
   }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
 
-  // wavesurfer 초기화 STT 정리
+  // 🔥 컴포넌트 언마운트 시 정리 - 더 간단하고 안전하게
   useEffect(() => {
-    if (!recordingWaveformRef.current) return;
-    if (!isDone) return;
-
-    initializeRecorder(recordingWaveformRef.current);
-    setIsInitialized(true);
-
     return () => {
-      cleanup();
-      // STT 정리
-      // SpeechRecognition.stopListening();
-    };
-  }, [initializeRecorder, cleanup, isDone]);
-
-  // 녹음 시작 useEffect
-  useEffect(() => {
-    if (!isRecordingStarted || isRecording || !isInitialized) return;
-    console.log("[useEffect] isRecordingStarted", isRecordingStarted);
-    if (isInitialized && !isRecording && isRecordingStarted) {
-      console.log("[useEffect] Attempting to start recording...");
-      console.log("[useEffect] isInitialized", isInitialized);
-      console.log("[useEffect] isRecording", isRecording);
-      startRecording().then((success) => {
-        if (!success) {
-          console.error("[useEffect] Failed to start recording automatically");
-        }
-      });
-    }
-  }, [
-    isInitialized,
-    startRecording,
-    browserSupportsSpeechRecognition,
-    isRecording,
-    resetTranscript,
-    isRecordingStarted,
-  ]);
-
-  const handleStartRecording = () => {
-    setIsRecordingStarted(true);
-    initializeRecorder(recordingWaveformRef.current);
-
-    resetTranscript();
-    startListening();
-    startRecording().then((success) => {
-      if (!success) {
-        console.error("[useEffect] Failed to start recording automatically");
+      console.log("🗑️ RecordingStage 언마운트");
+      // 정리 플래그가 설정되지 않은 경우에만 실행
+      if (!isCleaningUpRef.current) {
+        performCleanup();
       }
-    });
+    };
+  }, []); // 🔥 빈 의존성 배열
+
+  // 🔥 간소화된 녹음 시작 함수
+  const handleStartRecording = async () => {
+    console.log("🎬 녹음 시작 준비");
+
+    if (!recordingWaveformRef.current) {
+      console.error("❌ Waveform container가 없습니다");
+      return;
+    }
+
+    try {
+      // 1. 기존 리소스 정리
+      resetTranscript();
+
+      // 2. WaveSurfer 초기화
+      console.log("📊 WaveSurfer 초기화 중...");
+      const { recordPlugin } = initializeRecorder(recordingWaveformRef.current);
+
+      if (!recordPlugin) {
+        console.error("❌ RecordPlugin 초기화 실패");
+        return;
+      }
+
+      // 3. 녹음 시작
+      console.log("🎤 녹음 시작 중...");
+      const success = await startRecording();
+
+      if (success) {
+        // 4. STT 시작
+        console.log("🗣️ STT 시작 중...");
+        startListening();
+
+        // 5. 상태 업데이트
+        setIsRecordingStarted(true);
+        console.log("✅ 녹음 및 STT 시작 완료");
+      } else {
+        console.error("❌ 녹음 시작 실패");
+        performCleanup();
+      }
+    } catch (error) {
+      console.error("❌ 녹음 시작 중 오류:", error);
+      performCleanup();
+    }
   };
 
-  // 녹음 완료 처리
+  // 🔥 녹음 완료 처리 - 간소화
   useEffect(() => {
-    if (recordedBlob) {
+    if (recordedBlob && !isCleaningUpRef.current) {
+      console.log("🎯 녹음 완료 - 데이터 저장");
+
+      // Store에 데이터 저장
       setRecordedAudioBlob(recordedBlob);
-      setCurrentStage("analyzing");
+
+      // 🔥 정리를 비동기로 처리하여 상태 업데이트와 분리
+      const timer = setTimeout(() => {
+        performCleanup();
+        // 다음 단계로 이동
+        setCurrentStage("analyzing");
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  }, [recordedBlob, setRecordedAudioBlob, setCurrentStage]);
+  }, [recordedBlob, setRecordedAudioBlob, setCurrentStage, performCleanup]);
 
   const formatTime = (milliseconds: number) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -127,18 +192,15 @@ export function RecordingStage() {
   };
 
   const handleStopRecording = () => {
-    stopRecording();
-    setIsDone(true);
+    console.log("⏹️ 녹음 중지 요청");
 
-    // STT 중지
+    // STT 먼저 중지 및 결과 저장
     if (listening) {
-      // SpeechRecognition.stopListening();
       stopListening();
-      console.log("🔴 STT stopped");
       console.log("🔴 STT stopped");
     }
 
-    // 최종 STT 결과 출력
+    // 최종 STT 결과 저장
     console.log("================== STT 최종 결과 ==================");
     console.log("📝 인식된 텍스트:", transcript || "(인식된 텍스트 없음)");
     console.log(
@@ -146,10 +208,10 @@ export function RecordingStage() {
       currentContext?.text || "(원본 텍스트 없음)"
     );
 
-    //ANCHOR ✅ STT 결과를 store에 저장
+    // ✅ STT 결과를 store에 저장
     setSttTranscript(transcript || "");
 
-    // CER 계산 (간단한 비교)
+    // CER 계산
     if (transcript && currentContext?.text) {
       const similarity = calculateSimpleSimilarity(
         currentContext.text,
@@ -161,6 +223,9 @@ export function RecordingStage() {
       );
     }
     console.log("==================================================");
+
+    // 🔥 녹음 중지
+    stopRecording();
   };
 
   // 간단한 텍스트 유사도 계산 함수
@@ -187,6 +252,22 @@ export function RecordingStage() {
     } else {
       startListening();
       console.log("▶️ STT started");
+    }
+  };
+
+  // 🔥 일시정지 - 명확한 동작
+  const handlePause = () => {
+    pauseRecording(); // 녹음 일시정지
+    if (listening) {
+      stopListening(); // STT 확실히 중지
+    }
+  };
+
+  // 🔥 재개 - 명확한 동작
+  const handleResume = () => {
+    pauseRecording(); // 녹음 재개 (토글)
+    if (!listening) {
+      startListening(); // STT 확실히 시작
     }
   };
 
@@ -222,7 +303,8 @@ export function RecordingStage() {
         >
           <p className={modalStyles.choiceText}>"{currentContext?.text}"</p>
         </motion.div>
-        {/*SECTION : recording content */}
+
+        {/* 녹음 컨텐츠 */}
         <div
           className={styles.recordingContent}
           style={{
@@ -255,7 +337,7 @@ export function RecordingStage() {
             </div>
             {isRecordingStarted ? (
               <>
-                {/* 두 번째 그리드 아이템 - 녹음 시간 1fr */}
+                {/* 녹음 시간 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div className={styles.timeDisplay}>
                     <span className={styles.recordingTime}>
@@ -264,7 +346,7 @@ export function RecordingStage() {
                   </div>
                 </div>
 
-                {/* 세 번째 그리드 아이템 - 녹음 중 STT 텍스트 3fr */}
+                {/* STT 텍스트 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div className={styles.sttStatus}>
                     <div className={styles.sttHeader}>
@@ -280,10 +362,8 @@ export function RecordingStage() {
                   </div>
                 </div>
 
-                {/* 네 번째 그리드 아이템 - 공간 1fr */}
+                {/* 녹음 상태 인디케이터 */}
                 <div className={styles.recordingContentReadyGridItem}>
-                  {/* 녹음 상태 인디케이터 */}
-
                   {isPaused ? (
                     <div
                       className={styles.recordingIndicator}
@@ -328,7 +408,7 @@ export function RecordingStage() {
                   )}
                 </div>
 
-                {/* 다섯 번째 그리드 아이템 - 컨트롤 버튼 3fr */}
+                {/* 컨트롤 버튼 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div
                     style={{
@@ -340,7 +420,7 @@ export function RecordingStage() {
                     <Button3D
                       variant="sub"
                       size="small"
-                      onClick={handlePauseResume}
+                      onClick={isPaused ? handleResume : handlePause}
                       disabled={!isRecording && !isPaused}
                     >
                       {isPaused ? "▶️ 재개" : "⏸️ 일시정지"}
@@ -355,14 +435,10 @@ export function RecordingStage() {
                     </Button3D>
                   </div>
                 </div>
-                {/* </div> */}
-                {/* </div> */}
               </>
             ) : (
               <>
-                {/* <div className={styles.recordingContent}> */}
-                {/* <div className={styles.recordingContentGrid}> */}
-                {/* 첫 번째 그리드 아이템 - 마이크 아이콘 3fr */}
+                {/* 마이크 아이콘 */}
                 <div className={styles.recordingContentMicGridItem}>
                   <div className={styles.imageContainer}>
                     <img
@@ -373,7 +449,7 @@ export function RecordingStage() {
                   </div>
                 </div>
 
-                {/* 두 번째 그리드 아이템 - 텍스트 1fr */}
+                {/* 안내 텍스트 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div>
                     <p
@@ -388,7 +464,7 @@ export function RecordingStage() {
                   </div>
                 </div>
 
-                {/* 세 번째 그리드 아이템 - 녹음 시작 버튼 */}
+                {/* 녹음 시작 버튼 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <Button3D
                     variant="main"
@@ -398,8 +474,6 @@ export function RecordingStage() {
                     🔴 녹음 시작
                   </Button3D>
                 </div>
-                {/* </div> */}
-                {/* </div> */}
               </>
             )}
           </div>

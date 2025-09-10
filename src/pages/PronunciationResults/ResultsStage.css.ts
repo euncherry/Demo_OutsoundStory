@@ -1,12 +1,12 @@
 // src/features/pronunciation/components/ResultsStage.css
 // @ts-nocheck
 
-import { style } from "@vanilla-extract/css";
+import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
 export const resultsContainer = style({
   width: "100dvw",
-  height: "100dvh",
+  height: "103dvh",
   display: "flex",
   flexDirection: "column",
   background:
@@ -14,22 +14,24 @@ export const resultsContainer = style({
 });
 
 export const resultsHeader = style({
-  padding: vars.spacing.md,
+  padding: "1.2rem",
   textAlign: "center",
-  borderBottom: `1px solid ${vars.colors.glassBorder}`,
+  background: "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
 });
 
 export const resultsTitle = style({
-  fontSize: vars.fontSize.xl,
-  fontWeight: vars.fontWeight.bold,
+  fontSize: "1.4rem",
+  fontWeight: "700",
   color: vars.colors.text,
-  marginBottom: vars.spacing.sm,
+  marginBottom: "12px",
 });
 
 export const totalScore = style({
-  fontSize: vars.fontSize.xl,
-  color: vars.colors.primary,
-  fontWeight: vars.fontWeight.semibold,
+  fontSize: "2.2rem",
+  color: "#ff8fab",
+  fontWeight: "700",
+  textShadow: "0 2px 10px rgba(212, 102, 143, 0.2)",
 });
 
 export const resultsContent = style({
@@ -108,31 +110,52 @@ export const tabsContainer = style({
 
 export const tabsHeader = style({
   display: "flex",
-  borderBottom: `2px solid ${vars.colors.glassBorder}`,
+  position: "relative",
+  // padding: "5px",
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 250, 250, 0.7))",
+  borderRadius: "15px 15px 0 0",
+  backdropFilter: "blur(10px)",
+  boxShadow: `rgba(0, 0, 0, 0.07) 0px 3px 4px 0px`,
 });
 
 export const tabButton = style({
   flex: 1,
-  padding: vars.spacing.md,
-  backgroundColor: "transparent",
+  padding: "12px 20px",
+  background: "transparent",
   border: "none",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  gap: vars.spacing.sm,
-  transition: vars.transitions.normal,
-  color: vars.colors.textMuted,
-
-  ":hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-  },
+  gap: "8px",
+  transition: "all 0.3s ease",
+  color: "rgba(107, 91, 149, 0.9)",
+  fontSize: "15px",
+  fontWeight: "500",
+  borderRadius: "10px",
+  position: "relative",
+  zIndex: 2,
+  boxSizing: "border-box",
 });
 
 export const tabButtonActive = style({
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
-  color: vars.colors.primary,
-  borderBottom: `2px solid ${vars.colors.primary}`,
+  color: "white",
+  fontWeight: "600",
+  textShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+});
+
+export const tabIndicator = style({
+  position: "absolute",
+  // top: "5px",
+  // left: "5px",
+  width: "calc(33.33% - 3.33px)",
+  height: "calc(100% )",
+  background: "linear-gradient(135deg, #d4668f, #ff8fab)",
+  borderRadius: "10px",
+  boxShadow: "0 2px 10px rgba(212, 102, 143, 0.2)",
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  zIndex: 1,
 });
 
 export const tabIcon = style({
@@ -180,12 +203,14 @@ export const scoreLabel = style({
   alignItems: "center",
   marginBottom: vars.spacing.sm,
   fontSize: vars.fontSize.md,
-  color: vars.colors.text,
+  // color: vars.colors.text,
+  color: vars.colors.textTertiary,
+  fontWeight: vars.fontWeight.bold,
 });
 
 export const scoreValue = style({
   fontWeight: vars.fontWeight.bold,
-  color: vars.colors.primary,
+  color: vars.colors.text,
 });
 
 export const progressBar = style({
@@ -317,8 +342,8 @@ export const divider = style({
 export const analysisResult = style({
   textAlign: "center",
   padding: vars.spacing.md,
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
   borderRadius: vars.borderRadius.md,
+  background: `linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 230, 250, 0.3))`,
 });
 
 export const matchScore = style({
@@ -331,6 +356,7 @@ export const matchScore = style({
 export const resultDescription = style({
   fontSize: vars.fontSize.sm,
   color: "rgba(107, 91, 149, 0.7)",
+  whiteSpace: "pre-line",
 });
 
 export const loadingContainer = style({

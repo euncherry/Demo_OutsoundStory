@@ -143,23 +143,9 @@
     },
     {
       "id": "scene8",
-      "type": "narration",
-      "text": "밤, 클럽 밖에서 우연히 화려한 복장으로 변신한 미현을 만난다.",
-      "background": "assets/backgrounds/club.png",
-      "characters": [
-        {
-          "characterType": "player",
-          "position": "center",
-          "emotion": "surprised"
-        }
-      ],
-      "nextSceneId": "scene9"
-    },
-    {
-      "id": "scene9",
       "type": "dialogue",
       "speaker": "mihyun",
-      "text": "다 봤네요... 이런 내 모습을 싫어하는 사람이라면 좋진 않겠죠.",
+      "text": "이런 내 모습을 싫어하는 사람이라면 좋진 않겠죠.",
       "background": "assets/backgrounds/club.png",
       "characters": [
         {
@@ -174,10 +160,10 @@
           "emotion": "worried"
         }
       ],
-      "nextSceneId": "scene10"
+      "nextSceneId": "scene9"
     },
     {
-      "id": "scene10",
+      "id": "scene9",
       "type": "dialogue",
       "speaker": "player",
       "text": "싫진 않아요. 오히려 멋있어요. 사람마다 자기 사정이 있는 거잖아요.",
@@ -195,10 +181,10 @@
           "emotion": "normal"
         }
       ],
-      "nextSceneId": "scene11"
+      "nextSceneId": "scene10"
     },
     {
-      "id": "scene11",
+      "id": "scene10",
       "type": "dialogue",
       "speaker": "mihyun",
       "text": "중학교 때까지 춤을 췄어요. 아빠한테 들켜서 춤출 때 입던 옷들을 다 찢어서 버리셨어요.",
