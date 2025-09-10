@@ -45,9 +45,9 @@ export function MainStory() {
 
   // 대화 완료 처리 - 발음 분석 완료 시에만 처리
   useEffect(() => {
-    console.log("isComplete", isComplete);
-    console.log("hasCompleted", hasCompleted);
     if (isComplete && !hasCompleted) {
+      console.log("isComplete", isComplete);
+      console.log("hasCompleted", hasCompleted);
       // 스토리 완료 시 한 번만 호출
       onStoryComplete();
       setHasCompleted(true);

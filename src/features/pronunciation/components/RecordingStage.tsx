@@ -17,6 +17,7 @@ export function RecordingStage() {
     currentContext,
     setSttTranscript,
   } = usePronunciationStore();
+
   const recordingWaveformRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -45,6 +46,8 @@ export function RecordingStage() {
 
   const [isRecordingStarted, setIsRecordingStarted] = useState(false);
 
+  const [isDone, setIsDone] = useState(false);
+
   // 브라우저 지원 체크
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -58,6 +61,7 @@ export function RecordingStage() {
   // wavesurfer 초기화 STT 정리
   useEffect(() => {
     if (!recordingWaveformRef.current) return;
+    if (!isDone) return;
 
     initializeRecorder(recordingWaveformRef.current);
     setIsInitialized(true);
@@ -67,9 +71,9 @@ export function RecordingStage() {
       // STT 정리
       // SpeechRecognition.stopListening();
     };
-  }, [initializeRecorder, cleanup]);
+  }, [initializeRecorder, cleanup, isDone]);
 
-  // 자동으로 녹음 시작
+  // 녹음 시작 useEffect
   useEffect(() => {
     if (!isRecordingStarted || isRecording || !isInitialized) return;
     console.log("[useEffect] isRecordingStarted", isRecordingStarted);
@@ -94,8 +98,15 @@ export function RecordingStage() {
 
   const handleStartRecording = () => {
     setIsRecordingStarted(true);
+    initializeRecorder(recordingWaveformRef.current);
+
     resetTranscript();
     startListening();
+    startRecording().then((success) => {
+      if (!success) {
+        console.error("[useEffect] Failed to start recording automatically");
+      }
+    });
   };
 
   // 녹음 완료 처리
@@ -110,13 +121,14 @@ export function RecordingStage() {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${seconds
+    return `${minutes
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const handleStopRecording = () => {
     stopRecording();
+    setIsDone(true);
 
     // STT 중지
     if (listening) {
@@ -200,6 +212,7 @@ export function RecordingStage() {
               : "자연스럽게 따라 말해보세요"}
           </p>
         </div>
+
         {/* 선택한 텍스트 표시 */}
         <motion.div
           className={modalStyles.textDisplay}
@@ -209,30 +222,40 @@ export function RecordingStage() {
         >
           <p className={modalStyles.choiceText}>"{currentContext?.text}"</p>
         </motion.div>
-
-        {/* recording content */}
-
-        {isRecordingStarted ? (
-          <>
+        {/*SECTION : recording content */}
+        <div
+          className={styles.recordingContent}
+          style={{
+            background: !isRecordingStarted
+              ? "linear-gradient(135deg, rgba(255, 255, 255, 0.7),rgba(240, 235, 255, 0.3), rgba(240, 235, 255, 0.3),rgba(240, 235, 255, 0.3))"
+              : `linear-gradient(135deg, rgba(255, 245, 245, 0.4),rgba(255, 223, 245, 0.5), rgba(255, 223, 245, 0.6))`,
+            height: !isRecordingStarted ? "45dvh" : "60dvh",
+          }}
+        >
+          <div
+            className={styles.recordingContentGrid}
+            style={{
+              gridTemplateRows: isRecordingStarted
+                ? "3fr 1fr 3fr 2fr 2fr"
+                : "5fr 1fr 2fr",
+            }}
+          >
             <div
-              className={styles.recordingContent}
+              className={styles.recordingContentReadyGridItem}
               style={{
-                background: `linear-gradient(135deg, rgba(255, 245, 245, 0.4),rgba(255, 223, 245, 0.5), rgba(255, 223, 245, 0.6))`,
+                display: isRecordingStarted ? "flex" : "none",
               }}
             >
-              <div
-                className={styles.recordingContentGrid}
-                style={{ gridTemplateRows: "3fr 1fr 3fr 1fr 3fr" }}
-              >
-                {/* 첫 번째 그리드 아이템 - 진폭 그래프 2fr */}
-                <div className={styles.recordingContentReadyGridItem}>
-                  <div className={styles.waveformContainer}>
-                    <div
-                      ref={recordingWaveformRef}
-                      className={styles.recordingWaveform}
-                    />
-                  </div>
-                </div>
+              <div className={styles.waveformContainer}>
+                <div
+                  ref={recordingWaveformRef}
+                  className={styles.recordingWaveform}
+                />
+              </div>
+            </div>
+            {isRecordingStarted ? (
+              <>
+                {/* 두 번째 그리드 아이템 - 녹음 시간 1fr */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div className={styles.timeDisplay}>
                     <span className={styles.recordingTime}>
@@ -240,26 +263,116 @@ export function RecordingStage() {
                     </span>
                   </div>
                 </div>
+
+                {/* 세 번째 그리드 아이템 - 녹음 중 STT 텍스트 3fr */}
                 <div className={styles.recordingContentReadyGridItem}>
-                  <p>녹음 중...</p>
+                  <div className={styles.sttStatus}>
+                    <div className={styles.sttHeader}>
+                      <span>🎙️</span>
+                      <span>STT</span>
+                      <span className={styles.sttListening}>
+                        {listening ? "인식 중" : "중지"}
+                      </span>
+                    </div>
+                    {transcript && (
+                      <div className={styles.sttTranscript}>{transcript}</div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={styles.recordingContent}>
-              <div className={styles.recordingContentGrid}>
+
+                {/* 네 번째 그리드 아이템 - 공간 1fr */}
+                <div className={styles.recordingContentReadyGridItem}>
+                  {/* 녹음 상태 인디케이터 */}
+
+                  {isPaused ? (
+                    <div
+                      className={styles.recordingIndicator}
+                      style={{ borderColor: "rgb(255 208 65)" }}
+                    >
+                      <motion.div
+                        className={styles.recordingDot}
+                        style={{ background: "rgb(255 208 65)" }}
+                        animate={{
+                          scale: isPaused ? 1 : [1, 1.2, 1],
+                          opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
+                        }}
+                        transition={{
+                          duration: 1,
+                          repeat: isPaused ? 0 : Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <span
+                        className={styles.recordingStatus}
+                        style={{ color: "rgb(255 208 65)" }}
+                      >
+                        일시정지됨
+                      </span>
+                    </div>
+                  ) : (
+                    <div className={styles.recordingIndicator}>
+                      <motion.div
+                        className={styles.recordingDot}
+                        animate={{
+                          scale: isPaused ? 1 : [1, 1.2, 1],
+                          opacity: isPaused ? 0.5 : [0.5, 1, 0.5],
+                        }}
+                        transition={{
+                          duration: 1,
+                          repeat: isPaused ? 0 : Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <span className={styles.recordingStatus}>녹음 중</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* 다섯 번째 그리드 아이템 - 컨트롤 버튼 3fr */}
+                <div className={styles.recordingContentReadyGridItem}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button3D
+                      variant="sub"
+                      size="small"
+                      onClick={handlePauseResume}
+                      disabled={!isRecording && !isPaused}
+                    >
+                      {isPaused ? "▶️ 재개" : "⏸️ 일시정지"}
+                    </Button3D>
+                    <Button3D
+                      variant="main"
+                      size="small"
+                      onClick={handleStopRecording}
+                      disabled={!isRecording && !isPaused}
+                    >
+                      ⏹️ 녹음 완료
+                    </Button3D>
+                  </div>
+                </div>
+                {/* </div> */}
+                {/* </div> */}
+              </>
+            ) : (
+              <>
+                {/* <div className={styles.recordingContent}> */}
+                {/* <div className={styles.recordingContentGrid}> */}
                 {/* 첫 번째 그리드 아이템 - 마이크 아이콘 3fr */}
                 <div className={styles.recordingContentMicGridItem}>
                   <div className={styles.imageContainer}>
                     <img
                       src={micIconLarge}
                       alt="마이크 아이콘"
-                      className={styles.scaledImage} // scale-down 방식
+                      className={styles.scaledImage}
                     />
                   </div>
                 </div>
+
                 {/* 두 번째 그리드 아이템 - 텍스트 1fr */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div>
@@ -274,6 +387,8 @@ export function RecordingStage() {
                     </p>
                   </div>
                 </div>
+
+                {/* 세 번째 그리드 아이템 - 녹음 시작 버튼 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <Button3D
                     variant="main"
@@ -283,18 +398,24 @@ export function RecordingStage() {
                     🔴 녹음 시작
                   </Button3D>
                 </div>
-              </div>
-            </div>
-          </>
-        )}
+                {/* </div> */}
+                {/* </div> */}
+              </>
+            )}
+          </div>
+        </div>
 
         {/* 안내 메시지 */}
-        <div className={modalStyles.guideSection}>
-          <p className={modalStyles.guideText}>
-            📢 마이크에 대고 명확하게 발음해주세요
-          </p>
-          <p className={modalStyles.guideText}>최대 30초까지 녹음 가능합니다</p>
-        </div>
+        {!isRecordingStarted && (
+          <div className={modalStyles.guideSection}>
+            <p className={modalStyles.guideText}>
+              📢 마이크에 대고 명확하게 발음해주세요
+            </p>
+            <p className={modalStyles.guideText}>
+              최대 30초까지 녹음 가능합니다
+            </p>
+          </div>
+        )}
       </motion.div>
     </>
   );

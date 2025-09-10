@@ -4,6 +4,17 @@
 import { style, keyframes } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
+const pulse = keyframes({
+  "0%, 100%": {
+    opacity: 1,
+    transform: "scale(1)",
+  },
+  "50%": {
+    opacity: 0.8,
+    transform: "scale(1.05)",
+  },
+});
+
 export const recordingContent = style({
   background:
     "linear-gradient(135deg, rgba(255, 255, 255, 0.7),rgba(240, 235, 255, 0.3), rgba(240, 235, 255, 0.3),rgba(240, 235, 255, 0.3))",
@@ -32,7 +43,7 @@ export const recordingContentGrid = style({
 
 export const recordingContentReadyGridItem = style({
   width: "100%",
-  height: "100%", // 명시적으로 높이 지정
+  height: "98%", // 명시적으로 높이 지정
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -121,4 +132,92 @@ export const recordingWaveform = style({
   border: "1px solid rgba(255, 200, 220, 0.3)",
   //   padding: "1rem",
   boxShadow: "inset 0 2px 8px rgba(255, 200, 220, 0.1)",
+});
+
+export const timeDisplay = style({
+  padding: "1rem 0",
+});
+
+export const recordingTime = style({
+  fontSize: "1.5rem",
+  fontWeight: vars.fontWeight.bold,
+  textShadow: "0 2px 10px rgba(255, 107, 107, 0.2)",
+
+  textAlign: "center",
+  color: `rgba(212, 102, 143, 0.9)`,
+  display: `flex`,
+  alignItems: `center`,
+  justifyContent: `center`,
+});
+
+export const sttStatus = style({
+  padding: "0.5rem 1rem",
+  minHeight: "5rem",
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 220, 255, 0.3))",
+  borderRadius: "0.5rem",
+  border: "1px solid rgba(230, 220, 255, 0.4)",
+  boxShadow: "0 4px 12px rgba(230, 220, 255, 0.15)",
+  fontSize: `0.9rem`,
+  color: "rgba(107, 91, 149, 0.9)",
+  fontWeight: "500",
+  display: `flex`,
+  flexDirection: `column`,
+  alignItems: `center`,
+  // justifyContent: `center`,
+  justifyContent: `space-between`,
+  gap: `0.5rem`,
+});
+
+export const sttHeader = style({
+  display: `flex`,
+  alignItems: `center`,
+  gap: `0.5rem`,
+  fontSize: `0.9rem`,
+  color: `rgba(107, 91, 149, 0.9)`,
+  fontWeight: `500`,
+});
+
+export const sttListening = style({
+  color: `rgb(76, 175, 80)`,
+});
+
+export const sttTranscript = style({
+  marginTop: `0.5rem`,
+  padding: `0.5rem 0.8rem`,
+  backgroundColor: `rgba(255, 255, 255, 0.7)`,
+  borderRadius: `0.5rem`,
+  border: `1px solid rgba(230, 220, 255, 0.3)`,
+  fontSize: `0.9rem`,
+  color: `rgba(107, 91, 149, 0.8)`,
+  fontStyle: `italic`,
+});
+
+export const recordingIndicator = style({
+  display: "flex",
+  alignItems: `center`,
+  justifyContent: `center`,
+  gap: `0.3rem`,
+  padding: `12px 20px`,
+  background: `rgba(255, 255, 255, 0.7)`,
+  borderRadius: `2rem`,
+  border: `2px solid rgba(255, 200, 220, 0.3)`,
+  width: `fit-content`,
+  marginLeft: `auto`,
+  marginRight: `auto`,
+});
+
+export const recordingStatus = style({
+  fontSize: "1rem",
+  color: vars.colors.text,
+  fontWeight: vars.fontWeight.medium,
+});
+
+export const recordingDot = style({
+  width: "0.9rem",
+  height: "0.9rem",
+  borderRadius: "50%",
+  background: "linear-gradient(135deg, #ff4444, #ff6666)",
+  boxShadow: "0 0 10px rgba(255, 68, 68, 0.5)",
+  animation: `${pulse} 1s ease-in-out infinite`,
 });
