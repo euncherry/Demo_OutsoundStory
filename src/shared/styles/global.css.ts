@@ -29,7 +29,7 @@ globalStyle("body", {
 });
 
 globalStyle("#root", {
-  height: "110dvh",
+  height: "160dvh",
   width: "100%",
   display: "flex",
   flexDirection: "column",
