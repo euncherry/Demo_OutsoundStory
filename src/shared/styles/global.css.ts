@@ -23,13 +23,13 @@ globalStyle(" body", {
 globalStyle("body", {
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  background: "rgba(230, 220, 255, 1)",
+  background: "black",
   color: "rgba(155, 126, 174, 1)",
   lineHeight: 1.6,
 });
 
 globalStyle("#root", {
-  height: "103dvh",
+  height: "110dvh",
   width: "100%",
   display: "flex",
   flexDirection: "column",
