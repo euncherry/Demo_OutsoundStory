@@ -29,10 +29,11 @@ globalStyle("body", {
 });
 
 globalStyle("#root", {
-  height: "100%",
+  height: "103dvh",
   width: "100%",
   display: "flex",
   flexDirection: "column",
+  justifyContent: "flex-end",
 });
 
 globalStyle("button", {
