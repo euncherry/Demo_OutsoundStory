@@ -118,7 +118,7 @@ export const closeButton = style({
 export const stageContainer = style({
   width: "100%",
   height: "100%",
-  padding: "3.125rem",
+  padding: "2dvh 0",
   display: "flex",
   gap: "1rem",
   flexDirection: "column",
@@ -132,8 +132,9 @@ export const stageHeader = style({
 });
 
 export const stageTitle = style({
-  fontSize: "2rem",
+  fontSize: "1.5rem",
   fontWeight: vars.fontWeight.bold,
+  // color: vars.colors.text,
   background: "linear-gradient(135deg, #9b7eb0, #d4668f, #6b7fa6)",
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
@@ -144,8 +145,8 @@ export const stageTitle = style({
 
 export const stageSubtitle = style({
   fontSize: "1.125rem",
-  color: "rgba(107, 91, 149, 0.7)",
-  opacity: 0.8,
+  fontWeight: 300,
+  color: "rgb(107 91 149)",
 });
 
 // PrepareStage 스타일
