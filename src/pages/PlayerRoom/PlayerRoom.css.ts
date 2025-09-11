@@ -102,7 +102,7 @@ export const content = style({
 export const playerName = style({
   position: "absolute",
   top: "10%",
-  left: "50px",
+  left: "2rem",
 
   fontSize: vars.fontSize.xxl,
   color: "rgba(255, 255, 255, 0.7)",
@@ -113,7 +113,7 @@ export const playerName = style({
 // 아바타 관련
 export const avatarContainer = style({
   position: "relative",
-  width: "95dvh", // 300px
+  width: "105dvh", // 300px
   // height: "-30dvh", // 400px
   bottom: "-40dvh",
 });
@@ -175,6 +175,18 @@ export const moodContainer = style({
   borderRadius: vars.borderRadius.lg,
   padding: vars.spacing.lg,
   border: "1px solid rgba(255, 255, 255, 0.1)",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      left: "2rem",
+      top: "35%",
+    },
+    "screen and (max-width: 700px)": {
+      padding: "1rem",
+      left: "2rem",
+      top: "25%",
+    },
+  },
 });
 
 export const moodHeader = style({
@@ -182,6 +194,11 @@ export const moodHeader = style({
   alignItems: "center",
   gap: vars.spacing.sm,
   marginBottom: vars.spacing.md,
+  "@media": {
+    "screen and (max-width: 700px)": {
+      marginBottom: "0.5rem",
+    },
+  },
 });
 
 export const moodIcon = style({
@@ -212,6 +229,11 @@ export const moodText = style({
   color: "rgba(255, 255, 255, 0.5)",
   fontSize: vars.fontSize.sm,
   fontStyle: "italic",
+  "@media": {
+    "screen and (max-width: 700px)": {
+      marginTop: "0.5rem",
+    },
+  },
 });
 
 export const weatherIcon = style({
@@ -221,6 +243,11 @@ export const weatherIcon = style({
   gap: vars.spacing.xs,
   color: "rgba(255, 255, 255, 0.5)",
   fontSize: vars.fontSize.sm,
+  "@media": {
+    "screen and (max-width: 700px)": {
+      marginTop: "0.5rem",
+    },
+  },
 });
 
 // 일기장
@@ -273,4 +300,37 @@ export const menuContainer = style({
 export const subMenuButtons = style({
   display: "flex",
   gap: vars.spacing.md,
+});
+
+/* 9. 아이콘 + 텍스트 콤보 */
+export const comboContainer = style({
+  display: `flex`,
+  position: "absolute",
+  right: "1rem",
+  gap: `20px`,
+  justifyContent: `center`,
+  alignItems: `center`,
+  height: `auto`,
+  top: "10%",
+});
+
+export const comboBtn = style({
+  background: `rgba(255, 255, 255, 0.3)`,
+  color: `${vars.colors.primaryDark}`,
+  padding: `0.5rem 0.7rem`,
+  borderRadius: `12px`,
+  fontSize: `1rem`,
+  border: `2px solid ${vars.colors.primaryDark}`,
+  cursor: `pointer`,
+  transition: `all 0.3s ease`,
+  display: `flex`,
+  alignItems: `center`,
+  gap: `8px`,
+  fontWeight: `300`,
+  ":active": {
+    background: `${vars.colors.primaryLight}`,
+    borderColor: `${vars.colors.primary}`,
+    boxShadow: `0 5px 15px rgba(255, 200, 220, 0.3)`,
+    color: `#333`,
+  },
 });

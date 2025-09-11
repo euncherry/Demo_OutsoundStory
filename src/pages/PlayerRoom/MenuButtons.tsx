@@ -25,6 +25,10 @@ export function MenuButtons() {
         onClick={handleStartEpisode}
         icon="✨"
         iconPosition="right"
+        style={{
+          fontSize: "1.3rem",
+          padding: "1.2rem 2.5rem",
+        }}
       >
         에피소드 시작
       </Button>

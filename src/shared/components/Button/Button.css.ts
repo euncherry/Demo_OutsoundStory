@@ -147,20 +147,35 @@ export const button = recipe({
       },
 
       choice: {
-        width: "100%",
-        textAlign: "left",
-        color: vars.colors.choiceText,
+        // width: "100%",
+        // textAlign: "left",
+        // color: vars.colors.choiceText,
+        // background: vars.colors.choiceBackground,
+        // border: `2px solid ${vars.colors.choiceBorder}`,
+        // paddingLeft: "45px",
+        // borderRadius: "25px",
+        // backdropFilter: "blur(8px)",
+
+        // ":hover": {
+        //   transform: "translateX(5px)",
+        //   background: vars.colors.choiceBackgroundHover,
+        //   borderColor: vars.colors.choiceBorderHover,
+        // },
+
         background: vars.colors.choiceBackground,
         border: `2px solid ${vars.colors.choiceBorder}`,
-        paddingLeft: "45px",
-        borderRadius: "25px",
-        backdropFilter: "blur(8px)",
-
-        ":hover": {
-          transform: "translateX(5px)",
-          background: vars.colors.choiceBackgroundHover,
-          borderColor: vars.colors.choiceBorderHover,
-        },
+        border: `2px solid transparent`,
+        borderRadius: `1.2rem`,
+        padding: `1.5rem 2rem`,
+        cursor: `pointer`,
+        transition: `all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`,
+        position: `relative`,
+        overflow: `hidden`,
+        backdropFilter: `blur(10px)`,
+        boxShadow: `0 4px 20px rgba(0, 0, 0, 0.08)`,
+        fontSize: `1rem`,
+        fontWeight: `500`,
+        color: `#000000`,
       },
 
       love: {

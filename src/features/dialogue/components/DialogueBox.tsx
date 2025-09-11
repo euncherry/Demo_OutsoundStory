@@ -32,7 +32,11 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
       dojin: "도진",
       yohan: "요한",
       kanghyuk: "강혁",
-      ex_girlfriend: "민서",
+      mihyun: "미현",
+      yujin: "유진",
+      chaerin: "채린",
+      gaeul: "가을",
+      sunhwa: "선화",
     };
 
     return nameMap[speaker] || speaker;
@@ -85,8 +89,8 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
         className={styles.dialogueContainer}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -30 }}
-        transition={{ duration: 0.5 }}
+        exit={{ opacity: 0, y: 30 }}
+        transition={{ duration: 0.3 }}
         onClick={onNext}
       >
         <AnimatePresence mode="wait">
@@ -112,41 +116,43 @@ export function DialogueBox({ type, speaker, text, onNext }: DialogueBoxProps) {
             </motion.div>
           ) : (
             // 대화 (말풍선)
-            <motion.div
-              className={styles.dialogueBox}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-            >
-              {speaker && (
-                <div
-                  className={styles.speakerName}
-                  style={{ color: themeColors.speakerColor }}
-                >
-                  {getSpeakerName()}
-                </div>
-              )}
-              <p
-                className={styles.dialogueText}
-                style={{ color: themeColors.textColor }}
-              >
-                {replacePlayerName(text)}
-              </p>
-
-              {/* 다음 표시 */}
+            <div className={styles.dialogueBoxWrapper}>
               <motion.div
-                className={styles.nextIndicator}
-                style={{ color: themeColors.indicatorColor }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                className={styles.dialogueBox}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
               >
-                ▼
+                {speaker && (
+                  <div
+                    className={styles.speakerName}
+                    style={{ color: themeColors.speakerColor }}
+                  >
+                    {getSpeakerName()}
+                  </div>
+                )}
+                <p
+                  className={styles.dialogueText}
+                  style={{ color: themeColors.textColor }}
+                >
+                  {replacePlayerName(text)}
+                </p>
+
+                {/* 다음 표시 */}
+                <motion.div
+                  className={styles.nextIndicator}
+                  style={{ color: themeColors.indicatorColor }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  ▼
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </motion.div>

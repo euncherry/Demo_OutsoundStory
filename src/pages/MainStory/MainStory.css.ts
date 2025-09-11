@@ -39,6 +39,34 @@ export const progressFill = style({
   transition: "width 0.5s ease",
 });
 
+export const characterLine = style({
+  position: `absolute`,
+  top: `20px`,
+  right: `20px`,
+  color: `${vars.colors.primaryDark}`,
+  fontSize: `14px`,
+  fontWeight: `500`,
+  padding: "0.5rem 1rem",
+  background: `rgb(0 0 0 / 15%)` /* 반투명 흰 배경 추가 */,
+  backdropFilter: `blur(8px)` /* 블러 효과 */,
+  borderRadius: `8px 8px 0 0` /* 상단 라운드 */,
+  // borderBottom: `2px solid ${vars.colors.textTertiary}`,
+  transition: `all 0.3s ease`,
+  boxShadow: `0 8px 24px rgba(0, 0, 0, 0.12)`,
+
+  display: `inline-block`,
+  ":after": {
+    content: "",
+    position: `absolute`,
+    bottom: `-2px`,
+    left: `0`,
+    width: `100%`,
+    height: `3px`,
+    background: `linear-gradient(90deg, ${vars.colors.primary}, transparent)`,
+    borderRadius: `2px`,
+  },
+});
+
 export const backButton = style({
   position: "absolute",
   top: vars.spacing.lg,

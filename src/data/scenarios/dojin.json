@@ -33,13 +33,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "wink"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],
@@ -59,13 +59,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "normal"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],
@@ -85,13 +85,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "surprised"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "happy"
         }
       ],
@@ -111,13 +111,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "blank"
         }
       ],
@@ -137,13 +137,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "happy"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],
@@ -163,13 +163,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "wink"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],
@@ -189,13 +189,13 @@
         {
           "characterType": "npc",
           "npcId": "dojin",
-          "position": "center",
+          "position": "right",
           "emotion": "wink"
         },
         {
           "characterType": "npc",
           "npcId": "yohan",
-          "position": "right",
+          "position": "center",
           "emotion": "normal"
         }
       ],

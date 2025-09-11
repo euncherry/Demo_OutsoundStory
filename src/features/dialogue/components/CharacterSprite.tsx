@@ -5,6 +5,7 @@ import { getNPCById } from "@/data/npcs/npcData";
 import { playerData, PlayerEmotions } from "@/data/characters/playerData";
 import * as styles from "./Dialogue.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useThemeStore } from "@/store/themeStore";
 
 interface CharacterSpriteProps {
   characterType: "player" | "npc";
@@ -22,7 +23,7 @@ export function CharacterSprite({
   isSpeaking = false,
 }: CharacterSpriteProps) {
   const { gender } = usePlayerStore();
-
+  const { currentTheme } = useThemeStore();
   // 컴포넌트 마운트 시 자연스럽게 나타나기
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -69,41 +70,70 @@ export function CharacterSprite({
   if (!characterData) return null;
 
   return (
-    <div
-      className={styles.characterContainer}
-      style={{
-        left:
-          position === "left" ? "40dvh" : position === "right" ? "70%" : "50%",
-      }}
-    >
-      {/* 말하는 중 효과 */}
-      {/* {isSpeaking && (
+    <>
+      {currentTheme === "male" ? (
         <div
-          className={styles.speakingGlow}
+          className={styles.malePlayercharacterContainer}
           style={{
-            background: `radial-gradient(circle, ${characterData.themeColor}80 0%, transparent 70%)`,
+            left:
+              position === "left"
+                ? "30%"
+                : position === "right"
+                ? "70%"
+                : "50%",
           }}
-        />
-      )} */}
-
-      {/* 캐릭터 이미지 - 페이드 인/아웃 효과 추가 */}
-      <AnimatePresence>
-        <motion.img
-          key={emotion}
-          src={characterData.image}
-          alt={`${characterData.name} ${emotion}`}
-          className={styles.characterFull}
-          layoutId={`${characterData.name}-face`} // 공통 layoutId
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+        >
+          {/* 캐릭터 이미지 - 페이드 인/아웃 효과 추가 */}
+          <AnimatePresence>
+            <motion.img
+              key={emotion}
+              src={characterData.image}
+              alt={`${characterData.name} ${emotion}`}
+              className={styles.characterFull}
+              layoutId={`${characterData.name}-face`} // 공통 layoutId
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                opacity: 1,
+                filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
+              }}
+            />
+          </AnimatePresence>
+        </div>
+      ) : (
+        <div
+          className={styles.characterContainer}
           style={{
-            opacity: 1,
-            filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
+            left:
+              position === "left"
+                ? "30%"
+                : position === "right"
+                ? "70%"
+                : "50%",
           }}
-        />
-      </AnimatePresence>
-    </div>
+        >
+          {/* 캐릭터 이미지 - 페이드 인/아웃 효과 추가 */}
+          <AnimatePresence>
+            <motion.img
+              key={emotion}
+              src={characterData.image}
+              alt={`${characterData.name} ${emotion}`}
+              className={styles.characterFull}
+              layoutId={`${characterData.name}-face`} // 공통 layoutId
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                opacity: 1,
+                filter: isSpeaking ? "brightness(1)" : "brightness(0.6)",
+              }}
+            />
+          </AnimatePresence>
+        </div>
+      )}
+    </>
   );
 }

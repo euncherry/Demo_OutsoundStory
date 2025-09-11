@@ -12,7 +12,7 @@ import micIconLarge from "/assets/ui/decorations/micIcon.png";
 import { useMediaQuery } from "@/shared/hooks/useMediaQuery"; // 또는 "@/hooks"
 
 export function RecordingStage() {
-  const isMobile = useMediaQuery("(max-width: 1023px)");
+  const isMobile = useMediaQuery("(max-width: 950px)");
 
   const {
     setCurrentStage,

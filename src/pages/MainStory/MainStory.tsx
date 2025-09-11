@@ -186,6 +186,8 @@ export function MainStory() {
         />
       </div>
 
+      <div className={styles.characterLine}>Episode: {selectedNPC}</div>
+
       {/* ✅ 새로운 캐릭터 렌더링 시스템 */}
       {renderCharacters()}
 
@@ -218,6 +220,7 @@ export function MainStory() {
           // 선택지 표시
           <ChoiceButtons
             key={currentScene.id}
+            question={currentScene.text}
             choices={(currentScene.choices || []).map((choice) => ({
               ...choice,
               koreanText: choice.text, // text를 koreanText로 매핑

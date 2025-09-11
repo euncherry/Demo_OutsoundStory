@@ -8,16 +8,22 @@ import { EnvironmentEffects } from "./EnvironmentEffects";
 import { MenuButtons } from "./MenuButtons";
 import { DiaryHint } from "./DiaryHint";
 import * as styles from "./PlayerRoom.css";
+import { useNavigate } from "react-router-dom";
 
 export function PlayerRoom() {
   const { name } = usePlayerStore();
   const { transitionTo } = useGameFlowStore();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     transitionTo("room");
   }, [transitionTo]);
+
+  const handleHomeButton = () => {
+    navigate("/");
+  };
 
   return (
     <div className={styles.container}>
@@ -26,6 +32,18 @@ export function PlayerRoom() {
 
       {/* 메인 콘텐츠 */}
       <div className={styles.content}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+          className={styles.comboContainer}
+        >
+          <button className={styles.comboBtn} onClick={handleHomeButton}>
+            <span>↩️</span>
+            <span>메뉴화면</span>
+          </button>
+        </motion.div>
+
         {/* 플레이어 이름 */}
         <motion.h1
           className={styles.playerName}

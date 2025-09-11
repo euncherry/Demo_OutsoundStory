@@ -137,15 +137,6 @@ export function DetailAnalysis({ npcId }: DetailAnalysisProps) {
       {/* 💝 호감도 & NPC 반응 */}
 
       <div className={styles.feedbackSection}>
-        {/* <div className={styles.affinityChange}>
-          <div className={styles.affinityIcon}>💝</div>
-          <div className={styles.affinityText}>
-            <span>호감도 변화</span>
-            <span className={styles.affinityValue}>
-              +{Math.round((analysisResult?.totalScore || 0) / 10)} 포인트!
-            </span>
-          </div>
-        </div> */}
         <div className={styles.imageWrapper}>
           <img
             src={npcData?.profileImage}

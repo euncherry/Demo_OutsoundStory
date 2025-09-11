@@ -33,7 +33,7 @@ export const playerData: PlayerData = {
       normal: "/assets/characters/player/female/normal.png",
       happy: "/assets/characters/player/female/happy.png",
       sad: "/assets/characters/player/female/sad.png",
-      // surprised: "/assets/characters/player/female/surprised.png",
+      surprised: "/assets/characters/player/female/surprised.png",
       angry: "/assets/characters/player/female/angry.png",
       shy: "/assets/characters/player/female/shy.png",
       melancholy: "/assets/characters/player/female/melancholy.png",

@@ -48,14 +48,6 @@ NPCCardProps) {
       return setIsSpecialClick(!isSpecialClick);
     }
     onSelect(npc.id);
-
-    // if (!isLocked) {
-    //   console.log("dfjhkalefklanelfalwsnkef", npc.id);
-    //   onSelect(npc.id);
-    // }
-    // if (isLocked) {
-    //   setIsSpecialClick(!isSpecialClick);
-    // }
   };
 
   const handleSecretClick = (e: React.MouseEvent) => {

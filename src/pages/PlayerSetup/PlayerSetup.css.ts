@@ -9,7 +9,7 @@ const fadeIn = keyframes({
 });
 
 export const container = style({
-  minHeight: "103vh",
+  height: "100vh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -32,23 +32,39 @@ export const backButton = style({
   cursor: "pointer",
   backdropFilter: "blur(10px)",
   transition: vars.transitions.normal,
+  zIndex: 1000,
 
   ":hover": {
     background: vars.colors.buttonHover,
     transform: "translateX(-5px)",
+  },
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      top: "1rem",
+      left: "0.5rem",
+    },
   },
 });
 
 export const setupCard = style({
   width: "100%",
   maxWidth: "37.5rem", // 600px = 37.5rem (600 ÷ 16)
-  padding: "2rem 3rem 0rem 3rem",
-  background: vars.colors.backgroundGlass,
+  padding: "2rem 1rem 0rem 1rem",
+  // background: vars.colors.backgroundGlass,
   backdropFilter: "blur(20px)",
   // border: `2px solid ${vars.colors.glassBorder}`,
   borderRadius: vars.borderRadius.xl,
-  boxShadow: `0 20px 60px ${vars.colors.shadow}`,
+  boxShadow: `0 10px 20px ${vars.colors.shadow}`,
   animation: `${fadeIn} 0.5s ease`,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "1rem 1rem 0rem 1rem",
+      width: "70dvw",
+    },
+  },
+  transition: `all 0.3s ease`,
 });
 
 export const title = style({
@@ -61,14 +77,26 @@ export const title = style({
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.3rem",
+      paddingBottom: "0.5rem",
+    },
+  },
 });
 
 export const sectionTitle = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.semibold,
   textAlign: "center",
-  paddingBottom: vars.spacing.lg,
   color: vars.colors.text,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1rem",
+    },
+  },
 });
 
 export const genderContainer = style({
@@ -110,6 +138,12 @@ export const nameContainer = style({
   alignItems: "center",
   gap: vars.spacing.lg,
   width: "100%",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      gap: "1rem",
+    },
+  },
 });
 
 export const inputWrapper = style({
@@ -139,6 +173,12 @@ export const nameInput = style({
     borderColor: vars.colors.primary,
     boxShadow: `0 0 0 1px ${vars.colors.primary}`,
   },
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.5rem 1rem",
+    },
+  },
 });
 
 export const errorText = style({
@@ -153,8 +193,14 @@ export const progressBar = style({
   height: "4px",
   background: vars.colors.backgroundCard,
   borderRadius: vars.borderRadius.full,
-  marginTop: "5rem",
+  marginTop: "2rem",
   overflow: "hidden",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      marginTop: "1rem",
+    },
+  },
 });
 
 export const progressFill = style({

@@ -36,21 +36,7 @@ export function NPCSelection() {
   return (
     <div className={styles.container}>
       {/* 배경 애니메이션 */}
-      <motion.div
-        className={styles.backgroundGradient}
-        animate={{
-          background: [
-            "radial-gradient(circle at 20% 50%, rgba(255, 155, 255, 1) 0%, transparent 50%)",
-            "radial-gradient(circle at 80% 50%, rgba(155, 255, 255, 1) 0%, transparent 50%)",
-            "radial-gradient(circle at 20% 50%, rgba(255, 155, 255, 1) 0%, transparent 50%)",
-          ],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      <motion.div className={styles.backgroundGradient} />
 
       {/* 헤더 */}
       <motion.div

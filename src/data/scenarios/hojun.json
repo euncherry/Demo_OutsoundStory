@@ -19,7 +19,7 @@
         {
           "characterType": "player",
           "position": "center",
-          "emotion": "normal"
+          "emotion": "happy"
         }
       ],
       "nextSceneId": "scene3"
@@ -34,7 +34,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "normal"
+          "emotion": "surprised"
         },
         {
           "characterType": "npc",
@@ -161,7 +161,7 @@
         {
           "characterType": "player",
           "position": "left",
-          "emotion": "normal"
+          "emotion": "happy"
         },
         {
           "characterType": "npc",

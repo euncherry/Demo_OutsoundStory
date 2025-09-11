@@ -8,19 +8,19 @@ import * as styles from "./Dialogue.css";
 interface ChoiceButtonsProps {
   choices: Choice[];
   onSelect: (choice: Choice) => void;
+  question: string;
 }
 
-export function ChoiceButtons({ choices, onSelect }: ChoiceButtonsProps) {
+export function ChoiceButtons({
+  choices,
+  onSelect,
+  question,
+}: ChoiceButtonsProps) {
   return (
     <div className={styles.choiceWrapper}>
-      <div
-        className={styles.choiceContainer}
-        // initial={{ opacity: 0, y: 50 }}
-        // animate={{ opacity: 1, y: 0 }}
-        // transition={{ duration: 0.5, delay: 0.3 }}
-      >
+      <div className={styles.choiceContainer}>
         <div className={styles.choiceHeader}>
-          <p className={styles.choicePrompt}>선택하세요</p>
+          <div className={styles.choicePrompt}>{question || "선택하세요"}</div>
         </div>
 
         <div className={styles.choiceList}>

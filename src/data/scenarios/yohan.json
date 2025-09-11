@@ -180,7 +180,7 @@
     {
       "id": "scene10",
       "type": "choice",
-      "text": "…(여주)씨는… 사람의 본성이 착하다고 생각해요, 악하다고 생각해요?",
+      "text": "… 사람의 본성이 착하다고 생각해요, 악하다고 생각해요?",
       "background": "assets/backgrounds/cafe_morning.png",
       "characters": [
         {

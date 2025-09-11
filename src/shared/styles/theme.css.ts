@@ -67,6 +67,7 @@ export const vars = createThemeContract({
     backgroundBlur: null,
     backgroundCard: null,
     text: null,
+    textNarration: null,
     textSecondary: null,
     textTertiary: null,
     textMuted: null,
@@ -126,6 +127,7 @@ export const globalTheme = createTheme(vars, {
     backgroundBlur: "rgba(230, 220, 255, 0.4)",
     backgroundCard: "rgba(255, 255, 255, 0.95)",
     text: "rgba(155, 126, 174, 1)",
+    textNarration: "rgba(255, 255, 255, 1)",
     textSecondary: "rgba(127, 166, 99, 1)",
     textTertiary: "rgba(107, 91, 149, 1)",
     textMuted: "rgba(199, 179, 211, 1)",
@@ -155,7 +157,7 @@ export const globalTheme = createTheme(vars, {
     glassBorder: "rgba(255, 255, 255, 0.95)",
     glassShine:
       "linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.41), transparent)",
-    shadow: "rgba(230, 220, 255, 0.25)",
+    shadow: "rgba(230, 220, 255, 0.6)",
     shadowHover: "rgba(200, 255, 214, 0.35)",
     overlay: "rgba(230, 220, 255, 0.3)",
     overlayLight: "rgba(244, 255, 200, 0.3)",
@@ -197,6 +199,7 @@ export const femaleTheme = createTheme(vars, {
     backgroundBlur: "rgba(255, 200, 220, 0.5)",
     backgroundCard: "rgba(255, 255, 255, 0.96)",
     text: "rgba(212, 102, 143, 1)",
+    textNarration: "rgba(212, 102, 143, 1)",
     textSecondary: "rgba(95, 167, 120, 1)",
     textTertiary: "rgba(233, 30, 99, 1)",
     textMuted: "rgba(192, 128, 160, 1)",
@@ -224,7 +227,7 @@ export const femaleTheme = createTheme(vars, {
     glassBorder: "rgba(255, 255, 255, 0.95)",
     glassShine:
       "linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
-    shadow: "rgba(255, 180, 200, 0.25)",
+    shadow: "rgba(255, 180, 200, 0.3)",
     shadowHover: "rgba(255, 180, 200, 0.35)",
     overlay: "rgba(255, 200, 220, 0.3)",
     overlayLight: "rgba(212, 102, 143, 0.5)",
@@ -236,7 +239,7 @@ export const femaleTheme = createTheme(vars, {
     // Choice 버튼 색상 (female)
     choiceText: "#000",
     choiceBackground:
-      "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 230, 236, 0.4), rgba(243, 229, 245, 0.4))",
+      "linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgb(253 211 221 / 76%), rgb(249 209 255 / 60%))",
     choiceBorder: "rgba(255, 182, 193, 0.3)",
     choiceBackgroundHover:
       "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 200, 220, 0.5), rgba(243, 229, 245, 0.5))",
@@ -266,6 +269,8 @@ export const maleTheme = createTheme(vars, {
     backgroundBlur: "rgba(200, 230, 255, 0.5)",
     backgroundCard: "rgba(255, 255, 255, 0.96)",
     text: "rgba(107, 127, 166, 1)",
+    textNarration: "rgb(138 164 215)",
+
     textSecondary: "rgba(91, 158, 190, 1)",
     textTertiary: "rgba(0, 120, 215, 1)",
     textMuted: "rgba(136, 149, 179, 1)",
@@ -294,7 +299,7 @@ export const maleTheme = createTheme(vars, {
     glassBorder: "rgba(255, 255, 255, 0.95)",
     glassShine:
       "linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
-    shadow: "rgba(200, 230, 255, 0.25)",
+    shadow: "rgba(200, 230, 255, 0.6)",
     shadowHover: "rgba(220, 200, 255, 0.35)",
     overlay: "rgba(200, 230, 255, 0.3)",
     overlayLight: "rgba(107, 127, 166, 0.5)",

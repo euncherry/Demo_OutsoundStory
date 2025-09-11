@@ -35,10 +35,30 @@ export const dialogueContainer = style({
   maxHeight: "15rem",
   cursor: "pointer",
   pointerEvents: "auto",
-  marginBottom: "5dvw",
+  // marginBottom: "5dvw",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      // marginBottom: "1rem",
+    },
+  },
 });
 
 // 대화 박스
+export const dialogueBoxWrapper = style({
+  width: "100dvw",
+  height: "auto",
+  minHeight: "10rem",
+  maxHeight: "15rem",
+  display: "flex",
+  justifyContent: "center",
+  // alignItems: "center",
+  background:
+    "linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 100%)",
+  backdropFilter: `blur(1px)`,
+});
+
 export const dialogueBox = style({
   width: "65dvw",
   height: "auto",
@@ -50,6 +70,16 @@ export const dialogueBox = style({
   borderRadius: vars.borderRadius.xl,
   padding: vars.spacing.lg,
   boxShadow: `0 10px 40px ${vars.colors.shadow}`,
+  marginBottom: "5dvw",
+  height: `auto`,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      width: "80dvw",
+      minHeight: "7rem",
+      height: "auto",
+    },
+  },
 });
 
 // 화자 이름 (동적 색상 적용)
@@ -78,6 +108,13 @@ export const monologueBox = style({
   borderRadius: vars.borderRadius.lg,
   padding: vars.spacing.lg,
   textAlign: "center",
+  marginBottom: "5dvw",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      marginBottom: "4rem",
+    },
+  },
 });
 
 export const monologueText = style({
@@ -94,6 +131,14 @@ export const narrationBox = style({
     "linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7), transparent)",
   padding: `${vars.spacing.xl} ${vars.spacing.xxl}`,
   textAlign: "center",
+  marginBottom: "5dvw",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "3rem 1rem",
+      marginBottom: "1rem",
+    },
+  },
 });
 
 export const narrationText = style({
@@ -116,26 +161,44 @@ export const characterContainer = style({
   position: "absolute",
   bottom: "-35dvh",
   transform: "translateX(-50%) !important", // 👈 !important 추가
-  width: "60dvw",
-  height: "120dvh",
+  width: "60dvw", // 👈 100% 대신 auto
+  height: "120dvh", // 높이 기준
+  aspectRatio: "9 / 16", // 👈 캐릭터 비율 설정 (세로형 캐릭터라면)
   zIndex: 50,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      bottom: "-115dvh",
+      height: "210dvh",
+    },
+  },
 });
 
-// 말하는 중 효과 (동적 색상 적용)
-export const speakingGlow = style({
+export const malePlayercharacterContainer = style({
   position: "absolute",
-  inset: "-20px",
-  filter: "blur(20px)",
-  opacity: 0.5,
-  zIndex: -1,
-  // background는 인라인 스타일로 동적 적용
+  bottom: "-35dvh",
+  transform: "translateX(-50%) !important", // 👈 !important 추가
+  width: "60dvw", // 👈 100% 대신 auto
+  height: "120dvh", // 높이 기준
+  aspectRatio: "9 / 16", // 👈 캐릭터 비율 설정 (세로형 캐릭터라면)
+  zIndex: 50,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      bottom: "-61dvh",
+      height: "163dvh",
+      width: "49dvw",
+    },
+  },
 });
 
-// ✅ 새로운 통합 캐릭터 스타일
+// 캐릭터 이미지 - 개선된 버전
 export const characterFull = style({
   position: "absolute",
   width: "100%",
-  height: "100%",
+  height: "auto",
+  objectPosition: "bottom", // 👈 위치 조정
+
   objectFit: "contain",
   // 깜빡거림 방지
   backfaceVisibility: "hidden",
@@ -147,7 +210,6 @@ export const characterFull = style({
   transition: "opacity 0.5s ease-in-out, filter 0.3s ease",
 });
 
-// 선택지 래퍼
 export const choiceWrapper = style({
   position: "fixed",
   top: 0,
@@ -156,12 +218,14 @@ export const choiceWrapper = style({
   height: "100vh",
   pointerEvents: "none",
   zIndex: 100,
+  background: `rgb(0 0 0 / 30%)`,
+  backdropFilter: `blur(8px)`,
 });
 
 // 선택지 컨테이너
 export const choiceContainer = style({
   position: "absolute",
-  bottom: "100px",
+  bottom: "2rem",
   left: "50%",
   transform: "translateX(-50%)",
   width: "80%",
@@ -175,10 +239,31 @@ export const choiceHeader = style({
 });
 
 export const choicePrompt = style({
-  fontSize: vars.fontSize.xl,
-  color: vars.colors.text,
-  fontWeight: vars.fontWeight.semibold,
-  textShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
+  position: `absolute`,
+  left: "50%",
+  top: "-3rem",
+
+  transform: "translateX(-50%)",
+  whiteSpace: "nowrap",
+  color: `${vars.colors.primaryDark}`,
+  fontSize: `1.2rem`,
+  fontWeight: `500`,
+  padding: "0.5rem 1rem",
+  borderRadius: `8px 8px 0 0` /* 상단 라운드 */,
+  // borderBottom: `2px solid ${vars.colors.textTertiary}`,
+  transition: `all 0.3s ease`,
+
+  display: `inline-block`,
+  ":after": {
+    content: "",
+    position: `absolute`,
+    bottom: `-2px`,
+    left: `0`,
+    width: `100%`,
+    height: `3px`,
+    background: `linear-gradient(90deg, ${vars.colors.primary}, transparent)`,
+    borderRadius: `2px`,
+  },
 });
 
 export const choiceList = style({

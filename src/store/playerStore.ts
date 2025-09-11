@@ -1,11 +1,11 @@
 // src/store/playerStore.ts
 
 // Zustand 상태 관리 라이브러리 import
-import { create } from 'zustand';
+import { create } from "zustand";
 // 로컬스토리지에 상태를 자동 저장하는 미들웨어
-import { persist, devtools } from 'zustand/middleware';
+import { persist, devtools } from "zustand/middleware";
 // 성별 타입 정의 import
-import { Gender } from '@/types/character.types';
+import { Gender } from "@/types/character.types";
 
 /**
  * 플레이어 상태 인터페이스
@@ -60,9 +60,9 @@ export const usePlayerStore = create<PlayerState>()(
     persist(
       (set) => ({
         // ===== 초기 상태값 =====
-        name: '', // 빈 문자열로 초기화
+        name: "", // 빈 문자열로 초기화
         gender: null, // 성별 미선택 상태
-        avatar: '', // 아바타 미설정 상태
+        avatar: "", // 아바타 미설정 상태
         createdAt: null, // 캐릭터 미생성 상태
 
         // ===== 액션 구현 =====
@@ -80,7 +80,7 @@ export const usePlayerStore = create<PlayerState>()(
               createdAt: new Date(), // 현재 시간 자동 기록
             },
             false, // replace 옵션 (false = merge)
-            'player/setPlayerInfo', // Redux DevTools에 표시될 액션 이름
+            "player/setPlayerInfo" // Redux DevTools에 표시될 액션 이름
           ),
 
         /**
@@ -91,7 +91,7 @@ export const usePlayerStore = create<PlayerState>()(
           set(
             { avatar },
             false,
-            'player/setAvatar', // Redux DevTools 액션 이름
+            "player/setAvatar" // Redux DevTools 액션 이름
           ),
 
         /**
@@ -102,13 +102,13 @@ export const usePlayerStore = create<PlayerState>()(
         resetPlayer: () =>
           set(
             {
-              name: '',
+              name: "",
               gender: null,
-              avatar: '',
+              avatar: "",
               createdAt: null,
             },
             false,
-            'player/resetPlayer', // Redux DevTools 액션 이름
+            "player/resetPlayer" // Redux DevTools 액션 이름
           ),
       }),
       {
@@ -118,8 +118,8 @@ export const usePlayerStore = create<PlayerState>()(
          * - 'player-storage'라는 키로 자동 저장/불러오기
          * - 브라우저 개발자도구 > Application > Local Storage에서 확인 가능
          */
-        name: 'player-storage',
-      },
+        name: "player-storage",
+      }
     ),
     {
       /**
@@ -127,26 +127,26 @@ export const usePlayerStore = create<PlayerState>()(
        * - name: DevTools에 표시될 스토어 이름
        * - enabled: 개발 환경에서만 활성화
        */
-      name: 'PlayerStore', // Redux DevTools에 표시될 이름
-      enabled: process.env.NODE_ENV === 'development', // 개발 환경에서만 활성화
-    },
-  ),
+      name: "PlayerStore", // Redux DevTools에 표시될 이름
+      enabled: process.env.NODE_ENV === "development", // 개발 환경에서만 활성화
+    }
+  )
 );
 
 /**
  * 개발자 도구용 헬퍼 함수들 (개발 환경에서만)
  */
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   // 전역 객체에 스토어 노출 (콘솔에서 접근 가능)
   // @ts-expect-error - window 객체에 커스텀 속성 추가
   window.playerStore = usePlayerStore;
 
   // 디버깅용 로그
   console.log(
-    '%c[PlayerStore] Ready',
-    'color: #FF6B9D; font-weight: bold;',
-    '\n- Redux DevTools: ✅',
-    '\n- LocalStorage: ✅',
-    '\n- Console Access: window.playerStore',
+    "%c[PlayerStore] Ready",
+    "color: #FF6B9D; font-weight: bold;",
+    "\n- Redux DevTools: ✅",
+    "\n- LocalStorage: ✅",
+    "\n- Console Access: window.playerStore"
   );
 }

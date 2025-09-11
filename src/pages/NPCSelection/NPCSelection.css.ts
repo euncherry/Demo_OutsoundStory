@@ -36,8 +36,7 @@ const shimmer = keyframes({
 export const container = style({
   position: "relative",
   width: "100vw",
-  height: "100vh",
-  overflow: "hidden",
+  height: "auto",
   background: vars.colors.background,
 });
 
@@ -52,7 +51,7 @@ export const backgroundGradient = style({
 export const header = style({
   position: "relative",
   textAlign: "center",
-  padding: vars.spacing.xl,
+  padding: `2rem 2rem 0rem 2rem`,
   zIndex: 10,
 });
 
@@ -76,34 +75,42 @@ export const backButton = style({
 });
 
 export const title = style({
-  fontSize: vars.fontSize.xxxl,
+  fontSize: `2.2rem`,
   fontWeight: vars.fontWeight.bold,
   background: vars.colors.gradient,
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
   marginBottom: vars.spacing.sm,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.3rem",
+    },
+  },
 });
 
 export const subtitle = style({
   fontSize: vars.fontSize.lg,
   color: vars.colors.textSecondary,
+  fontWeight: 200,
 });
 
 // 가로 스크롤 컨테이너
 export const horizontalScrollWrapper = style({
   position: "relative",
   width: "100%",
-  height: "calc(100vh - 200px)",
+  height: "auto",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  padding: `0 ${vars.spacing.xxl}`,
+  padding: `1rem 3rem 5rem 3rem`,
   overflow: "hidden",
+  // 🔥 모바일 반응형
   "@media": {
-    "(max-width: 768px)": {
-      padding: `0 ${vars.spacing.lg}`,
+    "screen and (max-width: 950px)": {
+      padding: `1rem 1rem 1.5rem 1rem`,
     },
   },
 });
@@ -112,16 +119,15 @@ export const horizontalGridContainer = style({
   display: "flex",
   gap: vars.spacing.xl,
   alignItems: "center",
-  height: "450px",
+  height: "auto",
   width: "100%",
   overflowX: "visible",
-  paddingLeft: "3rem",
-  paddingRight: "3rem",
+  padding: "3rem 3rem 2rem 3rem",
   userSelect: "none",
   "@media": {
-    "(max-width: 768px)": {
+    "screen and (max-width: 950px)": {
       gap: vars.spacing.lg,
-      height: "400px",
+      height: "auto",
       paddingLeft: "5%",
       paddingRight: "5%",
     },
@@ -130,12 +136,18 @@ export const horizontalGridContainer = style({
 
 export const cardWrapper = style({
   flexShrink: 0,
-  width: "320px",
-  height: "420px",
+  width: "20rem", // 320px = 20rem (320 ÷ 16)
+  height: "26.25rem", // 420px = 26.25rem (420 ÷ 16)
+
+  // 🔥 모바일 반응형
   "@media": {
-    "(max-width: 768px)": {
-      width: "280px",
-      height: "380px",
+    "screen and (max-width: 950px)": {
+      width: "17.5rem", // 280px
+      height: "23.75rem", // 380px
+    },
+    "screen and (max-width: 850px)": {
+      width: "18rem", // 240px - 가로 핸드폰에 적합
+      height: "22rem", // 320px - 가로 핸드폰에 적합
     },
   },
 });
@@ -143,7 +155,7 @@ export const cardWrapper = style({
 // 스크롤 인디케이터
 export const scrollIndicator = style({
   position: "absolute",
-  bottom: "40px",
+  bottom: "2.5rem",
   left: "50%",
   transform: "translateX(-50%)",
   color: vars.colors.textMuted,
@@ -211,6 +223,12 @@ export const lockIcon = style({
     paddingBottom: "0.5rem",
     // marginBottom: vars.spacing.md,
     display: "block",
+  },
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.5rem 1rem",
+    },
   },
 });
 
@@ -286,24 +304,48 @@ export const npcName = style({
   fontWeight: vars.fontWeight.bold,
   color: vars.colors.textLight,
   marginBottom: vars.spacing.xs,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.2rem",
+    },
+  },
 });
 
 export const npcAge = style({
   fontSize: vars.fontSize.sm,
   color: vars.colors.textMuted,
   marginBottom: vars.spacing.xs,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+    },
+  },
 });
 
 export const npcOccupation = style({
   fontSize: vars.fontSize.sm,
   color: vars.colors.textLight,
   marginBottom: vars.spacing.sm,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+    },
+  },
 });
 
 export const npcIntro = style({
   fontSize: vars.fontSize.sm,
   color: vars.colors.text,
   lineHeight: 1.6,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+    },
+  },
 });
 
 // 호버 효과
