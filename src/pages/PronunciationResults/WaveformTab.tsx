@@ -74,7 +74,7 @@ export function WaveformTab({ userAudioUrl }: WaveformTabProps) {
     <div className={styles.waveformContainer}>
       <div className={styles.waveformHeader}>
         <h3 className={styles.sectionTitle}>
-          <strong>🌊 WaveForm Comparison</strong>
+          <strong>WaveForm Comparison</strong>
         </h3>
         <div className={styles.waveformInfo}>
           음성의 진폭(볼륨) 패턴을 시간에 따라 비교합니다
@@ -112,7 +112,7 @@ export function WaveformTab({ userAudioUrl }: WaveformTabProps) {
                 background: "linear-gradient(135deg, #8ca3c4, #b5c6dc)",
               }}
             />
-            <span>내 발음</span>
+            <span style={{ color: "#6b5b95e6" }}>내 발음</span>
           </div>
           <button className={styles.wavePlayButton} onClick={handlePlayUser}>
             ▶️ 재생

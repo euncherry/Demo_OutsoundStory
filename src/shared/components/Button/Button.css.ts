@@ -177,7 +177,6 @@ export const button = recipe({
         position: "relative",
 
         "::after": {
-          content: "❤️",
           marginLeft: "8px",
           display: "inline-block",
           animation: `${pulse} 1.5s ease-in-out infinite`,
@@ -240,11 +239,11 @@ export const button = recipe({
         fontSize: vars.fontSize.md,
       },
       large: {
-        padding: "18px 45px",
+        padding: "1.125rem 2.8125rem", // 18px 45px
         fontSize: vars.fontSize.lg,
       },
       xlarge: {
-        padding: "20px 60px",
+        padding: "1.25rem 3.75rem", // 20px 60px
         fontSize: vars.fontSize.xl,
       },
       custom: {

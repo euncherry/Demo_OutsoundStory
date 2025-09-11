@@ -4,47 +4,183 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "@shared/styles/theme.css";
 
+// ===== PronunciationResults 페이지 전용 body 스타일 =====
+globalStyle("body.pronunciation-results", {
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgb(238 233 252))",
+  minHeight: "100vh",
+  margin: 0,
+  padding: 0,
+
+  "@media": {
+    "screen and (max-width: 950px)": {
+      background:
+        "linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgb(245 240 255))",
+    },
+    "screen and (max-width: 480px)": {
+      background:
+        "linear-gradient(135deg, rgba(255, 255, 255, 1), rgb(250 245 255))",
+    },
+  },
+});
+
+// ===== PronunciationResults.tsx에서 사용되는 주요 스타일들 =====
 export const resultsContainer = style({
   width: "100dvw",
-  height: "103dvh",
+  height: "100dvh",
   display: "flex",
   flexDirection: "column",
   background:
-    "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 235, 255, 0.9))",
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgb(238 233 252))",
+  // "linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 235, 255, 0.9))",
 });
 
 export const resultsHeader = style({
+  height: "20dvh",
   padding: "1.2rem",
   textAlign: "center",
   background: "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
   borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      height: "auto",
+      minHeight: "30dvh",
+      padding: "1rem 0.8rem",
+    },
+  },
 });
 
 export const resultsTitle = style({
   fontSize: "1.4rem",
   fontWeight: "700",
   color: vars.colors.text,
-  marginBottom: "12px",
+  marginBottom: "0.8rem",
+  width: "100%",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      // display: "none",
+    },
+  },
+});
+
+export const resultsHeaderContent = style({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
 });
 
 export const totalScore = style({
   fontSize: "2.2rem",
   color: "#ff8fab",
   fontWeight: "700",
+  width: "48%",
   textShadow: "0 2px 10px rgba(212, 102, 143, 0.2)",
+});
+
+export const sentenceComparison = style({
+  display: "flex",
+  gap: "4%", // 48% + 48% + 4% = 100%
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "stretch",
+  padding: "0 20px",
+  width: "100%",
+});
+
+export const sentenceItem = style({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  width: "100%", // 각각 48% 너비
+  padding: "0.5rem",
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(243, 237, 255, 0.4))",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.9)",
+  boxShadow:
+    "0 4px 15px rgba(230, 220, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.3rem",
+    },
+  },
+});
+
+export const sentenceText = style({
+  fontSize: "1rem",
+  lineHeight: "1.6",
+  color: "#6b5b95",
+  fontWeight: "500",
+  // padding: "8px 0",
+  display: "flex",
+  alignItems: "center",
+  minHeight: "1.5em",
+  wordBreak: "break-word",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      // minHeight: "1.2em",
+      minHeight: "1em",
+      fontSize: "0.85rem",
+      overflowX: "scroll",
+    },
+  },
+});
+
+export const sentenceLabel = style({
+  display: `flex`,
+  height: "80%",
+  marginRight: "0.3rem",
+  justifyContent: "center",
+  alignItems: `center`,
+  fontSize: "0.85rem",
+  fontWeight: "600",
+  color: "#9b7eb0",
+  padding: "0.2rem 0.6rem ",
+  background:
+    "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 230, 250, 0.6))",
+  borderRadius: "1.2rem",
+  border: "1px solid rgba(212, 102, 143, 0.2)",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.7rem",
+    },
+  },
 });
 
 export const resultsContent = style({
   flex: 1,
   display: "flex",
-  justifyContent: "space-evenly",
+  justifyContent: "space-between",
   overflowY: "auto",
   gap: vars.spacing.lg,
   padding: vars.spacing.lg,
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flexDirection: "column",
+      padding: "0.8rem",
+      gap: "1rem",
+      overflowY: "visible",
+    },
+  },
 });
 
 export const comparisonSection = style({
   flex: "0 0 65%",
+  minWidth: "50dvw",
   background:
     "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 250, 0.85))",
   borderRadius: "20px",
@@ -66,40 +202,32 @@ export const detailSection = style({
   backdropFilter: "blur(10px)",
   boxShadow:
     "0 10px 30px rgba(230, 220, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flex: "0 0 15%",
+    },
+  },
 });
 
 export const actionButtons = style({
   display: "flex",
+  height: "8dvh",
   justifyContent: "center",
   gap: vars.spacing.lg,
-  padding: vars.spacing.lg,
+  padding: vars.spacing.md,
   borderTop: `1px solid ${vars.colors.glassBorder}`,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flex: 0,
+      height: "25dvh",
+    },
+  },
 });
 
-export const retryButton = style({
-  backgroundColor: vars.colors.secondary,
-  color: "white",
-  border: "none",
-  borderRadius: vars.borderRadius.md,
-  padding: `${vars.spacing.md} ${vars.spacing.xl}`,
-  fontSize: vars.fontSize.md,
-  fontWeight: vars.fontWeight.semibold,
-  cursor: "pointer",
-  transition: vars.transitions.normal,
-});
-
-export const completeButton = style({
-  backgroundColor: vars.colors.primary,
-  color: "white",
-  border: "none",
-  borderRadius: vars.borderRadius.md,
-  padding: `${vars.spacing.md} ${vars.spacing.xl}`,
-  fontSize: vars.fontSize.md,
-  fontWeight: vars.fontWeight.semibold,
-  cursor: "pointer",
-  transition: vars.transitions.normal,
-});
-
+// ===== 기타 컴포넌트 스타일들 =====
 // 탭 관련 스타일
 export const tabsContainer = style({
   width: "100%",
@@ -180,6 +308,12 @@ export const detailPanel = style({
   justifyContent: "space-between",
   // gap: vars.spacing.xl,
   height: "100%",
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flexDirection: "row",
+      gap: "2dvh",
+    },
+  },
 });
 
 export const scoreSection = style({
@@ -195,7 +329,17 @@ export const detailTitle = style({
 
 export const scoreItem = style({
   marginBottom: vars.spacing.md,
+  "@media": {
+    "screen and (max-width: 950px)": {
+      background: `linear-gradient(135deg, rgba(200, 255, 214, 0.3),rgba(243, 237, 255, 0.35), rgba(255, 255, 255, 0.8) )`,
+      borderRadius: `12px`,
+      borderLeft: `5px solid rgba(200, 255, 214, 1)`,
+      padding: "0.5rem",
+    },
+  },
 });
+
+// linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 237, 255, 0.85))
 
 export const scoreLabel = style({
   display: "flex",
@@ -230,6 +374,16 @@ export const feedbackSection = style({
   display: "flex",
   flexDirection: "column",
   // gap: vars.spacing.md,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      minHeight: "40dvh",
+      background:
+        "linear-gradient(135deg, rgba(255, 224, 236, 0.3), rgba(255, 255, 255, 0.8))",
+      borderRadius: `12px`,
+      border: `1px solid rgba(255, 224, 236, 0.5)`,
+    },
+  },
 });
 
 export const affinityChange = style({
@@ -291,6 +445,13 @@ export const spectrogramContainer = style({
   flexDirection: "column",
   gap: vars.spacing.lg,
   height: "100%",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      height: "auto",
+      gap: "0",
+    },
+  },
 });
 
 export const audioSection = style({
@@ -444,6 +605,12 @@ export const pitchContainer = style({
   flexDirection: "column",
   gap: vars.spacing.lg,
   height: "600px",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      height: "auto",
+    },
+  },
 });
 
 export const pitchHeader = style({
@@ -544,7 +711,7 @@ export const waveLabel = style({
   gap: vars.spacing.sm,
   fontSize: vars.fontSize.md,
   fontWeight: vars.fontWeight.medium,
-  color: "rgba(107, 91, 149, 0.9)",
+  color: "#d4668f",
 });
 
 export const waveLegend = style({
@@ -762,6 +929,12 @@ export const spectrogramHeader = style({
     "linear-gradient(135deg, rgba(255, 253, 231, 0.3), rgba(255, 255, 255, 0.6))",
   borderRadius: vars.borderRadius.lg,
   border: "1px solid rgba(255, 253, 231, 0.5)",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.8rem",
+    },
+  },
 });
 
 export const spectrogramInfo = style({

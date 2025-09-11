@@ -20,7 +20,7 @@ export const recordingContent = style({
     "linear-gradient(135deg, rgba(255, 255, 255, 0.7),rgba(240, 235, 255, 0.3), rgba(240, 235, 255, 0.3),rgba(240, 235, 255, 0.3))",
   borderRadius: "1rem",
   textAlign: "center",
-  height: "45dvh",
+  height: "22rem",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "stretch",
@@ -37,8 +37,14 @@ export const recordingContentGrid = style({
   gap: "1rem",
   alignItems: "center",
   transition: "all 0.3s ease",
-  padding: "1.5rem", // 전체 그리드에 패딩 추가
+  // padding: "1.5rem", // 전체 그리드에 패딩 추가
   boxSizing: "border-box", // 패딩 포함한 크기 계산
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      gap: "3dvh",
+    },
+  },
 });
 
 export const recordingContentReadyGridItem = style({
@@ -47,9 +53,15 @@ export const recordingContentReadyGridItem = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  padding: "0.5rem", // 패딩 줄임
+  // padding: "0.5rem", // 패딩 줄임
   boxSizing: "border-box",
   overflow: "hidden", // 넘치는 내용 숨김
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      width: "auto",
+    },
+  },
 });
 
 export const recordingContentMicGridItem = style([
@@ -117,7 +129,7 @@ export const waveformContainer = style({
   border: "1px solid rgba(230, 220, 255, 0.3)",
   boxShadow: "inset 0 2px 4px rgba(230, 220, 255, 0.1)",
   width: "100%",
-  height: "10dvh",
+  height: "auto",
   minHeight: "10dvh",
   display: "flex",
   alignItems: "center",
@@ -167,6 +179,12 @@ export const sttStatus = style({
   // justifyContent: `center`,
   justifyContent: `space-between`,
   gap: `0.5rem`,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flexDirection: `row`,
+    },
+  },
 });
 
 export const sttHeader = style({
@@ -176,6 +194,12 @@ export const sttHeader = style({
   fontSize: `0.9rem`,
   color: `rgba(107, 91, 149, 0.9)`,
   fontWeight: `500`,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      flexDirection: `column`,
+    },
+  },
 });
 
 export const sttListening = style({
@@ -203,14 +227,26 @@ export const recordingIndicator = style({
   borderRadius: `2rem`,
   border: `2px solid rgba(255, 200, 220, 0.3)`,
   width: `fit-content`,
-  marginLeft: `auto`,
-  marginRight: `auto`,
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.2rem 0.8rem",
+    },
+  },
 });
 
 export const recordingStatus = style({
   fontSize: "1rem",
   color: vars.colors.text,
   fontWeight: vars.fontWeight.medium,
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+    },
+  },
 });
 
 export const recordingDot = style({

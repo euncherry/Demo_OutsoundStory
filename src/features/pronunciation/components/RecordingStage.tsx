@@ -9,8 +9,11 @@ import { Button3D } from "@/shared/components/3DButton";
 import { Button } from "@/shared/components/Button";
 import useSpeechToText from "@/pages/test/hooks/useSpeechToText";
 import micIconLarge from "/assets/ui/decorations/micIcon.png";
+import { useMediaQuery } from "@/shared/hooks/useMediaQuery"; // 또는 "@/hooks"
 
 export function RecordingStage() {
+  const isMobile = useMediaQuery("(max-width: 1023px)");
+
   const {
     setCurrentStage,
     setRecordedAudioBlob,
@@ -308,18 +311,28 @@ export function RecordingStage() {
         <div
           className={styles.recordingContent}
           style={{
+            padding: !isRecordingStarted ? "" : "1.5rem",
             background: !isRecordingStarted
               ? "linear-gradient(135deg, rgba(255, 255, 255, 0.7),rgba(240, 235, 255, 0.3), rgba(240, 235, 255, 0.3),rgba(240, 235, 255, 0.3))"
               : `linear-gradient(135deg, rgba(255, 245, 245, 0.4),rgba(255, 223, 245, 0.5), rgba(255, 223, 245, 0.6))`,
-            height: !isRecordingStarted ? "45dvh" : "60dvh",
+            height: !isRecordingStarted
+              ? isMobile
+                ? "60dvh"
+                : "45dvh"
+              : isMobile
+              ? "80dvh"
+              : "60dvh",
           }}
         >
+          {isMobile ? <> </> : <></>}
           <div
             className={styles.recordingContentGrid}
             style={{
               gridTemplateRows: isRecordingStarted
-                ? "3fr 1fr 3fr 2fr 2fr"
-                : "5fr 1fr 2fr",
+                ? isMobile
+                  ? "5fr 5fr 2fr 3fr"
+                  : "3fr 1fr 3fr 2fr 2fr"
+                : "5fr 1fr 3fr",
             }}
           >
             <div
@@ -337,21 +350,11 @@ export function RecordingStage() {
             </div>
             {isRecordingStarted ? (
               <>
-                {/* 녹음 시간 */}
-                <div className={styles.recordingContentReadyGridItem}>
-                  <div className={styles.timeDisplay}>
-                    <span className={styles.recordingTime}>
-                      ⏱️ {formatTime(recordingTime)}
-                    </span>
-                  </div>
-                </div>
-
                 {/* STT 텍스트 */}
                 <div className={styles.recordingContentReadyGridItem}>
                   <div className={styles.sttStatus}>
                     <div className={styles.sttHeader}>
-                      <span>🎙️</span>
-                      <span>STT</span>
+                      <span>🎙️ STT</span>
                       <span className={styles.sttListening}>
                         {listening ? "인식 중" : "중지"}
                       </span>
@@ -363,7 +366,12 @@ export function RecordingStage() {
                 </div>
 
                 {/* 녹음 상태 인디케이터 */}
-                <div className={styles.recordingContentReadyGridItem}>
+                <div
+                  className={styles.recordingContentReadyGridItem}
+                  style={{
+                    gap: isMobile ? "2rem" : "",
+                  }}
+                >
                   {isPaused ? (
                     <div
                       className={styles.recordingIndicator}
@@ -406,6 +414,20 @@ export function RecordingStage() {
                       <span className={styles.recordingStatus}>녹음 중</span>
                     </div>
                   )}
+                  {isMobile && (
+                    <div className={styles.recordingContentReadyGridItem}>
+                      <div className={styles.timeDisplay}>
+                        <span
+                          className={styles.recordingTime}
+                          style={{
+                            fontSize: "1.2rem",
+                          }}
+                        >
+                          ⏱️ {formatTime(recordingTime)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* 컨트롤 버튼 */}
@@ -422,6 +444,9 @@ export function RecordingStage() {
                       size="small"
                       onClick={isPaused ? handleResume : handlePause}
                       disabled={!isRecording && !isPaused}
+                      style={{
+                        fontSize: isMobile ? "0.8rem" : "0.875rem",
+                      }}
                     >
                       {isPaused ? "▶️ 재개" : "⏸️ 일시정지"}
                     </Button3D>
@@ -430,6 +455,10 @@ export function RecordingStage() {
                       size="small"
                       onClick={handleStopRecording}
                       disabled={!isRecording && !isPaused}
+                      style={{
+                        padding: isMobile ? "0.2rem 1.5rem" : "0.5rem 1.5rem",
+                        fontSize: isMobile ? "0.85rem" : "0.875rem",
+                      }}
                     >
                       ⏹️ 녹음 완료
                     </Button3D>
@@ -465,10 +494,13 @@ export function RecordingStage() {
                 </div>
 
                 {/* 녹음 시작 버튼 */}
-                <div className={styles.recordingContentReadyGridItem}>
+                <div
+                  className={styles.recordingContentReadyGridItem}
+                  style={{ overflow: "visible" }}
+                >
                   <Button3D
                     variant="main"
-                    size="medium"
+                    size="small"
                     onClick={handleStartRecording}
                   >
                     🔴 녹음 시작

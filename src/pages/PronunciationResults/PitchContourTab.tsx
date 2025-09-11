@@ -202,7 +202,7 @@ export function PitchContourTab({ userAudioUrl }: PitchContourTabProps) {
     <div className={styles.pitchContainer}>
       <div className={styles.pitchHeader}>
         <h3 className={styles.sectionTitle}>
-          <strong>📈 Pitch Contour (음정 변화)</strong>
+          <strong>Pitch Contour (음정 변화)</strong>
         </h3>
         <div className={styles.pitchInfo}>
           음성의 기본 주파수 변화를 시간에 따라 표시합니다

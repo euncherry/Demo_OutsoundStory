@@ -121,7 +121,7 @@ export const globalTheme = createTheme(vars, {
     accent2: "rgba(224, 240, 255, 1)",
     accent3: "rgba(240, 255, 224, 1)",
     background:
-      "linear-gradient(to bottom, rgba(255, 229, 241, 1), rgba(255, 240, 245, 1))",
+      "linear-gradient(to bottom,  rgba(255, 240, 245, 1) , rgba(240, 248, 255, 1))",
     backgroundGlass: "rgba(255, 255, 255, 0.85)",
     backgroundBlur: "rgba(230, 220, 255, 0.4)",
     backgroundCard: "rgba(255, 255, 255, 0.95)",
@@ -261,7 +261,7 @@ export const maleTheme = createTheme(vars, {
     accent2: "rgba(212, 240, 255, 1)",
     accent3: "rgba(255, 240, 247, 1)",
     background:
-      "linear-gradient(to bottom, rgba(240, 248, 255, 1), rgba(255, 245, 237, 1))",
+      "linear-gradient(to bottom,  rgba(255, 245, 237, 1) , rgba(240, 248, 255, 1))",
     backgroundGlass: "rgba(255, 255, 255, 0.88)",
     backgroundBlur: "rgba(200, 230, 255, 0.5)",
     backgroundCard: "rgba(255, 255, 255, 0.96)",

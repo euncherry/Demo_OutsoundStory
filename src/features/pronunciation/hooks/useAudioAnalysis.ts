@@ -500,11 +500,21 @@ export function useAudioAnalysis() {
 
       // 피드백 생성
       const feedback = [];
-      if (waveformScore < 70)
+      if (waveformScore < 70) {
         feedback.push("발화 강도와 리듬을 더 연습해보세요");
-      if (pitchScore < 70)
+      } else {
+        feedback.push("발화의 강약과 리듬감이 자연스럽게 표현되었네요.");
+      }
+      if (pitchScore < 70) {
         feedback.push("음정 패턴을 더 정확하게 따라해보세요");
-      if (spectrogramScore < 70) feedback.push("발음을 더 명확하게 해보세요");
+      } else {
+        feedback.push("억양의 높낮이가 원문과 유사하게 구현되었습니다.");
+      }
+      if (cerScore < 70) {
+        feedback.push("발음을 더 명확하게 해보세요");
+      } else {
+        feedback.push("발음이 명확하고 정확하게 구사되었습니다");
+      }
 
       setAnalysisResult({
         totalScore,

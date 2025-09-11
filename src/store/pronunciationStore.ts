@@ -94,6 +94,7 @@ export const usePronunciationStore = create<PronunciationState>()(
           currentStage: state.currentStage,
           standardAudioUrl: state.standardAudioUrl,
           recordedAudioBase64: state.recordedAudioBase64, // persist 대상 변경!
+          sttTranscript: state.sttTranscript,
         }),
       }
     ),

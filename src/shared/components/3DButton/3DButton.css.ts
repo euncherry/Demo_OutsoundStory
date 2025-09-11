@@ -29,7 +29,8 @@ export const button3D = style({
   ":disabled": {
     opacity: 0.5,
     cursor: "not-allowed",
-    transform: "translateY(0)",
+    // transform: "translateY(0)",
+    pointerEvents: "none",
   },
 });
 
@@ -54,6 +55,19 @@ export const main = style({
       0 4px 10px ${vars.colors.primaryDark},
       inset 0 -1px 3px ${vars.colors.primary},
       inset 0 1px 2px rgba(255, 255, 255, 0.8)
+    `,
+  },
+
+  ":disabled": {
+    opacity: 0.5,
+    cursor: "not-allowed",
+    // transform: "translateY(0)",
+    boxShadow: `
+      0 2px 0 color-mix(in srgb, ${vars.colors.primary} 30%, transparent),
+      0 3px 0 color-mix(in srgb, ${vars.colors.primary} 20%, transparent),
+      0 4px 10px ${vars.colors.shadow},
+      inset 0 -1px 3px color-mix(in srgb, ${vars.colors.primary} 15%, transparent),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4)
     `,
   },
 });
@@ -156,15 +170,15 @@ export const darkpink = style({
     inset 0 1px 2px rgba(255, 255, 255, 0.4)
   `,
 
-  ":hover": {
-    background: "linear-gradient(135deg, #ffd1dc, #ffa5c3, #e67a9f)",
+  ":disabled": {
+    opacity: 0.8,
+    cursor: "not-allowed",
+    color: `white`,
     boxShadow: `
-      0 5px 0 rgba(212, 102, 143, 0.6),
-      0 8px 0 rgba(212, 102, 143, 0.3),
-      0 12px 20px rgba(212, 102, 143, 0.3),
-      inset 0 -2px 5px rgba(212, 102, 143, 0.35),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5)
-    `,
+      0 2px 0 rgba(212, 102, 143, 0.6),
+      0 3px 0 rgba(212, 102, 143, 0.3),
+      0 4px 10px rgba(212, 102, 143, 0.25),
+      0 5px 10px rgba(212, 102, 143, 0.25),`,
   },
 
   ":active": {
@@ -183,6 +197,12 @@ export const small = style({
   padding: `${vars.spacing.sm} ${vars.spacing.lg}`,
   fontSize: vars.fontSize.sm,
   borderRadius: vars.borderRadius.md, // 8px
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: `2dvh 4dvw`,
+      fontSize: vars.fontSize.md,
+    },
+  },
 });
 
 export const medium = style({
@@ -193,6 +213,41 @@ export const medium = style({
 
 export const large = style({
   padding: `2dvh 4dvw`,
-  fontSize: vars.fontSize.lg,
+  fontSize: vars.fontSize.xl,
   borderRadius: vars.borderRadius.xl, // 24px
+});
+
+// 진한 보라색 버튼
+export const darkpurple = style({
+  background: "linear-gradient(135deg, #c8a2c8, #9b59b6, #663399)",
+  color: "white",
+  textShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+  boxShadow: `
+    0 8px 0 rgba(102, 51, 153, 0.6),
+    0 12px 0 rgba(102, 51, 153, 0.3),
+    0 16px 25px rgba(102, 51, 153, 0.25),
+    inset 0 -2px 5px rgba(102, 51, 153, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4)
+  `,
+
+  ":hover": {
+    background: "linear-gradient(135deg, #d4b5d4, #b07cc7, #7a4c9d)",
+    boxShadow: `
+      0 5px 0 rgba(102, 51, 153, 0.6),
+      0 8px 0 rgba(102, 51, 153, 0.3),
+      0 12px 20px rgba(102, 51, 153, 0.3),
+      inset 0 -2px 5px rgba(102, 51, 153, 0.35),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5)
+    `,
+  },
+
+  ":active": {
+    boxShadow: `
+      0 2px 0 rgba(102, 51, 153, 0.7),
+      0 3px 0 rgba(102, 51, 153, 0.4),
+      0 4px 10px rgba(102, 51, 153, 0.2),
+      inset 0 -1px 3px rgba(102, 51, 153, 0.4),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3)
+    `,
+  },
 });

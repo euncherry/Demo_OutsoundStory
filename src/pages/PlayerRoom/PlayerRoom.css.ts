@@ -114,8 +114,8 @@ export const playerName = style({
 export const avatarContainer = style({
   position: "relative",
   width: "95dvh", // 300px
-  height: "-30dvh", // 400px
-  bottom: "-30dvh",
+  // height: "-30dvh", // 400px
+  bottom: "-40dvh",
 });
 
 export const avatarWrapper = style({

@@ -78,6 +78,14 @@ export const modalContainer = style({
   zIndex: 1001,
   // overflow: 'hidden',
   overflowY: "auto",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      width: "90dvw",
+      height: "95dvh",
+      padding: "1rem",
+    },
+  },
 });
 
 // 닫기 버튼
@@ -141,12 +149,26 @@ export const stageTitle = style({
   WebkitTextFillColor: "transparent",
   paddingBottom: "0.5rem",
   // animation: `${float} 3s ease-in-out infinite`,
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.2rem",
+      paddingBottom: "0.3rem",
+    },
+  },
 });
 
 export const stageSubtitle = style({
   fontSize: "1.125rem",
   fontWeight: 300,
   color: "rgb(107 91 149)",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.9rem",
+    },
+  },
 });
 
 // PrepareStage 스타일
@@ -176,6 +198,13 @@ export const textDisplay = style({
       "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)",
     animation: `${shimmer} 3s infinite`,
   },
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "0.9rem",
+    },
+  },
 });
 
 export const choiceText = style({
@@ -185,6 +214,12 @@ export const choiceText = style({
   lineHeight: 1.8,
   position: "relative",
   zIndex: 1,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.2rem",
+    },
+  },
 });
 
 export const HeaderContainer = style({
@@ -201,6 +236,19 @@ export const settingContainer = style({
   flex: "2 1 0%",
 });
 
+export const settingContainerGrid = style({
+  display: "flex",
+  flexDirection: "row",
+  gap: "1rem",
+  flex: "2 1 0%",
+  // 🔥 모바일 세로형 반응형
+  "@media": {
+    "screen and (max-width: 450px)": {
+      flexDirection: "column",
+    },
+  },
+});
+
 export const footerContainer = style({
   display: "flex",
   flexDirection: "column",
@@ -208,6 +256,7 @@ export const footerContainer = style({
   alignItems: "center",
   justifyContent: "flex-end",
   flex: "1 1 0%",
+  height: "20dvh",
 });
 
 export const standardAudioSection = style({
@@ -221,6 +270,14 @@ export const standardAudioSection = style({
   justifyContent: "space-between",
   display: "flex",
   flexDirection: "column",
+  gap: "1rem",
+
+  "@media": {
+    "screen and (max-width: 950px)": {
+      height: "13rem",
+      padding: "1rem",
+    },
+  },
 });
 
 export const sectionTitle = style({
@@ -230,6 +287,12 @@ export const sectionTitle = style({
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "1.1rem",
+    },
+  },
 });
 
 export const waveformContainer = style({
@@ -290,6 +353,13 @@ export const micSection = style({
   boxShadow:
     "0 10px 1.5625rem rgba(230, 220, 255, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.8)",
   borderRadius: "1.25rem",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      height: "13rem",
+      padding: "1rem",
+    },
+  },
 });
 
 export const micContent = style({
@@ -313,6 +383,7 @@ export const micSelect = style({
   cursor: "pointer",
   transition: vars.transitions.normal,
   outline: "none",
+  borderColor: vars.colors.primary,
 
   ":focus": {
     borderColor: vars.colors.primary,
@@ -321,6 +392,14 @@ export const micSelect = style({
 
   ":hover": {
     borderColor: vars.colors.primaryLight,
+  },
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+      padding: "0.9rem 1rem",
+      borderColor: `#f0ebff`,
+    },
   },
 });
 
@@ -334,12 +413,25 @@ export const guideSection = style({
   textAlign: "center",
   border: "1px solid rgba(255, 200, 220, 0.5)",
   // height: "15rem",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      padding: "1rem",
+    },
+  },
 });
 
 export const guideText = style({
   color: "rgba(107, 91, 149, 0.8)",
   fontSize: "1rem",
   lineHeight: "1.5rem",
+
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 950px)": {
+      fontSize: "0.8rem",
+    },
+  },
 });
 
 // 액션 섹션
@@ -348,6 +440,12 @@ export const actionSection = style({
   justifyContent: "center",
   gap: "1.25rem",
   // marginTop: "auto",
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width: 450px)": {
+      flexDirection: "column",
+    },
+  },
 });
 
 export const startRecordButton = style({

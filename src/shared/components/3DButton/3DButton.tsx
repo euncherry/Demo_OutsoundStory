@@ -12,6 +12,7 @@ interface Button3DProps {
   disabled?: boolean;
   className?: string;
   type?: "button" | "submit" | "reset";
+  style?: React.CSSProperties;
 }
 
 export function Button3D({
@@ -23,6 +24,7 @@ export function Button3D({
   disabled = false,
   className,
   type = "button",
+  style,
 }: Button3DProps) {
   const getButtonClass = () => {
     const baseClass = styles.button3D;
@@ -45,6 +47,9 @@ export function Button3D({
       case "darkpink":
         variantClass = styles.darkpink;
         break;
+      case "darkpurple": // 새로 추가
+        variantClass = styles.darkpurple;
+        break;
       default:
         variantClass = styles.main;
     }
@@ -57,12 +62,17 @@ export function Button3D({
   };
 
   const getCustomStyle = () => {
-    if (!customSize) return {};
+    const customSizeStyle = customSize
+      ? {
+          width: customSize.width,
+          height: customSize.height,
+          padding: customSize.padding,
+        }
+      : {};
 
     return {
-      width: customSize.width,
-      height: customSize.height,
-      padding: customSize.padding,
+      ...customSizeStyle,
+      ...style,
     };
   };
 

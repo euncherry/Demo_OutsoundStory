@@ -41,12 +41,12 @@ export const backButton = style({
 
 export const setupCard = style({
   width: "100%",
-  maxWidth: "600px",
+  maxWidth: "37.5rem", // 600px = 37.5rem (600 ÷ 16)
+  padding: "2rem 3rem 0rem 3rem",
   background: vars.colors.backgroundGlass,
   backdropFilter: "blur(20px)",
-  border: `2px solid ${vars.colors.glassBorder}`,
+  // border: `2px solid ${vars.colors.glassBorder}`,
   borderRadius: vars.borderRadius.xl,
-  padding: vars.spacing.xxl,
   boxShadow: `0 20px 60px ${vars.colors.shadow}`,
   animation: `${fadeIn} 0.5s ease`,
 });
@@ -55,7 +55,7 @@ export const title = style({
   fontSize: vars.fontSize.xxl,
   fontWeight: vars.fontWeight.bold,
   textAlign: "center",
-  marginBottom: vars.spacing.xl,
+  paddingBottom: "1rem",
   // background: `linear-gradient(135deg, ${vars.colors.text}, ${vars.colors.secondaryDark})`,
   background: vars.colors.primaryDark,
   WebkitBackgroundClip: "text",
@@ -67,7 +67,7 @@ export const sectionTitle = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.semibold,
   textAlign: "center",
-  marginBottom: vars.spacing.lg,
+  paddingBottom: vars.spacing.lg,
   color: vars.colors.text,
 });
 
@@ -109,6 +109,7 @@ export const nameContainer = style({
   flexDirection: "column",
   alignItems: "center",
   gap: vars.spacing.lg,
+  width: "100%",
 });
 
 export const inputWrapper = style({
@@ -152,7 +153,7 @@ export const progressBar = style({
   height: "4px",
   background: vars.colors.backgroundCard,
   borderRadius: vars.borderRadius.full,
-  marginTop: vars.spacing.xl,
+  marginTop: "5rem",
   overflow: "hidden",
 });
 

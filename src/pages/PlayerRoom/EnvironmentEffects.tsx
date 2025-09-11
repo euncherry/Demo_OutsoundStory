@@ -88,7 +88,7 @@ export function EnvironmentEffects() {
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 30 + 60}%`,
+              left: `${Math.random() * 100}%`,
             }}
           />
         ))}

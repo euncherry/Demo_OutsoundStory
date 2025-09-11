@@ -97,7 +97,10 @@ export function DetailAnalysis({ npcId }: DetailAnalysisProps) {
     <div className={styles.detailPanel}>
       {/* 📊 세부 분석 */}
       <div className={styles.scoreSection}>
-        <h3 className={styles.detailTitle}>📊 세부 분석</h3>
+        <h3 className={styles.detailTitle}>
+          {" "}
+          <strong>📊 세부 분석</strong>
+        </h3>
 
         {/* 음정 정확도 */}
         <div className={styles.scoreItem}>

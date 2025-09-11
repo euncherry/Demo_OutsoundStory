@@ -130,7 +130,7 @@ export function SpectrogramTab({ userAudioUrl }: SpectrogramTabProps) {
       <div className={styles.spectrogramHeader}>
         <h3 className={styles.sectionTitle}>
           {" "}
-          <strong>📊 Spectrogram Analysis</strong>
+          <strong>Spectrogram Analysis</strong>
         </h3>
         <div className={styles.spectrogramInfo}>
           음성의 주파수 패턴을 시각적으로 비교합니다

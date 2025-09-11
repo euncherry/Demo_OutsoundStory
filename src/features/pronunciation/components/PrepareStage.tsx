@@ -6,6 +6,7 @@ import { usePronunciationStore } from "@/store/pronunciationStore";
 import { useAudioRecorder } from "../hooks/useAudioRecorder";
 import { Button } from "@/shared/components/Button";
 import * as styles from "./PronunciationModal.css";
+import { Button3D } from "@/shared/components/3DButton";
 
 export function PrepareStage() {
   const { currentContext, setCurrentStage } = usePronunciationStore();
@@ -103,7 +104,10 @@ export function PrepareStage() {
 
       {/* 메인 컨텐츠 영역 */}
       <div className={styles.settingContainer}>
-        <div style={{ display: "flex", gap: "1.25rem" }}>
+        <div
+          className={styles.settingContainerGrid}
+          // style={{ display: "flex", gap: "1.25rem" }}
+        >
           {/* 왼쪽: 표준 음성 영역 */}
           <motion.div
             className={styles.standardAudioSection}
@@ -213,55 +217,26 @@ export function PrepareStage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
-          <Button
-            variant="love"
-            size="xlarge"
+          <Button3D
+            variant="darkpink"
+            size="small"
             onClick={handleStartRecording}
             disabled={!hasListened}
-            icon="🎙️"
-            iconPosition="right"
+            style={{
+              height: "4rem",
+              padding: "0.5rem 1.5rem",
+              fontSize: "1rem",
+              width: "48dvw",
+            }}
           >
             {hasListened ? "녹음 시작하기" : "먼저 표준 발음을 들어주세요"}
-          </Button>
-        </motion.div>
+          </Button3D>
 
-        {/* 진행 상태 표시 */}
-        <motion.div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "8px",
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-        >
-          <div
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: hasListened
-                ? "linear-gradient(135deg, #d4668f, #9b7eb0)"
-                : "rgba(230, 220, 255, 0.3)",
-            }}
-          />
-          <div
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "rgba(230, 220, 255, 0.3)",
-            }}
-          />
-          <div
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: "rgba(230, 220, 255, 0.3)",
-            }}
-          />
+          {!hasListened && (
+            <Button3D variant="sub" size="small" onClick={handleStartRecording}>
+              녹음 시작하기
+            </Button3D>
+          )}
         </motion.div>
       </div>
     </motion.div>
