@@ -177,7 +177,7 @@ export const moodContainer = style({
   border: "1px solid rgba(255, 255, 255, 0.1)",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       left: "2rem",
       top: "35%",
     },

@@ -67,8 +67,7 @@ export function DetailAnalysis({ npcId }: DetailAnalysisProps) {
       mihyun: {
         high: "정말 정확한 발음이네요... \n 대단해요. 놀랐어요.",
         medium: "나쁘지 않아요. \n 조금만 더 다듬으면 완벽해질 것 같아요.",
-        low:
-          "아직... 조금 부족한 부분이 보이네요.\n  연습이 더 필요할 것 같아요.",
+        low: "아직... 조금 부족한 부분이 보이네요.\n  연습이 더 필요할 것 같아요.",
       },
       sunhwa: {
         high: "어머~ 오빠 발음 완전 끝내주네? \n 내가 감동했잖아!",
@@ -159,7 +158,7 @@ export function DetailAnalysis({ npcId }: DetailAnalysisProps) {
               whiteSpace: "pre-line",
             }}
           >
-            {getNPCReaction(npcId, analysisResult?.totalScore || 0)}
+            "{getNPCReaction(npcId, analysisResult?.totalScore || 0)}"
           </div>
         </div>
       </div>

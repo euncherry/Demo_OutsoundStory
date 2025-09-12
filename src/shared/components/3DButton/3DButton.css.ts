@@ -198,7 +198,7 @@ export const small = style({
   fontSize: vars.fontSize.sm,
   borderRadius: vars.borderRadius.md, // 8px
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: `2dvh 4dvw`,
       fontSize: vars.fontSize.md,
     },

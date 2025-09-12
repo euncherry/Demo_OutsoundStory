@@ -80,7 +80,7 @@ export const modalContainer = style({
   overflowY: "auto",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       width: "90dvw",
       height: "95dvh",
       padding: "1rem",
@@ -152,7 +152,7 @@ export const stageTitle = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.2rem",
       paddingBottom: "0.3rem",
     },
@@ -165,7 +165,7 @@ export const stageSubtitle = style({
   color: "rgb(107 91 149)",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.9rem",
     },
   },
@@ -201,7 +201,7 @@ export const textDisplay = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.9rem",
     },
   },
@@ -216,7 +216,7 @@ export const choiceText = style({
   zIndex: 1,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.2rem",
     },
   },
@@ -273,7 +273,7 @@ export const standardAudioSection = style({
   gap: "1rem",
 
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       height: "13rem",
       padding: "1rem",
     },
@@ -289,7 +289,7 @@ export const sectionTitle = style({
   gap: "0.5rem",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.1rem",
     },
   },
@@ -355,7 +355,7 @@ export const micSection = style({
   borderRadius: "1.25rem",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       height: "13rem",
       padding: "1rem",
     },
@@ -395,7 +395,7 @@ export const micSelect = style({
   },
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
       padding: "0.9rem 1rem",
       borderColor: `#f0ebff`,
@@ -415,7 +415,7 @@ export const guideSection = style({
   // height: "15rem",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "1rem",
     },
   },
@@ -428,7 +428,7 @@ export const guideText = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
     },
   },

@@ -84,7 +84,7 @@ export const title = style({
   marginBottom: vars.spacing.sm,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.3rem",
     },
   },
@@ -109,7 +109,7 @@ export const horizontalScrollWrapper = style({
   overflow: "hidden",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: `1rem 1rem 1.5rem 1rem`,
     },
   },
@@ -125,7 +125,7 @@ export const horizontalGridContainer = style({
   padding: "3rem 3rem 2rem 3rem",
   userSelect: "none",
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       gap: vars.spacing.lg,
       height: "auto",
       paddingLeft: "5%",
@@ -141,7 +141,7 @@ export const cardWrapper = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       width: "17.5rem", // 280px
       height: "23.75rem", // 380px
     },
@@ -226,7 +226,7 @@ export const lockIcon = style({
   },
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.5rem 1rem",
     },
   },
@@ -306,7 +306,7 @@ export const npcName = style({
   marginBottom: vars.spacing.xs,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.2rem",
     },
   },
@@ -318,7 +318,7 @@ export const npcAge = style({
   marginBottom: vars.spacing.xs,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
     },
   },
@@ -330,7 +330,7 @@ export const npcOccupation = style({
   marginBottom: vars.spacing.sm,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
     },
   },
@@ -342,7 +342,7 @@ export const npcIntro = style({
   lineHeight: 1.6,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
     },
   },

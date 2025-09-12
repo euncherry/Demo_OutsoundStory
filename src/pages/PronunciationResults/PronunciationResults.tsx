@@ -12,7 +12,7 @@ import * as styles from "./ResultsStage.css";
 import { useMediaQuery } from "@/shared/hooks/useMediaQuery"; // 또는 "@/hooks"
 
 export function PronunciationResults() {
-  const isMobile = useMediaQuery("(max-width: 950px)");
+  const isMobile = useMediaQuery("(max-width:  950px)");
 
   const navigate = useNavigate();
   const {

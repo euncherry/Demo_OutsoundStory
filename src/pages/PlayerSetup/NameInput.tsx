@@ -15,7 +15,7 @@ export function NameInput({ onSubmit, initialName = "" }: NameInputProps) {
 
   const [name, setName] = useState(initialName);
   const [error, setError] = useState("");
-  const isMobile = useMediaQuery("(max-width: 950px)");
+  const isMobile = useMediaQuery("(max-width:  950px)");
   const handleSubmit = () => {
     if (name.trim().length > 10) {
       setError("이름은 10자 이하로 입력해주세요");

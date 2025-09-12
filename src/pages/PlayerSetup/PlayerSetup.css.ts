@@ -40,7 +40,7 @@ export const backButton = style({
   },
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       top: "1rem",
       left: "0.5rem",
     },
@@ -59,7 +59,7 @@ export const setupCard = style({
   animation: `${fadeIn} 0.5s ease`,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "1rem 1rem 0rem 1rem",
       width: "70dvw",
     },
@@ -79,7 +79,7 @@ export const title = style({
   backgroundClip: "text",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1.3rem",
       paddingBottom: "0.5rem",
     },
@@ -93,7 +93,7 @@ export const sectionTitle = style({
   color: vars.colors.text,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "1rem",
     },
   },
@@ -140,7 +140,7 @@ export const nameContainer = style({
   width: "100%",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       gap: "1rem",
     },
   },
@@ -175,7 +175,7 @@ export const nameInput = style({
   },
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.5rem 1rem",
     },
   },
@@ -197,7 +197,7 @@ export const progressBar = style({
   overflow: "hidden",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       marginTop: "1rem",
     },
   },

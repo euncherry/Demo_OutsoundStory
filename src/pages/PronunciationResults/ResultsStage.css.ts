@@ -13,7 +13,7 @@ globalStyle("body.pronunciation-results", {
   padding: 0,
 
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       background:
         "linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgb(245 240 255))",
     },
@@ -36,7 +36,8 @@ export const resultsContainer = style({
 });
 
 export const resultsHeader = style({
-  height: "20dvh",
+  height: "auto",
+  minHeight: "20dvh",
   padding: "1.2rem",
   textAlign: "center",
   background: "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
@@ -48,9 +49,9 @@ export const resultsHeader = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       height: "auto",
-      minHeight: "30dvh",
+      minHeight: "40dvh",
       padding: "1rem 0.8rem",
     },
   },
@@ -64,7 +65,7 @@ export const resultsTitle = style({
   width: "100%",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       // display: "none",
     },
   },
@@ -111,7 +112,7 @@ export const sentenceItem = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.3rem",
     },
   },
@@ -130,7 +131,7 @@ export const sentenceText = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       // minHeight: "1.2em",
       minHeight: "1em",
       fontSize: "0.85rem",
@@ -155,7 +156,7 @@ export const sentenceLabel = style({
   border: "1px solid rgba(212, 102, 143, 0.2)",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.7rem",
     },
   },
@@ -168,8 +169,9 @@ export const resultsContent = style({
   overflowY: "auto",
   gap: vars.spacing.lg,
   padding: vars.spacing.lg,
+  contain: "layout", // ✅ 렌더링 최적화
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       flexDirection: "column",
       padding: "0.8rem",
       gap: "1rem",
@@ -181,19 +183,26 @@ export const resultsContent = style({
 export const comparisonSection = style({
   flex: "0 0 65%",
   minWidth: "50dvw",
+
   background:
     "linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 250, 0.85))",
   borderRadius: "20px",
-  // overflow: "hidden",
+  overflow: "visible", // ✅ hidden 대신 visible
+  position: "relative", // ✅ positioning context 명확히
   border: "1px solid rgba(255, 255, 255, 0.95)",
-  backdropFilter: "blur(10px)",
   boxShadow:
     "0 10px 30px rgba(230, 220, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+  "@media": {
+    "screen and (max-width:  950px)  ": {
+      flex: "0",
+    },
+  },
 });
 
 export const detailSection = style({
   flex: "0 0 30%",
-  height: "100%",
+  height: "auto",
+  overflowY: "auto",
   borderRadius: vars.borderRadius.lg,
   padding: vars.spacing.lg,
   background:
@@ -205,8 +214,10 @@ export const detailSection = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
-      flex: "0 0 15%",
+    "screen and (max-width:  950px) ": {
+      flex: "0",
+      height: "auto",
+      overflowY: "visible",
     },
   },
 });
@@ -214,15 +225,17 @@ export const detailSection = style({
 export const actionButtons = style({
   display: "flex",
   height: "8dvh",
+  minHeight: "10dvh",
+  height: "auto",
   justifyContent: "center",
   gap: vars.spacing.lg,
   padding: vars.spacing.md,
   borderTop: `1px solid ${vars.colors.glassBorder}`,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
-      flex: 0,
-      height: "25dvh",
+    "screen and (max-width:  950px) ": {
+      height: "auto",
+      minHeight: "15dvh",
     },
   },
 });
@@ -238,13 +251,16 @@ export const tabsContainer = style({
 
 export const tabsHeader = style({
   display: "flex",
-  position: "static",
-  // padding: "5px",
+  position: "relative", // ✅ static → relative로 변경
   background:
     "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 250, 250, 0.7))",
   borderRadius: "15px 15px 0 0",
   backdropFilter: "blur(10px)",
   boxShadow: `rgba(0, 0, 0, 0.07) 0px 3px 4px 0px`,
+  // 추가 안정성을 위한 속성들
+  transform: "translateZ(0)", // ✅ GPU 가속 활성화
+  willChange: "transform", // ✅ 브라우저 최적화 힌트
+  isolation: "isolate", // ✅ 새로운 stacking context 생성
 });
 
 export const tabButton = style({
@@ -309,8 +325,8 @@ export const detailPanel = style({
   // gap: vars.spacing.xl,
   height: "100%",
   "@media": {
-    "screen and (max-width: 950px)": {
-      flexDirection: "row",
+    "screen and (max-width:  950px)  ": {
+      flexDirection: "column",
       gap: "2dvh",
     },
   },
@@ -330,7 +346,7 @@ export const detailTitle = style({
 export const scoreItem = style({
   marginBottom: vars.spacing.md,
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       background: `linear-gradient(135deg, rgba(200, 255, 214, 0.3),rgba(243, 237, 255, 0.35), rgba(255, 255, 255, 0.8) )`,
       borderRadius: `12px`,
       borderLeft: `5px solid rgba(200, 255, 214, 1)`,
@@ -376,7 +392,9 @@ export const feedbackSection = style({
   // gap: vars.spacing.md,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
+      flexDirection: "row",
+      height: "69dvh",
       minHeight: "40dvh",
       background:
         "linear-gradient(135deg, rgba(255, 224, 236, 0.3), rgba(255, 255, 255, 0.8))",
@@ -430,7 +448,8 @@ export const reactionIcon = style({
 
 export const reactionLabel = style({
   fontSize: vars.fontSize.md,
-  color: vars.colors.textSecondary,
+  fontWeight: vars.fontWeight.bold,
+  color: vars.colors.textTertiary,
 });
 
 export const reactionText = style({
@@ -447,7 +466,7 @@ export const spectrogramContainer = style({
   height: "100%",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       height: "auto",
       gap: "0",
     },
@@ -607,7 +626,7 @@ export const pitchContainer = style({
   height: "600px",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       height: "auto",
     },
   },
@@ -931,7 +950,7 @@ export const spectrogramHeader = style({
   border: "1px solid rgba(255, 253, 231, 0.5)",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.8rem",
     },
   },
@@ -959,22 +978,20 @@ export const backButton = style({
   zIndex: 10,
 });
 
-// export const resultsContainer = style({
-//   maxWidth: "1400px",
-//   margin: "0 auto",
-//   background: "rgba(255, 255, 255, 0.95)",
-//   borderRadius: vars.borderRadius.xl,
-//   padding: vars.spacing.xxl,
-//   marginTop: "80px", // 뒤로가기 버튼 공간 확보
-// });
 export const imageWrapper = style({
   position: "relative",
   width: "100%",
-  height: "10rem",
+  height: "100%",
   marginBottom: vars.spacing.md,
   overflow: "hidden",
   borderRadius: vars.borderRadius.md,
   pointerEvents: "none",
+  //🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width:  950px) ": {
+      width: "50%",
+    },
+  },
 });
 
 export const profileImage = style({
@@ -983,4 +1000,10 @@ export const profileImage = style({
   objectFit: "cover",
   backgroundPosition: "top" /* 또는 left top */,
   transition: vars.transitions.normal,
+  //🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width:  950px) ": {
+      transform: `scale(0.8)`,
+    },
+  },
 });

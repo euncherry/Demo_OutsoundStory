@@ -12,7 +12,7 @@ import micIconLarge from "/assets/ui/decorations/micIcon.png";
 import { useMediaQuery } from "@/shared/hooks/useMediaQuery"; // 또는 "@/hooks"
 
 export function RecordingStage() {
-  const isMobile = useMediaQuery("(max-width: 950px)");
+  const isMobile = useMediaQuery("(max-width:  950px)");
 
   const {
     setCurrentStage,
@@ -189,9 +189,9 @@ export function RecordingStage() {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes
+    return `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}`;
   };
 
   const handleStopRecording = () => {

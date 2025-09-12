@@ -39,7 +39,7 @@ export const dialogueContainer = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       // marginBottom: "1rem",
     },
   },
@@ -73,7 +73,7 @@ export const dialogueBox = style({
   marginBottom: "5dvw",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       width: "80dvw",
       minHeight: "7rem",
       height: "auto",
@@ -110,7 +110,7 @@ export const monologueBox = style({
   marginBottom: "5dvw",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       marginBottom: "4rem",
     },
   },
@@ -133,7 +133,7 @@ export const narrationBox = style({
   marginBottom: "5dvw",
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "3rem 1rem",
       marginBottom: "1rem",
     },
@@ -166,7 +166,7 @@ export const characterContainer = style({
   zIndex: 50,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       bottom: "-115dvh",
       height: "210dvh",
     },
@@ -183,7 +183,7 @@ export const malePlayercharacterContainer = style({
   zIndex: 50,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       bottom: "-61dvh",
       height: "163dvh",
       width: "49dvw",

@@ -41,7 +41,7 @@ export const recordingContentGrid = style({
   boxSizing: "border-box", // 패딩 포함한 크기 계산
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       gap: "3dvh",
     },
   },
@@ -58,7 +58,7 @@ export const recordingContentReadyGridItem = style({
   overflow: "hidden", // 넘치는 내용 숨김
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       width: "auto",
     },
   },
@@ -181,7 +181,7 @@ export const sttStatus = style({
   gap: `0.5rem`,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       flexDirection: `row`,
     },
   },
@@ -196,7 +196,7 @@ export const sttHeader = style({
   fontWeight: `500`,
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       flexDirection: `column`,
     },
   },
@@ -230,7 +230,7 @@ export const recordingIndicator = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       padding: "0.2rem 0.8rem",
     },
   },
@@ -243,7 +243,7 @@ export const recordingStatus = style({
 
   // 🔥 모바일 반응형
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "0.8rem",
     },
   },

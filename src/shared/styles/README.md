@@ -117,7 +117,7 @@ export const myContainer = style(spacing.responsive); // 모바일에서 작게,
 export const oldStyle = style({
   fontSize: "16px",
   "@media": {
-    "screen and (max-width: 950px)": {
+    "screen and (max-width:  950px)  ": {
       fontSize: "14px",
     },
     "screen and (max-width: 480px)": {
