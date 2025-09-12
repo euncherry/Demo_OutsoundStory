@@ -224,7 +224,6 @@ export const detailSection = style({
 
 export const actionButtons = style({
   display: "flex",
-  height: "8dvh",
   minHeight: "10dvh",
   height: "auto",
   justifyContent: "center",
