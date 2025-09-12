@@ -71,7 +71,6 @@ export const dialogueBox = style({
   padding: vars.spacing.lg,
   boxShadow: `0 10px 40px ${vars.colors.shadow}`,
   marginBottom: "5dvw",
-  height: `auto`,
   // 🔥 모바일 반응형
   "@media": {
     "screen and (max-width: 950px)": {

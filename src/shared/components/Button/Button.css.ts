@@ -164,7 +164,6 @@ export const button = recipe({
 
         background: vars.colors.choiceBackground,
         border: `2px solid ${vars.colors.choiceBorder}`,
-        border: `2px solid transparent`,
         borderRadius: `1.2rem`,
         padding: `1.5rem 2rem`,
         cursor: `pointer`,

@@ -238,7 +238,7 @@ export const tabsContainer = style({
 
 export const tabsHeader = style({
   display: "flex",
-  position: "relative",
+  position: "static",
   // padding: "5px",
   background:
     "linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 250, 250, 0.7))",
