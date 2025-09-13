@@ -8,6 +8,11 @@ import { persist, devtools } from "zustand/middleware";
 import { Gender } from "@/types/character.types";
 
 /**
+ * 지원 언어 타입 정의
+ */
+export type Language = "ko" | "en";
+
+/**
  * 플레이어 상태 인터페이스
  * 게임 내 플레이어의 모든 정보를 관리
  */
@@ -20,8 +25,8 @@ interface PlayerState {
   /** 플레이어가 선택한 성별 ('male' | 'female' | null) */
   gender: Gender | null;
 
-  /** 플레이어 아바타 이미지 경로 또는 URL */
-  avatar: string;
+  /** 게임 언어 설정 ('ko' | 'en') */
+  language: Language;
 
   /** 캐릭터 생성 시간 (세이브 파일 관리용) */
   createdAt: Date | null;
@@ -36,11 +41,10 @@ interface PlayerState {
   setPlayerInfo: (info: { name: string; gender: Gender }) => void;
 
   /**
-   * 아바타 이미지 설정
-   * 추후 아바타 커스터마이징 기능 추가 시 사용
-   * @param avatar - 아바타 이미지 경로
+   * 언어 설정 변경
+   * @param language - 변경할 언어 ('ko' | 'en')
    */
-  setAvatar: (avatar: string) => void;
+  setLanguage: (language: Language) => void;
 
   /**
    * 플레이어 정보 초기화
@@ -48,6 +52,15 @@ interface PlayerState {
    */
   resetPlayer: () => void;
 }
+
+/**
+ * 브라우저 언어 감지 헬퍼 함수
+ * 사용자 브라우저 설정에 따라 초기 언어 결정
+ */
+const getDefaultLanguage = (): Language => {
+  const browserLang = navigator.language.toLowerCase();
+  return browserLang.startsWith("ko") ? "ko" : "en";
+};
 
 /**
  * 플레이어 스토어 생성
@@ -62,7 +75,7 @@ export const usePlayerStore = create<PlayerState>()(
         // ===== 초기 상태값 =====
         name: "", // 빈 문자열로 초기화
         gender: null, // 성별 미선택 상태
-        avatar: "", // 아바타 미설정 상태
+        language: getDefaultLanguage(), // 브라우저 언어 기반 초기값
         createdAt: null, // 캐릭터 미생성 상태
 
         // ===== 액션 구현 =====
@@ -84,29 +97,31 @@ export const usePlayerStore = create<PlayerState>()(
           ),
 
         /**
-         * 아바타 설정 액션
-         * - 아바타 이미지만 개별적으로 업데이트
+         * 언어 설정 변경 액션
+         * - 게임 내 모든 텍스트 언어 전환
+         * - 로컬스토리지에 자동 저장되어 다음 접속 시에도 유지
          */
-        setAvatar: (avatar) =>
+        setLanguage: (language) =>
           set(
-            { avatar },
+            { language },
             false,
-            "player/setAvatar" // Redux DevTools 액션 이름
+            "player/setLanguage" // Redux DevTools 액션 이름
           ),
 
         /**
          * 플레이어 초기화 액션
          * - 모든 플레이어 정보를 초기값으로 리셋
          * - 새 게임 시작 시 기존 데이터 클리어용
+         * - 언어 설정은 유지 (사용자 선호도 존중)
          */
         resetPlayer: () =>
           set(
-            {
+            (state) => ({
               name: "",
               gender: null,
-              avatar: "",
               createdAt: null,
-            },
+              language: state.language, // 언어 설정은 유지
+            }),
             false,
             "player/resetPlayer" // Redux DevTools 액션 이름
           ),
@@ -147,6 +162,8 @@ if (process.env.NODE_ENV === "development") {
     "color: #FF6B9D; font-weight: bold;",
     "\n- Redux DevTools: ✅",
     "\n- LocalStorage: ✅",
-    "\n- Console Access: window.playerStore"
+    "\n- Console Access: window.playerStore",
+    "\n- Default Language:",
+    getDefaultLanguage()
   );
 }

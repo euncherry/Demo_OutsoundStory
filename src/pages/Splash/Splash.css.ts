@@ -227,3 +227,49 @@ export const subtitle = style({
   textAlign: "center",
   width: "min(80%, 800px)",
 });
+
+// Splash.css.ts에 추가
+export const slideSwitch = style({
+  width: "9.75rem", // 156px (120px * 1.3)
+  height: "3.25rem", // 52px (40px * 1.3)
+  background: "#f0f0f0",
+  borderRadius: "1.625rem", // 26px (20px * 1.3)
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  padding: "0.24375rem", // 3.9px (3px * 1.3)
+  boxShadow: "inset 0 0.1625rem 0.8125rem rgba(0, 0, 0, 0.1)", // 0 2.6px 13px
+});
+
+export const slideTrack = style({
+  position: "absolute",
+  width: "4.3875rem", // 70.2px (54px * 1.3)
+  height: "2.7625rem", // 44.2px (34px * 1.3)
+  background: "linear-gradient(135deg, #FFB3D9, #E6B3FF)",
+  borderRadius: "1.38125rem", // 22.1px (17px * 1.3)
+  left: "0.24375rem", // 3.9px (3px * 1.3)
+  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+  boxShadow: "0 0.325rem 1.21875rem rgba(255, 179, 217, 0.4)", // 0 5.2px 19.5px
+});
+
+export const slideTrackEnglish = style({
+  left: "5.11875rem", // 81.9px (63px * 1.3)
+  background: "linear-gradient(135deg,rgb(88, 197, 255),rgb(89, 252, 198))",
+  boxShadow: "0 0.325rem 1.21875rem rgba(179, 229, 255, 0.4)", // 0 5.2px 19.5px
+});
+
+export const slideLabel = style({
+  flex: 1,
+  textAlign: "center",
+  zIndex: 1,
+  fontWeight: 600,
+  transition: "all 0.3s ease",
+  cursor: "pointer",
+  fontSize: "1.1375rem", // 18.2px (14px * 1.3)
+  color: "#999",
+  userSelect: "none",
+});
+
+export const slideLabelActive = style({
+  color: "white",
+});

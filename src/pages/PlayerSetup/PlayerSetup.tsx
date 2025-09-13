@@ -21,6 +21,7 @@ export function PlayerSetup() {
     setSelectedGender(gender);
     // 성별 선택 시 테마 변경
     setTheme(gender);
+
     lockTheme(); // 테마 잠금
 
     // 애니메이션 후 이름 입력으로 전환
