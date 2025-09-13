@@ -122,7 +122,7 @@ export function CharacterSprite({
               alt={`${characterData.name} ${emotion}`}
               className={styles.characterFull}
               layoutId={`${characterData.name}-face`} // 공통 layoutId
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
