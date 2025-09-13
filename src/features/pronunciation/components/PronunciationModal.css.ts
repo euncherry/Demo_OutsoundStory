@@ -423,7 +423,8 @@ export const guideSection = style({
 
 export const guideText = style({
   color: "rgba(107, 91, 149, 0.8)",
-  fontSize: "1rem",
+  fontSize: vars.fontSize.sm,
+
   lineHeight: "1.5rem",
 
   // 🔥 모바일 반응형
