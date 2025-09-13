@@ -331,6 +331,7 @@ export const comboContainer = style({
 });
 
 export const comboBtn = style({
+  zIndex: 100,
   background: `rgba(255, 255, 255, 0.3)`,
   color: `${vars.colors.primaryDark}`,
   padding: `0.5rem 0.7rem`,

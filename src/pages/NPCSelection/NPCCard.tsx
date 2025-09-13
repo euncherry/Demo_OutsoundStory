@@ -2,7 +2,30 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { NPCData } from "@/data/npcs/npcData";
+import { usePlayerStore } from "@/store/playerStore";
 import * as styles from "./NPCSelection.css";
+
+// 언어별 UI 텍스트
+const texts = {
+  ko: {
+    age: "세",
+    unlockHints: {
+      kanghyuk: "서도진의 스토리를 완료하면 해금됩니다",
+      gaeul: "다른 캐릭터를 먼저 만나보세요",
+      default: "조건을 달성하면 해금됩니다",
+    },
+    secretPlay: "몰래 먼저 플레이",
+  },
+  en: {
+    age: " years old",
+    unlockHints: {
+      kanghyuk: "Complete Seo Dojin's story to unlock",
+      gaeul: "Meet other characters first",
+      default: "Complete conditions to unlock",
+    },
+    secretPlay: "Play secretly",
+  },
+};
 
 interface NPCCardProps {
   npc: NPCData;
@@ -19,6 +42,12 @@ export function NPCCard({
 }: //Anchor : 해금
 // isLocked = false,
 NPCCardProps) {
+  const { language } = usePlayerStore();
+  const t = texts[language];
+
+  // 현재 언어에 맞는 NPC 텍스트 데이터
+  const npcText = npc[language];
+
   const isKanghyuk = useMemo(() => npc.id === "kanghyuk", [npc.id]);
   const isGaeul = useMemo(() => npc.id === "gaeul", [npc.id]);
   const isSpecialNPC = useMemo(() => isKanghyuk || isGaeul, [
@@ -31,12 +60,12 @@ NPCCardProps) {
   // 잠금 해제 조건 메시지
   const getUnlockHint = () => {
     if (npc.id === "kanghyuk") {
-      return "서도진의 스토리를 완료하면 해금됩니다";
+      return t.unlockHints.kanghyuk;
     }
     if (npc.id === "gaeul") {
-      return "다른 캐릭터를 먼저 만나보세요";
+      return t.unlockHints.gaeul;
     }
-    return "조건을 달성하면 해금됩니다";
+    return t.unlockHints.default;
   };
 
   const handleClick = (e: React.MouseEvent) => {
@@ -57,6 +86,7 @@ NPCCardProps) {
     console.log("dfjhkalefklanelfalwsnkef secret", npc.id);
     onSelect(npc.id);
   };
+
   return (
     <motion.div
       className={`${styles.npcCard} ${isSpecialNPC ? styles.mysteryCard : ""}`}
@@ -94,7 +124,7 @@ NPCCardProps) {
       <div className={styles.imageWrapper}>
         <img
           src={npc.profileImage}
-          alt={npc.nameKo}
+          alt={npcText.name}
           className={styles.profileImage}
         />
         {isSpecialNPC && <div className={styles.hologramOverlay} />}
@@ -102,7 +132,7 @@ NPCCardProps) {
 
       {/* 캐릭터 정보 */}
       <div className={styles.cardInfo}>
-        <h3 className={styles.npcName}>{npc.nameKo}</h3>
+        <h3 className={styles.npcName}>{npcText.name}</h3>
         <motion.div
           key={`${npc.id}-${index}`}
           initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
@@ -170,12 +200,12 @@ NPCCardProps) {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <p className={styles.npcOccupation}>{npc.occupation}</p>
+                    <p className={styles.npcOccupation}>{npcText.occupation}</p>
                     <p
                       className={styles.secretPlayButton}
                       onClick={handleSecretClick}
                     >
-                      몰래 먼저 플레이
+                      {t.secretPlay}
                     </p>
                   </motion.div>
                 </motion.div>
@@ -202,7 +232,8 @@ NPCCardProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.3 }}
               >
-                {npc.age}세
+                {npc.age}
+                {language === "ko" ? "세" : t.age}
               </motion.p>
               <motion.p
                 className={styles.npcOccupation}
@@ -210,7 +241,7 @@ NPCCardProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.3 }}
               >
-                {npc.occupation}
+                {npcText.occupation}
               </motion.p>
               <motion.p
                 className={styles.npcIntro}
@@ -218,7 +249,7 @@ NPCCardProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.3 }}
               >
-                {npc.introduction}
+                {npcText.introduction}
               </motion.p>
             </motion.div>
           )}

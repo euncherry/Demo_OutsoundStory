@@ -3,16 +3,27 @@ import { usePlayerStore } from "@/store";
 
 export interface NPCData {
   id: string;
-  name: string;
-  nameKo: string;
   age: number | string;
-  occupation: string;
-  personality: string;
-  introduction: string;
+
+  // 언어별 텍스트 데이터
+  ko: {
+    name: string;
+    occupation: string;
+    personality: string;
+    introduction: string;
+  };
+  en: {
+    name: string;
+    occupation: string;
+    personality: string;
+    introduction: string;
+  };
+
+  // 언어 무관 공통 데이터
   profileImage: string;
   voiceType: string;
   themeColor: string;
-  dialogueTextColor: string; // 대화 텍스트 전용 색상
+  dialogueTextColor: string;
   emotions: {
     normal?: string;
     happy?: string;
@@ -53,12 +64,19 @@ const getNPCEmotions = (id: string, gender: "male" | "female") => ({
 const femaleNpcData: Record<string, NPCData> = {
   mihyun: {
     id: "mihyun",
-    name: "Lee Mihyun",
-    nameKo: "이미현",
     age: 24,
-    occupation: "도서관 사서",
-    personality: "차분하고 지적이지만 숨겨진 열정이 있음",
-    introduction: "조용한 도서관 사서 뒤에 반전매력의 소유자",
+    ko: {
+      name: "이미현",
+      occupation: "도서관 사서",
+      personality: "차분하고 지적이지만 숨겨진 열정이 있음",
+      introduction: "조용한 도서관 사서 뒤에 반전매력의 소유자",
+    },
+    en: {
+      name: "Lee Mihyun",
+      occupation: "Librarian",
+      personality: "Calm and intellectual with hidden passion",
+      introduction: "A quiet librarian with surprising charm",
+    },
     profileImage: getNPCProfileImagePath("mihyun", "female"),
     emotions: getNPCEmotions("mihyun", "female"),
     voiceType: "bright",
@@ -67,12 +85,19 @@ const femaleNpcData: Record<string, NPCData> = {
   },
   yujin: {
     id: "yujin",
-    name: "Park Yujin",
-    nameKo: "유진",
     age: 23,
-    occupation: "PC방 알바생",
-    personality: "정의감 넘치고 활발하지만 거친 면도 있음",
-    introduction: "진상들을 물리치는 pc방 알바생",
+    ko: {
+      name: "유진",
+      occupation: "PC방 알바생",
+      personality: "정의감 넘치고 활발하지만 거친 면도 있음",
+      introduction: "진상들을 물리치는 pc방 알바생",
+    },
+    en: {
+      name: "Park Yujin",
+      occupation: "PC Cafe Part-timer",
+      personality: "Righteous and lively with a rough edge",
+      introduction: "A PC cafe worker who defeats troublemakers",
+    },
     profileImage: getNPCProfileImagePath("yujin", "female"),
     emotions: getNPCEmotions("yujin", "female"),
     voiceType: "soft",
@@ -81,12 +106,19 @@ const femaleNpcData: Record<string, NPCData> = {
   },
   chaerin: {
     id: "chaerin",
-    name: "Park Chaerin",
-    nameKo: "박채린",
     age: 24,
-    occupation: "헤어 디자이너",
-    personality: "밝고 긍정적이며 덤벙대지만 실력은 확실함",
-    introduction: "긍정 에너지가 넘치는 재능있는 미용사",
+    ko: {
+      name: "박채린",
+      occupation: "헤어 디자이너",
+      personality: "밝고 긍정적이며 덤벙대지만 실력은 확실함",
+      introduction: "긍정 에너지가 넘치는 재능있는 미용사",
+    },
+    en: {
+      name: "Park Chaerin",
+      occupation: "Hair Designer",
+      personality: "Bright and positive, clumsy but skilled",
+      introduction: "A talented hairstylist overflowing with positive energy",
+    },
     profileImage: getNPCProfileImagePath("chaerin", "female"),
     emotions: getNPCEmotions("chaerin", "female"),
     voiceType: "mature",
@@ -95,12 +127,19 @@ const femaleNpcData: Record<string, NPCData> = {
   },
   sunhwa: {
     id: "sunhwa",
-    name: "Han sunhwa",
-    nameKo: "한선화",
     age: 27,
-    occupation: "요가 강사",
-    personality: "활발하고 매력적이지만 헌신적인 면도 있음",
-    introduction: "밝은 에너지로 사람들을 이끄는 요가 강사",
+    ko: {
+      name: "한선화",
+      occupation: "요가 강사",
+      personality: "활발하고 매력적이지만 헌신적인 면도 있음",
+      introduction: "밝은 에너지로 사람들을 이끄는 요가 강사",
+    },
+    en: {
+      name: "Han Sunhwa",
+      occupation: "Yoga Instructor",
+      personality: "Lively and charming with a devoted side",
+      introduction: "A yoga instructor who leads with bright energy",
+    },
     profileImage: getNPCProfileImagePath("sunhwa", "female"),
     emotions: getNPCEmotions("sunhwa", "female"),
     voiceType: "gentle",
@@ -109,12 +148,19 @@ const femaleNpcData: Record<string, NPCData> = {
   },
   gaeul: {
     id: "gaeul",
-    name: "Han Gaeul",
-    nameKo: "한가을",
     age: 22,
-    occupation: "대학생 & 카페 아르바이트",
-    personality: "밝고 활발하며 호기심이 많음",
-    introduction: "청춘의 에너지가 넘치는 대학생",
+    ko: {
+      name: "한가을",
+      occupation: "대학생 & 카페 아르바이트",
+      personality: "밝고 활발하며 호기심이 많음",
+      introduction: "청춘의 에너지가 넘치는 대학생",
+    },
+    en: {
+      name: "Han Gaeul",
+      occupation: "University Student & Cafe Part-timer",
+      personality: "Bright, lively, and curious",
+      introduction: "A university student full of youthful energy",
+    },
     profileImage: getNPCProfileImagePath("gaeul", "female"),
     emotions: getNPCEmotions("gaeul", "female"),
     voiceType: "mysterious",
@@ -127,13 +173,21 @@ const femaleNpcData: Record<string, NPCData> = {
 const maleNpcData: Record<string, NPCData> = {
   hojun: {
     id: "hojun",
-    name: "Kang Hojun",
-    nameKo: "강호준",
     age: 24,
-    occupation: "카페 알바생 & 밴드 드러머",
-    personality: "밝고 자유분방하지만 내향적",
-    introduction:
-      "겉보기엔 활발하지만 마음에 드는 사람 앞에서는 긴장하는 순수한 청년",
+    ko: {
+      name: "강호준",
+      occupation: "카페 알바생 & 밴드 드러머",
+      personality: "밝고 자유분방하지만 내향적",
+      introduction:
+        "겉보기엔 활발하지만 마음에 드는 사람 앞에서는 긴장하는 순수한 청년",
+    },
+    en: {
+      name: "Kang Hojun",
+      occupation: "Cafe Part-timer & Band Drummer",
+      personality: "Bright and free-spirited but introverted",
+      introduction:
+        "A pure young man who appears lively but gets nervous around his crush",
+    },
     profileImage: getNPCProfileImagePath("hojun", "male"),
     emotions: getNPCEmotions("hojun", "male"),
     voiceType: "warm",
@@ -142,12 +196,20 @@ const maleNpcData: Record<string, NPCData> = {
   },
   jihoon: {
     id: "jihoon",
-    name: "Song Jihoon",
-    nameKo: "송지훈",
     age: 22,
-    occupation: "대학생 & 카페 알바생",
-    personality: "세심하고 배려심 깊지만 때로는 냉정",
-    introduction: "어른스럽고 든든하지만 가끔은 차가운 면도 있는 연하남",
+    ko: {
+      name: "송지훈",
+      occupation: "대학생 & 카페 알바생",
+      personality: "세심하고 배려심 깊지만 때로는 냉정",
+      introduction: "어른스럽고 든든하지만 가끔은 차가운 면도 있는 연하남",
+    },
+    en: {
+      name: "Song Jihoon",
+      occupation: "University Student & Cafe Part-timer",
+      personality: "Considerate and caring but sometimes cold",
+      introduction:
+        "A mature and reliable younger man with occasional cold side",
+    },
     profileImage: getNPCProfileImagePath("jihoon", "male"),
     emotions: getNPCEmotions("jihoon", "male"),
     voiceType: "soft",
@@ -156,12 +218,19 @@ const maleNpcData: Record<string, NPCData> = {
   },
   dojin: {
     id: "dojin",
-    name: "Seo Dojin",
-    nameKo: "서도진",
     age: 27,
-    occupation: "스타트업 대표",
-    personality: "성공 지향적이고 과시욕이 강함",
-    introduction: "성공한 사업가지만 내면의 상처를 감추고 있는 츤데레",
+    ko: {
+      name: "서도진",
+      occupation: "스타트업 대표",
+      personality: "성공 지향적이고 과시욕이 강함",
+      introduction: "성공한 사업가지만 내면의 상처를 감추고 있는 츤데레",
+    },
+    en: {
+      name: "Seo Dojin",
+      occupation: "Startup CEO",
+      personality: "Success-oriented with strong desire to show off",
+      introduction: "A successful businessman hiding inner wounds, a tsundere",
+    },
     profileImage: getNPCProfileImagePath("dojin", "male"),
     emotions: getNPCEmotions("dojin", "male"),
     voiceType: "confident",
@@ -170,12 +239,20 @@ const maleNpcData: Record<string, NPCData> = {
   },
   yohan: {
     id: "yohan",
-    name: "Kim Yohan",
-    nameKo: "김요한",
     age: 26,
-    occupation: "카페 사장",
-    personality: "종교적이고 착하지만 과거가 있음",
-    introduction: "과거를 뒤로하고 새로운 삶을 사는 따뜻한 카페 사장",
+    ko: {
+      name: "김요한",
+      occupation: "카페 사장",
+      personality: "종교적이고 착하지만 과거가 있음",
+      introduction: "과거를 뒤로하고 새로운 삶을 사는 따뜻한 카페 사장",
+    },
+    en: {
+      name: "Kim Yohan",
+      occupation: "Cafe Owner",
+      personality: "Religious and kind with a past",
+      introduction:
+        "A warm cafe owner living a new life leaving the past behind",
+    },
     profileImage: getNPCProfileImagePath("yohan", "male"),
     emotions: getNPCEmotions("yohan", "male"),
     voiceType: "gentle",
@@ -184,12 +261,19 @@ const maleNpcData: Record<string, NPCData> = {
   },
   kanghyuk: {
     id: "kanghyuk",
-    name: "Seo Kanghyuk",
-    nameKo: "서강혁",
     age: "??",
-    occupation: "???",
-    personality: "신비롭고 알 수 없는 성격",
-    introduction: "도진의 ???",
+    ko: {
+      name: "서강혁",
+      occupation: "???",
+      personality: "신비롭고 알 수 없는 성격",
+      introduction: "도진의 ???",
+    },
+    en: {
+      name: "Seo Kanghyuk",
+      occupation: "???",
+      personality: "Mysterious and unknown personality",
+      introduction: "Dojin's ???",
+    },
     profileImage: getNPCProfileImagePath("kanghyuk", "male"),
     emotions: getNPCEmotions("kanghyuk", "male"),
     voiceType: "mysterious",
