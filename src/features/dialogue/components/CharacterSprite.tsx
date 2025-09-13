@@ -115,16 +115,16 @@ export function CharacterSprite({
           }}
         >
           {/* 캐릭터 이미지 - 페이드 인/아웃 효과 추가 */}
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             <motion.img
               key={emotion}
               src={characterData.image}
               alt={`${characterData.name} ${emotion}`}
               className={styles.characterFull}
               layoutId={`${characterData.name}-face`} // 공통 layoutId
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 1 }}
+              // initial={{ opacity: 1 }}
+              // animate={{ opacity: 0.5 }}
+              // exit={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               style={{
                 opacity: 1,
