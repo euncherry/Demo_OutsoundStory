@@ -10,12 +10,29 @@ import { DiaryHint } from "./DiaryHint";
 import * as styles from "./PlayerRoom.css";
 import { useNavigate } from "react-router-dom";
 
+// 언어별 텍스트 정의
+const texts = {
+  ko: {
+    menuButton: "메뉴화면",
+    roomTitle: (name: string) => `${name}의 방`,
+    backIcon: "↩️",
+  },
+  en: {
+    menuButton: "Main Menu",
+    roomTitle: (name: string) => `${name}'s Room`,
+    backIcon: "↩️",
+  },
+};
+
 export function PlayerRoom() {
-  const { name } = usePlayerStore();
+  const { name, language } = usePlayerStore();
   const { transitionTo } = useGameFlowStore();
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
+
+  // 현재 언어에 맞는 텍스트
+  const t = texts[language];
 
   useEffect(() => {
     transitionTo("room");
@@ -39,8 +56,8 @@ export function PlayerRoom() {
           className={styles.comboContainer}
         >
           <button className={styles.comboBtn} onClick={handleHomeButton}>
-            <span>↩️</span>
-            <span>메뉴화면</span>
+            <span>{t.backIcon}</span>
+            <span>{t.menuButton}</span>
           </button>
         </motion.div>
 
@@ -51,7 +68,7 @@ export function PlayerRoom() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
         >
-          {name}의 방
+          {t.roomTitle(name)}
         </motion.h1>
 
         {/* 플레이어 아바타 (중앙) */}
@@ -61,7 +78,6 @@ export function PlayerRoom() {
         <MoodIndicator />
 
         {/* 일기장 힌트 (오른쪽) */}
-
         <DiaryHint isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {/* 메뉴 버튼들 (하단) */}

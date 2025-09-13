@@ -3,10 +3,21 @@ import React, { useRef, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { NPCCard } from "./NPCCard";
 import { getAllNPCs } from "@/data/npcs/npcData";
+import { usePlayerStore } from "@/store/playerStore";
 //Anchor : 해금
 // import { useCharacterStore } from "@/store";
 
 import * as styles from "./NPCSelection.css";
+
+// 언어별 텍스트 정의
+const texts = {
+  ko: {
+    scrollHint: "← 드래그하여 더 보기 →",
+  },
+  en: {
+    scrollHint: "← Drag to see more →",
+  },
+};
 
 interface NPCGridProps {
   onSelectNPC: (npcId: string) => void;
@@ -14,6 +25,10 @@ interface NPCGridProps {
 
 export function NPCGrid({ onSelectNPC }: NPCGridProps) {
   const allNPCs = useMemo(() => getAllNPCs(), []);
+  const { language } = usePlayerStore();
+
+  // 현재 언어에 맞는 텍스트
+  const t = texts[language];
 
   //Anchor : 해금 - 모든 NPC를 표시
   const displayNPCs = useMemo(() => {
@@ -25,6 +40,7 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
 
   // 드래그 제약 계산
   const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+
   useEffect(() => {
     const updateDragConstraints = () => {
       if (containerRef.current) {
@@ -46,31 +62,6 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
       window.removeEventListener("resize", updateDragConstraints);
     };
   }, [displayNPCs]); // displayNPCs 변경 시 재계산
-  useEffect(() => {
-    const updateDragConstraints = () => {
-      if (containerRef.current) {
-        const container = containerRef.current;
-        const scrollWidth = container.scrollWidth;
-        const clientWidth = container.clientWidth;
-
-        // 드래그 가능한 범위 설정
-        setDragConstraints({
-          left: -(scrollWidth - clientWidth),
-          right: 0,
-        });
-      }
-    };
-
-    // 컴포넌트 마운트 시 실행
-    updateDragConstraints();
-
-    // 윈도우 리사이즈 시 재계산
-    window.addEventListener("resize", updateDragConstraints);
-
-    return () => {
-      window.removeEventListener("resize", updateDragConstraints);
-    };
-  }, []); // 빈 의존성 배열로 마운트 시에만 실행
 
   return (
     <div className={styles.horizontalScrollWrapper}>
@@ -114,7 +105,7 @@ export function NPCGrid({ onSelectNPC }: NPCGridProps) {
             ease: "easeInOut",
           }}
         >
-          ← 드래그하여 더 보기 →
+          {t.scrollHint}
         </motion.div>
       </div>
     </div>

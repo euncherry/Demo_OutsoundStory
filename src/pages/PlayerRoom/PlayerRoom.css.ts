@@ -256,8 +256,8 @@ export const diaryButton = style({
   right: "50px",
   top: "50%",
   transform: "translateY(-50%)",
-  width: "60px",
-  height: "60px",
+  width: "3.75rem",
+  height: "3.75rem",
   fontSize: "30px",
   background: "rgba(0, 0, 0, 0.5)",
   backdropFilter: "blur(10px)",
@@ -265,6 +265,13 @@ export const diaryButton = style({
   borderRadius: vars.borderRadius.full,
   cursor: "pointer",
   transition: vars.transitions.normal,
+  // 🔥 모바일 반응형
+  "@media": {
+    "screen and (max-width:  950px)  ": {
+      right: "2rem",
+      top: "35%",
+    },
+  },
 });
 
 export const diaryPopup = style({
@@ -278,6 +285,15 @@ export const diaryPopup = style({
   padding: vars.spacing.lg,
   border: "1px solid rgba(255, 255, 255, 0.2)",
   maxWidth: "200px",
+  "@media": {
+    "screen and (max-width:  950px)  ": {
+      right: "6rem",
+      top: "35%",
+      maxWidth: "13rem",
+      width: "auto",
+      padding: "1rem",
+    },
+  },
 });
 
 export const diaryQuote = style({

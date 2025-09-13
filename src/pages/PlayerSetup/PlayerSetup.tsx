@@ -8,14 +8,29 @@ import { GenderSelector } from "./GenderSelector";
 import { NameInput } from "./NameInput";
 import * as styles from "./PlayerSetup.css";
 
+// 언어별 텍스트 정의
+const texts = {
+  ko: {
+    back: "← 뒤로",
+    title: "캐릭터 설정",
+  },
+  en: {
+    back: "← Back",
+    title: "Character Setup",
+  },
+};
+
 export function PlayerSetup() {
   const navigate = useNavigate();
   const [step, setStep] = useState<"gender" | "name">("gender");
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
 
-  const { setPlayerInfo } = usePlayerStore();
+  const { setPlayerInfo, language } = usePlayerStore();
   const { transitionTo } = useGameFlowStore();
   const { setTheme, lockTheme } = useThemeStore();
+
+  // 현재 언어에 맞는 텍스트
+  const t = texts[language];
 
   const handleGenderSelect = (gender: Gender) => {
     setSelectedGender(gender);
@@ -57,11 +72,11 @@ export function PlayerSetup() {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={handleBack}>
-        ← 뒤로
+        {t.back}
       </button>
 
       <div className={styles.setupCard}>
-        <h1 className={styles.title}>캐릭터 설정</h1>
+        <h1 className={styles.title}>{t.title}</h1>
 
         <AnimatePresence mode="wait">
           {step === "gender" ? (

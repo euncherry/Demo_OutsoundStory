@@ -99,7 +99,7 @@ export function Splash() {
             margin: 0,
           }}
         >
-          {language === "ko" ? `언어 : ${t.korean}` : "language : 🇺🇸"}
+          {language === "ko" ? "언어 : 🇰🇷" : "language : 🇺🇸"}
         </p>
       </div>
 

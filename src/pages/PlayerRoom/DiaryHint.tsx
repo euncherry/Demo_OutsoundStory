@@ -1,7 +1,22 @@
 // src/pages/PlayerRoom/DiaryHint.tsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePlayerStore } from "@/store/playerStore";
 import * as styles from "./PlayerRoom.css";
+
+// 언어별 일기 문구
+const diaryTexts = {
+  ko: [
+    "또 하루가 그냥 지나갔다...",
+    "변화가 필요한데 용기가 없어",
+    "누군가와 대화하고 싶다",
+  ],
+  en: [
+    "Another day just passed by...",
+    "I need change but lack courage",
+    "I want to talk to someone",
+  ],
+};
 
 interface DiaryHintProps {
   isOpen: boolean;
@@ -9,15 +24,13 @@ interface DiaryHintProps {
 }
 
 export function DiaryHint({ isOpen, setIsOpen }: DiaryHintProps) {
+  const { language } = usePlayerStore();
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [previousQuote, setPreviousQuote] = useState<string | null>(null);
   const [showPrevious, setShowPrevious] = useState(false);
 
-  const diaryQuotes = [
-    "또 하루가 그냥 지나갔다...",
-    "변화가 필요한데 용기가 없어",
-    "누군가와 대화하고 싶다",
-  ];
+  // 현재 언어에 맞는 일기 문구
+  const diaryQuotes = diaryTexts[language];
 
   const handleClick = () => {
     if (isOpen) {

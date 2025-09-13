@@ -121,10 +121,12 @@ export const GenderButton: React.FC<{
   onClick?: () => void;
   disabled?: boolean;
   selected?: boolean;
-  style?: CSSProperties; // style prop 추가
-}> = ({ gender, onClick, disabled, selected, style }) => {
+  style?: CSSProperties;
+  label?: string; // label prop 추가
+}> = ({ gender, onClick, disabled, selected, style, label }) => {
   const icon = gender === "female" ? "👩" : "👨";
-  const text = gender === "female" ? "여성 캐릭터" : "남성 캐릭터";
+  // label이 없으면 기본값 사용
+  const text = label || (gender === "female" ? "여성 캐릭터" : "남성 캐릭터");
 
   return (
     <Button

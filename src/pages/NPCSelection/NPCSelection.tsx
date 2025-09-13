@@ -2,16 +2,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useCharacterStore, useGameFlowStore } from "@/store";
+import { useCharacterStore, useGameFlowStore, usePlayerStore } from "@/store";
 import { useScoreStore } from "@/store/scoreStore";
 import { NPCGrid } from "./NPCGrid";
 import * as styles from "./NPCSelection.css";
+
+// 언어별 텍스트 정의
+const texts = {
+  ko: {
+    back: "← 뒤로",
+    title: "캐릭터를 선택하세요",
+    subtitle: "당신의 운명적인 만남이 시작됩니다",
+  },
+  en: {
+    back: "← Back",
+    title: "Select a Character",
+    subtitle: "Your fateful encounter begins",
+  },
+};
 
 export function NPCSelection() {
   const navigate = useNavigate();
   const { selectNPC } = useCharacterStore();
   const { transitionTo, updateProgress } = useGameFlowStore();
   const { reset: resetScore } = useScoreStore();
+  const { language } = usePlayerStore();
+
+  // 현재 언어에 맞는 텍스트
+  const t = texts[language];
 
   const handleSelectNPC = (npcId: string) => {
     // NPC 선택 저장
@@ -46,10 +64,10 @@ export function NPCSelection() {
         transition={{ duration: 0.8 }}
       >
         <button className={styles.backButton} onClick={handleBack}>
-          ← 뒤로
+          {t.back}
         </button>
-        <h1 className={styles.title}>캐릭터를 선택하세요</h1>
-        <p className={styles.subtitle}>당신의 운명적인 만남이 시작됩니다</p>
+        <h1 className={styles.title}>{t.title}</h1>
+        <p className={styles.subtitle}>{t.subtitle}</p>
       </motion.div>
 
       {/* NPC 그리드 */}
